@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Скрипт для запуска серверной версии BB в качестве среды разраотки версии для Linux
+# !!!  замените в этом тексте "~/BlackBox/linproj"  на адрес вашей папки linproj.
+# Поместите этот файл в папку ~/.gnome2/nautilus-scripts
+# Вызовите контекстное меню в паке linproj и в меню сценари выберете этот скрипт
+# файл скрипта должен иметь разрешение на исполнение.
+
+
+# Эти команды спрячут подсистемы которые относятся к версии linux на время запуска BB
+mkdir ~/BlackBox/linproj/hide
+mv ~/BlackBox/linproj/Lin ~/BlackBox/linproj/hide/
+mv ~/BlackBox/linproj/System ~/BlackBox/linproj/hide/
+mv ~/BlackBox/linproj/Host ~/BlackBox/linproj/hide/
+mv ~/BlackBox/linproj/Code ~/BlackBox/linproj/hide/
+
+# Эта комманда запустит BB в парпке с проектом
+wine ~/BlackBox/linproj/bb16rc6win/BlackBox.exe -use "`winepath -w "$PWD"`" $* &
+echo "`winepath -w "$PWD"`"
+
+# Подождем пока среда инициализируется
+sleep 1
+
+# Вернем подсистемы на место, чтобы мы могли с ними работать
+mv ~/BlackBox/linproj/hide/Lin ~/BlackBox/linproj/
+mv ~/BlackBox/linproj/hide/System ~/BlackBox/linproj/
+mv ~/BlackBox/linproj/hide/Host ~/BlackBox/linproj/
+mv ~/BlackBox/linproj/hide/Code ~/BlackBox/linproj/
+rm ~/BlackBox/linproj/hide -R
