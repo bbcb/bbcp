@@ -11,6 +11,12 @@
 
 Чтобы изменить поведение среды при запуске, правьте файл "System/Mod/Init.odc"
 
+Варианты запуска среды:
+./blackbox
+./blackbox console
+./blackbox xwin
+./blackbox gnome
+
 
 Буду рад ответить на вопросы
 Иван Денисов, d.ivan.krsk@gmail.com
