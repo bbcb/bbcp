@@ -16,7 +16,6 @@ print >> OUT, "mv "+cwd+"/System "+cwd+"/hide/"
 print >> OUT, "mv "+cwd+"/Host "+cwd+"/hide/"
 print >> OUT, "mv "+cwd+"/Code "+cwd+"/hide/"
 print >> OUT, "mv "+cwd+"/Sym "+cwd+"/hide/"
-print >> OUT, "mv "+cwd+"/Std "+cwd+"/hide/"
 
 print >> OUT, "wine "+cwd+"/bb16rc6win/BlackBox.exe -use \"`winepath -w \"$PWD\"`\" $* &"
 
