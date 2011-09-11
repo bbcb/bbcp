@@ -19,7 +19,7 @@ print >> OUT, "mv "+cwd+"/Sym "+cwd+"/hide/"
 
 print >> OUT, "wine "+cwd+"/bb16rc6win/BlackBox.exe -use \"`winepath -w \"$PWD\"`\" $* &"
 
-print >> OUT, "sleep 1"
+print >> OUT, "sleep 2"
 
 print >> OUT, "mv "+cwd+"/hide/* "+cwd+"/"
 print >> OUT, "rm "+cwd+"/hide -R"
