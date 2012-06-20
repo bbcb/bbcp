@@ -1,3 +1,19 @@
+**** ENGLISH
+
+To develop applications for Linux Ubuntu (11.04, 11.10, 12.04)
+ - put this folder in any place
+ - run the script "setup_script.py"
+ - run new script from popup menu "Scripts" > "BlackBox LinDev"
+(if you move the folder, repeat run of "setup_script.py")
+
+BlackBox.exe will open with Wine (Wine is necessary to be installed in OS) in folder with BBLin folder. Part of folders hide for a second for BB correctly run. If an error dialog appears first time try script again.
+
+Lin version is concentrated in Host, Lin, Gtk2, System    all over are from standart BB 1.6 rc6 without any changes.
+
+
+
+**** RUSSIAN
+
 Для разработки приложений для Linux Ubuntu:
 - поместите папку в удобное место на компьютере,
 - запустите скрипт "setup_script.py" (скрипт создаст другой скрипт для запуска BB)
