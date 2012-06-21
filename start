@@ -1,0 +1,2 @@
+#!/bin/bash
+nohup nice ./blackbox > ./server.log 2>&1 &
