@@ -1,0 +1,18 @@
+****
+* BlackBox
+* index out of range
+- TcpTask.Extract  (pc=00000265, fp=BF9FC6C4)
+- TcpTask.Process  (pc=0000059C, fp=BF9FF14C)
+- TcpServer.Server.Do  (pc=0000024E, fp=BF9FF3BC)
+- Services.Exec  (pc=00000141, fp=BF9FF3CC)
+- Services.IterateOverActions  (pc=000002F3, fp=BF9FF3DC)
+- Services.StdHook.Step  (pc=0000034C, fp=BF9FF3EC)
+- Init.Timer  (pc=00000021, fp=BF9FF400)
+- (pc=B7D303CC, fp=BF9FF430)
+- (pc=B7D2EAA8, fp=BF9FF4A0)
+- (pc=B7D2F270, fp=BF9FF510)
+- (pc=B7D2F92B, fp=BF9FF560)
+- Init.Init  (pc=0000008F, fp=BF9FF570)
+****
+Stopped
+
