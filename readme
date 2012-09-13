@@ -1,4 +1,4 @@
-**** ENGLISH
+**** ENGLISH ****
 
 To develop applications for Linux Ubuntu (11.04, 11.10, 12.04)
  - put this folder in any place
@@ -6,21 +6,23 @@ To develop applications for Linux Ubuntu (11.04, 11.10, 12.04)
  - run new script from popup menu "Scripts" > "BlackBox LinDev"
 (if you move the folder, repeat run of "setup_script.py")
 
-BlackBox.exe will open with Wine (Wine is necessary to be installed in OS) in folder with BBLin folder. Part of folders hide for a second for BB correctly run. If an error dialog appears first time try script again.
+BlackBox.exe will open with Wine (Wine is necessary to be installed in OS) in folder with BBLin folder. Part of folders hide for a second for BB can correctly run. If an error dialog appears first time try to run script again.
 
-Lin version is concentrated in Host, Lin, Gtk2, System    all over are from standart BB 1.6 rc6 without any changes.
+Lin version is concentrated in Host, Lin, Gtk2, System.
+All over are from standart BB 1.6 rc6 without any changes.
 
 Ready to answer questions
 Ivan Denisov, d.ivan.krsk@gmail.com
 
-**** RUSSIAN
+
+**** RUSSIAN *****
 
 Для разработки приложений для Linux Ubuntu:
 - поместите папку в удобное место на компьютере,
 - запустите скрипт "setup_script.py" (скрипт создаст другой скрипт для запуска BB)
 - в контекстном меню папки, в разделе "Cценарии" нажмите "BlackBox LinDev"
 
-Eсли вы переместили папку со средой, то заного запустите скрипт "setup_script.py".
+Eсли вы переместили папку со средой, то заново запустите скрипт "setup_script.py".
 
 Откроется BlackBox.exe через wine в папке с проектом новой среды для Linux, при этом часть файлов на время прячется, чтобы среда корректно запустилась, потом возвращается на место. Если среда не зупустилась с первого раза, то попробуйте еще раз (первый раз происходит запуск долго, а через 2 секунды папки везвращаются на место).
 
@@ -28,8 +30,7 @@ Eсли вы переместили папку со средой, то зано�
 
 Чтобы изменить поведение среды при запуске, правьте файл "System/Mod/Init.odc"
 
-Lin версия сейчас заключена в подсистемах:
-Host, Lin, Gtk2, System
+Lin версия сейчас заключена в подсистемах: Host, Lin, Gtk2, System.
 Все остальное от bb1.6rc6.7z с сайта оберонкора без изменений абсолютно.
 
 Изменения отмечены в секции DONE в начале модуля и сами правки выделены синим цветом.

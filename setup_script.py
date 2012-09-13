@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#! /usr/bin/env python
 
 import os
 
@@ -6,7 +6,7 @@ name = "BlackBox LinDev"
 
 OUT = open(name, "w")
 
-print >> OUT, "#!/bin/bash"
+print >> OUT, "#!/bin/sh"
 
 cwd = os.getcwd()
 
