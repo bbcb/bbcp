@@ -1,3 +1,4 @@
 #!/bin/sh
-sudo pkill -x blackbox
+# sudo pkill -x blackbox
+kill `ps -ef | grep blackbox | grep -v grep | awk '{ print $2 }'
 
