@@ -1,10 +1,12 @@
 **** ENGLISH ****
 
-To develop applications for Linux Ubuntu (11.04, 11.10, 12.04)
+To develop applications for Linux Ubuntu (12.04, 12.10)
+ - sudo apt-get install wine libgnomeui-0
  - put this folder in any place
  - run the script "setup_script.py"
  - run new script from popup menu "Scripts" > "BlackBox LinDev"
 (if you move the folder, repeat run of "setup_script.py")
+
 
 BlackBox.exe will open with Wine (Wine is necessary to be installed in OS) in folder with BBLin folder. Part of folders hide for a second for BB can correctly run. If an error dialog appears first time try to run script again.
 
@@ -18,9 +20,10 @@ Ivan Denisov, d.ivan.krsk@gmail.com
 **** RUSSIAN *****
 
 Для разработки приложений для Linux Ubuntu:
-- поместите папку в удобное место на компьютере,
-- запустите скрипт "setup_script.py" (скрипт создаст другой скрипт для запуска BB)
-- в контекстном меню папки, в разделе "Cценарии" нажмите "BlackBox LinDev"
+ - sudo apt-get install wine libgnomeui-0
+ - поместите папку в удобное место на компьютере,
+ - запустите скрипт "setup_script.py" (скрипт создаст другой скрипт для запуска BB)
+ - в контекстном меню папки, в разделе "Cценарии" нажмите "BlackBox LinDev"
 
 Eсли вы переместили папку со средой, то заново запустите скрипт "setup_script.py".
 
@@ -36,7 +39,6 @@ Lin версия сейчас заключена в подсистемах: Host
 Изменения отмечены в секции DONE в начале модуля и сами правки выделены синим цветом.
 
 
-
 Буду рад ответить на вопросы по предложенному методу работы:
 Иван Денисов, d.ivan.krsk@gmail.com
 
@@ -50,5 +52,4 @@ OpenBUGS322: исходники
 Оберон Микросисемы: исходники
 
 Прошу прощения, если что-то упустили, список пополняется.
-
 
