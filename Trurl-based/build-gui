@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TARGET=OpenBSD
+TARGET=Linux
 
 ./switch-target ${TARGET} Interp
 ./build
