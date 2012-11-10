@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TARGET=Linux
+TARGET=`uname -s`
 
 ./switch-target ${TARGET} Interp
 ./build
