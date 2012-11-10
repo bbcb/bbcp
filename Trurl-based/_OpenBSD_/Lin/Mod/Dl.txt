@@ -1,0 +1,35 @@
+MODULE LinDl ["libdlobsdwrap.so"];
+
+	(*
+		A. V. Shiryaev, 2012.09
+
+		OpenBSD 5.2
+		32-bit
+	*)
+
+	IMPORT SYSTEM;
+
+	CONST
+		NULL* = 0H;
+
+		(* from OpenBSD 5.2 /usr/include/dlfcn.h *)
+			RTLD_LAZY* = 1;
+			(* DL_LAZY* = RTLD_LAZY; *) (* compat *)
+			RTLD_NOW* = 2;
+
+			RTLD_GLOBAL* = 100H;
+			RTLD_LOCAL* = 000H;
+			RTLD_TRACE* = 200H;
+
+	TYPE
+		PtrVoid* = INTEGER;
+		HANDLE* = PtrVoid;
+		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
+
+	PROCEDURE [ccall] dlopen* ["__dlopen"] (file: PtrSTR; mode: INTEGER): HANDLE;
+	PROCEDURE [ccall] dlclose* ["__dlclose"] (handle: HANDLE): INTEGER;
+	PROCEDURE [ccall] dlsym* ["__dlsym"] (handle: HANDLE; symbol: PtrSTR): HANDLE;
+
+	PROCEDURE [ccall] dlerror* ["__dlerror"] (): PtrSTR;
+
+END LinDl.

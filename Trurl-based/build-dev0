@@ -1,0 +1,43 @@
+#!/bin/sh
+
+./run-dev0 <<DATA
+Dev0Compiler.Compile('Lin/Mod', 'Dl.txt')
+Dev0Compiler.Compile('Lin/Mod', 'Libc.txt')
+Dev0Compiler.Compile('Lin/Mod', 'Iconv.txt')
+Dev0Compiler.Compile('System/Mod', 'Kernel.txt')
+
+Dev0Compiler.Compile('System/Mod', 'Files.txt')
+Dev0Compiler.Compile('System/Mod', 'Console.txt')
+Dev0Compiler.Compile('System/Mod', 'Math.txt')
+Dev0Compiler.Compile('System/Mod', 'Strings.txt')
+Dev0Compiler.Compile('System/Mod', 'Meta.txt')
+Dev0Compiler.Compile('System/Mod', 'Dialog.txt')
+
+Dev0Compiler.Compile('Dev0/Mod', 'CPM.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPT.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPS.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPH.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPB.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPP.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPE.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPL486.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPC486.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'CPV486.txt')
+
+Dev0Compiler.Compile('Dev0/Mod', 'Compiler.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'ElfLinker16.txt')
+Dev0Compiler.Compile('Dev0/Mod', 'Linker.txt')
+
+Dev0Compiler.Compile('Host/Mod', 'Lang.txt')
+Dev0Compiler.Compile('Host/Mod', 'Files.txt')
+Dev0Compiler.Compile('Host/Mod', 'Console.txt')
+
+### simple dev interpreter (include Dev0Compiler, Dev0ElfLinker)
+
+Dev0Compiler.Compile('Dev0', 'Views.txt')
+Dev0Compiler.Compile('Std/Mod', 'Interpreter.txt')
+
+Dev0Compiler.Compile('Dev0/Mod', 'Interp.txt')
+
+Dev0ElfLinker.LinkDll('libBB0.so := Kernel+ Files HostFiles Console Math Strings Dev0CPM Dev0CPT Dev0CPS Dev0CPH Dev0CPB Dev0CPP Dev0CPE Dev0CPL486 Dev0CPC486 Dev0CPV486 Dev0Compiler Dev0ElfLinker Dialog Meta Views StdInterpreter HostLang HostConsole Dev0Interp')
+DATA

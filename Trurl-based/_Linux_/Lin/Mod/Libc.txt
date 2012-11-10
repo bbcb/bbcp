@@ -1,0 +1,467 @@
+MODULE LinLibc ["libc.so.6"];
+
+	(* THIS IS TEXT COPY OF Libc.odc *)
+	(* DO NOT EDIT *)
+
+	IMPORT SYSTEM;
+	
+	CONST
+		NULL* = 0H;
+		TRUE* = 1;
+		FALSE* = 0;
+		
+		(* file constants *)
+		SEEK_SET* = 0;
+		SEEK_CUR* = 1;
+		SEEK_END* = 2;
+		NAME_MAX* = 256;
+		
+		(* The value of CLOCKS_PER_SEC is required to be 1 million on all   XSI-conformant systems.*)
+		CLOCKS_PER_SECOND* = 1000000; 
+		
+		(* temp directory defined in stdio.h *)
+		P_tmpdir* = "/tmp";
+		
+		(* signal constants *)	(* Fake signal functions.  *)
+		SIG_ERR* = -1; 	(* Error return.  *)
+		SIG_DFL* = 0;   	(* Default action.  *)
+		SIG_IGN* = 1;    	(* Ignore signal.  *)
+		SIG_HOLD* = 2;	(* Add signal to hold mask.  *)
+		
+		(* Signals.  *)
+		SIGHUP* = 1;	(* Hangup (POSIX).  *)
+		SIGINT* = 2;	(* Interrupt (ANSI).  *)
+		SIGQUIT* = 3;	(* Quit (POSIX).  *)
+		SIGILL* = 4;	(* Illegal instruction (ANSI).  *)
+		SIGTRAP* = 5;	(* Trace trap (POSIX).  *)
+		SIGABRT* = 6;	(* Abort (ANSI).  *)
+		SIGIOT* = 6;	(* IOT trap (4.2 BSD).  *)
+		SIGBUS* = 7;	(* BUS error (4.2 BSD).  *)
+		SIGFPE* = 8;	(* Floating-point exception (ANSI).  *)
+		SIGKILL* = 9;	(* Kill, unblockable (POSIX).  *)
+		SIGUSR1* = 10;	(* User-defined signal 1 (POSIX).  *)
+		SIGSEGV* = 11;	(* Segmentation violation (ANSI).  *)
+		SIGUSR2* = 12;	(* User-defined signal 2 (POSIX).  *)
+		SIGPIPE* = 13;	(* Broken pipe (POSIX).  *)
+		SIGALRM* = 14;	(* Alarm clock (POSIX).  *)
+		SIGTERM* = 15;	(* Termination (ANSI).  *)
+		SIGSTKFLT* = 16;	(* Stack fault.  *)
+		SIGCHLD* = 17;	(* Child status has changed (POSIX).  *)
+		SIGCLD* = SIGCHLD;	(* Same as SIGCHLD (System V).  *)
+		SIGCONT* = 18;	(* Continue (POSIX).  *)
+		SIGSTOP* = 19;	(* Stop, unblockable (POSIX).  *)
+		SIGTSTP* = 20;	(* Keyboard stop (POSIX).  *)
+		SIGTTIN* = 21;	(* Background read from tty (POSIX).  *)
+		SIGTTOU* = 22;	(* Background write to tty (POSIX).  *)
+		SIGURG* = 23;	(* Urgent condition on socket (4.2 BSD).  *)
+		SIGXCPU* = 24;	(* CPU limit exceeded (4.2 BSD).  *)
+		SIGXFSZ* = 25;	(* File size limit exceeded (4.2 BSD).  *)
+		SIGVTALRM* =26;	(* Virtual alarm clock (4.2 BSD).  *)
+		SIGPROF* = 27;	(* Profiling alarm clock (4.2 BSD).  *)
+		SIGWINCH* = 28;	(* Window size change (4.3 BSD, Sun).  *)
+		SIGIO* = 29;	(* I/O now possible (4.2 BSD).  *)
+		SIGPOLL* = SIGIO;	(* Pollable event occurred (System V).  *)
+		SIGPWR* = 30;	(* Power failure restart (System V).  *)
+		SIGSYS* = 31;	(* Bad system call.  *)
+		SIGUNUSED* =31;
+		_NSIG* = 64;	(* Biggest signal number + 1 (including real-time signals).  *)
+		__SIGRTMIN*= 32;
+		__SIGRTMAX*=_NSIG - 1;
+
+		(* Bits in `sa_flags'.  *)
+		SA_NOCLDSTOP* = {0}; 	(* = 1 Don't send SIGCHLD when children stop.  *)
+		SA_NOCLDWAIT* = {1}; 	(* = 2 Don't create zombie on child death.  *)
+		SA_SIGINFO* = {2}; 	(* = 4 Invoke signal-catching function wth three arguments instead of one.  *)
+		SA_ONSTACK* = {27};	(* = 0x08000000 Use signal stack by using `sa_restorer'. *)
+		SA_RESTART* = {28};	(* = 0x10000000 Restart syscall on signal return.  *)
+		SA_NODEFER* = {30};	(* = 0x40000000 Don't automatically block the signal when its handler is being executed. *)
+		SA_RESETHAND* = {31};	(* = 0x80000000 Reset to SIG_DFL on entry to handler.  *)
+		SA_INTERRUPT* = {29};	(* = 0x20000000  Historical no-op.  *)
+		(* Some aliases for the SA_ constants.  *)
+		SA_NOMASK* = SA_NODEFER;
+		SA_ONESHOT* = SA_RESETHAND;
+		SA_STACK* = SA_ONSTACK;
+
+		(* code values for siginfo_t.si_code when sig = SIGFPE *)
+		FPE_INTDIV* = 1;	(* Integer divide by zero.  *)
+		FPE_INTOVF* = 2;	(* Integer overflow.  *)
+		FPE_FLTDIV* = 3;	(* Floating point divide by zero.  *)
+		FPE_FLTOVF* = 4;	(* Floating point overflow.  *)
+		FPE_FLTUND* = 5;	(* Floating point underflow.  *)
+		FPE_FLTRES* =6;	(* Floating point inexact result.  *)
+		FPE_FLTINV* = 7;	(* Floating point invalid operation.  *)
+		FPE_FLTSUB* = 8;	(* Subscript out of range.  *)
+
+		(* possible error constants for errno *)
+		EPERM* = 1;	(* Operation not permitted *)
+		ENOENT* = 2;	(* No such file or directory *)
+		ESRCH* = 3;	(* No such process *)
+		EINTR* = 4;	(* Interrupted system call *)
+		EIO* = 5;	(* I/O error *)
+		ENXIO* = 6;	(* No such device or address *)
+		E2BIG* = 7;	(* Arg list too long *)
+		ENOEXEC* = 8;	(* Exec format error *)
+		EBADF* = 9;	(* Bad file number *)
+		ECHILD* = 10;	(* No child processes *)
+		EAGAIN* = 11;	(* Try again *)
+		ENOMEM* = 12;	(* Out of memory *)
+		EACCES* = 13;	(* Permission denied *)
+		EFAULT* = 14;	(* Bad address *)
+		ENOTBLK* = 15;	(* Block device required *)
+		EBUSY* = 16;	(* Device or resource busy *)
+		EEXIST* = 17;	(* File exists *)
+		EXDEV* = 18;	(* Cross-device link *)
+		ENODEV* = 19;	(* No such device *)
+		ENOTDIR* = 20;	(* Not a directory *)
+		EISDIR* = 21;	(* Is a directory *)
+		EINVAL* = 22;	(* Invalid argument *)
+		ENFILE* = 23;	(* File table overflow *)
+		EMFILE* = 24;	(* Too many open files *)
+		ENOTTY* = 25;	(* Not a typewriter *)
+		ETXTBSY* = 26;	(* Text file busy *)
+		EFBIG* = 27;	(* File too large *)
+		ENOSPC* = 28;	(* No space left on device *)
+		ESPIPE* = 29;	(* Illegal seek *)
+		EROFS* = 30;	(* Read-only file system *)
+		EMLINK* = 31;	(* Too many links *)
+		EPIPE* = 32;	(* Broken pipe *)
+		EDOM* = 33;	(* Math argument out of domain of func *)
+		ERANGE* = 34;	(* Math result not representable *)
+		EDEADLK* = 35;	(* Resource deadlock would occur *)
+		ENAMETOOLONG* = 36;	(* File name too long *)
+		ENOLCK* = 37;	(* No record locks available *)
+		ENOSYS* = 38;	(* Function not implemented *)
+		ENOTEMPTY* = 39;	(* Directory not empty *)
+		ELOOP* = 40;	(* Too many symbolic links encountered *)
+		EWOULDBLOCK* = EAGAIN;	(* Operation would block *)
+		ENOMSG* = 42;	(* No message of desired type *)
+		EIDRM* = 43;	(* Identifier removed *)
+		ECHRNG* = 44;	(* Channel number out of range *)
+		EL2NSYNC* = 45;	(* Level 2 not synchronized *)
+		EL3HLT* = 46;	(* Level 3 halted *)
+		EL3RST* = 47;	(* Level 3 reset *)
+		ELNRNG* = 48;	(* Link number out of range *)
+		EUNATCH* = 49;	(* Protocol driver not attached *)
+		ENOCSI* = 50;	(* No CSI structure available *)
+		EL2HLT* = 51;	(* Level 2 halted *)
+		EBADE* = 52;	(* Invalid exchange *)
+		EBADR* = 53;	(* Invalid request descriptor *)
+		EXFULL* = 54;	(* Exchange full *)
+		ENOANO* = 55;	(* No anode *)
+		EBADRQC* = 56;	(* Invalid request code *)
+		EBADSLT* = 57;	(* Invalid slot *)
+		EDEADLOCK* = EDEADLK;
+		EBFONT* = 59;	(* Bad font file format *)
+		ENOSTR* = 60;	(* Device not a stream *)
+		ENODATA* = 61;	(* No data available *)
+		ETIME* = 62;	(* Timer expired *)
+		ENOSR* = 63;	(* Out of streams resources *)
+		ENONET* = 64;	(* Machine is not on the network *)
+		ENOPKG* = 65;	(* Package not installed *)
+		EREMOTE* = 66;	(* Object is remote *)
+		ENOLINK* = 67;	(* Link has been severed *)
+		EADV* = 68;	(* Advertise error *)
+		ESRMNT* = 69;	(* Srmount error *)
+		ECOMM* = 70;	(* Communication error on send *)
+		EPROTO* = 71;	(* Protocol error *)
+		EMULTIHOP* = 72;	(* Multihop attempted *)
+		EDOTDOT* = 73;	(* RFS specific error *)
+		EBADMSG* = 74;	(* Not a data message *)
+		EOVERFLOW* = 75;	(* Value too large for defined data type *)
+		ENOTUNIQ* = 76;	(* Name not unique on network *)
+		EBADFD* = 77;	(* File descriptor in bad state *)
+		EREMCHG* = 78;	(* Remote address changed *)
+		ELIBACC* = 79;	(* Can not access a needed shared library *)
+		ELIBBAD* = 80;	(* Accessing a corrupted shared library *)
+		ELIBSCN* = 81;	(* .lib section in a.out corrupted *)
+		ELIBMAX* = 82;	(* Attempting to link in too many shared libraries *)
+		ELIBEXEC* = 83;	(* Cannot exec a shared library directly *)
+		EILSEQ* = 84;	(* Illegal byte sequence *)
+		ERESTART* = 85;	(* Interrupted system call should be restarted *)
+		ESTRPIPE* = 86;	(* Streams pipe error *)
+		EUSERS* = 87;	(* Too many users *)
+		ENOTSOCK* = 88;	(* Socket operation on non-socket *)
+		EDESTADDRREQ* = 89;	(* Destination address required *)
+		EMSGSIZE* = 90;	(* Message too long *)
+		EPROTOTYPE* = 91;	(* Protocol wrong type for socket *)
+		ENOPROTOOPT* = 92;	(* Protocol not available *)
+		EPROTONOSUPPORT* = 93;	(* Protocol not supported *)
+		ESOCKTNOSUPPORT* = 94;	(* Socket type not supported *)
+		EOPNOTSUPP* = 95;	(* Operation not supported on transport endpoint *)
+		EPFNOSUPPORT* = 96;	(* Protocol family not supported *)
+		EAFNOSUPPORT* = 97;	(* Address family not supported by protocol *)
+		EADDRINUSE* = 98;	(* Address already in use *)
+		EADDRNOTAVAIL* = 99;	(* Cannot assign requested address *)
+		ENETDOWN* = 100;	(* Network is down *)
+		ENETUNREACH* = 101;	(* Network is unreachable *)
+		ENETRESET* = 102;	(* Network dropped connection because of reset *)
+		ECONNABORTED* = 103;	(* Software caused connection abort *)
+		ECONNRESET* = 104;	(* Connection reset by peer *)
+		ENOBUFS* = 105;	(* No buffer space available *)
+		EISCONN* = 106;	(* Transport endpoint is already connected *)
+		ENOTCONN* = 107;	(* Transport endpoint is not connected *)
+		ESHUTDOWN* = 108;	(* Cannot send after transport endpoint shutdown *)
+		ETOOMANYREFS* = 109;	(* Too many references: cannot splice *)
+		ETIMEDOUT* = 110;	(* Connection timed out *)
+		ECONNREFUSED* = 111;	(* Connection refused *)
+		EHOSTDOWN* = 112;	(* Host is down *)
+		EHOSTUNREACH* = 113;	(* No route to host *)
+		EALREADY* = 114;	(* Operation already in progress *)
+		EINPROGRESS* = 115;	(* Operation now in progress *)
+		ESTALE* = 116;	(* Stale NFS file handle *)
+		EUCLEAN* = 117;	(* Structure needs cleaning *)
+		ENOTNAM* = 118;	(* Not a XENIX named type file *)
+		ENAVAIL* = 119;	(* No XENIX semaphores available *)
+		EISNAM* = 120;	(* Is a named type file *)
+		EREMOTEIO* = 121;	(* Remote I/O error *)
+		EDQUOT* = 122;	(* Quota exceeded *)
+		ENOMEDIUM* = 123;	(* No medium found *)
+		EMEDIUMTYPE* = 124;	(* Wrong medium type *)
+
+		PROT_NONE* = {};	(* No access *)
+		PROT_READ* = {2};	(* Pages can be read *)
+		PROT_WRITE* = {1};	(* Pages can be written *)
+		PROT_EXEC* = {0};	(* Pages can be executed *)
+		MAP_FILE* = {0};	(* Mapped from a file or device *)
+		MAP_ANON* = {1};	(* Allocated from anonymous virtual memory *)
+		MAP_COPY* = {5};	(* Virtual copy of region at mapping time *)
+		MAP_SHARED* = {4};	(* Share changes *)
+		MAP_PRIVATE* = {};	(* Changes private; copy pages on write *)
+		MAP_FIXED* = {8};	(* Map address must be exactly as requested *)
+		MAP_NOEXTEND* = {9} ;	(* For MAP_FILE, don't change file size *)
+		MAP_HASSEMPHORE*= {10};	(* Region may contain semaphores *)
+		MAP_INHERIT* = {11} ;	(* Region is retained after exec *)
+		MAP_FAILED* = -1;
+
+		O_RDONLY* = {} ;	(* Open read-only *)
+		O_WRONLY* = {0} ;	(* Open write-only *)
+		O_RDWR* = {1} ;	(* Open read/write *)
+
+		SIG_BLOCK* = 0;	(* Block signals *)
+		SIG_UNBLOCK* = 1;	(* Unblock signals *)
+		SIG_SETMASK* = 2;	(* Set the set of blocked signals *)
+
+		_SC_PAGESIZE* = 30;
+
+		SIGSTKSZ* = 8192;
+
+	TYPE 
+		__ftw_func_t* = PROCEDURE (fileName: PtrSTR; VAR [nil] stat: stat_t; flag: INTEGER): INTEGER;
+		PtrVoid* = INTEGER;
+		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
+		wchar_t* = INTEGER;
+		PtrWSTR* = POINTER TO ARRAY [untagged] OF wchar_t;
+		PtrInt* = INTEGER;
+		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
+		PtrFILE* = INTEGER;
+		PtrDIR* = INTEGER;
+		PtrProc* = INTEGER;
+		clock_t* = INTEGER;
+		jmp_buf* = ARRAY [untagged] 6 OF INTEGER; (* bx, si, di, bp, sp, pc *)
+		mode_t* = SET;
+		off_t* = INTEGER;
+		SelectorFunc* = PROCEDURE (dirent: Dirent): INTEGER;
+		CmpFunc* = PROCEDURE (VAR [nil] dirent1, dirent2: PtrDirent): INTEGER;
+		size_t* = INTEGER; (* should be unsigned int *)
+		sigjmp_buf* = RECORD [untagged] 
+			buf*: jmp_buf;
+			mask_was_saved*: INTEGER;
+			saved_mask*: sigset_t;
+		END; 
+		
+		PtrDirent* = POINTER TO Dirent;
+		PtrDirentArray* = POINTER TO ARRAY [untagged] OF Dirent;
+		Dirent* = RECORD  [untagged]
+			d_ino*: INTEGER;	(* inode number *)
+			d_off*: off_t;	(* offset to this dirent *)
+			d_reclen*: SHORTINT;	(* length of this d_name *)
+			d_type*: BYTE;
+			d_name*: ARRAY[untagged]  NAME_MAX+1 OF SHORTCHAR;		(* file name (null-terminated) *)
+		END;
+		
+		pid_t* = INTEGER;
+		uid_t* = INTEGER;
+		sigval_t* = INTEGER;
+
+		siginfo_t* = RECORD [untagged]
+			si_signo*: INTEGER; 	(* Signal number *)
+			si_errno*: INTEGER;  	(* An errno value *)
+			si_code*: INTEGER;   	(* Signal code *)
+			si_pid*: pid_t;    	(* Sending process ID *)
+			si_uid*: uid_t;    	(* Real user ID of sending process *)
+			si_status*: INTEGER; 	(* Exit value or signal *)
+			si_utime*: clock_t;  	(* User time consumed *)
+			si_stime*: clock_t;  	(* System time consumed *)
+			si_value*: sigval_t;  	(* Signal value *)
+			si_int*: INTEGER;    	(* POSIX.1b signal *)
+			si_ptr*: PtrVoid;    	(* POSIX.1b signal *)
+			si_addr*: PtrVoid;   	(* Memory location which caused fault *)
+			si_band*: INTEGER;   	(* Band event *)
+			si_fd*: INTEGER;     	(* File descriptor *)
+		END;
+		Ptrsiginfo_t* = POINTER TO siginfo_t;
+		
+		sigset_t* = ARRAY [untagged] 128 OF BYTE;
+		Ptrsigset_t* = INTEGER;
+		sigaction_t* = RECORD [untagged]
+			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* union with sa_handler*: PtrProc;*)
+			sa_mask*: sigset_t;
+			sa_flags*: SET;
+			sa_restorer*: LONGINT;
+		END;
+		
+		stack_t* = RECORD [untagged]
+			ss_sp*: PtrVoid;    
+			ss_flags*: INTEGER;    
+			ss_size*: size_t;
+		END;
+		
+		stat_t* = RECORD [untagged]
+			st_dev*: LONGINT;	(* device *)
+			__pad1: SHORTINT;
+			st_ino*: INTEGER;	(* 64? inode *)
+			st_mode*: mode_t;	(* protection *)
+			st_nlink*: INTEGER; 	(* number of hard links *)
+			st_uid*: uid_t;	(* user ID of owner *)
+			st_gid*: INTEGER;	(* group ID of owner *)
+			st_rdev*: LONGINT;	(* device type (if inode device) *)
+			__pad2: SHORTINT;
+			st_size*: off_t;	(* 64? total size, in bytes *)
+			st_blksize*: INTEGER;	(* blocksize for filesystem I/O *)
+			st_blocks*: INTEGER;	(* 64? number of blocks allocated *)
+			st_atime*: INTEGER;	(* time of last access *)
+			__unused1:  INTEGER;
+			st_mtime*: INTEGER;	(* time of last modification *) 
+			__unused2:  INTEGER;
+			st_ctime*: INTEGER;	(* time of last change *)
+			__unused3:  INTEGER;
+			__unused4:  INTEGER;
+			__unused5:  INTEGER;
+		END;
+		
+		fpreg* = RECORD [untagged]
+			significand*: ARRAY [untagged] 4 OF CHAR;
+			exponent*: CHAR;
+		END;
+
+		fpstate* = RECORD [untagged]
+			cw*: INTEGER; 	(* unsigned long int *)
+			sw*: INTEGER; 	(* unsigned long int *)
+			tag*: INTEGER; 	(* unsigned long int *)
+			ipoff*: INTEGER; 	(* unsigned long int *)
+			cssel*: INTEGER; 	(* unsigned long int *)
+			dataoff*: INTEGER; 	(* unsigned long int *)
+			datasel*: INTEGER; 	(* unsigned long int *)
+			_st: ARRAY [untagged] 8 OF fpreg;
+			status*: INTEGER; 	(* unsigned long int *)
+		END;
+
+		gregset_t* = ARRAY [untagged] 19 OF INTEGER;
+		fpregset_t* = POINTER TO fpstate;
+		
+		mcontext_t*  = RECORD [untagged]
+			gregs*: gregset_t;
+			fpregs*: fpregset_t;
+			oldmask*: INTEGER;	(* unsigned long int *)
+			cr2*: INTEGER; 	(* unsigned long int *)
+		END;
+		
+		Ptrucontext_t* = POINTER TO ucontext_t;
+		ucontext_t* = RECORD [untagged]
+			uc_flags*: INTEGER;	(* unsigned long int *)
+			uc_link*: Ptrucontext_t;
+			uc_stack*: stack_t;
+			uc_mcontext*: mcontext_t;
+			uc_sigmask: sigset_t;
+			__fpregs_mem*: fpstate;
+		END;
+		
+		(* Times and Dates *)
+		
+		tm* = POINTER TO tmDesc;
+		tmDesc* = RECORD [untagged]
+			tm_sec*: INTEGER;	(* seconds *)
+			tm_min*: INTEGER;	(* minutes *)
+			tm_hour*: INTEGER;	(* hours *)
+			tm_mday*: INTEGER;	(* day of the month *)
+			tm_mon*: INTEGER;	(* month *)
+			tm_year*: INTEGER;	(* year *)
+			tm_wday*: INTEGER;	(* day of the week *)
+			tm_yday*: INTEGER;	(* day in the year *)
+			tm_isdst*: INTEGER;	(* daylight saving time *)
+		END;
+		time_t* = INTEGER;
+
+	VAR
+		timezone*: INTEGER; (* seconds from GMT *)		
+		stdin*, stdout*, stderr* : PtrFILE;
+
+	PROCEDURE [ccall] calloc* (num, size: size_t): PtrVoid;
+	PROCEDURE [ccall] clock* (): clock_t;
+	PROCEDURE [ccall] closedir* (dir: PtrDIR): INTEGER;
+	PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t);
+	PROCEDURE [ccall] exit* (status: INTEGER);
+	PROCEDURE [ccall] fclose* (fp: PtrFILE): INTEGER;
+	PROCEDURE [ccall] fflush* (fp: PtrFILE): INTEGER;
+	PROCEDURE [ccall] fopen* (filename, mode: PtrSTR): PtrFILE;
+	PROCEDURE [ccall] feof* (fp: PtrFILE): INTEGER;
+	PROCEDURE [ccall] fread* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
+	PROCEDURE [ccall] fseek* (stream: PtrFILE; offset, origin: INTEGER): INTEGER;
+	PROCEDURE [ccall] free* (p: PtrVoid);
+	PROCEDURE [ccall] ftell* (stream: PtrFILE): LONGINT;
+	PROCEDURE [ccall] ftw* (filename: PtrSTR; func: __ftw_func_t; descriptors: INTEGER): INTEGER;
+	PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
+	PROCEDURE [ccall] getcwd* (buf: PtrSTR; size: size_t): PtrSTR;
+	PROCEDURE [ccall] getcontext* (ucontext_t: Ptrucontext_t): INTEGER;
+	PROCEDURE [ccall] gets* (s: PtrSTR);
+	PROCEDURE [ccall] fgets* (s: PtrSTR; n: INTEGER; fp: PtrFILE): PtrSTR;
+	PROCEDURE [ccall] gmtime* (VAR timep: time_t): tm;
+	PROCEDURE [ccall] kill* (pid: pid_t; sig: INTEGER): INTEGER;
+	PROCEDURE [ccall] localtime* (VAR timep: time_t): tm;
+	PROCEDURE [ccall] malloc* (size: size_t): PtrVoid;
+	PROCEDURE [ccall] mkdir* (pathname: PtrSTR; mode: mode_t): INTEGER;
+	PROCEDURE [ccall] mktime* (timeptr: tm): time_t;
+	PROCEDURE [ccall] opendir* (name: PtrSTR): PtrDIR;
+	PROCEDURE [ccall] printf* (s: PtrSTR): INTEGER;	
+	PROCEDURE [ccall] readdir* (dir: PtrDIR): PtrDirent;
+	PROCEDURE [ccall] remove* (filename: PtrSTR): INTEGER;
+	PROCEDURE [ccall] rename* (oldname, newname: PtrSTR): INTEGER;
+	PROCEDURE [ccall] scandir* (dir: PtrDIR; namelist: PtrDirentArray; selector: SelectorFunc; cmp: CmpFunc): INTEGER;
+	PROCEDURE [ccall] setcontext* (ucontext_t: Ptrucontext_t): INTEGER;
+	PROCEDURE [ccall] setjmp* (VAR env: jmp_buf): INTEGER;
+	PROCEDURE [ccall] sigaction* (sig_num: INTEGER; VAR [nil] act: sigaction_t; VAR [nil] oldact: sigaction_t): INTEGER;
+	PROCEDURE [ccall] sigaddset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE [ccall] sigdelset* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE [ccall] sigemptyset* (set: Ptrsigset_t): INTEGER;
+	PROCEDURE [ccall] sigfillset* (set: Ptrsigset_t): INTEGER;
+	PROCEDURE [ccall] sigismemeber* (set: Ptrsigset_t; sig: INTEGER): INTEGER;
+	PROCEDURE [ccall] siglongjmp* (VAR env: sigjmp_buf; val: INTEGER);
+	PROCEDURE [ccall] signal* (sig_num: INTEGER; sighandler: PtrProc): PtrProc;
+	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: INTEGER): INTEGER; 
+(*
+	PROCEDURE [ccall] stat* (filename: PtrSTR; VAR buf: stat_t): INTEGER;   stat is a macro and expands to __xstat(3, filename, buf)
+*)
+	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+	PROCEDURE [ccall] strftime* (s: PtrSTR; max: size_t; format: PtrSTR; ptm: tm): size_t;
+	PROCEDURE [ccall] time* (VAR [nil] t: time_t): time_t;
+
+	PROCEDURE [ccall] __errno_location*(): INTEGER;
+
+	PROCEDURE [ccall] open* (name: PtrSTR; flags: SET; mode: mode_t): INTEGER;
+	PROCEDURE [ccall] close* (d: INTEGER): INTEGER;
+	PROCEDURE [ccall] read* (d: INTEGER; buf: PtrVoid; nbytes: size_t): INTEGER;
+	PROCEDURE [ccall] write* (d: INTEGER; buf: PtrVoid; nBytes: size_t): INTEGER;
+
+	PROCEDURE [ccall] mmap* (addr: PtrVoid; len: size_t; prot: SET; flags: SET; fd, offset: off_t): PtrVoid;
+	PROCEDURE [ccall] munmap* (addr: PtrVoid; len: size_t): INTEGER;
+	PROCEDURE [ccall] mprotect* (addr: PtrVoid; len: size_t; prot: SET): INTEGER;
+
+	PROCEDURE [ccall] getenv* (name: PtrSTR): PtrSTR;
+
+	PROCEDURE [ccall] sysconf* (name: INTEGER): INTEGER;
+	
+	PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): INTEGER;
+
+	PROCEDURE [ccall] sigprocmask* (how: INTEGER; set: Ptrsigset_t; oldset: Ptrsigset_t): INTEGER;
+
+END LinLibc.

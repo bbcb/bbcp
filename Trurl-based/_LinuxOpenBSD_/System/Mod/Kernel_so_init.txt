@@ -1,0 +1,27 @@
+MODULE Kernel_so_init;
+
+	(* THIS IS TEXT COPY OF Kernel_so_init.odc *)
+	(* DO NOT EDIT *)
+
+	IMPORT Kernel, SYSTEM;
+
+	PROCEDURE SetKernelBaseStack* (x: INTEGER);
+		VAR
+			m: Kernel.Module;
+			ref, adr: INTEGER; mode, form: SHORTCHAR; desc: Kernel.Type; name: Kernel.Name;
+	BEGIN
+		m := Kernel.modList;
+		WHILE (m # NIL) & ~(m.name = "Kernel") DO
+			m := m.next
+		END;
+		ASSERT(m # NIL, 100);
+		ref := m.refs; Kernel.GetRefProc(ref, adr, name); ASSERT(adr # 0, 101);
+		Kernel.GetRefVar(ref, mode, form, desc, adr, name);
+		WHILE (mode = 1X) & ~(name = "baseStack") DO
+			Kernel.GetRefVar(ref, mode, form, desc, adr, name)
+		END;
+		ASSERT(mode = 1X, 102); ASSERT(form = 6X, 103);
+		SYSTEM.PUT(m.data + adr, x)
+	END SetKernelBaseStack;
+
+END Kernel_so_init.

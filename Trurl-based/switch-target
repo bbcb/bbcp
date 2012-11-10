@@ -1,0 +1,64 @@
+#!/bin/sh
+
+checkAndRm () {
+	lines=`find . -mindepth 1 -maxdepth 1 -name "_*" -print | sed 's/\.\///'`
+	for line in $lines; do
+		find "${line}" \( -type f -o -type l \) -print |
+		while read l; do
+			to=`echo $l | sed "s/^${line}\///"`
+			if [ -h "${to}" ]; then
+				rm -f "${to}"
+			fi
+		done
+	done
+}
+
+none() {
+	checkAndRm || exit 2
+
+	rm -rf *.exe *.so BlackBox dev0
+#		System/Code/Kernel.ocf System/Sym/Kernel.osf Code/Kernel.ocf Sym/Kernel.osf \
+#		System/Code/Init.ocf System/Sym/Init.osf Code/Init.ocf Sym/Init.osf \
+#		System/Code/Config.ocf System/Sym/Config.osf Code/Config.ocf Sym/Config.osf \
+#		Host/Code/*.ocf Host/Sym/*.osf Lin/Code/*.ocf Lin/Sym/*.osf
+}
+
+mklinks () {
+	find "${1}" -mindepth ${2} -maxdepth ${2} \( -type f -o -type l \) -print |
+	while read l; do
+		to=`echo $l | sed "s/^${line}\///"`
+		mkdir -p `dirname "${to}"`
+		ln -s "${3}"/${l} "${to}"
+	done
+}
+
+dolinks () {
+	lines1=`find . -mindepth 1 -maxdepth 1 -name "_*${1}*_" -print | sed 's/\.\///'`
+	lines2=`find . -mindepth 1 -maxdepth 1 -name "__*${2}*" -print | sed 's/\.\///'`
+	lines3=`find . -mindepth 1 -maxdepth 1 -name "_*"${1}"*_*${2}*" -print | sed 's/\.\///'`
+	for line in  $lines1 $lines2 $lines3; do
+		find "${line}" -mindepth 1 -maxdepth 1 \( -type f -o -type l \) -print |
+		while read l; do
+			ln -s $l
+		done
+
+		mklinks "${line}" 3 ../..
+		mklinks "${line}" 4 ../../..
+	done
+}
+
+if [ $# -eq 1 ]; then
+	if [ "${1}" = "none" ]; then
+		none
+	else
+		none || exit 2
+		dolinks "${1}" Interp
+	fi
+elif [ $# -eq 2 ]; then
+	none || exit 2
+	dolinks "${1}" "${2}"
+else
+	echo "usage: `basename $0` ( none | OS [ configuration ] )"
+	echo "	OS: Linux | OpenBSD"
+	exit 1
+fi

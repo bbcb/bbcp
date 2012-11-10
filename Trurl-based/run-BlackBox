@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# ulimit -s 32000
+# ulimit -a
+
+rn=`readlink -f "${0}"`
+d=`dirname "${rn}"`
+
+exe="BlackBox"
+
+# export LD_DEBUG=all
+env LD_LIBRARY_PATH="${d}" BB_PRIMARY_DIR="${d}" BB_SECONDARY_DIR=. "${d}"/${exe}

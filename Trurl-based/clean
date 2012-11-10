@@ -1,0 +1,4 @@
+#!/bin/sh
+
+find . -type f -name "*.ocf" -exec rm -f {} \;
+find . -type f -name "*.osf" -exec rm -f {} \;

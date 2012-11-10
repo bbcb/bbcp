@@ -1,0 +1,92 @@
+MODULE HostDates;
+
+	(* THIS IS TEXT COPY OF Dates.odc *)
+	(* DO NOT EDIT *)
+
+	IMPORT 
+		SYSTEM, LinLibc, Dates;
+	
+	(* Dates Hook *)
+	
+		TYPE
+		DatesHook = POINTER TO RECORD (Dates.Hook) END;
+	
+	(*
+	
+	Some conversions are needed between the Linux and the BlackBox representations of  dates. The following
+	table shows the differences:
+	
+(!)		Linux	BlackBox
+	year	from year 1900	from year 0000
+	month	range 0-11	range 1-12
+	weekday	0:sunday - 6:satruday	0:monday - 6:sunday
+	(!)	*)
+	
+	PROCEDURE (h: DatesHook) DateToString (d: Dates.Date; format: INTEGER; OUT str: ARRAY OF CHAR);
+		VAR tm: LinLibc.tmDesc; sstr: ARRAY 64 OF SHORTCHAR; res: LinLibc.size_t; 
+	BEGIN
+		ASSERT(format IN {Dates.short, Dates.abbreviated, Dates.long, Dates.plainAbbreviated, Dates.plainLong}, 20);
+		tm.tm_year := d.year - 1900; (* Linux counts years from 1900 but BlackBox from 0000 *)
+		tm.tm_mon := d.month - 1; tm.tm_mday := d.day;
+		tm.tm_wday := (Dates.DayOfWeek(d) + 1) MOD 7;		
+		IF format = Dates.short THEN
+			res := LinLibc.strftime(sstr, LEN(sstr), "%x", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)))
+		ELSIF format = Dates.abbreviated THEN
+			res := LinLibc.strftime(sstr, LEN(sstr), "%a, %b %d, %Y", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)))
+		ELSIF format = Dates.long THEN
+			res := LinLibc.strftime(sstr, LEN(sstr), "%A, %B %d, %Y", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)))
+		ELSIF format = Dates.plainAbbreviated THEN
+			res := LinLibc.strftime(sstr, LEN(sstr), "%b %d, %Y", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)))
+		ELSE (* format = Dates.plainLong *)
+			res := LinLibc.strftime(sstr, LEN(sstr), "%B %d, %Y", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)))
+		END;
+		IF res > 0 THEN str := sstr$ELSE str := "invalid date"  END
+	END DateToString;
+
+	PROCEDURE (h: DatesHook) GetTime (OUT d: Dates.Date; OUT t: Dates.Time);
+		VAR time: LinLibc.time_t; tm: LinLibc.tm;
+	BEGIN
+		time := LinLibc.time(NIL);
+		tm := LinLibc.localtime(time);
+		d.year := tm.tm_year + 1900; (* Linux counts years from 1900 but BlackBox from 0000 *)
+		d.month := tm.tm_mon + 1;  d.day := tm.tm_mday;
+		t.hour := tm.tm_hour; t.minute := tm.tm_min; t.second := tm.tm_sec
+	END GetTime;
+
+	PROCEDURE (h: DatesHook) GetUTCBias (OUT bias: INTEGER);
+		VAR time: LinLibc.time_t; tm: LinLibc.tm;
+	BEGIN
+		time := LinLibc.time(NIL);
+		tm := LinLibc.localtime(time); (* call to localtime needed to make sure that timezone is set *)
+		bias := tm.tm_gmtoff DIV 60; (* Shiryaev A. V.: OpenBSD *)
+	END GetUTCBias; 
+
+	PROCEDURE (h: DatesHook) GetUTCTime (OUT d: Dates.Date; OUT t: Dates.Time);
+		VAR time: LinLibc.time_t; tm: LinLibc.tm;
+	BEGIN
+		time := LinLibc.time(NIL);
+		tm := LinLibc.gmtime(time);
+		d.year := tm.tm_year + 1900; (* Linux counts years from 1900 but BlackBox from 0000 *)
+		d.month := tm.tm_mon + 1;  d.day := tm.tm_mday;
+		t.hour := tm.tm_hour; t.minute := tm.tm_min; t.second := tm.tm_sec
+	END GetUTCTime;
+
+	PROCEDURE (h: DatesHook) TimeToString (t: Dates.Time; OUT str: ARRAY OF CHAR);
+		VAR tm: LinLibc.tmDesc; sstr: ARRAY 64 OF SHORTCHAR; res: LinLibc.size_t;
+	BEGIN
+		tm.tm_hour := t.hour; tm.tm_min := t.minute; tm.tm_sec := t.second;
+		res := LinLibc.strftime(sstr, LEN(sstr), "%X", SYSTEM.VAL(LinLibc.tm, SYSTEM.ADR(tm)));
+		IF res > 0 THEN str := sstr$ELSE str := "invalid time"  END
+	END TimeToString;
+
+
+	PROCEDURE Init;
+		VAR 
+			datesHook: DatesHook;
+	BEGIN
+		NEW(datesHook); Dates.SetHook(datesHook);
+	END Init;
+
+BEGIN
+	Init
+END HostDates.

@@ -1,0 +1,156 @@
+MODULE HostConsole;
+
+	(* THIS IS TEXT COPY OF Console.odc *)
+	(* DO NOT EDIT *)
+
+	IMPORT SYSTEM, Console, Libc := LinLibc, Iconv := LinIconv, HostLang, Kernel;
+
+	CONST
+		defCh = '?';
+
+	TYPE
+		Cons = POINTER TO RECORD (Console.Console) END;
+
+	VAR
+		cons: Cons;
+		e, d: Iconv.iconv_t;
+
+	PROCEDURE ResetCodec (c: Iconv.iconv_t): BOOLEAN;
+		VAR res, fLen, tLen: Iconv.size_t;
+	BEGIN
+		fLen := 0; tLen := 0;
+		res := Iconv.iconv(c, NIL, fLen, NIL, tLen);
+		RETURN res # -1
+	END ResetCodec;
+
+	PROCEDURE (cons: Cons) ReadLn (OUT s: ARRAY OF CHAR);
+		CONST
+			maxLineLen = 1023; (* without null terminating shortchar *)
+		VAR
+			i: INTEGER;
+			str: Libc.PtrSTR;
+			ss: ARRAY maxLineLen+1 OF SHORTCHAR;
+			fR, fLen, tW, tLen: INTEGER;
+			st: BOOLEAN;
+			res: Iconv.size_t;
+			from: Iconv.PtrSTR; to: Iconv.PtrLSTR;
+	BEGIN
+		ss[LEN(ss)-1] := 0X;
+		str := Libc.fgets(ss, LEN(ss), Libc.stdin);
+		IF (str # NIL) & (ss[LEN(ss)-1] = 0X) THEN
+			fLen := LEN(ss$);
+			IF fLen < LEN(s) THEN
+				IF d # -1 THEN
+					IF ResetCodec(d) THEN
+						from := ss; to := s; tLen := (LEN(s) - 1) * SIZE(CHAR) (* 2 *);
+						res := Iconv.iconv_decode(d, from, fLen, to, tLen);
+						IF (res >= 0) & (fLen = 0) & (tLen >= 0) THEN to[0] := 0X
+						ELSE s[0] := 0X
+						END
+					ELSE s[0] := 0X
+					END
+				ELSE
+					i := 0;
+					WHILE (ss[i] > 0X) & (ss[i] < 80X) DO s[i] := ss[i]; INC(i) END;
+					IF ss[i] = 0X THEN s[i] := 0X
+					ELSE s[0] := 0X
+					END
+				END
+			ELSE s[0] := 0X
+			END
+		ELSE s[0] := 0X
+		END
+	END ReadLn;
+
+	PROCEDURE Printf (IN s: ARRAY OF CHAR; len: INTEGER);
+		CONST
+			maxShortCharsPerChar = 4;
+			ssLen = 128; (* >= maxShortCharsPerChar + 1 *)
+		VAR
+			ss: ARRAY ssLen OF SHORTCHAR;
+			fR, fLen, tW, tLen, n: INTEGER;
+			res: INTEGER;
+			res1: Iconv.size_t;
+			from: Iconv.PtrLSTR; to: Iconv.PtrSTR;
+	BEGIN
+		fR := 0; from := s;
+		WHILE len > 0 DO
+			tW := 0; to := ss;
+			IF e # -1 THEN
+				tLen := LEN(ss) - 1;
+				n := MIN(len, tLen DIV maxShortCharsPerChar);
+				fLen := n * SIZE(CHAR) (* 2 *);
+				REPEAT
+					res1 := Iconv.iconv_encode(e, from, fLen, to, tLen);
+					IF ~((res1 >= 0) & (fLen = 0) & (tLen >= 0)) THEN
+						ASSERT(tLen >= 0, 100);
+						ASSERT(fLen >= SIZE(CHAR), 101);
+						ASSERT(ResetCodec(e), 102);
+						to[0] := defCh; to := SYSTEM.VAL(Iconv.PtrSTR, SYSTEM.VAL(INTEGER, to) + 1);
+						DEC(tLen);
+						from := SYSTEM.VAL(Iconv.PtrLSTR, SYSTEM.VAL(INTEGER, from) + SIZE(CHAR));
+						DEC(fLen, SIZE(CHAR))
+					END
+				UNTIL fLen = 0;
+				to[0] := 0X
+			ELSE
+				fLen := MIN(len, LEN(ss) - 1); n := fLen;
+				WHILE fLen > 0 DO
+					IF s[fR] < 80X THEN ss[tW] := SHORT(s[fR])
+					ELSE ss[tW] := defCh
+					END;
+					INC(tW);
+					INC(fR); DEC(fLen)
+				END;
+				ss[tW] := 0X
+			END;
+			res := Libc.printf(ss);
+			res := Libc.fflush(Libc.NULL);
+
+			len := len - n
+		END
+	END Printf;
+
+	PROCEDURE (cons: Cons) WriteChar (c: CHAR);
+		VAR s: ARRAY 1 OF CHAR;
+	BEGIN
+		s[0] := c;
+		Printf(s, 1)
+	END WriteChar;
+
+	PROCEDURE (cons: Cons) WriteStr (IN text: ARRAY OF CHAR);
+	BEGIN
+		Printf(text, LEN(text$))
+	END WriteStr;
+
+	PROCEDURE (cons: Cons) WriteLn;
+	BEGIN
+		Printf(0AX, 1)
+	END WriteLn;
+
+	PROCEDURE Init;
+	BEGIN
+		IF Kernel.littleEndian THEN
+			e := Iconv.iconv_open(HostLang.enc, "UCS-2LE");
+			d := Iconv.iconv_open("UCS-2LE", HostLang.enc)
+		ELSE
+			e := Iconv.iconv_open(HostLang.enc, "UCS-2BE");
+			d := Iconv.iconv_open("UCS-2BE", HostLang.enc)
+		END;
+
+		NEW(cons);
+		Console.SetConsole(cons)
+	END Init;
+
+	PROCEDURE Close;
+		VAR res: INTEGER;
+	BEGIN
+		IF e # -1 THEN res := Iconv.iconv_close(e); e := -1 END;
+		IF d # -1 THEN res := Iconv.iconv_close(d); d := -1 END
+	END Close;
+
+BEGIN
+	Init
+CLOSE
+	Close
+END HostConsole.

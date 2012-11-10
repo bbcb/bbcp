@@ -1,0 +1,131 @@
+#!/bin/sh
+
+./run-dev0 <<DATA
+Dev0Compiler.Compile('Lin/Mod', 'Dl.txt')
+Dev0Compiler.Compile('Lin/Mod', 'Libc.txt')
+Dev0Compiler.Compile('Lin/Mod', 'Iconv.txt')
+Dev0Compiler.Compile('System/Mod', 'Kernel.txt')
+
+Dev0Compiler.Compile('System/Mod', 'Files.txt')
+Dev0Compiler.Compile('System/Mod', 'Console.txt')
+Dev0Compiler.Compile('System/Mod', 'Math.txt')
+Dev0Compiler.Compile('System/Mod', 'Strings.txt')
+Dev0Compiler.Compile('System/Mod', 'Meta.txt')
+Dev0Compiler.Compile('System/Mod', 'Dialog.txt')
+
+Dev0Compiler.Compile('Host/Mod', 'Lang.txt')
+Dev0Compiler.Compile('Host/Mod', 'Files.txt')
+Dev0Compiler.Compile('Host/Mod', 'Console.txt')
+
+Dev0Compiler.Compile('System/Mod', 'Stores.txt')
+Dev0Compiler.Compile('System/Mod', 'Converters.txt')
+Dev0Compiler.Compile('System/Mod', 'Dates.txt')
+Dev0Compiler.Compile('System/Mod', 'Integers.txt')
+Dev0Compiler.Compile('System/Mod', 'Sequencers.txt')
+Dev0Compiler.Compile('System/Mod', 'Services.txt')
+Dev0Compiler.Compile('System/Mod', 'Log.txt')
+Dev0Compiler.Compile('System/Mod', 'SMath.txt')
+
+Dev0Compiler.Compile('System/Mod', 'Fonts.txt')
+Dev0Compiler.Compile('System/Mod', 'Ports.txt')
+Dev0Compiler.Compile('System/Mod', 'Printers.txt')
+Dev0Compiler.Compile('System/Mod', 'Models.txt')
+Dev0Compiler.Compile('System/Mod', 'Views.txt')
+Dev0Compiler.Compile('System/Mod', 'Printing.txt')
+Dev0Compiler.Compile('System/Mod', 'Mechanisms.txt')
+Dev0Compiler.Compile('System/Mod', 'Controllers.txt')
+Dev0Compiler.Compile('System/Mod', 'Properties.txt')
+Dev0Compiler.Compile('System/Mod', 'Containers.txt')
+Dev0Compiler.Compile('System/Mod', 'Documents.txt')
+Dev0Compiler.Compile('System/Mod', 'Windows.txt')
+
+Dev0Compiler.Compile('Text/Mod', 'Models.txt')
+Dev0Compiler.Compile('Text/Mod', 'Mappers.txt')
+Dev0Compiler.Compile('Text/Mod', 'Rulers.txt')
+Dev0Compiler.Compile('Text/Mod', 'Setters.txt')
+Dev0Compiler.Compile('Text/Mod', 'Views.txt')
+Dev0Compiler.Compile('Text/Mod', 'Controllers.txt')
+Dev0Compiler.Compile('Text/Mod', 'Cmds.txt')
+
+Dev0Compiler.Compile('System/Mod', 'In.txt')
+
+Dev0Compiler.Compile('Std/Mod', 'Dialog.txt')
+Dev0Compiler.Compile('Std/Mod', 'Api.txt')
+Dev0Compiler.Compile('Std/Mod', 'CFrames.txt')
+Dev0Compiler.Compile('System/Mod', 'Controls.txt')
+Dev0Compiler.Compile('Std/Mod', 'Cmds.txt')
+Dev0Compiler.Compile('Std/Mod', 'Logos.txt')
+Dev0Compiler.Compile('Std/Mod', 'Scrollers.txt')
+Dev0Compiler.Compile('Std/Mod', 'ViewSizer.txt')
+
+Dev0Compiler.Compile('Std/Mod', 'Clocks.txt')
+Dev0Compiler.Compile('Std/Mod', 'Coder.txt')
+Dev0Compiler.Compile('Std/Mod', 'Folds.txt')
+Dev0Compiler.Compile('Std/Mod', 'Debug.txt')
+Dev0Compiler.Compile('Std/Mod', 'Stamps.txt')
+Dev0Compiler.Compile('Std/Mod', 'ETHConv.txt')
+Dev0Compiler.Compile('Std/Mod', 'Headers.txt')
+Dev0Compiler.Compile('Std/Mod', 'Links.txt')
+
+Dev0Compiler.Compile('Std/Mod', 'Loader.txt')
+Dev0Compiler.Compile('System/Mod', 'Kernel_so_init.txt')
+
+# before StdLog
+Dev0Compiler.Compile('Host/Mod', 'Dialog.txt')
+
+Dev0Compiler.Compile('Std/Mod', 'Log.txt')
+# Dev0Compiler.Compile('', 'StdLog.txt')
+# Dev0Compiler.Compile('Std/Mod', 'Out.txt')
+Dev0Compiler.Compile('Cons/Mod', 'Log.txt')
+
+Dev0Compiler.Compile('Dev/Mod', 'Markers.txt')
+Dev0Compiler.Compile('Dev/Mod', 'Commanders.txt')
+Dev0Compiler.Compile('Dev/Mod', 'Selectors.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPM.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPT.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPH.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPB.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPE.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPS.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPP.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPL486.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPC486.txt')
+Dev0Compiler.Compile('Dev/Mod', 'CPV486.txt')
+Dev0Compiler.Compile('Dev/Mod', 'Compiler.txt')
+# Dev0Compiler.Compile('Dev/Mod', 'ElfLinker16.txt')
+
+Dev0Compiler.Compile('Std/Mod', 'Interpreter.txt')
+
+### BlackBox
+
+Dev0Compiler.Compile('Host/Mod', 'Fonts.txt')
+Dev0Compiler.Compile('Host/Mod', 'Windows.txt')
+Dev0Compiler.Compile('Host/Mod', 'Dates.txt')
+Dev0Compiler.Compile('Host/Mod', 'TextConv.txt')
+
+Dev0Compiler.Compile('Cons/Mod', 'Interp.txt')
+
+Dev0Compiler.Compile('System/Mod', 'Init.txt')
+Dev0Compiler.Compile('System/Mod', 'Config.txt')
+
+Dev0ElfLinker.LinkDll('libBB.so := Kernel+ Files HostFiles StdLoader')
+# Dev0ElfLinker.LinkDll('libBB.so := Kernel+ Kernel_so_init# Files HostFiles StdLoader')
+DATA
+
+./run-BlackBox <<DATA
+DevCompiler.CompileThis DevElfLinker16
+DevCompiler.CompileThis ConsCompiler
+DATA
+
+./run-BlackBox <<DATA
+DevCompiler.CompileThis CommStreams
+DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
+
+DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
+DATA
+
+./run-BlackBox <<DATA
+ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
+ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
+DevCompiler.CompileThis CommV24
+DATA

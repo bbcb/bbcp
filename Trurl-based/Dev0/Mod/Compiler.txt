@@ -1,0 +1,140 @@
+MODULE Dev0Compiler;
+
+	(* THIS IS TEXT COPY OF Compiler.odc *)
+	(* DO NOT EDIT *)
+
+	(*
+		A. V. Shiryaev, 2012.10
+
+		Based on DevCompiler
+	*)
+
+	IMPORT Files, Console, Kernel, Strings,
+		DevCPM := Dev0CPM, DevCPT:= Dev0CPT, DevCPB := Dev0CPB, DevCPP := Dev0CPP,
+		DevCPE := Dev0CPE, DevCPV := Dev0CPV486;
+
+	CONST
+		(* compiler options: *)
+		checks = 0; allchecks = 1; assert = 2; obj = 3; ref = 4; allref = 5; srcpos = 6; reallib = 7; signatures = 8;
+		hint = 29; oberon = 30; errorTrap = 31;
+		defopt = {checks, assert, obj, ref, allref, srcpos, signatures};
+
+	PROCEDURE WriteInt (x: INTEGER);
+		VAR s: ARRAY 16 OF CHAR;
+	BEGIN
+		Strings.IntToString(x, s);
+		Console.WriteStr(s)
+	END WriteInt;
+
+	PROCEDURE Module (source: Files.Reader; opt: SET; VAR error: BOOLEAN);
+		VAR ext, new: BOOLEAN; p: DevCPT.Node;
+			i: INTEGER;
+	BEGIN
+		DevCPM.Init(source);
+		(* IF found THEN INCL(DevCPM.options, DevCPM.comAware) END; *)
+		IF errorTrap IN opt THEN INCL(DevCPM.options, DevCPM.trap) END;
+		IF oberon IN opt THEN INCL(DevCPM.options, DevCPM.oberon) END;
+		DevCPT.Init(opt);
+		DevCPB.typSize := DevCPV.TypeSize;
+		DevCPT.processor := DevCPV.processor;
+		DevCPP.Module(p);
+		IF DevCPM.noerr THEN
+			IF DevCPT.libName # "" THEN EXCL(opt, obj) END;
+(*
+			IF errorTrap IN opt THEN DevCPDump.DumpTree(p) END;
+*)
+			DevCPV.Init(opt); DevCPV.Allocate; DevCPT.Export(ext, new);
+			IF DevCPM.noerr & (obj IN opt) THEN
+				DevCPV.Module(p)
+			END;
+			DevCPV.Close
+		END;
+		IF DevCPM.noerr & (new OR ext) THEN DevCPM.RegisterNewSym
+		ELSE DevCPM.DeleteNewSym
+		END;
+		DevCPT.Close;
+		error := ~DevCPM.noerr;
+		DevCPM.Close;
+		p := NIL;
+		Kernel.FastCollect;
+		IF error THEN
+			IF DevCPM.errors = 1 THEN
+				Console.WriteStr("one error detected")
+			ELSE
+				WriteInt(DevCPM.errors); Console.WriteStr(" errors detected")
+			END;
+			Console.WriteLn;
+			i := 0;
+			WHILE i < DevCPM.errors DO
+				Console.WriteStr("  pos = "); WriteInt(DevCPM.errPos[i]); Console.WriteStr("  err = ");
+					WriteInt(DevCPM.errNo[i]); Console.WriteLn;
+				INC(i)
+			END
+		ELSE
+			Console.WriteStr(" "); WriteInt(DevCPE.pc); Console.WriteStr(" "); WriteInt(DevCPE.dsize)
+		END;
+		Console.WriteLn
+	END Module;
+
+	PROCEDURE Do (IN path, name: ARRAY OF CHAR; opt: SET);
+		VAR loc: Files.Locator;
+			f: Files.File; r: Files.Reader; error: BOOLEAN;
+	BEGIN
+		loc := Files.dir.This(path);
+		IF loc # NIL THEN
+			f := Files.dir.Old(loc, name$, FALSE);
+			IF f # NIL THEN
+				r := f.NewReader(NIL);
+				Module(r, opt, error);
+				IF error THEN Console.WriteStr("error(s)"); Console.WriteLn END;
+				f.Close
+			ELSE
+				Console.WriteStr("file not found: ");
+					Console.WriteStr(path); Console.WriteStr(" "); Console.WriteStr(name); Console.WriteLn
+			END
+		ELSE
+			Console.WriteStr("path not found: ");
+				Console.WriteStr(path); Console.WriteLn
+		END
+	END Do;
+
+	PROCEDURE Compile* (IN path, name: ARRAY OF CHAR);
+	BEGIN
+		Console.WriteStr("compiling ");
+			Console.WriteStr(path); Console.WriteStr(" "); Console.WriteStr(name);
+			Console.WriteLn;
+		Do(path, name, defopt)
+	END Compile;
+
+	PROCEDURE CompileOpt* (IN path, name: ARRAY OF CHAR; IN opt: ARRAY OF CHAR);
+		VAR loc: Files.Locator;
+			f: Files.File; r: Files.Reader; error: BOOLEAN; i: INTEGER; opts: SET;
+	BEGIN
+		i := 0; opts := defopt;
+		WHILE opt[i] # 0X DO
+			IF opt[i] = "-" THEN
+				IF srcpos IN opts THEN EXCL(opts, srcpos)
+				ELSIF allref IN opts THEN EXCL(opts, allref)
+				ELSIF ref IN opts THEN EXCL(opts, ref)
+				ELSE EXCL(opts, obj)
+				END
+			ELSIF opt[i] = "!" THEN
+				IF assert IN opts THEN EXCL(opts, assert)
+				ELSE EXCL(opts, checks)
+				END
+			ELSIF opt[i] = "+" THEN INCL(opts, allchecks)
+			ELSIF opt[i] = "?" THEN INCL(opts, hint)
+			ELSIF opt[i] = "@" THEN INCL(opts, errorTrap)
+			ELSIF opt[i] = "$" THEN INCL(opts, oberon)
+			END;
+			INC(i)
+		END;
+
+		Console.WriteStr("compiling ");
+			Console.WriteStr(path); Console.WriteStr(" "); Console.WriteStr(name);
+			IF opt # "" THEN Console.WriteStr(" "); Console.WriteStr(opt); END;
+			Console.WriteLn;
+		Do(path, name, opts)
+	END CompileOpt;
+
+END Dev0Compiler.
