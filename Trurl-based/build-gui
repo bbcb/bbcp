@@ -1,6 +1,7 @@
 #!/bin/sh
 
 TARGET=`uname -s`
+# TARGET=Linux
 
 ./switch-target ${TARGET} Interp
 ./build
@@ -9,7 +10,6 @@ TARGET=`uname -s`
 ./run-BlackBox <<DATA
 DevCompiler.CompileThis FormModels FormViews FormControllers FormCmds FormGen
 
-# DevCompiler.CompileThis LinX11 -- not required more (Fonts works over Pango now)
 DevCompiler.CompileThis Gtk2GLib Gtk2GObject Gtk2Keysyms Gtk2Pango Gtk2Gdk Gtk2Gtk Gtk2Util
 
 # HostRegistry required by DevBrowser
