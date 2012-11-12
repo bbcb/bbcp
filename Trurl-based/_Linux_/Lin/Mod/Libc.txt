@@ -236,6 +236,7 @@ MODULE LinLibc ["libc.so.6"];
 		O_RDONLY* = {} ;	(* Open read-only *)
 		O_WRONLY* = {0} ;	(* Open write-only *)
 		O_RDWR* = {1} ;	(* Open read/write *)
+		O_NONBLOCK* = {11};
 
 		SIG_BLOCK* = 0;	(* Block signals *)
 		SIG_UNBLOCK* = 1;	(* Unblock signals *)
@@ -263,6 +264,7 @@ MODULE LinLibc ["libc.so.6"];
 		SelectorFunc* = PROCEDURE (dirent: Dirent): INTEGER;
 		CmpFunc* = PROCEDURE (VAR [nil] dirent1, dirent2: PtrDirent): INTEGER;
 		size_t* = INTEGER; (* should be unsigned int *)
+		ssize_t* = INTEGER;
 		sigjmp_buf* = RECORD [untagged] 
 			buf*: jmp_buf;
 			mask_was_saved*: INTEGER;
@@ -449,8 +451,8 @@ MODULE LinLibc ["libc.so.6"];
 
 	PROCEDURE [ccall] open* (name: PtrSTR; flags: SET; mode: mode_t): INTEGER;
 	PROCEDURE [ccall] close* (d: INTEGER): INTEGER;
-	PROCEDURE [ccall] read* (d: INTEGER; buf: PtrVoid; nbytes: size_t): INTEGER;
-	PROCEDURE [ccall] write* (d: INTEGER; buf: PtrVoid; nBytes: size_t): INTEGER;
+	PROCEDURE [ccall] read* (d: INTEGER; buf: PtrVoid; nbytes: size_t): ssize_t;
+	PROCEDURE [ccall] write* (d: INTEGER; buf: PtrVoid; nBytes: size_t): ssize_t;
 
 	PROCEDURE [ccall] mmap* (addr: PtrVoid; len: size_t; prot: SET; flags: SET; fd, offset: off_t): PtrVoid;
 	PROCEDURE [ccall] munmap* (addr: PtrVoid; len: size_t): INTEGER;

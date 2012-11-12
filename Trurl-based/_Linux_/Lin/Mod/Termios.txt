@@ -1,0 +1,148 @@
+MODULE LinTermios ["libc.so.6"];
+
+	(*
+		A. V. Shiryaev, 2012.11
+
+		Linux
+		i386
+	*)
+
+	CONST
+		NCCS* = 32;
+		_HAVE_STRUCT_TERMIOS_C_ISPEED* = 1;
+		_HAVE_STRUCT_TERMIOS_C_OSPEED* = 1;
+		VINTR* = 0;
+		VQUIT* = 1;
+		VERASE* = 2;
+		VKILL* = 3;
+		VEOF* = 4;
+		VTIME* = 5;
+		VMIN* = 6;
+		VSWTC* = 7;
+		VSTART* = 8;
+		VSTOP* = 9;
+		VSUSP* = 10;
+		VEOL* = 11;
+		VREPRINT* = 12;
+		VDISCARD* = 13;
+		VWERASE* = 14;
+		VLNEXT* = 15;
+		VEOL2* = 16;
+		IGNBRK* = 1;
+		BRKINT* = 2;
+		IGNPAR* = 4;
+		PARMRK* = 8;
+		INPCK* = 16;
+		ISTRIP* = 32;
+		INLCR* = 64;
+		IGNCR* = 128;
+		ICRNL* = 256;
+		IUCLC* = 512;
+		IXON* = 1024;
+		IXANY* = 2048;
+		IXOFF* = 4096;
+		IMAXBEL* = 8192;
+		IUTF8* = 16384;
+		OPOST* = 1;
+		OLCUC* = 2;
+		ONLCR* = 4;
+		OCRNL* = 8;
+		ONOCR* = 16;
+		ONLRET* = 32;
+		OFILL* = 64;
+		OFDEL* = 128;
+		VTDLY* = 16384;
+		VT0* = 0;
+		VT1* = 16384;
+		B0* = 0; (* hang up *)
+		B50* = 1;
+		B75* = 2;
+		B110* = 3;
+		B134* = 4;
+		B150* = 5;
+		B200* = 6;
+		B300* = 7;
+		B600* = 8;
+		B1200* = 9;
+		B1800* = 10;
+		B2400* = 11;
+		B4800* = 12;
+		B9600* = 13;
+		B19200* = 14;
+		B38400* = 15;
+		CSIZE* = 48;
+		CS5* = 0;
+		CS6* = 16;
+		CS7* = 32;
+		CS8* = 48;
+		CSTOPB* = 64;
+		CREAD* = 128;
+		PARENB* = 256;
+		PARODD* = 512;
+		HUPCL* = 1024;
+		CLOCAL* = 2048;
+		B57600* = 4097;
+		B115200* = 4098;
+		B230400* = 4099;
+		B460800* = 4100;
+		B500000* = 4101;
+		B576000* = 4102;
+		B921600* = 4103;
+		B1000000* = 4104;
+		B1152000* = 4105;
+		B1500000* = 4106;
+		B2000000* = 4107;
+		B2500000* = 4108;
+		B3000000* = 4109;
+		B3500000* = 4110;
+		B4000000* = 4111;
+		__MAX_BAUD* = B4000000;
+		ISIG* = 1;
+		ICANON* = 2;
+		ECHO* = 8;
+		ECHOE* = 16;
+		ECHOK* = 32;
+		ECHONL* = 64;
+		NOFLSH* = 128;
+		TOSTOP* = 256;
+		IEXTEN* = 32768;
+		TCOOFF* = 0;
+		TCOON* = 1;
+		TCIOFF* = 2;
+		TCION* = 3;
+		TCIFLUSH* = 0;
+		TCOFLUSH* = 1;
+		TCIOFLUSH* = 2;
+		TCSANOW* = 0;
+		TCSADRAIN* = 1;
+		TCSAFLUSH* = 2;
+
+	TYPE
+		tcflag_t* = INTEGER; (* unsigned int *)
+		cc_t* = SHORTCHAR; (* unsigned char *)
+		speed_t* = INTEGER; (* unsigned int *)
+		termios* = RECORD [untagged]
+			c_iflag*: tcflag_t; (* input mode flags *)
+			c_oflag*: tcflag_t; (* output mode flags *)
+			c_cflag*: tcflag_t; (* control mode flags *)
+			c_lflag*: tcflag_t; (* local mode flags *)
+			c_line*: cc_t; (* line discipline *)
+			cc_c*: ARRAY [untagged] NCCS OF cc_t; (* control chars *)
+			c_ispeed*: INTEGER; (* input speed *)
+			c_ospeed*: INTEGER; (* output speed *)
+		END;
+
+	(* POSIX.1 *)
+	PROCEDURE [ccall] cfgetispeed* (VAR tp: termios): speed_t;
+	PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): INTEGER;
+	PROCEDURE [ccall] cfgetospeed* (VAR tp: termios): speed_t;
+	PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
+	PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
+	PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
+
+	PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
+
+END LinTermios.

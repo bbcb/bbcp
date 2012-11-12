@@ -1,0 +1,40 @@
+MODULE LinIoctl ["libc.so.6"];
+
+	(*
+		A. V. Shiryaev, 2012.11
+
+		Linux
+		i386
+	*)
+
+	CONST
+		(* /usr/include/i386-linux-gnu/bits/ioctl-types.h *)
+			TIOCM_LE* = 001H;
+			TIOCM_DTR* = 002H;
+			TIOCM_RTS* = 004H;
+			TIOCM_ST* = 008H;
+			TIOCM_SR* = 010H;
+			TIOCM_CTS* = 020H;
+			TIOCM_CAR* = 040H;
+			TIOCM_RNG* = 080H;
+			TIOCM_DSR* = 100H;
+
+		FIOCLEX* = 21585;
+		FIONCLEX* = 21584;
+		FIONREAD* = 21531;
+		FIONBIO* = 21537;
+		FIOASYNC* = 21586;
+		TIOCMGET* = 21525;
+		TIOCMSET* = 21528;
+		TIOCEXCL* = 21516;
+		TIOCNXCL* = 21517;
+		TIOCOUTQ* = 21521;
+		TIOCSBRK* = 21543;
+		TIOCCBRK* = 21544;
+		TIOCMBIS* = 21526;
+		TIOCMBIC* = 21527;
+
+	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: INTEGER; req: INTEGER): INTEGER;
+	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; VAR arg: INTEGER): INTEGER;
+
+END LinIoctl.
