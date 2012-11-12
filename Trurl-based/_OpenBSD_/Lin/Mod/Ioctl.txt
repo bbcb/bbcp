@@ -7,8 +7,6 @@ MODULE LinIoctl ["libc.so.66.0"];
 		32-bit
 	*)
 
-	IMPORT Libc := LinLibc;
-
 	CONST
 		(* /usr/include/sys/ttycom.h *)
 			TIOCM_LE* = 1; (* line enable *)
@@ -43,6 +41,6 @@ MODULE LinIoctl ["libc.so.66.0"];
 		TIOCMBIC* = -2147191701;
 
 	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: INTEGER; req: INTEGER): INTEGER;
-	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; data: Libc.PtrVoid): INTEGER;
+	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; VAR arg: INTEGER): INTEGER;
 
 END LinIoctl.

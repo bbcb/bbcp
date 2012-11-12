@@ -7,8 +7,6 @@ MODULE LinTermios ["libc.so.66.0"];
 		32-bit
 	*)
 
-	IMPORT SYSTEM;
-
 	CONST
 		VEOF* = 0; (* ICANON *)
 		VEOL* = 1; (* ICANON *)
@@ -143,6 +141,11 @@ MODULE LinTermios ["libc.so.66.0"];
 	PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
 	PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
 	PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
+
+	PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
 
 	(* extensions *)
 (*
