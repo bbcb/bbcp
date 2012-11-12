@@ -562,8 +562,8 @@ MODULE Kernel;
 	BEGIN
 		INC(size, 16);
 		ASSERT(size > 0, 100); adr := 0;
-		IF size < N THEN adr := HeapAlloc(1, N, prot) END;
-		IF adr = 0 THEN adr := HeapAlloc(1, size, prot); allocated := size ELSE allocated := N END;
+		IF size < N THEN adr := HeapAlloc(65536, N, prot) END;
+		IF adr = 0 THEN adr := HeapAlloc(65536, size, prot); allocated := size ELSE allocated := N END;
 		IF adr = 0 THEN c := NIL
 		ELSE
 			c := S.VAL(Cluster, (adr + 15) DIV 16 * 16); c.max := adr;
