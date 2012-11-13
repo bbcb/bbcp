@@ -1,0 +1,17 @@
+MODULE LinIoctl ["libc.so.66.0"];
+
+	(*
+		A. V. Shiryaev, 2012.11
+
+		OpenBSD 5.2
+		32-bit
+	*)
+
+	CONST
+		(* /usr/include/sys/ttycom.h *)
+%%defs-ttycom%%
+%%defs-ioctl%%
+	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: INTEGER; req: INTEGER): INTEGER;
+	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; VAR arg: INTEGER): INTEGER;
+
+END LinIoctl.

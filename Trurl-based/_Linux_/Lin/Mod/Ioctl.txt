@@ -9,15 +9,15 @@ MODULE LinIoctl ["libc.so.6"];
 
 	CONST
 		(* /usr/include/i386-linux-gnu/bits/ioctl-types.h *)
-			TIOCM_LE* = 001H;
-			TIOCM_DTR* = 002H;
-			TIOCM_RTS* = 004H;
-			TIOCM_ST* = 008H;
-			TIOCM_SR* = 010H;
-			TIOCM_CTS* = 020H;
-			TIOCM_CAR* = 040H;
-			TIOCM_RNG* = 080H;
-			TIOCM_DSR* = 100H;
+			TIOCM_LE* = {0};
+			TIOCM_DTR* = {1};
+			TIOCM_RTS* = {2};
+			TIOCM_ST* = {3};
+			TIOCM_SR* = {4};
+			TIOCM_CTS* = {5};
+			TIOCM_CAR* = {6};
+			TIOCM_RNG* = {7};
+			TIOCM_DSR* = {8};
 
 		FIOCLEX* = 21585;
 		FIONCLEX* = 21584;

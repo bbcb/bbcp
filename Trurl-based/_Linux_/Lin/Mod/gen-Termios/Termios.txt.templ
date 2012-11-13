@@ -1,0 +1,40 @@
+MODULE LinTermios ["libc.so.6"];
+
+	(*
+		A. V. Shiryaev, 2012.11
+
+		Linux
+		i386
+	*)
+
+	CONST
+%%defs-termios%%
+	TYPE
+		tcflag_t* = INTEGER; (* unsigned int *)
+		cc_t* = SHORTCHAR; (* unsigned char *)
+		speed_t* = INTEGER; (* unsigned int *)
+		termios* = RECORD [untagged]
+			c_iflag*: tcflag_t; (* input mode flags *)
+			c_oflag*: tcflag_t; (* output mode flags *)
+			c_cflag*: tcflag_t; (* control mode flags *)
+			c_lflag*: tcflag_t; (* local mode flags *)
+			c_line*: cc_t; (* line discipline *)
+			cc_c*: ARRAY [untagged] NCCS OF cc_t; (* control chars *)
+			c_ispeed*: INTEGER; (* input speed *)
+			c_ospeed*: INTEGER; (* output speed *)
+		END;
+
+	(* POSIX.1 *)
+	PROCEDURE [ccall] cfgetispeed* (VAR tp: termios): speed_t;
+	PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): INTEGER;
+	PROCEDURE [ccall] cfgetospeed* (VAR tp: termios): speed_t;
+	PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
+	PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
+	PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
+
+	PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
+	PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
+
+END LinTermios.

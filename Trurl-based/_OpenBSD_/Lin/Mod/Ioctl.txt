@@ -9,15 +9,15 @@ MODULE LinIoctl ["libc.so.66.0"];
 
 	CONST
 		(* /usr/include/sys/ttycom.h *)
-			TIOCM_LE* = 1; (* line enable *)
-			TIOCM_DTR* = 2; (* data terminal ready *)
-			TIOCM_RTS* = 4; (* request to send *)
-			TIOCM_ST* = 8; (* secondary transmit *)
-			TIOCM_SR* = 16; (* secondary receive *)
-			TIOCM_CTS* = 32; (* clear to send *)
-			TIOCM_CAR* = 64; (* carrier detect *)
-			TIOCM_RNG* = 128; (* ring *)
-			TIOCM_DSR* = 256; (* data set ready *)
+			TIOCM_LE* = {0}; (* line enable *)
+			TIOCM_DTR* = {1}; (* data terminal ready *)
+			TIOCM_RTS* = {2}; (* request to send *)
+			TIOCM_ST* = {3}; (* secondary transmit *)
+			TIOCM_SR* = {4}; (* secondary receive *)
+			TIOCM_CTS* = {5}; (* clear to send *)
+			TIOCM_CAR* = {6}; (* carrier detect *)
+			TIOCM_RNG* = {7}; (* ring *)
+			TIOCM_DSR* = {8}; (* data set ready *)
 
 		FIOCLEX* = 536897025;
 		FIONCLEX* = 536897026;

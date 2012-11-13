@@ -37,46 +37,9 @@ MODULE LinLibc ["libc.so.66.0"];
 
 		(* Signals. *)
 		(* OpenBSD /usr/include/sys/signal.h *)
-		_NSIG* = 33; (* counting 0 (mask is 1-32) *)
-		SIGHUP* = 1; (* hangup *)
-		SIGINT* = 2; (* interrupt *)
-		SIGQUIT* = 3; (* quit *)
-		SIGILL* = 4; (* illegal instruction (not reset when caught) *)
-		SIGTRAP* = 5; (* trace trap (not reset when caught) *)
-		SIGABRT* = 6; (* abort() *)
-		SIGFPE* = 8; (* floating point exception *)
-		SIGKILL* = 9; (* kill (cannot be caught or ignored) *)
-		SIGBUS* = 10; (* bus error *)
-		SIGSEGV* = 11; (* segmentation violation *)
-		SIGSYS* = 12; (* bad argument to system call *)
-		SIGPIPE* = 13; (* write on a pipe with no one to read it *)
-		SIGALRM* = 14; (* alarm clock *)
-		SIGTERM* = 15; (* software termination signal from kill *)
-		SIGURG* = 16; (* urgent condition on IO channel *)
-		SIGSTOP* = 17; (* sendable stop signal not from tty *)
-		SIGTSTP* = 18; (* stop signal from tty *)
-		SIGCONT* = 19; (* continue a stopped process *)
-		SIGCHLD* = 20; (* to parent on child stop or exit *)
-		SIGTTIN* = 21; (* to readers pgrp upon background tty read *)
-		SIGTTOU* = 22; (* like TTIN for output if (tp->t_local&LTOSTOP) *)
-		SIGXCPU* = 24; (* exceeded CPU time limit *)
-		SIGXFSZ* = 25; (* exceeded file size limit *)
-		SIGVTALRM* = 26; (* virtual time alarm *)
-		SIGPROF* = 27; (* profiling time alarm *)
-		SIGUSR1* = 30; (* user defined signal 1 *)
-		SIGUSR2* = 31; (* user defined signal 2 *)
-		SIGWINCH* = 28; (* window size changes *)
-		SIGTHR* = 32; (* thread library AST *)
-
+%%defs-signal%%
 		(* Bits in `sa_flags'. *)
-		SA_NOCLDSTOP* = {3}; (* do not generate SIGCHLD on child stop *)
-		SA_ONSTACK* = {0}; (* take signal on signal stack *)
-		SA_RESTART* = {1}; (* restart system on signal return *)
-		SA_RESETHAND* = {2}; (* reset to SIG_DFL when taking signal *)
-		SA_NODEFER* = {4}; (* don't mask the signal we're delivering *)
-		SA_NOCLDWAIT* = {5}; (* don't create zombies (assign to pid 1) *)
-		SA_SIGINFO* = {6}; (* generate siginfo_t *)
-
+%%defs-sa%%
 		(* Some aliases for the SA_ constants.  *)
 (*
 		SA_NOMASK* = SA_NODEFER;
@@ -86,127 +49,18 @@ MODULE LinLibc ["libc.so.66.0"];
 
 		(* code values for siginfo_t.si_code *) 
 		(* OpenBSD /usr/include/sys/siginfo.h *)
-		FPE_INTDIV* = 1; (* integer divide by zero *)
-		FPE_INTOVF* = 2; (* integer overflow *)
-		FPE_FLTDIV* = 3; (* floating point divide by zero *)
-		FPE_FLTOVF* = 4; (* floating point overflow *)
-		FPE_FLTUND* = 5; (* floating point underflow *)
-		FPE_FLTRES* = 6; (* floating point inexact result *)
-		FPE_FLTINV* = 7; (* invalid floating point operation *)
-		FPE_FLTSUB* = 8; (* subscript out of range *)
-		ILL_ILLOPC* = 1; (* illegal opcode *)
-		ILL_ILLOPN* = 2; (* illegal operand *)
-		ILL_ILLADR* = 3; (* illegal addressing mode *)
-		ILL_ILLTRP* = 4; (* illegal trap *)
-		ILL_PRVOPC* = 5; (* privileged opcode *)
-		ILL_PRVREG* = 6; (* privileged register *)
-		ILL_COPROC* = 7; (* co-processor *)
-		ILL_BADSTK* = 8; (* bad stack *)
-		SEGV_MAPERR* = 1; (* address not mapped to object *)
-		SEGV_ACCERR* = 2; (* invalid permissions *)
-		BUS_ADRALN* = 1; (* invalid address alignment *)
-		BUS_ADRERR* = 2; (* non-existent physical address *)
-		BUS_OBJERR* = 3; (* object specific hardware error *)
-
+%%defs-siginfo1%%
 
 		(* possible error constants for errno *)
 		(* OpenBSD /usr/include/sys/errno.h *)
-		EPERM* = 1; (* Operation not permitted *)
-		ENOENT* = 2; (* No such file or directory *)
-		ESRCH* = 3; (* No such process *)
-		EINTR* = 4; (* Interrupted system call *)
-		EIO* = 5; (* Input/output error *)
-		ENXIO* = 6; (* Device not configured *)
-		E2BIG* = 7; (* Argument list too long *)
-		ENOEXEC* = 8; (* Exec format error *)
-		EBADF* = 9; (* Bad file descriptor *)
-		ECHILD* = 10; (* No child processes *)
-		EDEADLK* = 11; (* Resource deadlock avoided *)
-		ENOMEM* = 12; (* Cannot allocate memory *)
-		EACCES* = 13; (* Permission denied *)
-		EFAULT* = 14; (* Bad address *)
-		EBUSY* = 16; (* Device busy *)
-		EEXIST* = 17; (* File exists *)
-		EXDEV* = 18; (* Cross-device link *)
-		ENODEV* = 19; (* Operation not supported by device *)
-		ENOTDIR* = 20; (* Not a directory *)
-		EISDIR* = 21; (* Is a directory *)
-		EINVAL* = 22; (* Invalid argument *)
-		ENFILE* = 23; (* Too many open files in system *)
-		EMFILE* = 24; (* Too many open files *)
-		ENOTTY* = 25; (* Inappropriate ioctl for device *)
-		ETXTBSY* = 26; (* Text file busy *)
-		EFBIG* = 27; (* File too large *)
-		ENOSPC* = 28; (* No space left on device *)
-		ESPIPE* = 29; (* Illegal seek *)
-		EROFS* = 30; (* Read-only file system *)
-		EMLINK* = 31; (* Too many links *)
-		EPIPE* = 32; (* Broken pipe *)
-		EDOM* = 33; (* Numerical argument out of domain *)
-		ERANGE* = 34; (* Result too large *)
-		EAGAIN* = 35; (* Resource temporarily unavailable *)
-		EWOULDBLOCK* = EAGAIN; (* Operation would block *)
-		EINPROGRESS* = 36; (* Operation now in progress *)
-		EALREADY* = 37; (* Operation already in progress *)
-		ENOTSOCK* = 38; (* Socket operation on non-socket *)
-		EDESTADDRREQ* = 39; (* Destination address required *)
-		EMSGSIZE* = 40; (* Message too long *)
-		EPROTOTYPE* = 41; (* Protocol wrong type for socket *)
-		ENOPROTOOPT* = 42; (* Protocol not available *)
-		EPROTONOSUPPORT* = 43; (* Protocol not supported *)
-		EOPNOTSUPP* = 45; (* Operation not supported *)
-		EAFNOSUPPORT* = 47; (* Address family not supported by protocol family *)
-		EADDRINUSE* = 48; (* Address already in use *)
-		EADDRNOTAVAIL* = 49; (* Can't assign requested address *)
-		ENETDOWN* = 50; (* Network is down *)
-		ENETUNREACH* = 51; (* Network is unreachable *)
-		ENETRESET* = 52; (* Network dropped connection on reset *)
-		ECONNABORTED* = 53; (* Software caused connection abort *)
-		ECONNRESET* = 54; (* Connection reset by peer *)
-		ENOBUFS* = 55; (* No buffer space available *)
-		EISCONN* = 56; (* Socket is already connected *)
-		ENOTCONN* = 57; (* Socket is not connected *)
-		ETIMEDOUT* = 60; (* Operation timed out *)
-		ECONNREFUSED* = 61; (* Connection refused *)
-		ELOOP* = 62; (* Too many levels of symbolic links *)
-		ENAMETOOLONG* = 63; (* File name too long *)
-		ENOTEMPTY* = 66; (* Directory not empty *)
-		EDQUOT* = 69; (* Disk quota exceeded *)
-		ESTALE* = 70; (* Stale NFS file handle *)
-		ENOLCK* = 77; (* No locks available *)
-		ENOSYS* = 78; (* Function not implemented *)
-		EILSEQ* = 84; (* Illegal byte sequence *)
-		EIDRM* = 89; (* Identifier removed *)
-		ENOMSG* = 90; (* No message of desired type *)
-		ENOTSUP* = 91; (* Not supported *)
-
+%%defs-errno%%
 
 		(* OpenBSD 5.2 /usr/include/i386/setjmp.h *)
 		_JBLEN = 10;
 
 		(* OpenBSD 5.2 /usr/include/sys/mman.h *)
 		MAP_FAILED* = -1;
-		PROT_NONE* = {}; (* no permissions *)
-		PROT_READ* = {0}; (* pages can be read *)
-		PROT_WRITE* = {1}; (* pages can be written *)
-		PROT_EXEC* = {2}; (* pages can be executed *)
-		MAP_SHARED* = {0}; (* share changes *)
-		MAP_PRIVATE* = {1}; (* changes are private *)
-		MAP_COPY* = {2}; (* "copy" region at mmap time *)
-		MAP_FIXED* = {4}; (* map addr must be exactly as requested *)
-		MAP_RENAME* = {5}; (* Sun: rename private pages to file *)
-		MAP_NORESERVE* = {6}; (* Sun: don't reserve needed swap area *)
-		MAP_INHERIT* = {7}; (* region is retained after exec *)
-		MAP_NOEXTEND* = {8}; (* for MAP_FILE, don't change file size *)
-		MAP_HASSEMAPHORE* = {9}; (* region may contain semaphores *)
-		MAP_TRYFIXED* = {10}; (* attempt hint address, even within heap *)
-		MAP_FILE* = {}; (* map from file (default) *)
-		MAP_ANON* = {12}; (* allocated from memory, swap space *)
-		MAP_FLAGMASK* = {0..2,4..12};
-		MAP_INHERIT_SHARE* = {}; (* share with child *)
-		MAP_INHERIT_COPY* = {0}; (* copy into child *)
-		MAP_INHERIT_NONE* = {1}; (* absent from child *)
-
+%%defs-mman%%
 
 		(* OpenBSD 5.2 /usr/include/i386/param.h *)
 		PAGE_SHIFT* = 12;
@@ -214,169 +68,13 @@ MODULE LinLibc ["libc.so.66.0"];
 		PAGE_MASK* = PAGE_SIZE - 1;
 
 		(* OpenBSD 5.2: /usr/include/fcntl.h *)
-		O_SHLOCK* = {4}; (* open with shared file lock *)
-		O_EXLOCK* = {5}; (* open with exclusive file lock *)
-		O_ASYNC* = {6}; (* signal pgrp when data ready *)
-		O_NOFOLLOW* = {8}; (* if path is a symlink, don't follow *)
-		O_SYNC* = {7}; (* synchronous writes *)
-		O_RDONLY* = {}; (* open for reading only *)
-		O_WRONLY* = {0}; (* open for writing only *)
-		O_RDWR* = {1}; (* open for reading and writing *)
-		O_ACCMODE* = {0,1}; (* mask for above modes *)
-		O_NONBLOCK* = {2}; (* no delay *)
-		O_APPEND* = {3}; (* set append mode *)
-		O_CREAT* = {9}; (* create if nonexistent *)
-		O_TRUNC* = {10}; (* truncate to zero length *)
-		O_EXCL* = {11}; (* error if already exists *)
-		O_DSYNC* = O_SYNC; (* synchronous data writes *)
-		O_RSYNC* = O_SYNC; (* synchronous reads *)
-		O_NOCTTY* = {15}; (* don't assign controlling terminal *)
-		O_CLOEXEC* = {16}; (* atomically set FD_CLOEXEC *)
-		O_DIRECTORY* = {17}; (* fail if not a directory *)
-
+%%defs-fcntl%%
 
 		(* OpenBSD 5.2 /usr/include/unistd.h *)
-		_SC_ARG_MAX* = 1;
-		_SC_CHILD_MAX* = 2;
-		_SC_CLK_TCK* = 3;
-		_SC_NGROUPS_MAX* = 4;
-		_SC_OPEN_MAX* = 5;
-		_SC_JOB_CONTROL* = 6;
-		_SC_SAVED_IDS* = 7;
-		_SC_VERSION* = 8;
-		_SC_BC_BASE_MAX* = 9;
-		_SC_BC_DIM_MAX* = 10;
-		_SC_BC_SCALE_MAX* = 11;
-		_SC_BC_STRING_MAX* = 12;
-		_SC_COLL_WEIGHTS_MAX* = 13;
-		_SC_EXPR_NEST_MAX* = 14;
-		_SC_LINE_MAX* = 15;
-		_SC_RE_DUP_MAX* = 16;
-		_SC_2_VERSION* = 17;
-		_SC_2_C_BIND* = 18;
-		_SC_2_C_DEV* = 19;
-		_SC_2_CHAR_TERM* = 20;
-		_SC_2_FORT_DEV* = 21;
-		_SC_2_FORT_RUN* = 22;
-		_SC_2_LOCALEDEF* = 23;
-		_SC_2_SW_DEV* = 24;
-		_SC_2_UPE* = 25;
-		_SC_STREAM_MAX* = 26;
-		_SC_TZNAME_MAX* = 27;
-		_SC_PAGESIZE* = 28;
-		_SC_PAGE_SIZE* = _SC_PAGESIZE; (* 1170 compatibility *)
-		_SC_FSYNC* = 29;
-		_SC_XOPEN_SHM* = 30;
-		_SC_SEM_NSEMS_MAX* = 31;
-		_SC_SEM_VALUE_MAX* = 32;
-		_SC_HOST_NAME_MAX* = 33;
-		_SC_MONOTONIC_CLOCK* = 34;
-		_SC_2_PBS* = 35;
-		_SC_2_PBS_ACCOUNTING* = 36;
-		_SC_2_PBS_CHECKPOINT* = 37;
-		_SC_2_PBS_LOCATE* = 38;
-		_SC_2_PBS_MESSAGE* = 39;
-		_SC_2_PBS_TRACK* = 40;
-		_SC_ADVISORY_INFO* = 41;
-		_SC_AIO_LISTIO_MAX* = 42;
-		_SC_AIO_MAX* = 43;
-		_SC_AIO_PRIO_DELTA_MAX* = 44;
-		_SC_ASYNCHRONOUS_IO* = 45;
-		_SC_ATEXIT_MAX* = 46;
-		_SC_BARRIERS* = 47;
-		_SC_CLOCK_SELECTION* = 48;
-		_SC_CPUTIME* = 49;
-		_SC_DELAYTIMER_MAX* = 50;
-		_SC_IOV_MAX* = 51;
-		_SC_IPV6* = 52;
-		_SC_MAPPED_FILES* = 53;
-		_SC_MEMLOCK* = 54;
-		_SC_MEMLOCK_RANGE* = 55;
-		_SC_MEMORY_PROTECTION* = 56;
-		_SC_MESSAGE_PASSING* = 57;
-		_SC_MQ_OPEN_MAX* = 58;
-		_SC_MQ_PRIO_MAX* = 59;
-		_SC_PRIORITIZED_IO* = 60;
-		_SC_PRIORITY_SCHEDULING* = 61;
-		_SC_RAW_SOCKETS* = 62;
-		_SC_READER_WRITER_LOCKS* = 63;
-		_SC_REALTIME_SIGNALS* = 64;
-		_SC_REGEXP* = 65;
-		_SC_RTSIG_MAX* = 66;
-		_SC_SEMAPHORES* = 67;
-		_SC_SHARED_MEMORY_OBJECTS* = 68;
-		_SC_SHELL* = 69;
-		_SC_SIGQUEUE_MAX* = 70;
-		_SC_SPAWN* = 71;
-		_SC_SPIN_LOCKS* = 72;
-		_SC_SPORADIC_SERVER* = 73;
-		_SC_SS_REPL_MAX* = 74;
-		_SC_SYNCHRONIZED_IO* = 75;
-		_SC_SYMLOOP_MAX* = 76;
-		_SC_THREAD_ATTR_STACKADDR* = 77;
-		_SC_THREAD_ATTR_STACKSIZE* = 78;
-		_SC_THREAD_CPUTIME* = 79;
-		_SC_THREAD_DESTRUCTOR_ITERATIONS* = 80;
-		_SC_THREAD_KEYS_MAX* = 81;
-		_SC_THREAD_PRIO_INHERIT* = 82;
-		_SC_THREAD_PRIO_PROTECT* = 83;
-		_SC_THREAD_PRIORITY_SCHEDULING* = 84;
-		_SC_THREAD_PROCESS_SHARED* = 85;
-		_SC_THREAD_ROBUST_PRIO_INHERIT* = 86;
-		_SC_THREAD_ROBUST_PRIO_PROTECT* = 87;
-		_SC_THREAD_SPORADIC_SERVER* = 88;
-		_SC_THREAD_STACK_MIN* = 89;
-		_SC_THREAD_THREADS_MAX* = 90;
-		_SC_THREADS* = 91;
-		_SC_TIMEOUTS* = 92;
-		_SC_TIMER_MAX* = 93;
-		_SC_TIMERS* = 94;
-		_SC_TRACE* = 95;
-		_SC_TRACE_EVENT_FILTER* = 96;
-		_SC_TRACE_EVENT_NAME_MAX* = 97;
-		_SC_TRACE_INHERIT* = 98;
-		_SC_TRACE_LOG* = 99;
-		_SC_GETGR_R_SIZE_MAX* = 100;
-		_SC_GETPW_R_SIZE_MAX* = 101;
-		_SC_LOGIN_NAME_MAX* = 102;
-		_SC_THREAD_SAFE_FUNCTIONS* = 103;
-		_SC_TRACE_NAME_MAX* = 104;
-		_SC_TRACE_SYS_MAX* = 105;
-		_SC_TRACE_USER_EVENT_MAX* = 106;
-		_SC_TTY_NAME_MAX* = 107;
-		_SC_TYPED_MEMORY_OBJECTS* = 108;
-		_SC_V6_ILP32_OFF32* = 109;
-		_SC_V6_ILP32_OFFBIG* = 110;
-		_SC_V6_LP64_OFF64* = 111;
-		_SC_V6_LPBIG_OFFBIG* = 112;
-		_SC_V7_ILP32_OFF32* = 113;
-		_SC_V7_ILP32_OFFBIG* = 114;
-		_SC_V7_LP64_OFF64* = 115;
-		_SC_V7_LPBIG_OFFBIG* = 116;
-		_SC_XOPEN_CRYPT* = 117;
-		_SC_XOPEN_ENH_I18N* = 118;
-		_SC_XOPEN_LEGACY* = 119;
-		_SC_XOPEN_REALTIME* = 120;
-		_SC_XOPEN_REALTIME_THREADS* = 121;
-		_SC_XOPEN_STREAMS* = 122;
-		_SC_XOPEN_UNIX* = 123;
-		_SC_XOPEN_UUCP* = 124;
-		_SC_XOPEN_VERSION* = 125;
-		_SC_PHYS_PAGES* = 500;
-		_SC_AVPHYS_PAGES* = 501;
-		_SC_NPROCESSORS_CONF* = 502;
-		_SC_NPROCESSORS_ONLN* = 503;
-
+%%defs-sc%%
 
 		(* OpenBSD 5.2 /usr/include/sys/mman.h *)
-		POSIX_MADV_NORMAL* = 0; (* no further special treatment *)
-		POSIX_MADV_RANDOM* = 1; (* expect random page references *)
-		POSIX_MADV_SEQUENTIAL* = 2; (* expect sequential page references *)
-		POSIX_MADV_WILLNEED* = 3; (* will need these pages *)
-		POSIX_MADV_DONTNEED* = 4; (* don't need these pages *)
-		MADV_SPACEAVAIL* = 5; (* insure that resources are reserved *)
-		MADV_FREE* = 6; (* pages are empty, free them *)
-
+%%defs-madv%%
 		MADV_NORMAL* = POSIX_MADV_NORMAL;
 		MADV_RANDOM* = POSIX_MADV_RANDOM;
 		MADV_SEQUENTIAL* = POSIX_MADV_SEQUENTIAL;
@@ -388,10 +86,7 @@ MODULE LinLibc ["libc.so.66.0"];
 		SIGSTKSZ* = MINSIGSTKSZ + 32768; (* recommended stack size *)
 
 		(* OpenBSD 5.2 /usr/include/sys/signal.h *)
-		SIG_BLOCK* = 1; (* block specified signal set *)
-		SIG_UNBLOCK* = 2; (* unblock specified signal set *)
-		SIG_SETMASK* = 3; (* set specified signal set *)
-
+%%defs-sig%%
 
 	TYPE
 		(* OpenBSD OK *)
