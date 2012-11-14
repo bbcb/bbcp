@@ -8,7 +8,7 @@ PY = python2.7
 
 DEFS = defs-errno defs-signal defs-sc defs-madv defs-siginfo defs-siginfo1 defs-sa defs-mman defs-fcntl defs-sig
 
-all: Libc.txt ${DEFS}
+all: Libc.txt ${DEFS} strerrnocase.txt
 
 Libc.txt: Libc.txt.templ ${DEFS} sizeofs
 	${PY} ./untempl.py Libc.txt.templ ${.TARGET}
@@ -63,5 +63,11 @@ defs-siginfo1:
 	./dumpdefs.py 2 2 i /usr/include/sys/siginfo.h | grep SEGV_ >> ${.TARGET}
 	./dumpdefs.py 2 2 i /usr/include/sys/siginfo.h | grep BUS_ >> ${.TARGET}
 
+dumpstrerrno.c: defs-errno
+	grep -v ERESTART ${.ALLSRC} | grep -v EJUSTRETURN | ./mkdumpstrerrno.py > ${.TARGET}
+
+strerrnocase.txt: dumpstrerrno
+	./dumpstrerrno | ./mkstrerrnocase.py > ${.TARGET}
+
 clean:
-	rm -f sizeofs ${DEFS} Libc.txt
+	rm -f sizeofs ${DEFS} Libc.txt dumpstrerrno dumpstrerrno.c strerrnocase.txt
