@@ -55,13 +55,24 @@ def fixVal (x, tip):
 				return x[2:].upper() + "H"
 			else:
 				return "0" + x[2:].upper() + "H"
-		else:
+		elif tip == 's':
 			return mkset(int(x, 16))
+		elif tip == 'c':
+			if x[2] in ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'):
+				return x[2:].upper() + "X"
+			else:
+				return "0" + x[2:].upper() + "X"
+		else:
+			assert False
 	elif x[0] == '0': # fix OCT
 		if tip == 'i':
 			return str(int(x, 8))
-		else:
+		elif tip == 's':
 			return mkset(int(x, 8))
+		elif tip == 'c':
+			return fixVal("0x%x" % (int(x, 8),), tip)
+		else:
+			assert False
 	else:
 		if tip == 'i':
 			return x
@@ -71,7 +82,12 @@ def fixVal (x, tip):
 			except:
 				return x
 			else:
-				return mkset(y)
+				if tip == 's':
+					return mkset(y)
+				elif tip == 'c':
+					return fixVal("0x%x" % (int(y),), tip)
+				else:
+					assert False
 
 def p (nIndents, sym, val, comment, val1):
 	r = [ "%s%s* = %s;" % (INDENT*nIndents, sym, val) ]
@@ -92,7 +108,7 @@ def main ():
 		else:
 			level = int(sys.argv[2])
 		tip = sys.argv[3]
-		assert tip in ('i', 's')
+		assert tip in ('i', 's', 'c')
 
 		fh = open(sys.argv[4], 'r')
 		st = 0
@@ -133,6 +149,7 @@ def main ():
 		print "	type:"
 		print "		i: integer"
 		print "		s: set"
+		print "		c: shortchar"
 
 if __name__ == '__main__':
 	main()
