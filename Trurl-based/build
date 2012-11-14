@@ -127,5 +127,6 @@ DATA
 ./run-BlackBox <<DATA
 ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
 ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
-DevCompiler.CompileThis CommV24
+ConsCompiler.Compile('Lin/Mod', 'Net.txt')
+DevCompiler.CompileThis CommV24 CommTCP
 DATA
