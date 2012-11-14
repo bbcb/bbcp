@@ -1941,9 +1941,13 @@ MODULE Kernel;
 		KV("TRAPNO", context.sc_trapno); WriteString(", ");
 		KV("ERR", context.sc_err); WriteLn;
 
-		(* WriteString("--------------------------------"); WriteLn; *)
+		WriteString("---- siginfo: ------------------"); WriteLn;
 
-		(* TODO: show siginfo *)
+		KV("signo", siginfo.si_signo); WriteString(", ");
+		KV("code", siginfo.si_code); WriteString(", ");
+		KV("errno", siginfo.si_errno); WriteLn;
+		KV("fault.addr", siginfo._data._fault._addr); WriteString(", ");
+		KV("fault.trapno", siginfo._data._fault._trapno); WriteLn;
 
 		WriteString("================================"); WriteLn
 	END ShowTrap;
@@ -1972,7 +1976,7 @@ MODULE Kernel;
 			(* OpenBSD *)
 				ShowTrap(sig, siginfo, context);
 				sp := context.sc_esp; fp := context.sc_ebp; pc := context.sc_eip;
-				val := siginfo.si_pid; (* XXX *)
+				val := siginfo._data._fault._addr;
 
 	(*
 		Int(sig); Int(siginfo.si_signo); Int(siginfo.si_code); Int(siginfo.si_errno);

@@ -144,29 +144,39 @@ MODULE LinLibc ["libc.so.66.0"];
 		pid_t* = INTEGER; (* OpenBSD 5.2: 32-bit *)
 		uid_t* = INTEGER; (* OpenBSD 5.2: 32-bit *)
 
+(*
 		sigval_t* = INTEGER; (* OpenBSD: 32-bit (union sigval) *)
+*)
+		sigval = RECORD [union]
+			sival_int*: INTEGER; (* integer value *)
+			sival_ptr*: PtrVoid; (* pointer value *)
+		END;
 
 		siginfo_t* = RECORD [untagged] (* OpenBSD 5.2 /usr/include/sys/siginfo.h *)
-			si_signo*: INTEGER; 	(* Signal number *) (* OpenBSD: 32-bit *)
-			si_code*: INTEGER;   	(* Signal code *) (* OpenBSD: 32-bit *)
-			si_errno*: INTEGER;  	(* An errno value *) (* OpenBSD: 32-bit *)
-
-			(* OpenBSD 5.2: 29 * 4 B below *)
-
-			si_pid*: pid_t;    	(* Sending process ID *)
-			si_uid*: uid_t;    	(* Real user ID of sending process *)
-			si_status*: INTEGER; 	(* Exit value or signal *) (* OpenBSD 5.2: 32-bit *)
-
-			(* si_utime*: clock_t;  	(* User time consumed *) *) (* OpenBSD: XXX *)
-			si_stime*: clock_t;  	(* System time consumed *)
-			(* si_value*: sigval_t;  	(* Signal value *) *) (* OpenBSD: XXX *)
-			(* si_int*: INTEGER;    	(* POSIX.1b signal *) *) (* OpenBSD: XXX *)
-			(* si_ptr*: PtrVoid;    	(* POSIX.1b signal *) *) (* OpenBSD: XXX *)
-			(* si_addr*: PtrVoid;   	(* Memory location which caused fault *) *) (* OpenBSD: XXX *)
-			(* si_band*: INTEGER;   	(* Band event *) *) (* OpenBSD: XXX *)
-			(* si_fd*: INTEGER;     	(* File descriptor *) *) (* OpenBSD: XXX *)
-
-			xxx: ARRAY [untagged] 25 OF INTEGER; (* OpenBSD *)
+			si_signo*: INTEGER; (* signal from signal.h *)
+			si_code*: INTEGER; (* code from above *)
+			si_errno*: INTEGER; (* error from errno.h *)
+			_data*: RECORD [union]
+				_pad*: ARRAY [untagged] 29 (* SI_PAD *) OF INTEGER; (* for future growth *)
+				_proc*: RECORD [untagged] (* kill(), SIGCLD, siqqueue() *)
+					_pid*: pid_t; (* process ID *)
+					_pdata*: RECORD [union]
+						_kill*: RECORD [untagged]
+							_uid*: uid_t;
+							_value*: sigval;
+						END;
+						_cld*: RECORD [untagged]
+							_utime*: clock_t;
+							_status*: INTEGER;
+							_stime*: clock_t;
+						END;
+					END;
+				END;
+				_fault*: RECORD [untagged] (* SIGSEGV, SIGBUS, SIGILL and SIGFPE *)
+					_addr*: PtrVoid; (* faulting address *)
+					_trapno*: INTEGER; (* illegal trap number *)
+				END;
+			END;
 		END;
 		Ptrsiginfo_t* = POINTER TO siginfo_t;
 
