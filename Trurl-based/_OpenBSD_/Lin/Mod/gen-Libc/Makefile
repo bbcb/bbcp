@@ -12,6 +12,7 @@ all: Libc.txt ${DEFS}
 
 Libc.txt: Libc.txt.templ ${DEFS} sizeofs
 	${PY} ./untempl.py Libc.txt.templ ${.TARGET}
+#	perl -pe 's/\n/\r\n/' < ${.TARGET}.tmp > ${.TARGET}
 #	${PY} ./untempl2.py ${.TARGET}.tmp ${.TARGET}
 #	rm -f ${.TARGET}.tmp
 
@@ -20,6 +21,10 @@ sizeofs: sizeofs.c
 
 defs-errno:
 	./dumpdefs.py 2 0 i /usr/include/sys/errno.h > ${.TARGET}
+	./dumpdefs.py 2 1 i /usr/include/sys/errno.h >> ${.TARGET}
+
+defs-tftp:
+	./dumpdefs.py 2 1 i /usr/include/arpa/tftp.h | grep EACCESS > ${.TARGET}
 
 defs-signal:
 	./dumpdefs.py 2 1 i /usr/include/sys/signal.h > ${.TARGET}
