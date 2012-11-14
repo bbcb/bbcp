@@ -9,9 +9,6 @@ all: Net.txt dumphstrerrno
 PY = python2.7
 DEFS = defs-socket defs-in defs-netdb
 
-#defs-ioctl: mkioctl
-#	./mkioctl > ${.TARGET}
-
 Net.txt: Net.txt.templ ${DEFS}
 	${PY} ./untempl.py Net.txt.templ ${.TARGET}
 
