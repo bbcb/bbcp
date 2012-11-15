@@ -31,7 +31,6 @@ MODULE LinNet ["libc.so.6"];
 %%defs-netdb%%
 		(* /usr/include/i386-linux-gnu/bits/typesizes.h *)
 			__FD_SETSIZE = 1024;
-			__NFDBITS = SIZE(SET) * 8;
 
 	TYPE
 		SOCKET* = INTEGER;
@@ -97,7 +96,7 @@ MODULE LinNet ["libc.so.6"];
 
 		(* /usr/include/i386-linux-gnu/sys/select.h *)
 			__fd_mask = SET;
-			fd_set* = ARRAY [untagged] __FD_SETSIZE DIV __NFDBITS OF __fd_mask;
+			fd_set* = ARRAY [untagged] __FD_SETSIZE DIV (SIZE(__fd_mask) * 8) OF __fd_mask;
 
 	VAR
 		h_errno*: INTEGER;
@@ -126,7 +125,7 @@ MODULE LinNet ["libc.so.6"];
 	PROCEDURE FD_ZERO (VAR set: Net.fd_set);
 		VAR i: INTEGER;
 	BEGIN
-		i := 0; WHILE i < LEN(set) DO set[i] := {}; INC(i) END
+		i := LEN(set); REPEAT DEC(i); set[i] := {} UNTIL i = 0
 	END FD_ZERO;
 
 	PROCEDURE FD_SET (fd: Net.SOCKET; VAR set: Net.fd_set);

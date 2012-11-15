@@ -257,7 +257,7 @@ MODULE LinNet ["libc.so.66.0"];
 	PROCEDURE FD_ZERO (VAR set: Net.fd_set);
 		VAR i: INTEGER;
 	BEGIN
-		i := 0; WHILE i < LEN(set) DO set[i] := {}; INC(i) END
+		i := LEN(set); REPEAT DEC(i); set[i] := {} UNTIL i = 0
 	END FD_ZERO;
 
 	PROCEDURE FD_SET (fd: Net.SOCKET; VAR set: Net.fd_set);

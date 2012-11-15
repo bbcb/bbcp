@@ -133,16 +133,16 @@ MODULE LinTermios ["libc.so.6"];
 		END;
 
 	(* POSIX.1 *)
-	PROCEDURE [ccall] cfgetispeed* (VAR tp: termios): speed_t;
-	PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): INTEGER;
-	PROCEDURE [ccall] cfgetospeed* (VAR tp: termios): speed_t;
-	PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
-	PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
-	PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
+		PROCEDURE [ccall] cfgetispeed* (VAR tp: termios): speed_t;
+		PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): INTEGER;
+		PROCEDURE [ccall] cfgetospeed* (VAR tp: termios): speed_t;
+		PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
+		PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
+		PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
 
-	PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
-	PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
-	PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
-	PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
+		PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
+		PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
+		PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
+		PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
 
 END LinTermios.
