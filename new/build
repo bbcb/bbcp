@@ -118,15 +118,15 @@ DevCompiler.CompileThis ConsCompiler
 DATA
 
 ./run-BlackBox <<DATA
+DevCompiler.CompileThis HostPackedFiles DevPacker
+
 DevCompiler.CompileThis CommStreams
-DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
-
-DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
-DATA
-
-./run-BlackBox <<DATA
 ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
 ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
 ConsCompiler.Compile('Lin/Mod', 'Net.txt')
 DevCompiler.CompileThis CommV24 CommTCP
+
+DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
+
+DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
 DATA
