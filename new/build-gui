@@ -3,11 +3,12 @@
 TARGET=`uname -s`
 # TARGET=Linux
 
+./clean
 ./switch-target ${TARGET} Interp
 ./build
 ./switch-target ${TARGET} GUI
 
-./run-BlackBox <<DATA
+./run-dev0 <<DATA
 DevCompiler.CompileThis FormModels FormViews FormControllers FormCmds FormGen
 
 DevCompiler.CompileThis Gtk2GLib Gtk2GObject Gtk2Keysyms Gtk2Pango Gtk2Gdk Gtk2Gtk Gtk2Util
