@@ -3,6 +3,8 @@
 TARGET=`uname -s`
 # TARGET=Linux
 
+echo "Please wait..."
+
 ./clean
 ./switch-target ${TARGET} Interp
 ./build
