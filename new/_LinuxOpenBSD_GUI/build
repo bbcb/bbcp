@@ -1,0 +1,63 @@
+#!/bin/sh
+
+./run-dev0 <<DATA
+ConsCompiler.Compile('Lin/Mod', 'Dl.txt')
+ConsCompiler.Compile('Lin/Mod', 'Libc.txt')
+ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
+
+DevCompiler.CompileThis Kernel Files HostFiles StdLoader
+DevCompiler.CompileThis Math Strings Dates Meta Dialog Services Fonts Ports Stores Log Converters Sequencers Models Printers Views Controllers Properties Printing Mechanisms Containers Documents Windows
+DevCompiler.CompileThis StdCFrames Controls StdDialog StdApi StdCmds StdInterpreter
+
+DevCompiler.CompileThis HostDates HostLang HostRegistry HostUtf8
+
+DevCompiler.CompileThis Console HostConsole
+
+DevCompiler.CompileThis TextModels TextRulers TextSetters TextViews TextControllers TextMappers TextCmds
+
+DevCompiler.CompileThis Gtk2GLib Gtk2GObject Gtk2Keysyms Gtk2Pango Gtk2Gdk Gtk2Gtk Gtk2Util
+
+DevCompiler.CompileThis HostFonts HostPorts HostMechanisms HostWindows HostClipboard HostCFrames HostDialog HostCmds
+
+DevCompiler.CompileThis StdLog
+
+DevCompiler.CompileThis ConsLog
+
+DevCompiler.CompileThis FormModels FormViews FormControllers FormGen FormCmds
+
+DevCompiler.CompileThis StdTables StdTabViews HostTabFrames
+
+DevCompiler.CompileThis HostTextConv
+
+DevCompiler.CompileThis HostMenus
+
+DevCompiler.CompileThis StdFolds StdLinks StdDebug StdMenuTool StdClocks StdStamps StdLogos StdCoder StdScrollers
+
+DevCompiler.CompileThis In Out Integers
+
+DevCompiler.CompileThis Config Init
+
+### Dev:
+DevCompiler.CompileThis DevMarkers DevCommanders DevSelectors DevCPM DevCPT DevCPH DevCPB DevCPE DevCPS DevCPP DevCPL486 DevCPC486 DevCPV486 DevCompiler DevElfLinker16 DevLinker
+DevCompiler.CompileThis ConsInterp ConsCompiler
+DevCompiler.CompileThis DevAlienTool DevDebug DevDependencies DevHeapSpy DevInspector DevLinkChk DevMsgSpy DevRBrowser DevReferences DevSearch DevSubTool DevCmds DevBrowser
+DevCompiler.CompileThis HostPackedFiles DevPacker
+
+### Xhtml:
+DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
+
+### Comm:
+DevCompiler.CompileThis CommStreams
+ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
+ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
+ConsCompiler.Compile('Lin/Mod', 'Net.txt')
+DevCompiler.CompileThis CommV24 CommTCP
+
+### Obx:
+DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
+DevCompiler.CompileThis ObxActions ObxAddress0 ObxAddress1 ObxAddress2 ObxAscii ObxBlackBox ObxButtons ObxCalc ObxCaps ObxContIter ObxControlShifter ObxControls ObxConv ObxCount0 ObxCount1 ObxCubes ObxDb ObxDialog ObxFact ObxFileTree ObxFldCtrls ObxGraphs ObxHello1 ObxLabelLister ObxLines ObxLinks ObxMMerge ObxOmosi ObxOpen0 ObxOpen1 ObxOrders ObxParCmd ObxPatterns ObxRatcalc ObxSample ObxScroll ObxStores ObxTabViews ObxTabs ObxTickers ObxTwins ObxUnitConv ObxViews0 ObxViews1 ObxViews10 ObxViews11 ObxViews12 ObxViews13 ObxViews14 ObxViews2 ObxViews3 ObxViews4 ObxViews5 ObxViews6 ObxWrappers
+DevCompiler.CompileThis ObxPhoneDB ObxPhoneUI ObxPhoneUI1 ObxLookup0 ObxLookup1 ObxPDBRep0 ObxPDBRep1 ObxPDBRep2 ObxPDBRep3 ObxPDBRep4
+
+# TRAP:
+#DevCompiler.CompileThis ObxCtrls
+DATA

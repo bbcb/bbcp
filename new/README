@@ -1,2 +1,3 @@
-./build-gui
+./switch-target `uname -s` GUI
+./build
 ./run-BlackBox
