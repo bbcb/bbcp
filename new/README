@@ -1,3 +1,4 @@
+echo "Please wait..."
 ./switch-target `uname -s` GUI
 ./build
 ./run-BlackBox
