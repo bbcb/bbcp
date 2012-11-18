@@ -10,6 +10,10 @@ sd=`readlink -f .`
 loader="loader"
 lib="libBB.so"
 
+# for Ubuntu:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+
 # export LD_DEBUG=all
 env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
