@@ -59,6 +59,6 @@ elif [ $# -eq 2 ]; then
 	dolinks "${1}" "${2}"
 else
 	echo "usage: `basename $0` ( none | OS [ configuration ] )"
-	echo "	OS: Linux | OpenBSD"
+	echo "	OS: Linux | OpenBSD | FreeBSD"
 	exit 1
 fi
