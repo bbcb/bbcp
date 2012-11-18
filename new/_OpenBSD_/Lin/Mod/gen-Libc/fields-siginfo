@@ -1,0 +1,28 @@
+			(* OpenBSD 5.2 /usr/include/sys/siginfo.h *)
+				si_signo*: int; (* signal from signal.h *)
+				si_code*: int; (* code from above *)
+				si_errno*: int; (* error from errno.h *)
+				_data*: RECORD [union]
+					_pad*: ARRAY [untagged] 29 (* SI_PAD *) OF int; (* for future growth *)
+					_proc*: RECORD [untagged] (* kill(), SIGCLD, siqqueue() *)
+						_pid*: pid_t; (* process ID *)
+						_pdata*: RECORD [union]
+							_kill*: RECORD [untagged]
+								_uid*: uid_t;
+(*
+								_value*: sigval;
+*)
+								_value*: int
+							END;
+							_cld*: RECORD [untagged]
+								_utime*: clock_t;
+								_status*: int;
+								_stime*: clock_t;
+							END;
+						END;
+					END;
+					_fault*: RECORD [untagged] (* SIGSEGV, SIGBUS, SIGILL and SIGFPE *)
+						_addr*: PtrVoid; (* faulting address *)
+						_trapno*: int; (* illegal trap number *)
+					END;
+				END;

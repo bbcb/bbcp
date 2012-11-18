@@ -1,7 +1,7 @@
-MODULE LinLibc ["libc.so.66.0"];
+MODULE LinLibc ["libc.so.7"];
 
 	(*
-		OpenBSD 5.2
+		FreeBSD 9.0
 		i386
 	*)
 
@@ -10,27 +10,26 @@ MODULE LinLibc ["libc.so.66.0"];
 		FALSE* = 0;
 		TRUE* = 1;
 
-		CLOCKS_PER_SEC* = 100;
+		CLOCKS_PER_SEC* = 128;
 
 		MAP_FAILED* = -1;
 
 		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
 		MAP_SHARED* = {0}; (* share changes *)
 		MAP_PRIVATE* = {1}; (* changes are private *)
-		MAP_COPY* = {2}; (* "copy" region at mmap time *)
 		MAP_FIXED* = {4}; (* map addr must be exactly as requested *)
+		MAP_COPY* = MAP_PRIVATE; (* Obsolete *)
 		MAP_RENAME* = {5}; (* Sun: rename private pages to file *)
 		MAP_NORESERVE* = {6}; (* Sun: don't reserve needed swap area *)
-		MAP_INHERIT* = {7}; (* region is retained after exec *)
-		MAP_NOEXTEND* = {8}; (* for MAP_FILE, don't change file size *)
+		MAP_RESERVED0080* = {7}; (* previously misimplemented MAP_INHERIT *)
+		MAP_RESERVED0100* = {8}; (* previously unimplemented MAP_NOEXTEND *)
 		MAP_HASSEMAPHORE* = {9}; (* region may contain semaphores *)
-		MAP_TRYFIXED* = {10}; (* attempt hint address, even within heap *)
+		MAP_STACK* = {10}; (* region grows down, like a stack *)
+		MAP_NOSYNC* = {11}; (* page to but do not sync underlying file *)
 		MAP_FILE* = {}; (* map from file (default) *)
 		MAP_ANON* = {12}; (* allocated from memory, swap space *)
-		MAP_FLAGMASK* = {0..2,4..12};
-		MAP_INHERIT_SHARE* = {}; (* share with child *)
-		MAP_INHERIT_COPY* = {0}; (* copy into child *)
-		MAP_INHERIT_NONE* = {1}; (* absent from child *)
+		MAP_NOCORE* = {17}; (* dont include these pages in a coredump *)
+		MAP_PREFAULT_READ* = {18}; (* prefault mapping for reading *)
 
 
 		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
@@ -47,195 +46,166 @@ MODULE LinLibc ["libc.so.66.0"];
 
 
 		(* FPE_INTDIV, FPE_INTOVF, FPE_FLTDIV, FPE_FLTOVF, FPE_FLTUND, FPE_FLTRES, FPE_FLTINV, FPE_FLTSUB (int) *)
-		FPE_INTDIV* = 1; (* integer divide by zero *)
-		FPE_INTOVF* = 2; (* integer overflow *)
-		FPE_FLTDIV* = 3; (* floating point divide by zero *)
-		FPE_FLTOVF* = 4; (* floating point overflow *)
-		FPE_FLTUND* = 5; (* floating point underflow *)
-		FPE_FLTRES* = 6; (* floating point inexact result *)
-		FPE_FLTINV* = 7; (* invalid floating point operation *)
-		FPE_FLTSUB* = 8; (* subscript out of range *)
+		FPE_INTOVF* = 1; (* Integer overflow. *)
+		FPE_INTDIV* = 2; (* Integer divide by zero. *)
+		FPE_FLTDIV* = 3; (* Floating point divide by zero. *)
+		FPE_FLTOVF* = 4; (* Floating point overflow. *)
+		FPE_FLTUND* = 5; (* Floating point underflow. *)
+		FPE_FLTRES* = 6; (* Floating point inexact result. *)
+		FPE_FLTINV* = 7; (* Invalid floating point operation. *)
+		FPE_FLTSUB* = 8; (* Subscript out of range. *)
 
 
 		(* SA_SIGINFO (intFlags) *)
 		SA_NOCLDSTOP* = {3}; (* do not generate SIGCHLD on child stop *)
 		SA_ONSTACK* = {0}; (* take signal on signal stack *)
-		SA_RESTART* = {1}; (* restart system on signal return *)
+		SA_RESTART* = {1}; (* restart system call on signal return *)
 		SA_RESETHAND* = {2}; (* reset to SIG_DFL when taking signal *)
 		SA_NODEFER* = {4}; (* don't mask the signal we're delivering *)
-		SA_NOCLDWAIT* = {5}; (* don't create zombies (assign to pid 1) *)
-		SA_SIGINFO* = {6}; (* generate siginfo_t *)
+		SA_NOCLDWAIT* = {5}; (* don't keep zombies around *)
+		SA_SIGINFO* = {6}; (* signal handler with SA_SIGINFO args *)
 
 
 		(* SIGINT, SIGILL, SIGFPE, SIGSEGV, SIGKILL, SIGSTOP, SIGWINCH, SIGTHR (int) *)
-		SIGHUP* = 1; (* hangup *)
 		SIGINT* = 2; (* interrupt *)
-		SIGQUIT* = 3; (* quit *)
-		SIGILL* = 4; (* illegal instruction (not reset when caught) *)
-		SIGTRAP* = 5; (* trace trap (not reset when caught) *)
+		SIGILL* = 4; (* illegal instr. (not reset when caught) *)
 		SIGABRT* = 6; (* abort() *)
 		SIGFPE* = 8; (* floating point exception *)
+		SIGSEGV* = 11; (* segmentation violation *)
+		SIGTERM* = 15; (* software termination signal from kill *)
+		SIGRTMIN* = 65;
+		SIGRTMAX* = 126;
+		SIGHUP* = 1; (* hangup *)
+		SIGQUIT* = 3; (* quit *)
+		SIGTRAP* = 5; (* trace trap (not reset when caught) *)
+		SIGIOT* = SIGABRT; (* compatibility *)
+		SIGEMT* = 7; (* EMT instruction *)
 		SIGKILL* = 9; (* kill (cannot be caught or ignored) *)
 		SIGBUS* = 10; (* bus error *)
-		SIGSEGV* = 11; (* segmentation violation *)
-		SIGSYS* = 12; (* bad argument to system call *)
+		SIGSYS* = 12; (* non-existent system call invoked *)
 		SIGPIPE* = 13; (* write on a pipe with no one to read it *)
 		SIGALRM* = 14; (* alarm clock *)
-		SIGTERM* = 15; (* software termination signal from kill *)
 		SIGURG* = 16; (* urgent condition on IO channel *)
 		SIGSTOP* = 17; (* sendable stop signal not from tty *)
 		SIGTSTP* = 18; (* stop signal from tty *)
 		SIGCONT* = 19; (* continue a stopped process *)
 		SIGCHLD* = 20; (* to parent on child stop or exit *)
 		SIGTTIN* = 21; (* to readers pgrp upon background tty read *)
-		SIGTTOU* = 22; (* like TTIN for output if (tp->t_local&LTOSTOP) *)
+		SIGTTOU* = 22; (* like TTIN if (tp->t_local&LTOSTOP) *)
+		SIGIO* = 23; (* input/output possible signal *)
 		SIGXCPU* = 24; (* exceeded CPU time limit *)
 		SIGXFSZ* = 25; (* exceeded file size limit *)
 		SIGVTALRM* = 26; (* virtual time alarm *)
 		SIGPROF* = 27; (* profiling time alarm *)
+		SIGWINCH* = 28; (* window size changes *)
+		SIGINFO* = 29; (* information request *)
 		SIGUSR1* = 30; (* user defined signal 1 *)
 		SIGUSR2* = 31; (* user defined signal 2 *)
-		SIGWINCH* = 28; (* window size changes *)
-		SIGTHR* = 32; (* thread library AST *)
+		SIGTHR* = 32; (* reserved by thread library. *)
+		SIGLWP* = SIGTHR;
+		SIGEV_NONE* = 0; (* No async notification. *)
+		SIGEV_SIGNAL* = 1; (* Generate a queued signal. *)
+		SIGEV_THREAD* = 2; (* Call back from another pthread. *)
 
-		_NSIG* = 33;
+		_NSIG* = SIGTHR + 1;
 
 (*
 		PAGE_SIZE* = 4096;
 *)
-		_SC_ARG_MAX* = 1;
-		_SC_CHILD_MAX* = 2;
-		_SC_CLK_TCK* = 3;
-		_SC_NGROUPS_MAX* = 4;
-		_SC_OPEN_MAX* = 5;
-		_SC_JOB_CONTROL* = 6;
-		_SC_SAVED_IDS* = 7;
-		_SC_VERSION* = 8;
-		_SC_BC_BASE_MAX* = 9;
-		_SC_BC_DIM_MAX* = 10;
-		_SC_BC_SCALE_MAX* = 11;
-		_SC_BC_STRING_MAX* = 12;
-		_SC_COLL_WEIGHTS_MAX* = 13;
-		_SC_EXPR_NEST_MAX* = 14;
-		_SC_LINE_MAX* = 15;
-		_SC_RE_DUP_MAX* = 16;
-		_SC_2_VERSION* = 17;
-		_SC_2_C_BIND* = 18;
-		_SC_2_C_DEV* = 19;
-		_SC_2_CHAR_TERM* = 20;
-		_SC_2_FORT_DEV* = 21;
-		_SC_2_FORT_RUN* = 22;
-		_SC_2_LOCALEDEF* = 23;
-		_SC_2_SW_DEV* = 24;
-		_SC_2_UPE* = 25;
-		_SC_STREAM_MAX* = 26;
-		_SC_TZNAME_MAX* = 27;
-		_SC_PAGESIZE* = 28;
-		_SC_PAGE_SIZE* = _SC_PAGESIZE; (* 1170 compatibility *)
-		_SC_FSYNC* = 29;
-		_SC_XOPEN_SHM* = 30;
-		_SC_SEM_NSEMS_MAX* = 31;
-		_SC_SEM_VALUE_MAX* = 32;
-		_SC_HOST_NAME_MAX* = 33;
-		_SC_MONOTONIC_CLOCK* = 34;
-		_SC_2_PBS* = 35;
-		_SC_2_PBS_ACCOUNTING* = 36;
-		_SC_2_PBS_CHECKPOINT* = 37;
-		_SC_2_PBS_LOCATE* = 38;
-		_SC_2_PBS_MESSAGE* = 39;
-		_SC_2_PBS_TRACK* = 40;
-		_SC_ADVISORY_INFO* = 41;
+		_SC_ASYNCHRONOUS_IO* = 28;
+		_SC_MAPPED_FILES* = 29;
+		_SC_MEMLOCK* = 30;
+		_SC_MEMLOCK_RANGE* = 31;
+		_SC_MEMORY_PROTECTION* = 32;
+		_SC_MESSAGE_PASSING* = 33;
+		_SC_PRIORITIZED_IO* = 34;
+		_SC_PRIORITY_SCHEDULING* = 35;
+		_SC_REALTIME_SIGNALS* = 36;
+		_SC_SEMAPHORES* = 37;
+		_SC_FSYNC* = 38;
+		_SC_SHARED_MEMORY_OBJECTS* = 39;
+		_SC_SYNCHRONIZED_IO* = 40;
+		_SC_TIMERS* = 41;
 		_SC_AIO_LISTIO_MAX* = 42;
 		_SC_AIO_MAX* = 43;
 		_SC_AIO_PRIO_DELTA_MAX* = 44;
-		_SC_ASYNCHRONOUS_IO* = 45;
-		_SC_ATEXIT_MAX* = 46;
-		_SC_BARRIERS* = 47;
-		_SC_CLOCK_SELECTION* = 48;
-		_SC_CPUTIME* = 49;
-		_SC_DELAYTIMER_MAX* = 50;
-		_SC_IOV_MAX* = 51;
-		_SC_IPV6* = 52;
-		_SC_MAPPED_FILES* = 53;
-		_SC_MEMLOCK* = 54;
-		_SC_MEMLOCK_RANGE* = 55;
-		_SC_MEMORY_PROTECTION* = 56;
-		_SC_MESSAGE_PASSING* = 57;
-		_SC_MQ_OPEN_MAX* = 58;
-		_SC_MQ_PRIO_MAX* = 59;
-		_SC_PRIORITIZED_IO* = 60;
-		_SC_PRIORITY_SCHEDULING* = 61;
-		_SC_RAW_SOCKETS* = 62;
-		_SC_READER_WRITER_LOCKS* = 63;
-		_SC_REALTIME_SIGNALS* = 64;
-		_SC_REGEXP* = 65;
-		_SC_RTSIG_MAX* = 66;
-		_SC_SEMAPHORES* = 67;
-		_SC_SHARED_MEMORY_OBJECTS* = 68;
-		_SC_SHELL* = 69;
-		_SC_SIGQUEUE_MAX* = 70;
-		_SC_SPAWN* = 71;
-		_SC_SPIN_LOCKS* = 72;
-		_SC_SPORADIC_SERVER* = 73;
-		_SC_SS_REPL_MAX* = 74;
-		_SC_SYNCHRONIZED_IO* = 75;
-		_SC_SYMLOOP_MAX* = 76;
-		_SC_THREAD_ATTR_STACKADDR* = 77;
-		_SC_THREAD_ATTR_STACKSIZE* = 78;
-		_SC_THREAD_CPUTIME* = 79;
-		_SC_THREAD_DESTRUCTOR_ITERATIONS* = 80;
-		_SC_THREAD_KEYS_MAX* = 81;
-		_SC_THREAD_PRIO_INHERIT* = 82;
-		_SC_THREAD_PRIO_PROTECT* = 83;
-		_SC_THREAD_PRIORITY_SCHEDULING* = 84;
-		_SC_THREAD_PROCESS_SHARED* = 85;
-		_SC_THREAD_ROBUST_PRIO_INHERIT* = 86;
-		_SC_THREAD_ROBUST_PRIO_PROTECT* = 87;
-		_SC_THREAD_SPORADIC_SERVER* = 88;
-		_SC_THREAD_STACK_MIN* = 89;
-		_SC_THREAD_THREADS_MAX* = 90;
-		_SC_THREADS* = 91;
-		_SC_TIMEOUTS* = 92;
-		_SC_TIMER_MAX* = 93;
-		_SC_TIMERS* = 94;
-		_SC_TRACE* = 95;
-		_SC_TRACE_EVENT_FILTER* = 96;
-		_SC_TRACE_EVENT_NAME_MAX* = 97;
-		_SC_TRACE_INHERIT* = 98;
-		_SC_TRACE_LOG* = 99;
-		_SC_GETGR_R_SIZE_MAX* = 100;
-		_SC_GETPW_R_SIZE_MAX* = 101;
-		_SC_LOGIN_NAME_MAX* = 102;
-		_SC_THREAD_SAFE_FUNCTIONS* = 103;
-		_SC_TRACE_NAME_MAX* = 104;
-		_SC_TRACE_SYS_MAX* = 105;
-		_SC_TRACE_USER_EVENT_MAX* = 106;
-		_SC_TTY_NAME_MAX* = 107;
-		_SC_TYPED_MEMORY_OBJECTS* = 108;
-		_SC_V6_ILP32_OFF32* = 109;
-		_SC_V6_ILP32_OFFBIG* = 110;
-		_SC_V6_LP64_OFF64* = 111;
-		_SC_V6_LPBIG_OFFBIG* = 112;
-		_SC_V7_ILP32_OFF32* = 113;
-		_SC_V7_ILP32_OFFBIG* = 114;
-		_SC_V7_LP64_OFF64* = 115;
-		_SC_V7_LPBIG_OFFBIG* = 116;
-		_SC_XOPEN_CRYPT* = 117;
-		_SC_XOPEN_ENH_I18N* = 118;
-		_SC_XOPEN_LEGACY* = 119;
-		_SC_XOPEN_REALTIME* = 120;
-		_SC_XOPEN_REALTIME_THREADS* = 121;
-		_SC_XOPEN_STREAMS* = 122;
-		_SC_XOPEN_UNIX* = 123;
-		_SC_XOPEN_UUCP* = 124;
-		_SC_XOPEN_VERSION* = 125;
-		_SC_PHYS_PAGES* = 500;
-		_SC_AVPHYS_PAGES* = 501;
-		_SC_NPROCESSORS_CONF* = 502;
-		_SC_NPROCESSORS_ONLN* = 503;
+		_SC_DELAYTIMER_MAX* = 45;
+		_SC_MQ_OPEN_MAX* = 46;
+		_SC_PAGESIZE* = 47;
+		_SC_RTSIG_MAX* = 48;
+		_SC_SEM_NSEMS_MAX* = 49;
+		_SC_SEM_VALUE_MAX* = 50;
+		_SC_SIGQUEUE_MAX* = 51;
+		_SC_TIMER_MAX* = 52;
+		_SC_2_PBS* = 59; (* user *)
+		_SC_2_PBS_ACCOUNTING* = 60; (* user *)
+		_SC_2_PBS_CHECKPOINT* = 61; (* user *)
+		_SC_2_PBS_LOCATE* = 62; (* user *)
+		_SC_2_PBS_MESSAGE* = 63; (* user *)
+		_SC_2_PBS_TRACK* = 64; (* user *)
+		_SC_ADVISORY_INFO* = 65;
+		_SC_BARRIERS* = 66; (* user *)
+		_SC_CLOCK_SELECTION* = 67;
+		_SC_CPUTIME* = 68;
+		_SC_FILE_LOCKING* = 69;
+		_SC_GETGR_R_SIZE_MAX* = 70; (* user *)
+		_SC_GETPW_R_SIZE_MAX* = 71; (* user *)
+		_SC_HOST_NAME_MAX* = 72;
+		_SC_LOGIN_NAME_MAX* = 73;
+		_SC_MONOTONIC_CLOCK* = 74;
+		_SC_MQ_PRIO_MAX* = 75;
+		_SC_READER_WRITER_LOCKS* = 76; (* user *)
+		_SC_REGEXP* = 77; (* user *)
+		_SC_SHELL* = 78; (* user *)
+		_SC_SPAWN* = 79; (* user *)
+		_SC_SPIN_LOCKS* = 80; (* user *)
+		_SC_SPORADIC_SERVER* = 81;
+		_SC_THREAD_ATTR_STACKADDR* = 82; (* user *)
+		_SC_THREAD_ATTR_STACKSIZE* = 83; (* user *)
+		_SC_THREAD_CPUTIME* = 84; (* user *)
+		_SC_THREAD_DESTRUCTOR_ITERATIONS* = 85; (* user *)
+		_SC_THREAD_KEYS_MAX* = 86; (* user *)
+		_SC_THREAD_PRIO_INHERIT* = 87; (* user *)
+		_SC_THREAD_PRIO_PROTECT* = 88; (* user *)
+		_SC_THREAD_PRIORITY_SCHEDULING* = 89; (* user *)
+		_SC_THREAD_PROCESS_SHARED* = 90; (* user *)
+		_SC_THREAD_SAFE_FUNCTIONS* = 91; (* user *)
+		_SC_THREAD_SPORADIC_SERVER* = 92; (* user *)
+		_SC_THREAD_STACK_MIN* = 93; (* user *)
+		_SC_THREAD_THREADS_MAX* = 94; (* user *)
+		_SC_TIMEOUTS* = 95; (* user *)
+		_SC_THREADS* = 96; (* user *)
+		_SC_TRACE* = 97; (* user *)
+		_SC_TRACE_EVENT_FILTER* = 98; (* user *)
+		_SC_TRACE_INHERIT* = 99; (* user *)
+		_SC_TRACE_LOG* = 100; (* user *)
+		_SC_TTY_NAME_MAX* = 101; (* user *)
+		_SC_TYPED_MEMORY_OBJECTS* = 102;
+		_SC_V6_ILP32_OFF32* = 103; (* user *)
+		_SC_V6_ILP32_OFFBIG* = 104; (* user *)
+		_SC_V6_LP64_OFF64* = 105; (* user *)
+		_SC_V6_LPBIG_OFFBIG* = 106; (* user *)
+		_SC_IPV6* = 118;
+		_SC_RAW_SOCKETS* = 119;
+		_SC_SYMLOOP_MAX* = 120;
+		_SC_ATEXIT_MAX* = 107; (* user *)
+		_SC_IOV_MAX* = 56;
+		_SC_XOPEN_CRYPT* = 108; (* user *)
+		_SC_XOPEN_ENH_I18N* = 109; (* user *)
+		_SC_XOPEN_LEGACY* = 110; (* user *)
+		_SC_XOPEN_REALTIME* = 111;
+		_SC_XOPEN_REALTIME_THREADS* = 112;
+		_SC_XOPEN_SHM* = 113;
+		_SC_XOPEN_STREAMS* = 114;
+		_SC_XOPEN_UNIX* = 115;
+		_SC_XOPEN_VERSION* = 116;
+		_SC_XOPEN_XCU_VERSION* = 117; (* user *)
+		_SC_NPROCESSORS_CONF* = 57;
+		_SC_NPROCESSORS_ONLN* = 58;
+		_SC_CPUSET_SIZE* = 122;
 
 
-		SIGSTKSZ* = 8192 + 32768;
+		SIGSTKSZ* = 512 * 4 + 32768 (* FreeBSD 9.0 /usr/include/sys/signal.h *);
 
 		(* ENOENT, EEXIST, EACCES, ENOMEM, EDQUOT, EMFILE, ENOTDIR (int) *)
 		EPERM* = 1; (* Operation not permitted *)
@@ -262,16 +232,25 @@ MODULE LinLibc ["libc.so.66.0"];
 		ENFILE* = 23; (* Too many open files in system *)
 		EMFILE* = 24; (* Too many open files *)
 		ENOTTY* = 25; (* Inappropriate ioctl for device *)
-		ETXTBSY* = 26; (* Text file busy *)
 		EFBIG* = 27; (* File too large *)
 		ENOSPC* = 28; (* No space left on device *)
 		ESPIPE* = 29; (* Illegal seek *)
-		EROFS* = 30; (* Read-only file system *)
+		EROFS* = 30; (* Read-only filesystem *)
 		EMLINK* = 31; (* Too many links *)
 		EPIPE* = 32; (* Broken pipe *)
 		EDOM* = 33; (* Numerical argument out of domain *)
 		ERANGE* = 34; (* Result too large *)
 		EAGAIN* = 35; (* Resource temporarily unavailable *)
+		ENAMETOOLONG* = 63; (* File name too long *)
+		ENOTEMPTY* = 66; (* Directory not empty *)
+		ENOLCK* = 77; (* No locks available *)
+		ENOSYS* = 78; (* Function not implemented *)
+		EBADMSG* = 89; (* Bad message *)
+		EMULTIHOP* = 90; (* Multihop attempted *)
+		ENOLINK* = 91; (* Link has been severed *)
+		EPROTO* = 92; (* Protocol error *)
+		ENOTBLK* = 15; (* Block device required *)
+		ETXTBSY* = 26; (* Text file busy *)
 		EWOULDBLOCK* = EAGAIN; (* Operation would block *)
 		EINPROGRESS* = 36; (* Operation now in progress *)
 		EALREADY* = 37; (* Operation already in progress *)
@@ -281,7 +260,10 @@ MODULE LinLibc ["libc.so.66.0"];
 		EPROTOTYPE* = 41; (* Protocol wrong type for socket *)
 		ENOPROTOOPT* = 42; (* Protocol not available *)
 		EPROTONOSUPPORT* = 43; (* Protocol not supported *)
+		ESOCKTNOSUPPORT* = 44; (* Socket type not supported *)
 		EOPNOTSUPP* = 45; (* Operation not supported *)
+		ENOTSUP* = EOPNOTSUPP; (* Operation not supported *)
+		EPFNOSUPPORT* = 46; (* Protocol family not supported *)
 		EAFNOSUPPORT* = 47; (* Address family not supported by protocol family *)
 		EADDRINUSE* = 48; (* Address already in use *)
 		EADDRNOTAVAIL* = 49; (* Can't assign requested address *)
@@ -293,28 +275,17 @@ MODULE LinLibc ["libc.so.66.0"];
 		ENOBUFS* = 55; (* No buffer space available *)
 		EISCONN* = 56; (* Socket is already connected *)
 		ENOTCONN* = 57; (* Socket is not connected *)
+		ESHUTDOWN* = 58; (* Can't send after socket shutdown *)
+		ETOOMANYREFS* = 59; (* Too many references: can't splice *)
 		ETIMEDOUT* = 60; (* Operation timed out *)
 		ECONNREFUSED* = 61; (* Connection refused *)
 		ELOOP* = 62; (* Too many levels of symbolic links *)
-		ENAMETOOLONG* = 63; (* File name too long *)
-		ENOTEMPTY* = 66; (* Directory not empty *)
-		EDQUOT* = 69; (* Disk quota exceeded *)
-		ESTALE* = 70; (* Stale NFS file handle *)
-		ENOLCK* = 77; (* No locks available *)
-		ENOSYS* = 78; (* Function not implemented *)
-		EILSEQ* = 84; (* Illegal byte sequence *)
-		EIDRM* = 89; (* Identifier removed *)
-		ENOMSG* = 90; (* No message of desired type *)
-		ENOTSUP* = 91; (* Not supported *)
-		ENOTBLK* = 15; (* Block device required *)
-		ESOCKTNOSUPPORT* = 44; (* Socket type not supported *)
-		EPFNOSUPPORT* = 46; (* Protocol family not supported *)
-		ESHUTDOWN* = 58; (* Can't send after socket shutdown *)
-		ETOOMANYREFS* = 59; (* Too many references: can't splice *)
 		EHOSTDOWN* = 64; (* Host is down *)
 		EHOSTUNREACH* = 65; (* No route to host *)
 		EPROCLIM* = 67; (* Too many processes *)
 		EUSERS* = 68; (* Too many users *)
+		EDQUOT* = 69; (* Disc quota exceeded *)
+		ESTALE* = 70; (* Stale NFS file handle *)
 		EREMOTE* = 71; (* Too many levels of remote in path *)
 		EBADRPC* = 72; (* RPC struct is bad *)
 		ERPCMISMATCH* = 73; (* RPC version wrong *)
@@ -324,15 +295,20 @@ MODULE LinLibc ["libc.so.66.0"];
 		EFTYPE* = 79; (* Inappropriate file type or format *)
 		EAUTH* = 80; (* Authentication error *)
 		ENEEDAUTH* = 81; (* Need authenticator *)
-		EIPSEC* = 82; (* IPsec processing failure *)
-		ENOATTR* = 83; (* Attribute not found *)
-		ENOMEDIUM* = 85; (* No medium found *)
-		EMEDIUMTYPE* = 86; (* Wrong Medium Type *)
-		EOVERFLOW* = 87; (* Conversion overflow *)
-		ECANCELED* = 88; (* Operation canceled *)
-		ELAST* = 91; (* Must be equal largest errno *)
+		EIDRM* = 82; (* Identifier removed *)
+		ENOMSG* = 83; (* No message of desired type *)
+		EOVERFLOW* = 84; (* Value too large to be stored in data type *)
+		ECANCELED* = 85; (* Operation canceled *)
+		EILSEQ* = 86; (* Illegal byte sequence *)
+		ENOATTR* = 87; (* Attribute not found *)
+		EDOOFUS* = 88; (* Programming error *)
+		ENOTCAPABLE* = 93; (* Capabilities insufficient *)
+		ECAPMODE* = 94; (* Not permitted in capability mode *)
+		ELAST* = 94; (* Must be equal largest errno *)
 		ERESTART* = -1; (* restart syscall *)
 		EJUSTRETURN* = -2; (* don't modify regs, just return *)
+		ENOIOCTL* = -3; (* ioctl not handled by this layer *)
+		EDIRIOCTL* = -4; (* do direct ioctl in GEOM *)
 
 
 		NAME_MAX* = 255;
@@ -347,22 +323,24 @@ MODULE LinLibc ["libc.so.66.0"];
 		O_SHLOCK* = {4}; (* open with shared file lock *)
 		O_EXLOCK* = {5}; (* open with exclusive file lock *)
 		O_ASYNC* = {6}; (* signal pgrp when data ready *)
-		O_NOFOLLOW* = {8}; (* if path is a symlink, don't follow *)
-		O_SYNC* = {7}; (* synchronous writes *)
+		O_FSYNC* = {7}; (* synchronous writes *)
+		O_NOFOLLOW* = {8}; (* don't follow symlinks *)
+		O_DIRECT* = {16};
+		O_DIRECTORY* = {17}; (* Fail if not directory *)
+		O_EXEC* = {18}; (* Open for execute only *)
+		O_TTY_INIT* = {19}; (* Restore default termios attributes *)
+		O_CLOEXEC* = {20};
 		O_RDONLY* = {}; (* open for reading only *)
 		O_WRONLY* = {0}; (* open for writing only *)
 		O_RDWR* = {1}; (* open for reading and writing *)
 		O_ACCMODE* = {0,1}; (* mask for above modes *)
 		O_NONBLOCK* = {2}; (* no delay *)
 		O_APPEND* = {3}; (* set append mode *)
+		O_SYNC* = {7}; (* POSIX synonym for O_FSYNC *)
 		O_CREAT* = {9}; (* create if nonexistent *)
 		O_TRUNC* = {10}; (* truncate to zero length *)
 		O_EXCL* = {11}; (* error if already exists *)
-		O_DSYNC* = O_SYNC; (* synchronous data writes *)
-		O_RSYNC* = O_SYNC; (* synchronous reads *)
 		O_NOCTTY* = {15}; (* don't assign controlling terminal *)
-		O_CLOEXEC* = {16}; (* atomically set FD_CLOEXEC *)
-		O_DIRECTORY* = {17}; (* fail if not a directory *)
 
 
 	TYPE
@@ -380,33 +358,35 @@ MODULE LinLibc ["libc.so.66.0"];
 		off_t* = LONGINT;
 		clock_t* = INTEGER;
 		time_t* = INTEGER;
-		mode_t* = SET;
+		mode_t* = SHORTINT;
 		pid_t* = INTEGER;
 		uid_t* = INTEGER;
 		gid_t* = INTEGER;
 		dev_t* = INTEGER;
 		ino_t* = INTEGER;
-		nlink_t* = INTEGER;
+		nlink_t* = SHORTINT;
 		int8_t* = SHORTCHAR;
-		u_int8_t* = SHORTCHAR;
+		uint8_t* = SHORTCHAR;
 		int16_t* = SHORTINT;
-		u_int16_t* = SHORTINT;
+		uint16_t* = SHORTINT;
 		int32_t* = INTEGER;
-		u_int32_t* = INTEGER;
+		uint32_t* = INTEGER;
 		int64_t* = LONGINT;
-		u_int64_t* = LONGINT;
+		uint64_t* = LONGINT;
 		wchar_t* = INTEGER;
-		sigset_t* = SET;
-		sigjmp_buf* = ARRAY [untagged] 11 OF INTEGER;
+		sigset_t* = ARRAY [untagged] 4 OF SET;
+		sigjmp_buf* = ARRAY [untagged] 12 OF INTEGER;
 		intFlags* = SET;
-		FILE = ARRAY [untagged] 22 OF INTEGER;
+		blkcnt_t* = LONGINT;
+		blksize_t* = INTEGER;
+		fflags_t* = SET;
 
 
 		tm* = POINTER TO tmDesc;
 		tmDesc* = RECORD [untagged]
 			(* NOTE: check record size *)
 			(* tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday [ , tm_gmtoff ] *)
-			(* OpenBSD 5.2 /usr/include/time.h *)
+			(* FreeBSD 9.0 /usr/include/time.h *)
 				tm_sec*: int; (* seconds after the minute [0-60] *)
 				tm_min*: int; (* minutes after the hour [0-59] *)
 				tm_hour*: int; (* hours since midnight [0-23] *)
@@ -415,7 +395,7 @@ MODULE LinLibc ["libc.so.66.0"];
 				tm_year*: int; (* years since 1900 *)
 				tm_wday*: int; (* days since Sunday [0-6] *)
 				tm_yday*: int; (* days since January 1 [0-365] *)
-				tm_isdst*: int; (* Daylight Saving Time flag *)
+				tm_isdst*: int; (* Daylight Savings Time flag *)
 				tm_gmtoff*: long; (* offset from UTC in seconds *)
 				tm_zone*: PtrSTR; (* timezone abbreviation *)
 		END;
@@ -423,32 +403,35 @@ MODULE LinLibc ["libc.so.66.0"];
 		Ptrsiginfo_t* = POINTER TO siginfo_t;
 		siginfo_t = RECORD [untagged]
 			(* si_code, fault address *)
-			(* OpenBSD 5.2 /usr/include/sys/siginfo.h *)
-				si_signo*: int; (* signal from signal.h *)
-				si_code*: int; (* code from above *)
-				si_errno*: int; (* error from errno.h *)
-				_data*: RECORD [union]
-					_pad*: ARRAY [untagged] 29 (* SI_PAD *) OF int; (* for future growth *)
-					_proc*: RECORD [untagged] (* kill(), SIGCLD, siqqueue() *)
-						_pid*: pid_t; (* process ID *)
-						_pdata*: RECORD [union]
-							_kill*: RECORD [untagged]
-								_uid*: uid_t;
+			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
+				si_signo*: int; (* signal number *)
+				si_errno*: int; (* errno association *)
+				si_code*: int; (* signal code *)
+				si_pid*: pid_t; (* sending process *)
+				si_uid*: uid_t; (* sender's ruid *)
+				si_status*: int; (* exit value *)
+				si_addr*: PtrVoid; (* faulting instruction *)
 (*
-								_value*: sigval;
+				si_value*: sigval; (* signal value *)
 *)
-								_value*: int
-							END;
-							_cld*: RECORD [untagged]
-								_utime*: clock_t;
-								_status*: int;
-								_stime*: clock_t;
-							END;
-						END;
+				si_value*: PtrVoid;
+				_reason*: RECORD [union]
+					_fault*: RECORD [untagged]
+						_trapno*: int; (* machine specific trap code *)
 					END;
-					_fault*: RECORD [untagged] (* SIGSEGV, SIGBUS, SIGILL and SIGFPE *)
-						_addr*: PtrVoid; (* faulting address *)
-						_trapno*: int; (* illegal trap number *)
+					_timer*: RECORD [untagged]
+						_timerid*: int;
+						_overrun*: int;
+					END;
+					_mesgq*: RECORD [untagged]
+						_mqd*: int;
+					END;
+					_poll*: RECORD [untagged]
+						_band*: long; (* band event for SIGPOLL *)
+					END;
+					__spare__: RECORD [untagged]
+						__spare1__: long;
+						__spare2__: ARRAY [untagged] 7 OF int;
 					END;
 				END;
 		END;
@@ -456,42 +439,41 @@ MODULE LinLibc ["libc.so.66.0"];
 		Ptrucontext_t* = POINTER TO ucontext_t;
 		ucontext_t = RECORD [untagged]
 			(* IP, SP, FP *)
-			(* OpenBSD 5.2 /usr/include/i386/signal.h struct sigcontext *)
-				sc_gs*: int;
+			(* FreeBSD 9.0 /usr/include/machine/signal.h *)
+				sc_mask*: sigset_t; (* signal mask to restore *)
+				sc_onstack*: int; (* sigstack state to restore *)
+				sc_gs*: int;  (* machine state (struct trapframe) *)
 				sc_fs*: int;
 				sc_es*: int;
 				sc_ds*: int;
 				sc_edi*: int;
 				sc_esi*: int;
 				sc_ebp*: int;
+				sc_isp*: int;
 				sc_ebx*: int;
 				sc_edx*: int;
 				sc_ecx*: int;
 				sc_eax*: int;
-				(* XXX *)
+				sc_trapno*: int;
+				sc_err*: int;
 				sc_eip*: int;
 				sc_cs*: int;
-				sc_eflags*: int;
+				sc_efl*: int;
 				sc_esp*: int;
 				sc_ss*: int;
-
-				sc_onstack*: int; (* sigstack state to restore *)
-				sc_mask*: int; (* signal mask to restore *)
-
-				sc_trapno*: int; (* XXX should be above *)
-				sc_err*: int;
-
-				sc_fpstate*: RECORD [union]
-					(* OpenBSD 5.2 /usr/include/i386/npx.h union savefpu *)
-(*
-						sv_87*: RECORD [untagged]
-							...
-						END;
-						sv_xmm*: RECORD [untagged]
-							...
-						END;
-*)
-				END;
+				sc_len*: int; (* sizeof(mcontext_t) *)
+				
+				(*
+				 * XXX - See <machine/ucontext.h> and <machine/npx.h> for
+				 *       the following fields.
+				 *)
+				sc_fpformat: int;
+				sc_ownedfp: int;
+				sc_spare1: ARRAY [untagged] 1 OF int;
+				sc_fpstate: ARRAY [untagged] 128 OF int; (* FIXME: __aligned(16) *)
+				sc_fsbase: int;
+				sc_gsbase: int;
+				sc_spare2: ARRAY 6 OF int;
 		END;
 
 		sigaction_t* = RECORD [untagged]
@@ -499,17 +481,17 @@ MODULE LinLibc ["libc.so.66.0"];
 			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
-			(* OpenBSD 5.2 /usr/include/sys/signal.h *)
-				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ctx: Ptrucontext_t);
-				sa_mask*: sigset_t;
-				sa_flags*: intFlags;
+			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
+				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* signal handler *)
+				sa_flags*: intFlags; (* see options *)
+				sa_mask*: sigset_t; (* signal mask to apply *)
 		END;
 
 		stack_t* = RECORD [untagged]
 (*
 			ss_sp*: PtrVoid, ss_size*: size_t, ss_flags*: intFlags
 *)
-			(* OpenBSD 5.2 /usr/include/sys/signal.h *)
+			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
 				ss_sp*: PtrVoid; (* signal stack base *)
 				ss_size*: size_t; (* signal stack length *)
 				ss_flags*: intFlags; (* SS_DISABLE and/or SS_ONSTACK *)
@@ -520,16 +502,20 @@ MODULE LinLibc ["libc.so.66.0"];
 			NOTE: check record size
 			st_mode*: mode_t, st_size*: off_t, st_mtime*: time_t
 *)
-			(* OpenBSD 5.2 /usr/include/sys/stat.h *)
-				st_dev*: dev_t;
-				st_ino*: ino_t;
-				st_mode*: mode_t;
-				st_nlink*: nlink_t;
-				st_uid*: uid_t;
-				st_gid*: gid_t;
-				st_rdev*: dev_t;
-				st_lspare0*: int32_t;
+			(* FreeBSD 9.0 /usr/include/sys/stat.h *)
+				st_dev*: dev_t; (* inode's device *)
+				st_ino*: ino_t; (* inode's number *)
+				st_mode*: mode_t; (* inode protection mode *)
+				st_nlink*: nlink_t; (* number of hard links *)
+				st_uid*: uid_t; (* user ID of the file's owner *)
+				st_gid*: gid_t; (* group ID of the file's group *)
+				st_rdev*: dev_t; (* device type *)
 
+(*
+				st_atim: timespec_t; (* time of last access *)
+				st_mtim: timespec_t; (* time of last data modification *)
+				st_ctim: timespec_t; (* time of last file status change *)
+*)
 				st_atime*: time_t;
 				st_atimensec*: long;
 				st_mtime*: time_t;
@@ -537,16 +523,20 @@ MODULE LinLibc ["libc.so.66.0"];
 				st_ctime*: time_t;
 				st_ctimensec*: long;
 
-				st_size*: off_t;
-				st_blocks*: int64_t;
-				st_blksize*: u_int32_t;
-				st_flags*: u_int32_t;
-				st_gen*: u_int32_t;
-				st_lspare1*: int32_t;
+				st_size*: off_t; (* file size, in bytes *)
+				st_blocks*: blkcnt_t; (* blocks allocated for file *)
+				st_blksize*: blksize_t; (* optimal blocksize for I/O *)
+				st_flags*: fflags_t; (* user defined flags for file *)
+				st_gen*: uint32_t; (* file generation number *)
+				st_lspare*: int32_t;
 
+(*
+				st_birthtim: timespec_t; (* time of file creation *)
+*)
 				__st_birthtime*: time_t;
 				__st_birthtimensec*: long;
-				st_qspare*: ARRAY [untagged] 2 OF int64_t;
+
+				___pad: ARRAY [untagged] 2 OF INTEGER; (* FreeBSD 9.0: sizeof(struct stat) = 96 B *)
 		END;
 
 		PtrFILE* = PtrVoid;
@@ -557,12 +547,12 @@ MODULE LinLibc ["libc.so.66.0"];
 (*
 			d_name*: ARRAY [untagged] NAME_MAX + 1 OF SHORTCHAR
 *)
-			(* OpenBSD 5.2 /usr/include/sys/dirent.h *)
-				d_fileno*: u_int32_t; (* file number of entry *)
-				d_reclen*: u_int16_t; (* length of this record *)
-				d_type*: u_int8_t; (* file type, see below *)
-				d_namlen*: u_int8_t; (* length of string in d_name *)
-				d_name*: ARRAY [untagged] 255 + 1 OF SHORTCHAR;
+			(* FreeBSD 9.0 /usr/include/sys/dirent.h *)
+				d_fileno*: uint32_t; (* file number of entry *)
+				d_reclen*: uint16_t; (* length of this record *)
+				d_type*: uint8_t; (* file type, see below *)
+				d_namlen*: uint8_t; (* length of string in d_name *)
+				d_name*: ARRAY [untagged] 255 + 1 (* 256 *) OF SHORTCHAR;
 		END;
 
 (*
@@ -578,15 +568,8 @@ MODULE LinLibc ["libc.so.66.0"];
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
 *)
 	VAR
-		(* OpenBSD: stdin, stdout, stderr *)
-			__sF*: ARRAY [untagged] 3 OF FILE; (* OpenBSD 5.2 /usr/include/stdio.h *)
-				(*
-					stdin = SYSTEM.ADR(__sF[0])
-					stdout = SYSTEM.ADR(__sF[1])
-					stderr = SYSTEM.ADR(__sF[2])
-				*)
-
-	PROCEDURE [ccall] __errno_location* ["__errno"] (): PtrVoid;
+		errno*: INTEGER;
+		stdin* ["__stdinp"]: PtrFILE;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;

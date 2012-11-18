@@ -1,0 +1,1 @@
+512 * 4 + 32768 (* FreeBSD 9.0 /usr/include/sys/signal.h *)

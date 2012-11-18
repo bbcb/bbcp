@@ -1,0 +1,36 @@
+			(* OpenBSD 5.2 /usr/include/i386/signal.h struct sigcontext *)
+				sc_gs*: int;
+				sc_fs*: int;
+				sc_es*: int;
+				sc_ds*: int;
+				sc_edi*: int;
+				sc_esi*: int;
+				sc_ebp*: int;
+				sc_ebx*: int;
+				sc_edx*: int;
+				sc_ecx*: int;
+				sc_eax*: int;
+				(* XXX *)
+				sc_eip*: int;
+				sc_cs*: int;
+				sc_eflags*: int;
+				sc_esp*: int;
+				sc_ss*: int;
+
+				sc_onstack*: int; (* sigstack state to restore *)
+				sc_mask*: int; (* signal mask to restore *)
+
+				sc_trapno*: int; (* XXX should be above *)
+				sc_err*: int;
+
+				sc_fpstate*: RECORD [union]
+					(* OpenBSD 5.2 /usr/include/i386/npx.h union savefpu *)
+(*
+						sv_87*: RECORD [untagged]
+							...
+						END;
+						sv_xmm*: RECORD [untagged]
+							...
+						END;
+*)
+				END;

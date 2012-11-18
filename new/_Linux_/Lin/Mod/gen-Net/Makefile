@@ -1,6 +1,6 @@
 # This is GNU Makefile
 #    BSD       GNU
-# $@    $@
+# ${.TARGET}    $@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 

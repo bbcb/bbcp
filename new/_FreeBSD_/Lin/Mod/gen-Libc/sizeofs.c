@@ -68,18 +68,21 @@ int main ()
 	D("ino_t", sizeof(ino_t), FALSE, TRUE);
 	D("nlink_t", sizeof(nlink_t), FALSE, TRUE);
 	D("int8_t", sizeof(int8_t), FALSE, TRUE);
-	D("u_int8_t", sizeof(u_int8_t), FALSE, TRUE);
+	D("uint8_t", sizeof(u_int8_t), FALSE, TRUE);
 	D("int16_t", sizeof(int16_t), FALSE, TRUE);
-	D("u_int16_t", sizeof(u_int16_t), FALSE, TRUE);
+	D("uint16_t", sizeof(u_int16_t), FALSE, TRUE);
 	D("int32_t", sizeof(int32_t), FALSE, TRUE);
-	D("u_int32_t", sizeof(u_int32_t), FALSE, TRUE);
+	D("uint32_t", sizeof(u_int32_t), FALSE, TRUE);
 	D("int64_t", sizeof(int64_t), FALSE, TRUE);
-	D("u_int64_t", sizeof(u_int64_t), FALSE, TRUE);
+	D("uint64_t", sizeof(u_int64_t), FALSE, TRUE);
 	D("wchar_t", sizeof(wchar_t), FALSE, TRUE);
 	D("sigset_t", sizeof(sigset_t), TRUE, TRUE);
 	D("sigjmp_buf", sizeof(sigjmp_buf), FALSE, TRUE);
 	D("intFlags", sizeof(int), TRUE, TRUE);
-	D("FILE", sizeof(FILE), FALSE, FALSE);
+	/* D("FILE", sizeof(FILE), FALSE, FALSE); */
+	D("blkcnt_t", sizeof(blkcnt_t), FALSE, TRUE);
+	D("blksize_t", sizeof(blksize_t), FALSE, TRUE);
+	D("fflags_t", sizeof(fflags_t), TRUE, TRUE);
 
 	return 0;
 }

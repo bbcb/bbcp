@@ -1,0 +1,35 @@
+			(* FreeBSD 9.0 /usr/include/sys/stat.h *)
+				st_dev*: dev_t; (* inode's device *)
+				st_ino*: ino_t; (* inode's number *)
+				st_mode*: mode_t; (* inode protection mode *)
+				st_nlink*: nlink_t; (* number of hard links *)
+				st_uid*: uid_t; (* user ID of the file's owner *)
+				st_gid*: gid_t; (* group ID of the file's group *)
+				st_rdev*: dev_t; (* device type *)
+
+(*
+				st_atim: timespec_t; (* time of last access *)
+				st_mtim: timespec_t; (* time of last data modification *)
+				st_ctim: timespec_t; (* time of last file status change *)
+*)
+				st_atime*: time_t;
+				st_atimensec*: long;
+				st_mtime*: time_t;
+				st_mtimensec*: long;
+				st_ctime*: time_t;
+				st_ctimensec*: long;
+
+				st_size*: off_t; (* file size, in bytes *)
+				st_blocks*: blkcnt_t; (* blocks allocated for file *)
+				st_blksize*: blksize_t; (* optimal blocksize for I/O *)
+				st_flags*: fflags_t; (* user defined flags for file *)
+				st_gen*: uint32_t; (* file generation number *)
+				st_lspare*: int32_t;
+
+(*
+				st_birthtim: timespec_t; (* time of file creation *)
+*)
+				__st_birthtime*: time_t;
+				__st_birthtimensec*: long;
+
+				___pad: ARRAY [untagged] 2 OF INTEGER; (* FreeBSD 9.0: sizeof(struct stat) = 96 B *)

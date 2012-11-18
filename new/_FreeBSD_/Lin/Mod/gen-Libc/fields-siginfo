@@ -1,0 +1,31 @@
+			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
+				si_signo*: int; (* signal number *)
+				si_errno*: int; (* errno association *)
+				si_code*: int; (* signal code *)
+				si_pid*: pid_t; (* sending process *)
+				si_uid*: uid_t; (* sender's ruid *)
+				si_status*: int; (* exit value *)
+				si_addr*: PtrVoid; (* faulting instruction *)
+(*
+				si_value*: sigval; (* signal value *)
+*)
+				si_value*: PtrVoid;
+				_reason*: RECORD [union]
+					_fault*: RECORD [untagged]
+						_trapno*: int; (* machine specific trap code *)
+					END;
+					_timer*: RECORD [untagged]
+						_timerid*: int;
+						_overrun*: int;
+					END;
+					_mesgq*: RECORD [untagged]
+						_mqd*: int;
+					END;
+					_poll*: RECORD [untagged]
+						_band*: long; (* band event for SIGPOLL *)
+					END;
+					__spare__: RECORD [untagged]
+						__spare1__: long;
+						__spare2__: ARRAY [untagged] 7 OF int;
+					END;
+				END;

@@ -1,0 +1,4 @@
+			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
+				ss_sp*: PtrVoid; (* signal stack base *)
+				ss_size*: size_t; (* signal stack length *)
+				ss_flags*: intFlags; (* SS_DISABLE and/or SS_ONSTACK *)
