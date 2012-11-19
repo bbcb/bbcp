@@ -10,7 +10,7 @@ sd=`readlink -f .`
 loader="loader"
 lib="libBB.so"
 
-# for Ubuntu:
+# fix Ubuntu-specific problems:
 unset UBUNTU_MENUPROXY
 unset GTK_MODULES
 
