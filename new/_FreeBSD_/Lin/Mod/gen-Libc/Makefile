@@ -4,6 +4,8 @@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
+INCDIR ?= /usr/include
+
 PY = python2.7
 
 DEFS = clockspersec defs-map defs-prot defs-sigmask defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc
@@ -13,56 +15,56 @@ all: Libc.txt ${DEFS} strerrnocase.txt
 Libc.txt: Libc.txt.templ ${DEFS} libver osname machine custom fields-dirent fields-sigaction fields-siginfo fields-stack fields-stat fields-tm fields-ucontext
 	${PY} ./untempl.py Libc.txt.templ ${.TARGET}
 
-clockspersec: /usr/include/time.h
-	grep CLOCKS_PER_SEC ${.ALLSRC} | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}
+clockspersec:
+	grep CLOCKS_PER_SEC ${INCDIR}/time.h | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}
 
-defs-map: /usr/include/sys/mman.h
-	./dumpdefs.py 2 1 s ${.ALLSRC} | grep "	MAP_" > ${.TARGET}
-	./dumpdefs.py 2 2 s ${.ALLSRC} | grep "	MAP_" >> ${.TARGET}
+defs-map:
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/mman.h | grep "	MAP_" > ${.TARGET}
+	./dumpdefs.py 2 2 s ${INCDIR}/sys/mman.h | grep "	MAP_" >> ${.TARGET}
 
-defs-prot: /usr/include/sys/mman.h
-	./dumpdefs.py 2 1 s ${.ALLSRC} | grep "	PROT_" > ${.TARGET}
+defs-prot:
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/mman.h | grep "	PROT_" > ${.TARGET}
 
-defs-sigmask: /usr/include/sys/signal.h
-	./dumpdefs.py 2 2 i ${.ALLSRC} | grep "	SIG_" > ${.TARGET}
+defs-sigmask:
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep "	SIG_" > ${.TARGET}
 
-defs-signo: /usr/include/sys/signal.h
-	./dumpdefs.py 2 1 i ${.ALLSRC} | grep "	SIG" > ${.TARGET}
-	./dumpdefs.py 2 2 i ${.ALLSRC} | grep "	SIG" | grep -v SIG_ >> ${.TARGET}
+defs-signo:
+	./dumpdefs.py 2 1 i ${INCDIR}/sys/signal.h | grep "	SIG" > ${.TARGET}
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep "	SIG" | grep -v SIG_ >> ${.TARGET}
 
-defs-fpe: /usr/include/sys/signal.h
-	./dumpdefs.py 2 2 i ${.ALLSRC} | grep "	FPE_" > ${.TARGET}
+defs-fpe:
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep "	FPE_" > ${.TARGET}
 
-defs-sa: /usr/include/sys/signal.h
-	./dumpdefs.py 2 2 s ${.ALLSRC} | grep "	SA_" > ${.TARGET}
+defs-sa:
+	./dumpdefs.py 2 2 s ${INCDIR}/sys/signal.h | grep "	SA_" > ${.TARGET}
 
-defs-errno: /usr/include/sys/errno.h
-	./dumpdefs.py 2 0 i ${.ALLSRC} > ${.TARGET}
-	./dumpdefs.py 2 1 i ${.ALLSRC} >> ${.TARGET}
-	./dumpdefs.py 2 2 i ${.ALLSRC} >> ${.TARGET}
+defs-errno:
+	./dumpdefs.py 2 0 i ${INCDIR}/sys/errno.h > ${.TARGET}
+	./dumpdefs.py 2 1 i ${INCDIR}/sys/errno.h >> ${.TARGET}
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/errno.h >> ${.TARGET}
 
-namemax: /usr/include/sys/syslimits.h
-	grep "	NAME_MAX	" ${.ALLSRC} | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}
+namemax:
+	grep "	NAME_MAX	" ${INCDIR}/sys/syslimits.h | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}
 
-defs-fcntlo: /usr/include/fcntl.h
-	./dumpdefs.py 2 2 s ${.ALLSRC} | grep -v compat | grep "	O_" > ${.TARGET}
-	./dumpdefs.py 2 1 s ${.ALLSRC} | grep "	O_" >> ${.TARGET}
+defs-fcntlo:
+	./dumpdefs.py 2 2 s ${INCDIR}/fcntl.h | grep -v compat | grep "	O_" > ${.TARGET}
+	./dumpdefs.py 2 1 s ${INCDIR}/fcntl.h | grep "	O_" >> ${.TARGET}
 
 defs-basictypes: sizeofs
 	./sizeofs > ${.TARGET}
 
-defs-sc: /usr/include/unistd.h
-	./dumpdefs.py 2 1 i ${.ALLSRC} | grep _SC_ > ${.TARGET}
-	./dumpdefs.py 2 2 i ${.ALLSRC} | grep _SC_ > ${.TARGET}
+defs-sc:
+	./dumpdefs.py 2 1 i ${INCDIR}/unistd.h | grep _SC_ > ${.TARGET}
+	./dumpdefs.py 2 2 i ${INCDIR}/unistd.h | grep _SC_ > ${.TARGET}
 
 #defs-madv:
-#	./dumpdefs.py 2 1 i /usr/include/sys/mman.h | grep MADV | sed 's/_//' > ${.TARGET}
-#	./dumpdefs.py 2 2 i /usr/include/sys/mman.h | grep MADV >> ${.TARGET}
+#	./dumpdefs.py 2 1 i ${INCDIR}/sys/mman.h | grep MADV | sed 's/_//' > ${.TARGET}
+#	./dumpdefs.py 2 2 i ${INCDIR}/sys/mman.h | grep MADV >> ${.TARGET}
 #
 #defs-signal1:
-#	./dumpdefs.py 2 2 i /usr/include/sys/signal.h | grep ILL_ >> ${.TARGET}
-#	./dumpdefs.py 2 2 i /usr/include/sys/signal.h | grep SEGV_ >> ${.TARGET}
-#	./dumpdefs.py 2 2 i /usr/include/sys/signal.h | grep BUS_ >> ${.TARGET}
+#	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep ILL_ >> ${.TARGET}
+#	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep SEGV_ >> ${.TARGET}
+#	./dumpdefs.py 2 2 i ${INCDIR}/sys/signal.h | grep BUS_ >> ${.TARGET}
 
 dumpstrerrno.c: defs-errno
 	grep -v ERESTART ${.ALLSRC} | grep -v EJUSTRETURN | grep -v ENOIOCTL | grep -v EDIRIOCTL | ./mkdumpstrerrno.py > ${.TARGET}
