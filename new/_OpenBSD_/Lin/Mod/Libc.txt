@@ -667,6 +667,7 @@ MODULE LinLibc ["libc.so.66.0"];
 		PROCEDURE [ccall] write* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] read* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] close* (d: int): int;
+		PROCEDURE [ccall] lseek* (d: int; offset: off_t; whence: int): off_t;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;
