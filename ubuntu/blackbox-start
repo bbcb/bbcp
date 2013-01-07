@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# fix Ubuntu-specific problems:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+
+./blackbox
