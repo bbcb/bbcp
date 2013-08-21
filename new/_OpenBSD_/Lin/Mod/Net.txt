@@ -1,9 +1,9 @@
-MODULE LinNet ["libc.so.66.0"];
+MODULE LinNet ["libc.so.70.0"];
 
 	(*
-		A. V. Shiryaev, 2012.11
+		A. V. Shiryaev, 2012.11, 2013.08
 
-		OpenBSD 5.2
+		OpenBSD 5.4
 		32-bit
 	*)
 
@@ -131,6 +131,8 @@ MODULE LinNet ["libc.so.66.0"];
 			IPPROTO_MAX* = 256;
 			IPPROTO_DIVERT* = 258; (* Divert sockets *)
 			IPPROTO_DONE* = 257;
+			IPPROTO_DIVERT_RESP* = 01H; (* {0} *) (* divert response packets *)
+			IPPROTO_DIVERT_INIT* = 02H; (* {1} *) (* divert packets initial direction *)
 
 		(* /usr/include/sys/param.h *)
 			MAXHOSTNAMELEN* = 256; (* max hostname size *)

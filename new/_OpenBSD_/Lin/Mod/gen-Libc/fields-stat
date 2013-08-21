@@ -1,12 +1,11 @@
-			(* OpenBSD 5.2 /usr/include/sys/stat.h *)
+			(* OpenBSD 5.4 /usr/include/sys/stat.h *)
+				st_mode*: mode_t;
 				st_dev*: dev_t;
 				st_ino*: ino_t;
-				st_mode*: mode_t;
 				st_nlink*: nlink_t;
 				st_uid*: uid_t;
 				st_gid*: gid_t;
 				st_rdev*: dev_t;
-				st_lspare0*: int32_t;
 
 				st_atime*: time_t;
 				st_atimensec*: long;
@@ -20,8 +19,6 @@
 				st_blksize*: u_int32_t;
 				st_flags*: u_int32_t;
 				st_gen*: u_int32_t;
-				st_lspare1*: int32_t;
 
 				__st_birthtime*: time_t;
 				__st_birthtimensec*: long;
-				st_qspare*: ARRAY [untagged] 2 OF int64_t;

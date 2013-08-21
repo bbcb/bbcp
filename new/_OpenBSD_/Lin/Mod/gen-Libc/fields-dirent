@@ -1,6 +1,8 @@
-			(* OpenBSD 5.2 /usr/include/sys/dirent.h *)
-				d_fileno*: u_int32_t; (* file number of entry *)
+			(* OpenBSD 5.4 /usr/include/sys/dirent.h *)
+				d_fileno*: ino_t; (* file number of entry *)
+				d_off*: off_t; (* offset after this entry *)
 				d_reclen*: u_int16_t; (* length of this record *)
 				d_type*: u_int8_t; (* file type, see below *)
 				d_namlen*: u_int8_t; (* length of string in d_name *)
+				__d_padding: ARRAY [untagged] 4 OF u_int8_t; (* suppress padding after d_name *)
 				d_name*: ARRAY [untagged] 255 + 1 OF SHORTCHAR;

@@ -1,7 +1,7 @@
-MODULE LinLibc ["libc.so.66.0"];
+MODULE LinLibc ["libc.so.70.0"];
 
 	(*
-		OpenBSD 5.2
+		OpenBSD 5.4
 		i386
 	*)
 
@@ -378,14 +378,14 @@ MODULE LinLibc ["libc.so.66.0"];
 		size_t* = INTEGER;
 		ssize_t* = INTEGER;
 		off_t* = LONGINT;
-		clock_t* = INTEGER;
-		time_t* = INTEGER;
+		clock_t* = LONGINT;
+		time_t* = LONGINT;
 		mode_t* = SET;
 		pid_t* = INTEGER;
 		uid_t* = INTEGER;
 		gid_t* = INTEGER;
 		dev_t* = INTEGER;
-		ino_t* = INTEGER;
+		ino_t* = LONGINT;
 		nlink_t* = INTEGER;
 		int8_t* = SHORTCHAR;
 		u_int8_t* = SHORTCHAR;
@@ -406,7 +406,7 @@ MODULE LinLibc ["libc.so.66.0"];
 		tmDesc* = RECORD [untagged]
 			(* NOTE: check record size *)
 			(* tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday [ , tm_gmtoff ] *)
-			(* OpenBSD 5.2 /usr/include/time.h *)
+			(* OpenBSD 5.4 /usr/include/time.h *)
 				tm_sec*: int; (* seconds after the minute [0-60] *)
 				tm_min*: int; (* minutes after the hour [0-59] *)
 				tm_hour*: int; (* hours since midnight [0-23] *)
@@ -423,7 +423,7 @@ MODULE LinLibc ["libc.so.66.0"];
 		Ptrsiginfo_t* = POINTER TO siginfo_t;
 		siginfo_t = RECORD [untagged]
 			(* si_code, fault address *)
-			(* OpenBSD 5.2 /usr/include/sys/siginfo.h *)
+			(* OpenBSD 5.4 /usr/include/sys/siginfo.h *)
 				si_signo*: int; (* signal from signal.h *)
 				si_code*: int; (* code from above *)
 				si_errno*: int; (* error from errno.h *)
@@ -441,8 +441,8 @@ MODULE LinLibc ["libc.so.66.0"];
 							END;
 							_cld*: RECORD [untagged]
 								_utime*: clock_t;
-								_status*: int;
 								_stime*: clock_t;
+								_status*: int;
 							END;
 						END;
 					END;
@@ -456,7 +456,7 @@ MODULE LinLibc ["libc.so.66.0"];
 		Ptrucontext_t* = POINTER TO ucontext_t;
 		ucontext_t = RECORD [untagged]
 			(* IP, SP, FP *)
-			(* OpenBSD 5.2 /usr/include/i386/signal.h struct sigcontext *)
+			(* OpenBSD 5.4 /usr/include/i386/signal.h struct sigcontext *)
 				sc_gs*: int;
 				sc_fs*: int;
 				sc_es*: int;
@@ -475,14 +475,14 @@ MODULE LinLibc ["libc.so.66.0"];
 				sc_esp*: int;
 				sc_ss*: int;
 
-				sc_onstack*: int; (* sigstack state to restore *)
+				__sc_unused: int;
 				sc_mask*: int; (* signal mask to restore *)
 
 				sc_trapno*: int; (* XXX should be above *)
 				sc_err*: int;
 
 				sc_fpstate*: RECORD [union]
-					(* OpenBSD 5.2 /usr/include/i386/npx.h union savefpu *)
+					(* OpenBSD 5.4 /usr/include/i386/npx.h union savefpu *)
 (*
 						sv_87*: RECORD [untagged]
 							...
@@ -499,7 +499,7 @@ MODULE LinLibc ["libc.so.66.0"];
 			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
-			(* OpenBSD 5.2 /usr/include/sys/signal.h *)
+			(* OpenBSD 5.4 /usr/include/sys/signal.h *)
 				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ctx: Ptrucontext_t);
 				sa_mask*: sigset_t;
 				sa_flags*: intFlags;
@@ -509,7 +509,7 @@ MODULE LinLibc ["libc.so.66.0"];
 (*
 			ss_sp*: PtrVoid, ss_size*: size_t, ss_flags*: intFlags
 *)
-			(* OpenBSD 5.2 /usr/include/sys/signal.h *)
+			(* OpenBSD 5.4 /usr/include/sys/signal.h *)
 				ss_sp*: PtrVoid; (* signal stack base *)
 				ss_size*: size_t; (* signal stack length *)
 				ss_flags*: intFlags; (* SS_DISABLE and/or SS_ONSTACK *)
@@ -520,15 +520,14 @@ MODULE LinLibc ["libc.so.66.0"];
 			NOTE: check record size
 			st_mode*: mode_t, st_size*: off_t, st_mtime*: time_t
 *)
-			(* OpenBSD 5.2 /usr/include/sys/stat.h *)
+			(* OpenBSD 5.4 /usr/include/sys/stat.h *)
+				st_mode*: mode_t;
 				st_dev*: dev_t;
 				st_ino*: ino_t;
-				st_mode*: mode_t;
 				st_nlink*: nlink_t;
 				st_uid*: uid_t;
 				st_gid*: gid_t;
 				st_rdev*: dev_t;
-				st_lspare0*: int32_t;
 
 				st_atime*: time_t;
 				st_atimensec*: long;
@@ -542,11 +541,9 @@ MODULE LinLibc ["libc.so.66.0"];
 				st_blksize*: u_int32_t;
 				st_flags*: u_int32_t;
 				st_gen*: u_int32_t;
-				st_lspare1*: int32_t;
 
 				__st_birthtime*: time_t;
 				__st_birthtimensec*: long;
-				st_qspare*: ARRAY [untagged] 2 OF int64_t;
 		END;
 
 		PtrFILE* = PtrVoid;
@@ -557,11 +554,13 @@ MODULE LinLibc ["libc.so.66.0"];
 (*
 			d_name*: ARRAY [untagged] NAME_MAX + 1 OF SHORTCHAR
 *)
-			(* OpenBSD 5.2 /usr/include/sys/dirent.h *)
-				d_fileno*: u_int32_t; (* file number of entry *)
+			(* OpenBSD 5.4 /usr/include/sys/dirent.h *)
+				d_fileno*: ino_t; (* file number of entry *)
+				d_off*: off_t; (* offset after this entry *)
 				d_reclen*: u_int16_t; (* length of this record *)
 				d_type*: u_int8_t; (* file type, see below *)
 				d_namlen*: u_int8_t; (* length of string in d_name *)
+				__d_padding: ARRAY [untagged] 4 OF u_int8_t; (* suppress padding after d_name *)
 				d_name*: ARRAY [untagged] 255 + 1 OF SHORTCHAR;
 		END;
 
