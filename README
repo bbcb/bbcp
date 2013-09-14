@@ -1,0 +1,3 @@
+old: old branch based on BlackBox.Linux.20050512.zip; will be removed later
+new: head branch, mostly based on Trurl work done in 2006
+ubuntu: copy of "new" branch for Ubuntu
