@@ -1,0 +1,67 @@
+VS_VERSION_INFO    VERSIONINFO
+
+FILEVERSION      1,0,0,1
+
+PRODUCTVERSION   1,0,0,1
+
+// FILEFLAGSMASK    VS_FFI_FILEFLAGSMASK
+
+#ifdef _DEBUG
+
+FILEFLAGS        VS_FF_DEBUG|VS_FF_PRIVATEBUILD|VS_FF_PRERELEASE
+
+#else
+
+FILEFLAGS        0 // final version
+
+#endif
+
+// FILEOS           VOS__WINDOWS32
+
+// FILETYPE         VFT_DLL
+
+FILESUBTYPE      0   // not used
+
+BEGIN
+
+BLOCK "StringFileInfo"
+
+BEGIN
+
+BLOCK "040904E4" // Lang=US English, CharSet=Windows Multilingual
+
+BEGIN
+
+VALUE "CompanyName",     "\0"
+
+VALUE "FileDescription", "Lookup Interfaces Proxy/Stub DLL\0"
+
+VALUE "FileVersion",     "1.0.000\0"
+
+VALUE "InternalName",    "LOOKUP\0"
+
+VALUE "LegalCopyright",  "\0"
+
+VALUE "LegalTrademarks", "\0"
+
+VALUE "OriginalFilename","LOOKUP.DLL\0"
+
+VALUE "ProductName",     "LOOKUP\0"
+
+VALUE "ProductVersion",  "1.0.000\0"
+
+VALUE "OLESelfRegister", "\0" // New keyword
+
+END
+
+END
+
+BLOCK "VarFileInfo"
+
+BEGIN
+
+VALUE "Translation", 0x409, 1252
+
+END
+
+END

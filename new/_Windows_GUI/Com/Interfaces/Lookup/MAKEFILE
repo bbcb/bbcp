@@ -1,0 +1,57 @@
+# MAKEFILE
+
+# Builds Proxy/Stub DLL for LOOKUP.IDL
+
+#
+
+# Copyright (c) 1993-1995 Microsoft Corporation, All Rights Reserved
+
+all: Lookup.dll
+
+TARGET  = Lookup
+
+OUTFILE = $(TARGET).dll
+
+
+
+OBJS1   = Lookup_i.obj Lookup_p.obj
+
+OBJS2   = dlldata.obj
+
+OBJS    = $(OBJS1) $(OBJS2)
+
+
+
+LIBS    = rpcrt4.lib
+
+
+
+Lookup.dll: Lookup_i.obj Lookup_p.obj dlldata.obj Lookup.def Lookup.res
+	link /DLL -def:$(TARGET).DEF -out:$(OUTFILE) $(OBJS) $(LIBS) $(TARGET).RES
+
+
+
+Lookup_i.obj: Lookup_i.c Lookup.idl
+	cl -MD -c Lookup_i.c
+
+
+
+Lookup_p.obj: Lookup_p.c Lookup.h Lookup.idl
+	cl -MD -c Lookup_p.c
+
+
+
+dlldata.obj: dlldata.c Lookup.idl
+	cl -MD -c -DREGISTER_PROXY_DLL dlldata.c
+
+
+
+Lookup.res: Lookup.rc
+	rc /r $(TARGET).rc
+
+
+
+#Run MIDL.EXE to produce the source code
+
+Lookup.h Lookup_p.c Lookup_i.c dlldata.c: Lookup.idl
+	midl /ms_ext /app_config /c_ext /I \mstools\include $(TARGET).idl

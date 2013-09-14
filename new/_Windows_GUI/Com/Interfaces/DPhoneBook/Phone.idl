@@ -1,0 +1,29 @@
+[
+  uuid(C4910D73-BA7D-11CD-94E8-08001701A8A3),
+  version(1.0),
+  helpstring("PhoneBook ActiveX Control")
+]
+library PhoneBookLib {
+	importlib("stdole32.tlb");
+    [
+      uuid(C4910D72-BA7D-11CD-94E8-08001701A8A3),
+      helpstring("Dispatch interface for PhoneBook ActiveX Control")
+    ]
+    dispinterface DPhoneBook {
+		properties:
+        methods:
+            [id(1)]
+            BSTR LookupByName(BSTR name);
+            [id(2)]
+            BSTR LookupByNumber(BSTR number);
+	};
+
+    [
+      uuid(E67D346B-2A5B-11D0-ADBA-00C01500554E),
+      helpstring("PhoneBook ActiveX  Control")
+    ]
+    coclass PhoneBook {
+        [default] dispinterface DPhoneBook;
+    };
+}
+

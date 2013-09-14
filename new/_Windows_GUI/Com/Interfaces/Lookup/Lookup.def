@@ -1,0 +1,10 @@
+LIBRARY         LOOKUP
+
+
+
+EXPORTS        DllGetClassObject       PRIVATE
+
+DllCanUnloadNow        PRIVATE
+
+DllRegisterServer      PRIVATE
+

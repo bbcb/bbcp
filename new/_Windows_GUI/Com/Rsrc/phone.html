@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<TITLE>ActiveX Demo - Phonebook</TITLE>
+</HEAD>
+
+<BODY>
+<H1>Simple Phone Book</H1>
+
+<OBJECT
+  CLASSID="CLSID:E67D346B-2A5B-11D0-ADBA-00C01500554E"
+  id=PhoneBook
+>
+</OBJECT>
+This page uses a small (40K) non-visual control which provides access
+to a phone book which also might run on a remote computer. This ActiveX
+control has been implemented with the DTC Component Pascal compiler.
+<P>
+Enter a name or a phone number and press the corresponding button:
+<P>
+<INPUT  TYPE="text"  NAME = "NameField"  SIZE=20>
+<INPUT  TYPE=BUTTON VALUE="Lookup by Name"  NAME="NameBtn">
+<INPUT  TYPE=BUTTON VALUE="Lookup by Number"  NAME="NumberBtn">
+
+<SCRIPT LANGUAGE=VBScript>
+Sub NameBtn_Onclick
+  alert "Phone number of " & NameField.value & ":    " & PhoneBook.LookupByName(NameField.value) 
+End Sub
+Sub NumberBtn_Onclick
+  alert "Name of line " & NameField.value & ":    " & PhoneBook.LookupByNumber(NameField.value) 
+End Sub
+</SCRIPT>
+</BODY>
+</HTML>
