@@ -1,4 +1,7 @@
 old: old branch based on BlackBox.Linux.20050512.zip; will be removed later
+
 new: head branch, mostly based on Trurl work done in 2006
-	synchronized with BlackBox-1.6
-ubuntu: copy of "new" branch (1.6-rc6) for Ubuntu
+	synchronized with original BlackBox-1.6
+
+ubuntu: old (1.6-rc6) copy of "new" branch for Ubuntu
+	maintainer of this branch is Ivan Denisov
