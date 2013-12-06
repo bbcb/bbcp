@@ -8,11 +8,11 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
-DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc
+DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid
 
 all: Libc.txt ${DEFS} strerrnocase.txt
 
-Libc.txt: Libc.txt.templ ${DEFS} libver osname machine custom fields-dirent fields-sigaction fields-siginfo fields-stack fields-stat fields-tm fields-ucontext
+Libc.txt: Libc.txt.templ ${DEFS} libver osname machine custom fields-dirent fields-sigaction fields-siginfo fields-stack fields-stat fields-tm fields-ucontext fields-timespec
 	${PY} ./untempl.py Libc.txt.templ ${.TARGET}
 
 clockspersec:
@@ -58,6 +58,9 @@ defs-basictypes: sizeofs
 
 defs-sc:
 	./dumpdefs.py 2 1 i ${INCDIR}/unistd.h | grep _SC_ > ${.TARGET}
+
+defs-clockid:
+	./dumpdefs.py 2 1 i ${INCDIR}/sys/_time.h | grep CLOCK_ > ${.TARGET}
 
 #defs-madv:
 #	./dumpdefs.py 2 0 i ${INCDIR}/sys/mman.h | grep MADV > ${.TARGET}

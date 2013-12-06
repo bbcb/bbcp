@@ -365,6 +365,14 @@ MODULE LinLibc ["libc.so.70.0"];
 		O_DIRECTORY* = {17}; (* fail if not a directory *)
 
 
+		CLOCK_REALTIME* = 0;
+		CLOCK_VIRTUAL* = 1;
+		CLOCK_PROCESS_CPUTIME_ID* = 2;
+		CLOCK_MONOTONIC* = 3;
+		CLOCK_THREAD_CPUTIME_ID* = 4;
+		CLOCK_UPTIME* = 5;
+
+
 	TYPE
 		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
 		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
@@ -379,6 +387,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		ssize_t* = INTEGER;
 		off_t* = LONGINT;
 		clock_t* = LONGINT;
+		clockid_t* = INTEGER;
 		time_t* = LONGINT;
 		mode_t* = SET;
 		pid_t* = INTEGER;
@@ -564,6 +573,12 @@ MODULE LinLibc ["libc.so.70.0"];
 				d_name*: ARRAY [untagged] 255 + 1 OF SHORTCHAR;
 		END;
 
+		timespec_t* = RECORD [untagged]
+			(* OpenBSD 5.4 /usr/include/time.h *)
+				tv_sec*: time_t; (* seconds *)
+				tv_nsec*: long; (* and nanoseconds *)
+		END;
+
 (*
 	VAR
 		stdin*: INTEGER;
@@ -593,6 +608,9 @@ MODULE LinLibc ["libc.so.70.0"];
 
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] clock* (): clock_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
 
 	PROCEDURE [ccall] mmap* (adr: PtrVoid; len: size_t; prot: intFlags; flags: intFlags; fd: int; offset: off_t): PtrVoid;
 	(* BSD *)
