@@ -4,6 +4,10 @@
 ConsCompiler.Compile('Lin/Mod', 'Dl.txt')
 ConsCompiler.Compile('Lin/Mod', 'Libc.txt')
 ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
+
+# Linux only
+ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
+
 DevCompiler.CompileThis Kernel
 
 DevCompiler.CompileThis Files Console Math Strings Meta Dialog
