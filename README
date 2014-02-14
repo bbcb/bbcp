@@ -1,8 +1,15 @@
+** Ducumentation (Russian): **
+
+   http://gitlab.molpit.com/idenisov/blackbox-linux/wikis/home
+
+
+** Folders structure: **
+
 ./new/
     universal development environment
     synchronized with original BlackBox 1.6
 
-./examples/
+./examples/     (all axamples are not tested on `new` version yet)
     /server/
          static web-server as the example of an application for Linux OS
     /console/

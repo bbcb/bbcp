@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# fix Ubuntu-specific problems:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+env \
+  BB_PRIMARY_DIR="../../Linux_GUI" BB_SECONDARY_DIR="$PWD" \
+../../Linux_GUI/blackbox
