@@ -16,3 +16,36 @@
          simple console application
     /fpstest/
          loop test
+         
+** Installation **
+
+1. For creating links in development directory run:
+
+    cd ./new
+    ./README
+
+   To start:
+
+    ./run-BlackBox
+
+2. For creating assembly for target OS in development directory run:
+
+    cd ./new
+    ./export (Linux|OpenBSD|FreeBSD) (GUI|)
+
+   Example for Linux:
+
+    ./export Linux GUI
+    
+   Then:
+
+    cd ../Linux_GUI
+    ./build
+
+   To start with .so loader:
+
+    ./run-BlackBox
+
+   To start with .ELF loader
+    
+    ./run-BlackBox-2
