@@ -1,4 +1,10 @@
+# For prepare BlackBox for the target OS run:
+# ./README
+
 echo "Please wait..."
 ./switch-target `uname -s` GUI
 ./build
 ./run-BlackBox
+
+# For clearing the folders before commit run
+# ./switch-target none

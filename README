@@ -1,18 +1,11 @@
-old: old branch based on BlackBox.Linux.20050512.zip; will be removed later
+./new/
+    universal development environment
+    synchronized with original BlackBox 1.6
 
-new: head branch, mostly based on Trurl work done in 2006
-	synchronized with original BlackBox 1.6
-
-ubuntu: copy of "new" branch for Ubuntu, synchronized with bb16base-core.7z
-	these files differ between bb16base-core.7z and original BlackBox 1.6:
-		Dev/Mod/Commanders.odc
-		Dev/Mod/Compiler.odc
-		Dev/Mod/Debug.odc
-		Dev/Mod/Packer.odc
-		Sql/Mod/DB.odc
-		Sql/Mod/Odbc3.odc
-		Std/Mod/Folds.odc
-		Std/Mod/Links.odc
-		Std/Mod/Stamps.odc
-		System/Mod/Windows.odc
-	maintainer of this branch is Ivan Denisov
+./examples/
+    /server/
+         static web-server as the example of an application for Linux OS
+    /console/
+         simple console application
+    /fpstest/
+         loop test
