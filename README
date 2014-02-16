@@ -1,51 +1,41 @@
-** Ducumentation (Russian): **
+Ducumentation (Russian):
 
-   http://gitlab.molpit.com/idenisov/blackbox-linux/wikis/home
+	http://gitlab.molpit.com/idenisov/blackbox-linux/wikis/home
 
+Directories structure:
 
-** Folders structure: **
+	new/
+		universal development environment
+		synchronized with original BlackBox 1.6
 
-./new/
-    universal development environment
-    synchronized with original BlackBox 1.6
+	examples/ (all axamples are not tested on `new` version yet)
+		server/
+			static web-server as the example of an application for Linux OS
+		console/
+			simple console application
+		fpstest/
+			loop test
 
-./examples/     (all axamples are not tested on `new` version yet)
-    /server/
-         static web-server as the example of an application for Linux OS
-    /console/
-         simple console application
-    /fpstest/
-         loop test
-         
-** Installation **
+To build BlackBox:
 
-1. For creating links in development directory run:
+	cd new
+	./switch-target `uname -s` GUI
+	./build
 
-    cd ./new
-    ./README
+To run BlackBox (after build):
 
-   To start:
+	cd new
+	./run-BlackBox
 
-    ./run-BlackBox
+To create BlackBox assembly (after build):
 
-2. For creating assembly for target OS in development directory run:
+	cd ./new
+	./export <outputDirectory>
 
-    cd ./new
-    ./export (Linux|OpenBSD|FreeBSD) (GUI|)
-
-   Example for Linux:
-
-    ./export Linux GUI
-    
-   Then:
-
-    cd ../Linux_GUI
-    ./build
-
-   To start with .so loader:
-
-    ./run-BlackBox
-
-   To start with .ELF loader
-    
-    ./run-BlackBox-2
+Example: build, create assembly in /tmp, run BlackBox from assembly:
+	cd new
+	./switch-target `uname -s` GUI
+	./build
+	./export /tmp/BlackBox-`uname -s`
+	cd /tmp/BlackBox-`uname -s`
+	./run-BlackBox

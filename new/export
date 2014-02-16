@@ -1,65 +1,15 @@
 #!/bin/sh
 
-mklinks () {
-	find "${1}" -mindepth ${2} -maxdepth ${2} \( -type f -o -type l \) -print |
-	while read l; do
-		to=`echo $l | sed "s/^${line}\///"`
-		mkdir -p `dirname "${4}/${to}"`
-		cp ${l} "${4}/${to}"
-	done
-}
-
-dolinks () {
-	mkdir -p ../${1}_${2}
-	cp -R 'System' ../${1}_${2}/
-	cp -R 'Code' ../${1}_${2}/
-	cp -R 'Comm' ../${1}_${2}/
-	cp -R 'Cons' ../${1}_${2}/
-	cp -R 'Dev' ../${1}_${2}/
-	cp -R 'Docu' ../${1}_${2}/
-	cp -R 'Gtk2' ../${1}_${2}/
-	cp -R 'Host' ../${1}_${2}/
-	cp -R 'Lin' ../${1}_${2}/
-	cp -R 'Obx' ../${1}_${2}/
-	cp -R 'Sql' ../${1}_${2}/
-	cp -R 'Std' ../${1}_${2}/
-	cp -R 'Sym' ../${1}_${2}/
-	cp -R 'Text' ../${1}_${2}/
-	cp -R 'Xhtml' ../${1}_${2}/
-	cp -R 'run-BlackBox' ../${1}_${2}/
-	cp -R 'run-dev0' ../${1}_${2}/
-	
-	lines1=`find . -mindepth 1 -maxdepth 1 -name "_*${1}*_" -print | sed 's/\.\///'`
-	lines2=`find . -mindepth 1 -maxdepth 1 -name "__*${2}*" -print | sed 's/\.\///'`
-	lines3=`find . -mindepth 1 -maxdepth 1 -name "_*"${1}"*_*${2}*" -print | sed 's/\.\///'`
-	for line in  $lines1 $lines2 $lines3; do
-		find "${line}" -mindepth 1 -maxdepth 1 \( -type f -o -type l \) -print |
-		while read l; do
-			cp $l ../${1}_${2}/
-		done
-
-		mklinks "${line}" 3 ../.. ../${1}_${2}
-		mklinks "${line}" 4 ../../.. ../${1}_${2}
-	done
-}
-
 if [ $# -eq 1 ]; then
-	dolinks "${1}" Interp
-	echo "Export complite to the directory ../${1}_Interp!"
-	echo "For compiling BlackBox modules run:"
-	echo "  cd ../${1}_Interp"
-	echo "  ./build"
-elif [ $# -eq 2 ]; then
-	dolinks "${1}" "${2}"
-	echo "Export complite to the directory ../${1}_${2}!"
-	echo "For compiling BlackBox modules run:"
-	echo "  cd ../${1}_${2}"
-	echo "  ./build"
+	outDir="${1}"
+	if [ ! -e "${outDir}" ]; then
+		mkdir "${outDir}"
+		pax -r -w -L -s ',^Lin/Mod/gen-.*,,' -s ',^Lin/Rsrc.*,,' `ls -p | grep -E "^[A-Z].+\/$" | grep -v "^${outDir}\/$"` libBB.so loader run-BlackBox "${outDir}"
+	else
+		echo "${outDir}: already exists"
+		exit 2
+	fi
 else
-	echo "Exporting BlackBox from development to distribution form for target OS."
-	echo "Usage: `basename $0` OS [ configuration ]"
-	echo "	OS: Linux | OpenBSD | FreeBSD"
-	echo "  configuration: GUI"
-	echo "Example: ./export Linux GUI"
+	echo "usage: `basename $0` outputDirectory"
 	exit 1
 fi

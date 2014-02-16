@@ -1,10 +1,20 @@
-# For preparing the BlackBox for the target OS run:
-# ./README
+# To build BlackBox (for current operating system):
+# 	./switch-target `uname -s` GUI
+# 	./build
+#
+# To run BlackBox (after build):
+#	./run-BlackBox
+#
+# To export BlackBox (after build):
+#	./export <outputDir>
+#
+# To clean up:
+#	./clean
+#	./switch-target none
+#
 
+# Build and run BlackBox:
 echo "Please wait..."
 ./switch-target `uname -s` GUI
 ./build
 ./run-BlackBox
-
-# For clearing the folders before commit run
-# ./switch-target none
