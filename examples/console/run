@@ -3,6 +3,8 @@
 # fix Ubuntu-specific problems:
 unset UBUNTU_MENUPROXY
 unset GTK_MODULES
+export LIBOVERLAY_SCROLLBAR=0
+
 env \
-  BB_PRIMARY_DIR="../../Linux_GUI" BB_SECONDARY_DIR="$PWD" \
-../../Linux_GUI/blackbox
+  BB_PRIMARY_DIR="../../new" BB_SECONDARY_DIR="$PWD" \
+../../new/blackbox

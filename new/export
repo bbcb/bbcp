@@ -4,7 +4,7 @@ if [ $# -eq 1 ]; then
 	outDir="${1}"
 	if [ ! -e "${outDir}" ]; then
 		mkdir "${outDir}"
-		pax -r -w -L -s ',^Lin/Mod/gen-.*,,' -s ',^Lin/Rsrc.*,,' `ls -p | grep -E "^[A-Z].+\/$" | grep -v "^${outDir}\/$"` libBB.so loader run-BlackBox "${outDir}"
+		pax -r -w -L -s ',^Lin/Mod/gen-.*,,' -s ',^Lin/Rsrc.*,,' `ls -p | grep -E "^[A-Z].+\/$" | grep -v "^${outDir}\/$"` libBB.so loader run-BlackBox* blackbox* "${outDir}"
 	else
 		echo "${outDir}: already exists"
 		exit 2
