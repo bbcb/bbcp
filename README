@@ -4,11 +4,13 @@ Ducumentation (Russian):
 
 Directories structure:
 
-	new/
+	BlackBox/
 		universal development environment
 		synchronized with original BlackBox 1.6
 
-	examples/ (all axamples are not tested on `new` version yet)
+	examples/
+		some outdated examples
+
 		server/
 			static web-server as the example of an application for Linux OS
 		console/
@@ -18,7 +20,7 @@ Directories structure:
 
 To build BlackBox:
 
-	cd new
+	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
 
@@ -31,7 +33,7 @@ To create BlackBox assembly (after build):
 	./export <outputDirectory>
 
 Example: build, create assembly in /tmp, run BlackBox from assembly:
-	cd new
+	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
 	./export /tmp/BlackBox-`uname -s`
