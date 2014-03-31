@@ -5,5 +5,5 @@ unset UBUNTU_MENUPROXY
 unset GTK_MODULES
 export LIBOVERLAY_SCROLLBAR=0
 env \
-  BB_PRIMARY_DIR="../../new" BB_SECONDARY_DIR="$PWD" \
-../../new/blackbox
+  BB_PRIMARY_DIR="../../BlackBox" BB_SECONDARY_DIR="$PWD" \
+../../BlackBox/blackbox

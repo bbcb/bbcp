@@ -10,13 +10,12 @@ Directories structure:
 
 	examples/
 		some outdated examples
-
-		server/
-			static web-server as the example of an application for Linux OS
 		console/
 			simple console application
 		fpstest/
 			loop test
+		server/
+			static web-server as the example of an application for Linux OS
 
 To build BlackBox:
 
@@ -27,6 +26,8 @@ To build BlackBox:
 To run BlackBox (after build):
 
 	./run-BlackBox
+	or
+	./run-BlackBox-2
 
 To create BlackBox assembly (after build):
 

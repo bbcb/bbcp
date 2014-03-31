@@ -1,4 +1,4 @@
 #!/bin/sh
 env \
-  BB_PRIMARY_DIR="../../new" BB_SECONDARY_DIR="$PWD" \
-../../new/blackboxc
+  BB_PRIMARY_DIR="../../BlackBox" BB_SECONDARY_DIR="$PWD" \
+../../BlackBox/blackboxc $@
