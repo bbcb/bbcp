@@ -17,20 +17,25 @@ Directories structure:
 		server/
 			static web-server as the example of an application for Linux OS
 
-Installation of required packages:
+Installation of required packages in Ubuntu 14.04 (should work also with other Debian-based OS):
 
-	if you have 32-bit version of Ubuntu (or other Debian-based OS), do this:
+	32-bit version:
 		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module
 		sudo apt-get install libgnomeui-0
 
-	if you have 64-bit version of Ubuntu (or other Debian-based OS), do this:
+	64-bit version:
 		sudo apt-get install libc6-dev-i386
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
 		sudo apt-get install libgnomeui-0:i386
 
+	Comments:
+		'libc6-dev-i386' is required for compilation of 'loader', after build it can be replaced by 'libc6-i386'
+		'libgnomeui-0:i386' is required only for run blackbox by 'run-BlackBox-2' starter
 
+
+To build BlackBox:
 	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
