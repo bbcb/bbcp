@@ -17,18 +17,18 @@ Directories structure:
 		server/
 			static web-server as the example of an application for Linux OS
 
-Installation of required software:
+Installation of required packages:
 
 	if you have 32-bit version of Ubuntu (or other Debian-based OS), do this:
 		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module
-		sudo apt-get install libgnomeui-common
+		sudo apt-get install libgnomeui-0
 
 	if you have 64-bit version of Ubuntu (or other Debian-based OS), do this:
-		sudo apt-get install libc6-i386
+		sudo apt-get install libc6-dev-i386
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
-		sudo apt-get install libgnomeui-common:i386
+		sudo apt-get install libgnomeui-0:i386
 
 
 	cd BlackBox
@@ -45,10 +45,17 @@ To create BlackBox assembly (after build):
 
 	./export <outputDirectory>
 
+To clean the BlackBox folder:
+	./switch-target none
+	./clean
+
 Example: build, create assembly in /tmp, run BlackBox from assembly:
 	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
 	./export /tmp/BlackBox-`uname -s`
+	./switch-target none
+	./clean
 	cd /tmp/BlackBox-`uname -s`
 	./run-BlackBox
+
