@@ -1,9 +1,9 @@
 *~
 *.ocf
 *.osf
-Linux_GUI
-Linux_Interp
-OpenBSD_GUI
-OpenBSD_Interp
-FreeBSD_GUI
-FreeBSD_Interp
+Linux_GUI*
+Linux_Interp*
+OpenBSD_GUI*
+OpenBSD_Interp*
+FreeBSD_GUI*
+FreeBSD_Interp*

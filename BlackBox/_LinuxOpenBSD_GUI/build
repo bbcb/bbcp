@@ -46,6 +46,9 @@ DevCompiler.CompileThis ConsInterp ConsCompiler
 DevCompiler.CompileThis DevAlienTool DevDebug DevDependencies DevHeapSpy DevInspector DevLinkChk DevMsgSpy DevRBrowser DevReferences DevSearch DevSubTool DevCmds DevBrowser DevAnalyzer
 DevCompiler.CompileThis HostPackedFiles DevPacker
 
+# Linux only
+DevCompiler.CompileThis  LinLinker
+
 ### Xhtml:
 DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
 
