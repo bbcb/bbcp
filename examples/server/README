@@ -1,0 +1,28 @@
+# This example demonstrates simple server based on console version of BlackBox.
+
+# To run this example you need to build console version of BlackBox:
+
+# 1. Go to the BlackBox folder
+cd ../../BlackBox
+
+# 2. Clean previous
+./clean
+./switch-target none
+
+# 3. Switch to BlackBox Interp and compile
+./switch-target `uname -s` Interp
+./build
+
+# 4. Go to the example folder and compile the example
+cd ../examples/server
+../../run-BlackBox < buildExample
+
+# 5. Stop any other server that using 80 ports (apache, nginx, ...)
+# 6. Then you can start server using command:
+
+sudo ./bbserver
+
+# To check the work of the server open browsel and look the page http://localhost
+
+# There are scripts ./start and ./stop for the deamon start and stop mode
+

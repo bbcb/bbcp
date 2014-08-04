@@ -6,4 +6,4 @@ unset GTK_MODULES
 export LIBOVERLAY_SCROLLBAR=0
 env \
   BB_PRIMARY_DIR="../../BlackBox" BB_SECONDARY_DIR="$PWD" \
-../../BlackBox/blackboxc
+  ../../BlackBox/blackboxc
