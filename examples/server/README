@@ -15,7 +15,7 @@ cd ../../BlackBox
 
 # 4. Go to the example folder and compile the example
 cd ../examples/server
-../../run-BlackBox < buildExample
+../../BlackBox/run-BlackBox < buildExample
 
 # 5. Stop any other server that using 80 ports (apache, nginx, ...)
 # 6. Then you can start server using command:
