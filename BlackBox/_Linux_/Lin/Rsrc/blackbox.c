@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-/* #include <malloc.h> */
 #include <errno.h>
 #include <fcntl.h>
 
@@ -19,8 +18,6 @@
 /* this constant needs to be updated everytime a change is made to this file */
 #define exeSize 17028
 
-
-#define pageSize 4096
 
 /* fixup types */
 #define absolute 100
@@ -359,7 +356,7 @@ int ReadBootHeader()
   return 1;
 }
 
-void * MEMALLOC (size_t len)
+void * MemAlloc (size_t len)
 {
 	void * res;
 
@@ -402,7 +399,7 @@ int ReadHeader ()
   mod.imp = NULL;
   for (i = 0; i < nofImps; i++)
     {
-      imp = (ImpList*)MEMALLOC(sizeof(ImpList));
+      imp = (ImpList*)MemAlloc(sizeof(ImpList));
       ReadName(imp->name);
       if (mod.imp == NULL)
 	mod.imp = imp;
@@ -438,8 +435,8 @@ int ReadModule ()
   int isLib;
   char* im;
 
-  mod.dad = (int) MEMALLOC(mod.ds);
-  mod.mad = (int) MEMALLOC(mod.ms + mod.cs + mod.vs);
+  mod.dad = (int) MemAlloc(mod.ds);
+  mod.mad = (int) MemAlloc(mod.ms + mod.cs + mod.vs);
   if ((mod.dad == 0) || (mod.mad == 0)) 
     {
       printf("BootLoader: Couldn't initalize heap\n");
@@ -568,21 +565,9 @@ int ReadModule ()
   return 1;
 }
 
-int MOD (int x, int y)
-{
-    int res;
-
-    if (x >= 0) {
-	res = x % y;
-    } else {
-	res = x - y * ((x + 1) / y - 1);
-    }
-    return res;
-}
-
 int main (int argc, char *argv[])
 {
-  int i, ok;
+  int i;
   BodyProc body;
   int callBackAdr;
   Module *k, *m;
@@ -595,7 +580,6 @@ int main (int argc, char *argv[])
 
   modlist = NULL;
   dprintf("initializing BlackBox for Linux...\n");
-
   /*f = fopen(bbfile, "rb");*/
   f = fopen(argv[0], "r");
   if (f != NULL) 
@@ -628,7 +612,7 @@ int main (int argc, char *argv[])
 		else
 		  {
 		    /* assign the boot info to first variable in Kernel */
-		    bootInfo = MEMALLOC(sizeof(BootInfo));
+		    bootInfo = MemAlloc(sizeof(BootInfo));
 		    bootInfo->modList = modlist;
 		    bootInfo->argc = argc;
 		    bootInfo->argv = argv;
@@ -636,16 +620,6 @@ int main (int argc, char *argv[])
 		    dprintf("before body\n");
 		    body = (BodyProc)(m->code);
 		    k->opts = k->opts | init; /* include init in opts */
-		    /*
-		    ok = mprotect(
-				(void *)(((m->code) / pageSize) * pageSize),
-				(((m->csize) + MOD(m->code, pageSize) - 1) / pageSize) * pageSize + pageSize,
-				PROT_READ|PROT_WRITE|PROT_EXEC);
-		    if (ok != 0){
-				printf("mprotect failed: %s\n", strerror(errno));
-				return 100;
-		    }
-		    */
 		    body();
 		    dprintf("after body\n");
 		  }
