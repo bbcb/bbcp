@@ -16,7 +16,7 @@
 
 /* the exact size (in bytes) of the executable part of the file. */
 /* this constant needs to be updated everytime a change is made to this file */
-#define exeSize 17028
+#define exeSize 17008
 
 
 /* fixup types */
