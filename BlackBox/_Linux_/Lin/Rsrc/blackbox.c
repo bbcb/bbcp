@@ -5,6 +5,8 @@
  */
 
 
+#include <sys/mman.h>
+
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,8 +15,10 @@
 
 /* the exact size (in bytes) of the executable part of the file. */
 /* this constant needs to be updated everytime a change is made to this file */
-#define exeSize 21399
+#define exeSize 16860
 
+
+#define pageSize 4096
 
 /* fixup types */
 #define absolute 100
@@ -396,7 +400,7 @@ int ReadHeader ()
 	n = imp->name;
 	n++;
 	if (!LoadDll(n)){
-	  printf("Could not load lib: %s\n", imp->name[1]);
+	  printf("Could not load lib: %s\n", (char *)(&(imp->name[1])));
 	  return 0;
 	}
       }
@@ -547,6 +551,18 @@ int ReadModule ()
   return 1;
 }
 
+int MOD (int x, int y)
+{
+    int res;
+
+    if (x >= 0) {
+	res = x % y;
+    } else {
+	res = x - y * ((x + 1) / y - 1);
+    }
+    return res;
+}
+
 int main (int argc, char *argv[])
 {
   int i, ok;
@@ -596,6 +612,14 @@ int main (int argc, char *argv[])
 		    dprintf("before body\n");
 		    body = (BodyProc)(m->code);
 		    k->opts = k->opts | init; /* include init in opts */
+		    ok = mprotect(
+			(void *)(((m->code) / pageSize) * pageSize),
+			(((m->csize) + MOD(m->code, pageSize) - 1) / pageSize) * pageSize + pageSize,
+			PROT_READ|PROT_WRITE|PROT_EXEC);
+		    if (ok != 0){
+			printf("mprotect failed!\n");
+			return 100;
+		    }
 		    body();
 		    dprintf("after body\n");
 		  }
