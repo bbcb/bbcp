@@ -567,7 +567,7 @@ int ReadModule ()
 
 int main (int argc, char *argv[])
 {
-  int i;
+  int i, ok;
   BodyProc body;
   int callBackAdr;
   Module *k, *m;
