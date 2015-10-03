@@ -1,17 +1,15 @@
 # Make File for building the Linux BlackBox Loader
 # Runs on Linux ELF 
 
-# for 32-bit
-CFLAGS = -O2
+CFLAGS = -m32 -O2
 
-# for 64-bit
-# CFLAGS = -m32 -O2
+all: exe.img
 
-exe.img:	blackbox.o
-	gcc $(CFLAGS) -o exe.img blackbox.o -ldl -lm
+exe.img: blackbox.o
+	${CC} $(CFLAGS) -o exe.img blackbox.o -ldl -lm
 
-blackbox.o:
-	gcc $(CFLAGS) -c blackbox.c
+blackbox.o:	blackbox.c
+	${CC} $(CFLAGS) -c blackbox.c
 
 clean:
-	rm exe.img blackbox.o
+	rm -f exe.img blackbox.o
