@@ -1,3 +1,20 @@
-App for edcoding susystems.
+Application for web-service which edcode BlackBox subsystems.
+Used by http://gitlab.molpit.org for processing of repository hooks.
 
-Used with http://gitlab.molpit.com for process repository hooks.
+Author: Ivan Denisov, denisov@molpit.org
+
+Installation for Linux
+
+1. Prepare Interp version of BlackBox in "Linux_Interp" folder:
+	./switch-target `uname -s` Interp
+	./build
+	./export ../Linux_Interp
+
+2. Compile this example:
+	cd ../examples/encoder
+	echo "DevCompiler.CompileThis StdCoder Init" | ./runc
+
+3. For demonstration run:
+	ENCODE_LIST_NAME='Coder-List.odc' ENCODE_LIST_PATH='' ./runc
+
+Output will contain two files encoded by StdCoder: 'Std/Mod/Coder.odc' and 'System/Mod/Init.odc'.
