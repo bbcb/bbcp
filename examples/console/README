@@ -1,0 +1,22 @@
+Example to demonstrate ConsCompiler and ConsLog.
+
+ConsCompiler allows to compile sources stored in "txt" format.
+ConsLog provides realisation for the Log abstract interface.
+
+Author of the example: Ivan Denisov, denisov@molpit.org
+
+Installation and demonstration
+
+1. Prepare Interp version of BlackBox in "Linux_Interp" folder:
+	./switch-target `uname -s` Interp
+	./build
+	./export ../Linux_Interp
+
+2. Compile this example:
+	cd ../examples/console
+	echo "ConsCompiler.Compile('System/Mod', 'Init.txt')" | ./runc
+
+3. For demonstration run:
+	./runc 123 123
+
+Output will contain: "Summ:  246.0".

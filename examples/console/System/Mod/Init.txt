@@ -1,0 +1,39 @@
+MODULE Init;
+
+	IMPORT
+		Kernel,
+		HostConsole (* Console.SetHook *) ,
+
+		HostFonts (* Fonts.SetHook; required for Texts *),
+		HostWindows (* Windows.SetHook *),
+		HostDates (* Dates.SetHook *),
+		HostDialog (* Dialog.SetShowHook *),
+		StdInterpreter (* Dialog.SetCallHook *) ,
+		StdDialog (* Views.SetViewHook *),
+
+		Log, ConsLog, (* Log.Hook *)
+		Strings,
+		Converters (* .odc *),
+		Dialog;
+
+	PROCEDURE Init;
+	VAR
+		c1, c2, res: INTEGER;  a, b: REAL;
+	BEGIN
+		IF Kernel.bootInfo.argc = 3 THEN
+			Strings.StringToReal(Kernel.bootInfo.argv[1]$, a, c1);
+			Strings.StringToReal(Kernel.bootInfo.argv[2]$, b, c2);
+			IF (c1 = 0) & (c2 = 0) THEN
+				Log.String("Summ: "); Log.Real(a + b); Log.Ln
+			ELSE
+				Log.String("The arguments should be in the form of real: 13123.556"); Log.Ln
+			END
+		ELSE
+			Log.String("Example of simple console application based on BlackBox Component Builder."); Log.Ln;
+			Log.String("You can pass two arguments and sum of them will be returned."); Log.Ln
+		END
+	END Init;
+
+BEGIN
+	Init
+END Init.
