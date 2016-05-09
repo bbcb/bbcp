@@ -1,21 +1,23 @@
 Ducumentation (Russian):
 
-	http://gitlab.molpit.com/oberon/blackbox-freenix/wikis/home
+	http://gitlab.molpit.org/blackbox/freenix/wikis/home
 
 Directories structure:
 
 	BlackBox/
 		universal development environment
-		synchronized with original BlackBox 1.6
+		based on BlackBox 1.6
+		partly synchronized with BlackBox 1.7-beta
 
 	examples/
-		some outdated examples
 		console/
-			simple console application
+			simple console application (demonstration for ConsCompiler and ConsLog)
+		encoder/
+			encoding BlackBox subsystem by StdCoder from command line interface
 		fpstest/
 			loop test
 		server/
-			static web-server as the example of an application for Linux OS
+			static single-thread web-server
 
 Installation of required packages in Ubuntu 14.04 (should work also with other Debian-based OS):
 
@@ -43,8 +45,8 @@ To build BlackBox:
 To run BlackBox (after build):
 
 	./run-BlackBox
-	or
-	./run-BlackBox-2
+	for Linux version also you can run
+	./blackbox
 
 To create BlackBox assembly (after build):
 
@@ -54,13 +56,13 @@ To clean the BlackBox folder:
 	./switch-target none
 	./clean
 
-Example: build, create assembly in /tmp, run BlackBox from assembly:
+Example: build, create assembly and run BlackBox from assembly:
 	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
-	./export /tmp/BlackBox-`uname -s`
+	./export ../`uname -s`_GUI
 	./switch-target none
 	./clean
-	cd /tmp/BlackBox-`uname -s`
+	cd ../`uname -s`_GUI
 	./run-BlackBox
 

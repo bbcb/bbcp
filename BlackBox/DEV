@@ -1,0 +1,74 @@
+
+=== Windows version update pattern ===
+
+Com -> _Windows_GUI
+
+Comm/Docu/Obx* -> __GUI
+Comm/Docu -> .
+Comm/Mod/Obx* -> . __GUI
+Comm/Mod/Steams -> .
+Comm/Mod -> _Windows_
+
+Ctl -> _Windows_GUI
+
+Dev/Docu/Build-Tool+ComDebug+ComInterfaceGen+Profiler+P-S-I+TypeLibs -> _Windows_GUI
+Dev/Mod/ComDebug+ComInterfaceGen+Profiler+TypeLibs -> _Windows_GUI
+Dev/Mod/C*+Linker+Markers+Packer+Selectors
+Dev/Rsrc/Errors+Strings -> .
+Dev/Rsrc -> __GUI
+Dev/Docu/Cmds -> __GUI
+Dev/Docu/C*+Linker+Markers+Packer+Selectors -> .
+Dev/Docu -> __GUI
+Dev/Mod/Cmds -> __GUI
+Dev/Mod/C*+Debug+Linker+Markers+Packer+Selectors -> .
+Dev/Mod -> __GUI
+Dev -> .
+
+Docu/DTC* -> _Windows_GUI
+Docu -> .
+
+Form -> __GUI
+
+Host/Mod/Console+Files+Registry -> _Windows_
+Host/Rsrc -> __GUI
+Host/Docu/Bitmap+Mail -> _Windows_GUI
+Host/Mod -> _Windows_GUI
+Host/Docu -> .
+
+Obx/Mod/Hello0+Pi+Random+Trap -> .
+Obx/Mod+Docu/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
+Obx -> __GUI
+
+Ole -> _Windows_GUI
+
+Sql/Mod/Odbc* -> _Windows_
+Sql -> .
+
+Std/Rsrc/Strings -> .
+Std/Rsrc -> __GUI
+Std/Mod/MenuTools+Tables+TabViews -> __GUI
+Std -> .
+
+System/Mod/Kernel -> _Windows_
+System/Mod/Config+XYPlane -> _Windows_GUI
+System/Docu/XYPlane -> _Windows_GUI
+System/Mod/Init -> __GUI
+System/Mod+Docu -> .
+System/Rsrc/Strings -> .
+System/Rsrc/ -> __GUI
+
+Text -> .
+
+Win/Mod/Api+MM+Net+Ole+Sql -> _Windows_
+Win/Docu/Api+MM+Net+Sql -> _Windows_
+Win -> _Windows_GUI
+
+Xhtml -> .
+
+
+=== Build new dev0.exe from Windows Interp version ===
+build.bat
+build-dev0.bat
+pack-dev0.bat
+
+
