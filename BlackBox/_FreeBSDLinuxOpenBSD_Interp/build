@@ -10,11 +10,11 @@ ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
 
 DevCompiler.CompileThis Kernel
 
-DevCompiler.CompileThis Files Console Math Strings Meta Dialog
+DevCompiler.CompileThis Files Console Math Strings Meta Log Dialog
 
 DevCompiler.CompileThis HostLang HostFiles HostConsole
 
-DevCompiler.CompileThis Stores Converters Dates Integers Sequencers Services Log SMath
+DevCompiler.CompileThis Stores Converters Dates Integers Sequencers Services SMath
 
 DevCompiler.CompileThis Fonts Ports Printers Models Views Printing Mechanisms Controllers Properties Containers Documents Windows
 

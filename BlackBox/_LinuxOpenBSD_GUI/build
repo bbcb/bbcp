@@ -9,7 +9,7 @@ ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
 ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
 
 DevCompiler.CompileThis Kernel Files HostFiles StdLoader
-DevCompiler.CompileThis Math Strings Dates Meta Dialog Services Fonts Ports Stores Log Converters Sequencers Models Printers Views Controllers Properties Printing Mechanisms Containers Documents Windows
+DevCompiler.CompileThis Math Strings Dates Meta Log Dialog Services Fonts Ports Stores Converters Sequencers Models Printers Views Controllers Properties Printing Mechanisms Containers Documents Windows
 DevCompiler.CompileThis StdCFrames Controls StdDialog StdApi StdCmds StdInterpreter
 
 DevCompiler.CompileThis HostDates HostLang HostRegistry HostUtf8
@@ -47,7 +47,7 @@ DevCompiler.CompileThis DevAlienTool DevDebug DevDependencies DevHeapSpy DevInsp
 DevCompiler.CompileThis HostPackedFiles DevPacker
 
 # Linux only
-DevCompiler.CompileThis  LinLinker
+DevCompiler.CompileThis LinLinker
 
 ### Xhtml:
 DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
