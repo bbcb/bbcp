@@ -8,6 +8,7 @@
 @echo DevCompiler.CompileThis ComTools ComEnumRect ComObject ComConnect ComAggregate ComKoala ComKoalaTst ComKoalaExe ComKoalaDll ComEnum ComPhoneBook ComPhoneBookActiveX ComPhoneBookClient >> tmp.txt
 @echo DevCompiler.CompileThis XhtmlWriters XhtmlStdFileWriters XhtmlEntitySets XhtmlTextTableMarkers XhtmlExporter >> tmp.txt
 @echo DevCompiler.CompileThis CtlStdType CtlOffice CtlVBIDE CtlOfficeBinder CtlMSForms CtlExcel8 CtlWord8 CtlGraph8 CtlPowerPoint8 CtlOutlook8 CtlDAO35 CtlAccess8 CtlExcel9 CtlWord9 CtlGraph9 CtlPowerPoint9 CtlOutlook9 CtlDAO36 CtlADODB CtlAccess9 CtlExcel5 >> tmp.txt
+@echo DevCompiler.CompileThis Console HostConsole ConsLog ConsCompiler ConsInterp >> tmp.txt
 @echo DevLinker.Link BlackBox.exe := Kernel$+ Files HostFiles StdLoader 1 Applogo.ico 2 Doclogo.ico 3 SFLogo.ico 4 CFLogo.ico 5 DtyLogo.ico 6 folderimg.ico 7 openimg.ico 8 leafimg.ico 1 Move.cur 2 Copy.cur 3 Link.cur 4 Pick.cur 5 Stop.cur 6 Hand.cur 7 Table.cur >> tmp.txt
 @echo Kernel.Quit(0) >> tmp.txt
 dev0.exe < tmp.txt
