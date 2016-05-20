@@ -6,12 +6,9 @@ Directories structure:
 
 	BlackBox/
 		universal development environment
-		based on BlackBox 1.6
-		partly synchronized with BlackBox 1.7-beta
+		based on BlackBox 1.7-beta1
 
 	examples/
-		console/
-			simple console application (demonstration for ConsCompiler and ConsLog)
 		encoder/
 			encoding BlackBox subsystem by StdCoder from command line interface
 		fpstest/
