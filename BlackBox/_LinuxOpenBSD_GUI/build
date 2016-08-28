@@ -12,7 +12,7 @@ DevCompiler.CompileThis Kernel Files HostFiles StdLoader
 DevCompiler.CompileThis Math Strings Dates Meta Log Dialog Services Fonts Ports Stores Converters Sequencers Models Printers Views Controllers Properties Printing Mechanisms Containers Documents Windows
 DevCompiler.CompileThis StdCFrames Controls StdDialog StdApi StdCmds StdInterpreter
 
-DevCompiler.CompileThis HostDates HostLang HostRegistry HostUtf8
+DevCompiler.CompileThis HostDates HostLang HostRegistry
 
 DevCompiler.CompileThis Console HostConsole
 
@@ -22,19 +22,15 @@ DevCompiler.CompileThis Gtk2GLib Gtk2GObject Gtk2Keysyms Gtk2Pango Gtk2Gdk Gtk2G
 
 DevCompiler.CompileThis HostFonts HostPorts HostMechanisms HostWindows HostClipboard HostCFrames HostDialog HostCmds
 
-DevCompiler.CompileThis StdLog
-
-DevCompiler.CompileThis ConsLog
+DevCompiler.CompileThis StdLog ConsLog
 
 DevCompiler.CompileThis FormModels FormViews FormControllers FormGen FormCmds
 
 DevCompiler.CompileThis StdTables StdTabViews HostTabFrames
 
-DevCompiler.CompileThis HostTextConv
+DevCompiler.CompileThis HostTextConv HostMenus
 
-DevCompiler.CompileThis HostMenus
-
-DevCompiler.CompileThis StdFolds StdLinks StdDebug StdMenuTool StdClocks StdStamps StdLogos StdCoder StdScrollers
+DevCompiler.CompileThis StdFolds StdLinks StdDebug StdMenuTool StdClocks StdStamps StdCoder StdScrollers
 
 DevCompiler.CompileThis In Out Integers
 
