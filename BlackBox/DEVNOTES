@@ -2,6 +2,11 @@
 === Windows version update pattern ===
 
 Com -> _Windows_GUI
+Ctl -> _Windows_GUI
+Ole -> _Windows_GUI
+Form -> __GUI
+Text -> .
+Xhtml -> .
 
 Comm/Docu/Obx* -> __GUI
 Comm/Docu -> .
@@ -9,39 +14,34 @@ Comm/Mod/Obx* -> . __GUI
 Comm/Mod/Steams -> .
 Comm/Mod -> _Windows_
 
-Ctl -> _Windows_GUI
-
 Dev/Docu/Build-Tool+ComDebug+ComInterfaceGen+Profiler+P-S-I+TypeLibs -> _Windows_GUI
 Dev/Mod/ComDebug+ComInterfaceGen+Profiler+TypeLibs -> _Windows_GUI
-Dev/Mod/C*+Linker+Markers+Packer+Selectors
+Dev/Mod/C*+Debug+Linker+Markers+Packer+Selectors -> .
 Dev/Rsrc/Errors+Strings -> .
+Dev/Rsrc/ComInterfaceGen -> _Windows_GUI
 Dev/Rsrc -> __GUI
+Dev/Spec -> .
 Dev/Docu/Cmds -> __GUI
 Dev/Docu/C*+Linker+Markers+Packer+Selectors -> .
 Dev/Docu -> __GUI
-Dev/Mod/Cmds -> __GUI
-Dev/Mod/C*+Debug+Linker+Markers+Packer+Selectors -> .
 Dev/Mod -> __GUI
-Dev -> .
 
 Docu/DTC* -> _Windows_GUI
 Docu -> .
 
-Form -> __GUI
-
-Host/Mod/Console+Files+Registry -> _Windows_
+Host/Mod/Console+Files+Registry+PackedFiles -> _Windows_
 Host/Rsrc -> __GUI
 Host/Docu/Bitmap+Mail -> _Windows_GUI
 Host/Mod -> _Windows_GUI
 Host/Docu -> .
 
 Obx/Mod/Hello0+Pi+Random+Trap -> .
-Obx/Mod+Docu/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
+Obx/Mod/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
+Obx/Docu/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
 Obx -> __GUI
 
-Ole -> _Windows_GUI
-
 Sql/Mod/Odbc* -> _Windows_
+Sql/Docu/Odbc* -> _Windows_
 Sql -> .
 
 Std/Rsrc/Strings -> .
@@ -57,13 +57,11 @@ System/Mod+Docu -> .
 System/Rsrc/Strings -> .
 System/Rsrc/ -> __GUI
 
-Text -> .
-
 Win/Mod/Api+MM+Net+Ole+Sql -> _Windows_
 Win/Docu/Api+MM+Net+Sql -> _Windows_
+Win/Rsrc -> _Windows_
 Win -> _Windows_GUI
 
-Xhtml -> .
 
 
 === Build new dev0.exe from Windows Interp version ===

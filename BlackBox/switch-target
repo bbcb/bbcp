@@ -41,7 +41,7 @@ dolinks () {
 		while read l; do
 			ln -s $l
 		done
-
+		mklinks "${line}" 2 ..
 		mklinks "${line}" 3 ../..
 		mklinks "${line}" 4 ../../..
 	done
