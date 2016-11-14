@@ -1,4 +1,4 @@
-			(* OpenBSD 5.4 /usr/include/time.h *)
+			(* OpenBSD 6.0 /usr/include/time.h *)
 				tm_sec*: int; (* seconds after the minute [0-60] *)
 				tm_min*: int; (* minutes after the hour [0-59] *)
 				tm_hour*: int; (* hours since midnight [0-23] *)

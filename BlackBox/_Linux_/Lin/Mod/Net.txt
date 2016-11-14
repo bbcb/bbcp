@@ -1,30 +1,20 @@
 MODULE LinNet ["libc.so.6"];
 
 	(*
-		A. V. Shiryaev, 2012.11
-
 		GNU/Linux
-		32-bit
+		i386
 	*)
 
-	IMPORT Libc := LinLibc;
-
 	CONST
-		INVALID_SOCKET* = -1;
+		NULL* = 0H;
+
 		SOCKET_ERROR* = -1;
+		INVALID_SOCKET* = -1;
 
-		(* /usr/include/i386-linux-gnu/bits/socket.h *)
-			SHUT_RD* = 0;
-			SHUT_WR* = 1;
-			SHUT_RDWR* = 2;
-			SOCK_STREAM* = 1;
-			SOCK_DGRAM* = 2;
-			SOCK_RAW* = 3;
-			SOCK_RDM* = 4;
-			SOCK_SEQPACKET* = 5;
-			SOCK_DCCP* = 6;
-			SOCK_PACKET* = 10;
+		INADDR_NONE* = -1;
+		INADDR_ANY* = 0;
 
+		(* socket domains *)
 			PF_UNSPEC* = 0; (* Unspecified. *)
 			PF_LOCAL* = 1; (* Local to host (pipes and file-domain). *)
 			PF_UNIX* = PF_LOCAL; (* POSIX name for PF_LOCAL. *)
@@ -66,46 +56,20 @@ MODULE LinNet ["libc.so.6"];
 			PF_CAIF* = 37; (* CAIF sockets. *)
 			PF_ALG* = 38; (* Algorithm sockets. *)
 			PF_NFC* = 39; (* NFC sockets. *)
-			PF_MAX* = 40; (* For now.. *)
-			SOMAXCONN* = 128;
+			PF_VSOCK* = 40; (* vSockets. *)
+			PF_MAX* = 41; (* For now.. *)
 
-		(* /usr/include/asm-generic/socket.h *)
-			SO_DEBUG* = {0};
-			SO_REUSEADDR* = {1};
-			SO_TYPE* = {0,1};
-			SO_ERROR* = {2};
-			SO_DONTROUTE* = {0,2};
-			SO_BROADCAST* = {1,2};
-			SO_SNDBUF* = {0..2};
-			SO_RCVBUF* = {3};
-			SO_SNDBUFFORCE* = {5};
-			SO_RCVBUFFORCE* = {0,5};
-			SO_KEEPALIVE* = {0,3};
-			SO_OOBINLINE* = {1,3};
-			SO_NO_CHECK* = {0,1,3};
-			SO_PRIORITY* = {2,3};
-			SO_LINGER* = {0,2,3};
-			SO_BSDCOMPAT* = {1..3};
-			SO_SECURITY_AUTHENTICATION* = {1,2,4};
-			SO_SECURITY_ENCRYPTION_TRANSPORT* = {0..2,4};
-			SO_SECURITY_ENCRYPTION_NETWORK* = {3,4};
-			SO_BINDTODEVICE* = {0,3,4};
-			SO_ATTACH_FILTER* = {1,3,4};
-			SO_DETACH_FILTER* = {0,1,3,4};
-			SO_PEERNAME* = {2..4};
-			SO_TIMESTAMP* = {0,2..4};
-			SO_ACCEPTCONN* = {1..4};
-			SO_PEERSEC* = {0..4};
-			SO_PASSSEC* = {1,5};
-			SO_TIMESTAMPNS* = {0,1,5};
-			SO_MARK* = {2,5};
-			SO_TIMESTAMPING* = {0,2,5};
-			SO_PROTOCOL* = {1,2,5};
-			SO_DOMAIN* = {0..2,5};
-			SO_RXQ_OVFL* = {3,5};
+		(* socket types *)
+			(* /usr/include/i386-linux-gnu/bits/socket_type.h *)
+				SOCK_STREAM* = 1;
+				SOCK_DGRAM* = 2;
+				SOCK_RAW* = 3;
+				SOCK_RDM* = 4;
+				SOCK_SEQPACKET* = 5;
+				SOCK_DCCP* = 6;
+				SOCK_PACKET* = 10;
 
-		(* /usr/include/netinet/in.h *)
-			INADDR_NONE* = -1;
+		(* socket protocols *)
 			IPPROTO_IP = 0; (* Dummy protocol for TCP. *)
 			IPPROTO_HOPOPTS* = 0; (* IPv6 Hop-by-Hop options. *)
 			IPPROTO_ICMP* = 1; (* Internet Control Message Protocol. *)
@@ -136,108 +100,226 @@ MODULE LinNet ["libc.so.6"];
 			IPPROTO_UDPLITE* = 136; (* UDP-Lite protocol. *)
 			IPPROTO_RAW* = 255; (* Raw IP packets. *)
 
-		(* /usr/include/asm-generic/param.h *)
-			MAXHOSTNAMELEN* = 64; (* max length of hostname *)
+		(* socket options *)
+			SO_DEBUG* = {0};
+			SO_REUSEADDR* = {1};
+			SO_TYPE* = {0,1};
+			SO_ERROR* = {2};
+			SO_DONTROUTE* = {0,2};
+			SO_BROADCAST* = {1,2};
+			SO_SNDBUF* = {0..2};
+			SO_RCVBUF* = {3};
+			SO_SNDBUFFORCE* = {5};
+			SO_RCVBUFFORCE* = {0,5};
+			SO_KEEPALIVE* = {0,3};
+			SO_OOBINLINE* = {1,3};
+			SO_NO_CHECK* = {0,1,3};
+			SO_PRIORITY* = {2,3};
+			SO_LINGER* = {0,2,3};
+			SO_BSDCOMPAT* = {1..3};
+			SO_REUSEPORT* = {0..3};
+			SO_SECURITY_AUTHENTICATION* = {1,2,4};
+			SO_SECURITY_ENCRYPTION_TRANSPORT* = {0..2,4};
+			SO_SECURITY_ENCRYPTION_NETWORK* = {3,4};
+			SO_BINDTODEVICE* = {0,3,4};
+			SO_ATTACH_FILTER* = {1,3,4};
+			SO_DETACH_FILTER* = {0,1,3,4};
+			SO_PEERNAME* = {2..4};
+			SO_TIMESTAMP* = {0,2..4};
+			SO_ACCEPTCONN* = {1..4};
+			SO_PEERSEC* = {0..4};
+			SO_PASSSEC* = {1,5};
+			SO_TIMESTAMPNS* = {0,1,5};
+			SO_MARK* = {2,5};
+			SO_TIMESTAMPING* = {0,2,5};
+			SO_PROTOCOL* = {1,2,5};
+			SO_DOMAIN* = {0..2,5};
+			SO_RXQ_OVFL* = {3,5};
+			SO_WIFI_STATUS* = {0,3,5};
+			SO_PEEK_OFF* = {1,3,5};
+			SO_NOFCS* = {0,1,3,5};
+			SO_LOCK_FILTER* = {2,3,5};
+			SO_SELECT_ERR_QUEUE* = {0,2,3,5};
+			SO_BUSY_POLL* = {1..3,5};
+			SO_MAX_PACING_RATE* = {0..3,5};
 
-		(* /usr/include/netdb.h *)
-			NETDB_INTERNAL* = -1; (* See errno. *)
-			NETDB_SUCCESS* = 0; (* No problem. *)
-			HOST_NOT_FOUND* = 1; (* Authoritative Answer Host not found. *)
-			TRY_AGAIN* = 2; (* Non-Authoritative Host not found, or SERVERFAIL. *)
-			NO_RECOVERY* = 3; (* Non recoverable errors, FORMERR, REFUSED, NOTIMP. *)
-			NO_DATA* = 4; (* Valid name, no data record of requested type. *)
+		(* /usr/include/i386-linux-gnu/sys/socket.h *)
+			SHUT_RD* = 0;
+			SHUT_WR* = 1;
+			SHUT_RDWR* = 2;
+
+		SOL_SOCKET* = 1;
+
+		(* /usr/include/i386-linux-gnu/bits/socket.h *)
+			MSG_OOB* = {0};
+			MSG_PEEK* = {1};
+			MSG_DONTROUTE* = {2};
+			MSG_CTRUNC* = {3};
+			MSG_PROXY* = {4};
+			MSG_TRUNC* = {5};
+			MSG_DONTWAIT* = {6};
+			MSG_EOR* = {7};
+			MSG_WAITALL* = {8};
+			MSG_FIN* = {9};
+			MSG_SYN* = {10};
+			MSG_CONFIRM* = {11};
+			MSG_RST* = {12};
+			MSG_ERRQUEUE* = {13};
+			MSG_NOSIGNAL* = {14};
+			MSG_MORE* = {15};
+			MSG_WAITFORONE* = {16};
+
+		SOMAXCONN* = 128;
+
+		(* addrinfo.ai_flags *)
+			AI_PASSIVE* = {0}; (* Socket address is intended for `bind'. *)
+			AI_CANONNAME* = {1}; (* Request for canonical name. *)
+			AI_NUMERICHOST* = {2}; (* Don't use name resolution. *)
+			AI_V4MAPPED* = {3}; (* IPv4 mapped addresses are acceptable. *)
+			AI_ALL* = {4}; (* Return IPv4 mapped and IPv6 addresses. *)
+			AI_CANONIDN* = {7}; (* Translate canonical name from IDN format. *)
+			AI_NUMERICSERV* = {10}; (* Don't use name resolution. *)
+
+		(* getaddrinfo/getnameinfo/gai_strerror error codes *)
+			EAI_BADFLAGS* = -1; (* Invalid value for `ai_flags' field. *)
+			EAI_NONAME* = -2; (* NAME or SERVICE is unknown. *)
+			EAI_AGAIN* = -3; (* Temporary failure in name resolution. *)
+			EAI_FAIL* = -4; (* Non-recoverable failure in name res. *)
+			EAI_FAMILY* = -6; (* `ai_family' not supported. *)
+			EAI_SOCKTYPE* = -7; (* `ai_socktype' not supported. *)
+			EAI_SERVICE* = -8; (* SERVICE not supported for `ai_socktype'. *)
+			EAI_MEMORY* = -10; (* Memory allocation failure. *)
+			EAI_SYSTEM* = -11; (* System error returned in `errno'. *)
+			EAI_OVERFLOW* = -12; (* Argument buffer overflow. *)
+			EAI_NODATA* = -5; (* No address associated with NAME. *)
+			EAI_ADDRFAMILY* = -9; (* Address family for NAME not supported. *)
+			EAI_INPROGRESS* = -100; (* Processing request in progress. *)
+			EAI_CANCELED* = -101; (* Request canceled. *)
+			EAI_NOTCANCELED* = -102; (* Request not canceled. *)
+			EAI_ALLDONE* = -103; (* All requests done. *)
+			EAI_INTR* = -104; (* Interrupted by a signal. *)
+			EAI_IDN_ENCODE* = -105; (* IDN encoding failed. *)
 
 		(* /usr/include/i386-linux-gnu/bits/typesizes.h *)
 			__FD_SETSIZE = 1024;
 
 	TYPE
-		SOCKET* = INTEGER;
+		u_int8_t = SHORTCHAR;
+		int8_t = SHORTCHAR;
+		uint16_t = SHORTINT;
+		(* PtrVoid, int, intFlags, short, socklen_t, size_t, ssize_t, in_addr_t, in_port_t, time_t, suseconds_t, nfds_t, sa_family_t *)
+		PtrVoid* = INTEGER;
+		short* = SHORTINT;
+		int* = INTEGER;
+		intFlags* = SET;
+		size_t* = INTEGER;
+		ssize_t* = INTEGER;
+		time_t* = INTEGER;
+		suseconds_t* = INTEGER;
+		socklen_t* = INTEGER;
+		in_addr_t* = INTEGER;
+		in_port_t* = SHORTINT;
+		nfds_t* = INTEGER;
+		sa_family_t* = SHORTINT;
 
-		(* /usr/include/i386-linux-gnu/bits/types.h *)
-			socklen_t* = INTEGER;
-		(* /usr/include/i386-linux-gnu/bits/sockaddr.h *)
-			sa_family_t* = SHORTINT; (* unsigned short int *)
-		(* /usr/include/netinet/in.h *)
-			in_addr_t* = INTEGER;
-			in_port_t* = SHORTINT;
+		PtrSTR* = POINTER [untagged] TO ARRAY [untagged] OF SHORTCHAR;
 
-		(* /usr/include/i386-linux-gnu/bits/socket.h *)
-			sockaddr* = RECORD [untagged]
+		SOCKET* = int;
+
+(*
+		in_addr* = RECORD [untagged]
+			s_addr*: in_addr_t;
+		END;
+*)
+		in_addr* = RECORD [untagged]
+			S_un*: RECORD [union]
+				S_un_b*: RECORD [untagged]
+					s_b1*: SHORTCHAR;
+					s_b2*: SHORTCHAR;
+					s_b3*: SHORTCHAR;
+					s_b4*: SHORTCHAR;
+				END;
+				S_un_w*: RECORD [untagged]
+					s_w1*: SHORTINT;
+					s_w2*: SHORTINT;
+				END;
+				S_addr*: in_addr_t;
+			END;
+		END;
+
+		Ptrsockaddr* = POINTER [untagged] TO sockaddr;
+		sockaddr* = RECORD [untagged]
+			(* /usr/include/i386-linux-gnu/bits/socket.h *)
 				sa_family: sa_family_t;
 				sa_data: ARRAY [untagged] 14 OF SHORTCHAR;
-			END;
+		END;
 
-		(* /usr/include/linux/in.h *)
-(*
-			in_addr* = INTEGER;
-*)
-			in_addr* = RECORD [untagged]
-				S_un*: RECORD [union]
-					S_un_b*: RECORD [untagged]
-						s_b1*: SHORTCHAR;
-						s_b2*: SHORTCHAR;
-						s_b3*: SHORTCHAR;
-						s_b4*: SHORTCHAR;
-					END;
-					S_un_w*: RECORD [untagged]
-						s_w1*: SHORTINT;
-						s_w2*: SHORTINT;
-					END;
-					S_addr*: in_addr_t;
-				END;
-			END;
+		Ptrsockaddr_storage = POINTER [untagged] TO sockaddr_storage;
+		sockaddr_storage* = RECORD [untagged]
+			(* /usr/include/i386-linux-gnu/bits/socket.h *)
+				sa_family: sa_family_t;
+				__ss_align: INTEGER;
+				__ss_padding: ARRAY [untagged] 128 - 2 * 4 OF SHORTCHAR;
+		END;
 
-		(* /usr/include/linux/in.h *)
-			sockaddr_in* = RECORD [untagged]
+		Ptrsockaddr_in* = POINTER [untagged] TO sockaddr_in;
+		sockaddr_in* = RECORD [untagged]
+			(* /usr/include/linux/in.h *)
 				sin_family*: sa_family_t; (* address family *)
 				sin_port*: SHORTINT; (* port number *)
 				sin_addr*: in_addr; (* internet address *)
 				__pad: ARRAY [untagged] 8 OF SHORTCHAR;
-			END;
+		END;
 
-		(* /usr/include/netdb.h *)
-			Ptrhostent* = POINTER TO hostent;
-			hostent* = RECORD [untagged]
-				h_name*: Libc.PtrSTR; (* official name of host *)
-				h_aliases*: POINTER TO ARRAY [untagged] OF Libc.PtrSTR; (* alias list *)
-				h_addrtype*: INTEGER; (* host address type *)
-				h_length*: INTEGER; (* length of address *)
-				h_addr_list*: POINTER TO ARRAY [untagged] OF POINTER TO ARRAY [untagged] OF in_addr; (* list of addresses from name server *)
-			END;
+		Ptraddrinfo* = POINTER [untagged] TO addrinfo;
+		addrinfo* = RECORD [untagged]
+			(* /usr/include/netdb.h *)
+				ai_flags*: intFlags; (* input flags *)
+				ai_family*: int; (* protocol family for socket *)
+				ai_socktype*: int; (* socket type *)
+				ai_protocol*: int; (* protocol for socket *)
+				ai_addrlen*: socklen_t; (* length of socket-address *)
+				ai_addr*: Ptrsockaddr; (* socket-address for socket *)
+				ai_canonname*: PtrSTR; (* canonical name for service location (iff req) *)
+				ai_next*: Ptraddrinfo; (* pointer to next in list *)
+		END;
 
-		(* /usr/include/linux/time.h *)
-		(* /usr/include/asm-generic/posix_types.h *)
-			timeval* = RECORD [untagged]
-				tv_sec*: INTEGER; (* seconds *)
-				tv_usec*: INTEGER; (* microseconds *)
-			END;
+		timeval* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				tv_sec*: time_t; (* seconds *)
+				tv_usec*: suseconds_t; (* and microseconds *)
+		END;
+
+		pollfd* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				fd*: int;
+				events*: short;
+				revents*: short;
+		END;
 
 		(* /usr/include/i386-linux-gnu/sys/select.h *)
 			__fd_mask = SET;
 			fd_set* = ARRAY [untagged] __FD_SETSIZE DIV (SIZE(__fd_mask) * 8) OF __fd_mask;
 
-	VAR
-		h_errno*: INTEGER;
+	(* POSIX.1 *)
+		PROCEDURE [ccall] socket* (domain: int; type: int; protocol: int): SOCKET;
+		PROCEDURE [ccall] accept* (s: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
+		PROCEDURE [ccall] bind* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] connect* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] getsockname* (s: SOCKET; VAR name: sockaddr; VAR namelen: socklen_t): int;
+		PROCEDURE [ccall] listen* (s: SOCKET; backlog: int): int;
+		PROCEDURE [ccall] recv* (s: SOCKET; buf: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] send* (s: SOCKET; msg: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] shutdown* (s: SOCKET; how: int): int;
+		PROCEDURE [ccall] getsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; VAR [nil] optlen: socklen_t): int;
+		PROCEDURE [ccall] setsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; optlen: socklen_t): int;
 
-	PROCEDURE [ccall] socket* (domain: INTEGER; type: INTEGER; protocol: INTEGER): SOCKET;
-	PROCEDURE [ccall] accept* (sockfd: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
-	PROCEDURE [ccall] bind* (sockfd: SOCKET; VAR addr: sockaddr; addrlen: socklen_t): INTEGER;
-	PROCEDURE [ccall] connect* (sockfd: SOCKET; VAR addr: sockaddr; addrlen: socklen_t): INTEGER;
-	PROCEDURE [ccall] listen* (sockfd: SOCKET; backlog: INTEGER): INTEGER;
-	PROCEDURE [ccall] recv* (soskfd: SOCKET; buf: Libc.PtrVoid; len: Libc.size_t; flags: SET): Libc.ssize_t;
-	PROCEDURE [ccall] send* (sockfd: SOCKET; buf: Libc.PtrVoid; len: Libc.size_t; flags: SET): Libc.ssize_t;
-	PROCEDURE [ccall] shutdown* (sockfd: SOCKET; how: INTEGER): INTEGER;
-	PROCEDURE [ccall] getsockopt* (sockfd: SOCKET; level: INTEGER; optname: SET; optval: Libc.PtrVoid; VAR optlen: socklen_t): INTEGER;
-	PROCEDURE [ccall] setsockopt* (sockfd: SOCKET; level: INTEGER; optname: SET; optval: Libc.PtrVoid; optlen: socklen_t): INTEGER;
+		PROCEDURE [ccall] inet_addr* (cp: PtrSTR): in_addr_t;
+		PROCEDURE [ccall] htons* (host16: uint16_t): uint16_t;
 
-	PROCEDURE [ccall] htons* (hostshort: SHORTINT): SHORTINT;
+		PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): int;
 
-	PROCEDURE [ccall] gethostbyname* (name: Libc.PtrSTR): Ptrhostent;
-	PROCEDURE [ccall] inet_addr* (cp: Libc.PtrSTR): in_addr_t;
-
-	PROCEDURE [ccall] getsockname* (sockfd: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): INTEGER;
-
-	PROCEDURE [ccall] hstrerror* (err: INTEGER): Libc.PtrSTR;
+		PROCEDURE [ccall] poll* (VAR fds: ARRAY [untagged] OF pollfd; nfds: nfds_t; timeout: int): int;
 
 (*
 	PROCEDURE FD_ZERO (VAR set: Net.fd_set);
@@ -252,6 +334,10 @@ MODULE LinNet ["libc.so.6"];
 	END FD_SET;
 *)
 
-	PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): INTEGER;
+	(* POSIX.1g *)
+		PROCEDURE [ccall] getaddrinfo* (hostname: PtrSTR; servname: PtrSTR; VAR [nil] hints: addrinfo; VAR res: Ptraddrinfo): int;
+		PROCEDURE [ccall] freeaddrinfo* (ai: Ptraddrinfo);
+
+		PROCEDURE [ccall] gai_strerror* (ecode: int): PtrSTR;
 
 END LinNet.

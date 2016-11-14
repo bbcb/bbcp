@@ -1,4 +1,4 @@
-			(* OpenBSD 5.4 /usr/include/sys/siginfo.h *)
+			(* OpenBSD 5.9 /usr/include/sys/siginfo.h *)
 				si_signo*: int; (* signal from signal.h *)
 				si_code*: int; (* code from above *)
 				si_errno*: int; (* error from errno.h *)

@@ -15,6 +15,7 @@ def main ():
 
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 
 static void D (const char *s, int e)
 {

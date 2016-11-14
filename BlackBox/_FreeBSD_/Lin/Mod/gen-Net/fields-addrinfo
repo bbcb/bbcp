@@ -1,0 +1,9 @@
+			(* FreeBSD 11.0 /usr/include/netdb.h *)
+				ai_flags*: intFlags;
+				ai_family*: int;
+				ai_socktype*: int;
+				ai_protocol*: int;
+				ai_addrlen*: socklen_t;
+				ai_canonname*: PtrSTR;
+				ai_addr*: Ptrsockaddr;
+				ai_next*: Ptraddrinfo;

@@ -1,0 +1,138 @@
+MODULE LinNet ["libc.so%%libver%%"];
+
+	(*
+		%%osname%%
+		%%machine%%
+	*)
+
+	CONST
+		NULL* = 0H;
+
+		SOCKET_ERROR* = -1;
+		INVALID_SOCKET* = -1;
+
+		INADDR_NONE* = -1;
+		INADDR_ANY* = 0;
+
+		(* socket domains *)
+%%defs-af%%
+		(* socket types *)
+%%defs-sock%%
+		(* socket protocols *)
+%%defs-proto%%
+		(* socket options *)
+%%defs-so%%
+%%defs-shut%%
+%%defs-sol%%
+%%defs-msg%%
+%%defs-somaxconn%%
+		(* addrinfo.ai_flags *)
+%%defs-ai%%
+		(* getaddrinfo/getnameinfo/gai_strerror error codes *)
+%%defs-eai%%
+%%defs-fd_set-const%%
+	TYPE
+		u_int8_t = SHORTCHAR;
+		int8_t = SHORTCHAR;
+		uint16_t = SHORTINT;
+		(* PtrVoid, int, intFlags, short, socklen_t, size_t, ssize_t, in_addr_t, in_port_t, time_t, suseconds_t, nfds_t, sa_family_t *)
+%%defs-basictypes%%
+		PtrSTR* = POINTER [untagged] TO ARRAY [untagged] OF SHORTCHAR;
+
+		SOCKET* = int;
+
+(*
+		in_addr* = RECORD [untagged]
+			s_addr*: in_addr_t;
+		END;
+*)
+		in_addr* = RECORD [untagged]
+			S_un*: RECORD [union]
+				S_un_b*: RECORD [untagged]
+					s_b1*: SHORTCHAR;
+					s_b2*: SHORTCHAR;
+					s_b3*: SHORTCHAR;
+					s_b4*: SHORTCHAR;
+				END;
+				S_un_w*: RECORD [untagged]
+					s_w1*: SHORTINT;
+					s_w2*: SHORTINT;
+				END;
+				S_addr*: in_addr_t;
+			END;
+		END;
+
+		Ptrsockaddr* = POINTER [untagged] TO sockaddr;
+		sockaddr* = RECORD [untagged]
+%%fields-sockaddr%%
+		END;
+
+		Ptrsockaddr_storage = POINTER [untagged] TO sockaddr_storage;
+		sockaddr_storage* = RECORD [untagged]
+%%fields-sockaddr_storage%%
+		END;
+
+		Ptrsockaddr_in* = POINTER [untagged] TO sockaddr_in;
+		sockaddr_in* = RECORD [untagged]
+%%fields-sockaddr_in%%
+		END;
+
+		Ptraddrinfo* = POINTER [untagged] TO addrinfo;
+		addrinfo* = RECORD [untagged]
+%%fields-addrinfo%%
+		END;
+
+		timeval* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				tv_sec*: time_t; (* seconds *)
+				tv_usec*: suseconds_t; (* and microseconds *)
+		END;
+
+		pollfd* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				fd*: int;
+				events*: short;
+				revents*: short;
+		END;
+
+%%defs-fd_set-type%%
+	(* POSIX.1 *)
+		PROCEDURE [ccall] socket* (domain: int; type: int; protocol: int): SOCKET;
+		PROCEDURE [ccall] accept* (s: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
+		PROCEDURE [ccall] bind* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] connect* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] getsockname* (s: SOCKET; VAR name: sockaddr; VAR namelen: socklen_t): int;
+		PROCEDURE [ccall] listen* (s: SOCKET; backlog: int): int;
+		PROCEDURE [ccall] recv* (s: SOCKET; buf: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] send* (s: SOCKET; msg: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] shutdown* (s: SOCKET; how: int): int;
+		PROCEDURE [ccall] getsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; VAR [nil] optlen: socklen_t): int;
+		PROCEDURE [ccall] setsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; optlen: socklen_t): int;
+
+		PROCEDURE [ccall] inet_addr* (cp: PtrSTR): in_addr_t;
+		PROCEDURE [ccall] htons* (host16: uint16_t): uint16_t;
+
+		PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): int;
+
+		PROCEDURE [ccall] poll* (VAR fds: ARRAY [untagged] OF pollfd; nfds: nfds_t; timeout: int): int;
+
+(*
+	PROCEDURE FD_ZERO (VAR set: Net.fd_set);
+		VAR i: INTEGER;
+	BEGIN
+		i := LEN(set); REPEAT DEC(i); set[i] := {} UNTIL i = 0
+	END FD_ZERO;
+
+	PROCEDURE FD_SET (fd: Net.SOCKET; VAR set: Net.fd_set);
+	BEGIN
+		INCL(set[fd DIV 32], fd MOD 32)
+	END FD_SET;
+*)
+
+	(* POSIX.1g *)
+		PROCEDURE [ccall] getaddrinfo* (hostname: PtrSTR; servname: PtrSTR; VAR [nil] hints: addrinfo; VAR res: Ptraddrinfo): int;
+		PROCEDURE [ccall] freeaddrinfo* (ai: Ptraddrinfo);
+
+		PROCEDURE [ccall] gai_strerror* (ecode: int): PtrSTR;
+
+END LinNet.

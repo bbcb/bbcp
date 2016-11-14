@@ -1,0 +1,3 @@
+		(* FreeBSD 11.0 /usr/include/sys/select.h *)
+			__fd_mask = SET;
+			fd_set* = ARRAY [untagged] (FD_SETSIZE + (_NFDBITS - 1)) DIV _NFDBITS OF __fd_mask;

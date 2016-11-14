@@ -1,0 +1,6 @@
+			(* FreeBSD 11.0 /usr/include/netinet/in.h *)
+				sin_len*: SHORTCHAR;
+				sin_family*: sa_family_t;
+				sin_port*: in_port_t;
+				sin_addr*: in_addr;
+				sin_zero*: ARRAY [untagged] 8 OF SHORTCHAR;

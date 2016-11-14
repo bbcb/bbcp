@@ -1,24 +1,20 @@
-MODULE LinNet ["libc.so.70.0"];
+MODULE LinNet ["libc.so.89.2"];
 
 	(*
-		A. V. Shiryaev, 2012.11, 2013.08
-
-		OpenBSD 5.4
-		32-bit
+		OpenBSD 6.0
+		i386
 	*)
 
-	IMPORT Libc := LinLibc;
-
 	CONST
-		INVALID_SOCKET* = -1;
-		SOCKET_ERROR* = -1;
+		NULL* = 0H;
 
-		(* /usr/include/sys/socket.h *)
-			SOCK_STREAM* = 1; (* stream socket *)
-			SOCK_DGRAM* = 2; (* datagram socket *)
-			SOCK_RAW* = 3; (* raw-protocol interface *)
-			SOCK_RDM* = 4; (* reliably-delivered message *)
-			SOCK_SEQPACKET* = 5; (* sequenced packet stream *)
+		SOCKET_ERROR* = -1;
+		INVALID_SOCKET* = -1;
+
+		INADDR_NONE* = -1;
+		INADDR_ANY* = 0;
+
+		(* socket domains *)
 			AF_UNSPEC* = 0; (* unspecified *)
 			AF_LOCAL* = 1; (* local to host (pipes, portals) *)
 			AF_UNIX* = AF_LOCAL; (* backward compatibility *)
@@ -52,49 +48,15 @@ MODULE LinNet ["libc.so.70.0"];
 			AF_BLUETOOTH* = 32; (* Bluetooth *)
 			AF_MPLS* = 33; (* MPLS *)
 			AF_MAX* = 36;
-			SHUT_RD* = 0;
-			SHUT_WR* = 1;
-			SHUT_RDWR* = 2;
-			SOMAXCONN* = 128;
-			SO_DEBUG* = {0}; (* turn on debugging info recording *)
-			SO_ACCEPTCONN* = {1}; (* socket has had listen() *)
-			SO_REUSEADDR* = {2}; (* allow local address reuse *)
-			SO_KEEPALIVE* = {3}; (* keep connections alive *)
-			SO_DONTROUTE* = {4}; (* just use interface addresses *)
-			SO_BROADCAST* = {5}; (* permit sending of broadcast msgs *)
-			SO_USELOOPBACK* = {6}; (* bypass hardware when possible *)
-			SO_LINGER* = {7}; (* linger on close if data present *)
-			SO_OOBINLINE* = {8}; (* leave received OOB data in line *)
-			SO_REUSEPORT* = {9}; (* allow local address & port reuse *)
-			SO_TIMESTAMP* = {11}; (* timestamp received dgram traffic *)
-			SO_BINDANY* = {12}; (* allow bind to any address *)
-			SO_SNDBUF* = {0,12}; (* send buffer size *)
-			SO_RCVBUF* = {1,12}; (* receive buffer size *)
-			SO_SNDLOWAT* = {0,1,12}; (* send low-water mark *)
-			SO_RCVLOWAT* = {2,12}; (* receive low-water mark *)
-			SO_SNDTIMEO* = {0,2,12}; (* send timeout *)
-			SO_RCVTIMEO* = {1,2,12}; (* receive timeout *)
-			SO_ERROR* = {0..2,12}; (* get error status and clear *)
-			SO_TYPE* = {3,12}; (* get socket type *)
-			SO_NETPROC* = {5,12}; (* multiplex; network processing *)
-			SO_RTABLE* = {0,5,12}; (* routing table to be used *)
-			SO_PEERCRED* = {1,5,12}; (* get connect-time credentials *)
-			SO_SPLICE* = {0,1,5,12}; (* splice data to other socket *)
-			SOL_SOCKET* = 0FFFFH; (* {0..15} *) (* options for socket level *)
-			MSG_OOB* = {0}; (* process out-of-band data *)
-			MSG_PEEK* = {1}; (* peek at incoming message *)
-			MSG_DONTROUTE* = {2}; (* send without using routing tables *)
-			MSG_EOR* = {3}; (* data completes record *)
-			MSG_TRUNC* = {4}; (* data discarded before delivery *)
-			MSG_CTRUNC* = {5}; (* control data lost before delivery *)
-			MSG_WAITALL* = {6}; (* wait for full request or error *)
-			MSG_DONTWAIT* = {7}; (* this message should be nonblocking *)
-			MSG_BCAST* = {8}; (* this message rec'd as broadcast *)
-			MSG_MCAST* = {9}; (* this message rec'd as multicast *)
-			MSG_NOSIGNAL* = {10}; (* do not send SIGPIPE *)
 
-		(* /usr/include/netinet/in.h *)
-			INADDR_NONE* = -1;
+		(* socket types *)
+			SOCK_STREAM* = 1; (* stream socket *)
+			SOCK_DGRAM* = 2; (* datagram socket *)
+			SOCK_RAW* = 3; (* raw-protocol interface *)
+			SOCK_RDM* = 4; (* reliably-delivered message *)
+			SOCK_SEQPACKET* = 5; (* sequenced packet stream *)
+
+		(* socket protocols *)
 			IPPROTO_IP* = 0; (* dummy for IP *)
 			IPPROTO_HOPOPTS* = IPPROTO_IP; (* Hop-by-hop option header *)
 			IPPROTO_ICMP* = 1; (* control message protocol *)
@@ -134,126 +96,203 @@ MODULE LinNet ["libc.so.70.0"];
 			IPPROTO_DIVERT_RESP* = 01H; (* {0} *) (* divert response packets *)
 			IPPROTO_DIVERT_INIT* = 02H; (* {1} *) (* divert packets initial direction *)
 
-		(* /usr/include/sys/param.h *)
-			MAXHOSTNAMELEN* = 256; (* max hostname size *)
+		(* socket options *)
+			SO_DEBUG* = {0}; (* turn on debugging info recording *)
+			SO_ACCEPTCONN* = {1}; (* socket has had listen() *)
+			SO_REUSEADDR* = {2}; (* allow local address reuse *)
+			SO_KEEPALIVE* = {3}; (* keep connections alive *)
+			SO_DONTROUTE* = {4}; (* just use interface addresses *)
+			SO_BROADCAST* = {5}; (* permit sending of broadcast msgs *)
+			SO_USELOOPBACK* = {6}; (* bypass hardware when possible *)
+			SO_LINGER* = {7}; (* linger on close if data present *)
+			SO_OOBINLINE* = {8}; (* leave received OOB data in line *)
+			SO_REUSEPORT* = {9}; (* allow local address & port reuse *)
+			SO_TIMESTAMP* = {11}; (* timestamp received dgram traffic *)
+			SO_BINDANY* = {12}; (* allow bind to any address *)
+			SO_SNDBUF* = {0,12}; (* send buffer size *)
+			SO_RCVBUF* = {1,12}; (* receive buffer size *)
+			SO_SNDLOWAT* = {0,1,12}; (* send low-water mark *)
+			SO_RCVLOWAT* = {2,12}; (* receive low-water mark *)
+			SO_SNDTIMEO* = {0,2,12}; (* send timeout *)
+			SO_RCVTIMEO* = {1,2,12}; (* receive timeout *)
+			SO_ERROR* = {0..2,12}; (* get error status and clear *)
+			SO_TYPE* = {3,12}; (* get socket type *)
+			SO_NETPROC* = {5,12}; (* multiplex; network processing *)
+			SO_RTABLE* = {0,5,12}; (* routing table to be used *)
+			SO_PEERCRED* = {1,5,12}; (* get connect-time credentials *)
+			SO_SPLICE* = {0,1,5,12}; (* splice data to other socket *)
 
-		(* /usr/include/netdb.h *)
-			NETDB_INTERNAL* = -1; (* see errno *)
-			NETDB_SUCCESS* = 0; (* no problem *)
-			HOST_NOT_FOUND* = 1; (* Authoritative Answer Host not found *)
-			TRY_AGAIN* = 2; (* Non-Authoritative Host not found, or SERVERFAIL *)
-			NO_RECOVERY* = 3; (* Non recoverable errors, FORMERR, REFUSED, NOTIMP *)
-			NO_DATA* = 4; (* Valid name, no data record of requested type *)
-			NO_ADDRESS* = NO_DATA; (* no address *)
-			NI_MAXHOST* = MAXHOSTNAMELEN; (* max host name returned by getnameinfo *)
-			NI_MAXSERV* = 32; (* max serv. name length returned by getnameinfo *)
-			RRSET_VALIDATED* = 1;
-			ERRSET_SUCCESS* = 0;
-			ERRSET_NOMEMORY* = 1;
-			ERRSET_FAIL* = 2;
-			ERRSET_INVAL* = 3;
-			ERRSET_NONAME* = 4;
-			ERRSET_NODATA* = 5;
+		SHUT_RD* = 0;
+		SHUT_WR* = 1;
+		SHUT_RDWR* = 2;
 
-		(* /usr/include/sys/select.h *)
+		SOL_SOCKET* = 0FFFFH; (* {0..15} *) (* options for socket level *)
+
+		MSG_OOB* = {0}; (* process out-of-band data *)
+		MSG_PEEK* = {1}; (* peek at incoming message *)
+		MSG_DONTROUTE* = {2}; (* send without using routing tables *)
+		MSG_EOR* = {3}; (* data completes record *)
+		MSG_TRUNC* = {4}; (* data discarded before delivery *)
+		MSG_CTRUNC* = {5}; (* control data lost before delivery *)
+		MSG_WAITALL* = {6}; (* wait for full request or error *)
+		MSG_DONTWAIT* = {7}; (* this message should be nonblocking *)
+		MSG_BCAST* = {8}; (* this message rec'd as broadcast *)
+		MSG_MCAST* = {9}; (* this message rec'd as multicast *)
+		MSG_NOSIGNAL* = {10}; (* do not send SIGPIPE *)
+		MSG_CMSG_CLOEXEC* = {11}; (* set FD_CLOEXEC on received fds *)
+
+		SOMAXCONN* = 128;
+
+		(* addrinfo.ai_flags *)
+			AI_PASSIVE* = {0}; (* socket address is intended for bind() *)
+			AI_CANONNAME* = {1}; (* request for canonical name *)
+			AI_NUMERICHOST* = {2}; (* don't ever try hostname lookup *)
+			AI_EXT* = {3}; (* enable non-portable extensions *)
+			AI_NUMERICSERV* = {4}; (* don't ever try servname lookup *)
+			AI_FQDN* = {5}; (* return the FQDN that was resolved *)
+			AI_ADDRCONFIG* = {6}; (* return configured address families only *)
+
+		(* getaddrinfo/getnameinfo/gai_strerror error codes *)
+			EAI_BADFLAGS* = -1; (* invalid value for ai_flags *)
+			EAI_NONAME* = -2; (* name or service is not known *)
+			EAI_AGAIN* = -3; (* temporary failure in name resolution *)
+			EAI_FAIL* = -4; (* non-recoverable failure in name resolution *)
+			EAI_NODATA* = -5; (* no address associated with name *)
+			EAI_FAMILY* = -6; (* ai_family not supported *)
+			EAI_SOCKTYPE* = -7; (* ai_socktype not supported *)
+			EAI_SERVICE* = -8; (* service not supported for ai_socktype *)
+			EAI_ADDRFAMILY* = -9; (* address family for name not supported *)
+			EAI_MEMORY* = -10; (* memory allocation failure *)
+			EAI_SYSTEM* = -11; (* system error (code indicated in errno) *)
+			EAI_BADHINTS* = -12; (* invalid value for hints *)
+			EAI_PROTOCOL* = -13; (* resolved protocol is unknown *)
+			EAI_OVERFLOW* = -14; (* argument buffer overflow *)
+
+		(* OpenBSD 6.0 /usr/include/sys/select.h *)
 			FD_SETSIZE = 1024;
 			__NBBY = 8;
 
 	TYPE
-		SOCKET* = INTEGER;
+		u_int8_t = SHORTCHAR;
+		int8_t = SHORTCHAR;
+		uint16_t = SHORTINT;
+		(* PtrVoid, int, intFlags, short, socklen_t, size_t, ssize_t, in_addr_t, in_port_t, time_t, suseconds_t, nfds_t, sa_family_t *)
+		PtrVoid* = INTEGER;
+		short* = SHORTINT;
+		int* = INTEGER;
+		intFlags* = SET;
+		size_t* = INTEGER;
+		ssize_t* = INTEGER;
+		time_t* = LONGINT;
+		suseconds_t* = INTEGER;
+		socklen_t* = INTEGER;
+		in_addr_t* = INTEGER;
+		in_port_t* = SHORTINT;
+		nfds_t* = INTEGER;
+		sa_family_t* = SHORTCHAR;
 
-		(* /usr/include/sys/_types.h *)
-			socklen_t* = INTEGER;
-			sa_family_t* = SHORTCHAR;
-			in_addr_t* = INTEGER;
-			in_port_t* = SHORTINT;
+		PtrSTR* = POINTER [untagged] TO ARRAY [untagged] OF SHORTCHAR;
 
-		(* /usr/include/sys/socket.h *)
-			sockaddr* = RECORD [untagged]
+		SOCKET* = int;
+
+(*
+		in_addr* = RECORD [untagged]
+			s_addr*: in_addr_t;
+		END;
+*)
+		in_addr* = RECORD [untagged]
+			S_un*: RECORD [union]
+				S_un_b*: RECORD [untagged]
+					s_b1*: SHORTCHAR;
+					s_b2*: SHORTCHAR;
+					s_b3*: SHORTCHAR;
+					s_b4*: SHORTCHAR;
+				END;
+				S_un_w*: RECORD [untagged]
+					s_w1*: SHORTINT;
+					s_w2*: SHORTINT;
+				END;
+				S_addr*: in_addr_t;
+			END;
+		END;
+
+		Ptrsockaddr* = POINTER [untagged] TO sockaddr;
+		sockaddr* = RECORD [untagged]
+			(* OpenBSD /usr/include/sys/socket.h *)
 				sa_len*: SHORTCHAR; (* total length *)
 				sa_family*: sa_family_t; (* address family *)
 				sa_data*: ARRAY [untagged] 14 OF SHORTCHAR; (* actually longer; address value *)
-			END;
-			sockaddr_storage* = RECORD [untagged]
+		END;
+
+		Ptrsockaddr_storage = POINTER [untagged] TO sockaddr_storage;
+		sockaddr_storage* = RECORD [untagged]
+			(* OpenBSD 6.0 /usr/include/sys/socket.h *)
 				ss_len*: SHORTCHAR; (* total length *)
 				ss_family*: sa_family_t; (* address family *)
 				__ss_pad1: ARRAY [untagged] 6 OF SHORTCHAR; (* align to quad *)
 				__ss_pad2: LONGINT; (* force alignment for stupid compilers *)
 				__ss_pad3: ARRAY [untagged] 240 OF SHORTCHAR; (* pad to a total of 256 bytes *)
-			END;
+		END;
 
-		(* /usr/include/netinet/in.h *)
-(*
-			in_addr* = RECORD [untagged]
-				s_addr*: in_addr_t;
-			END;
-*)
-			in_addr* = RECORD [untagged]
-				S_un*: RECORD [union]
-					S_un_b*: RECORD [untagged]
-						s_b1*: SHORTCHAR;
-						s_b2*: SHORTCHAR;
-						s_b3*: SHORTCHAR;
-						s_b4*: SHORTCHAR;
-					END;
-					S_un_w*: RECORD [untagged]
-						s_w1*: SHORTINT;
-						s_w2*: SHORTINT;
-					END;
-					S_addr*: in_addr_t;
-				END;
-			END;
-
-			sockaddr_in* = RECORD [untagged]
-				sin_len*: SHORTCHAR;
+		Ptrsockaddr_in* = POINTER [untagged] TO sockaddr_in;
+		sockaddr_in* = RECORD [untagged]
+			(* OpenBSD /usr/include/netinet/in.h *)
+				sin_len*: u_int8_t;
 				sin_family*: sa_family_t;
 				sin_port*: in_port_t;
 				sin_addr*: in_addr;
-				sin_zero*: ARRAY [untagged] 8 OF SHORTCHAR;
-			END;
+				sin_zero*: ARRAY [untagged] 8 OF int8_t;
+		END;
 
-		(* /usr/include/netdb.h *)
-			Ptrhostent* = POINTER TO hostent;
-			hostent* = RECORD [untagged]
-				h_name*: Libc.PtrSTR; (* official name of host *)
-				h_aliases*: POINTER TO ARRAY [untagged] OF Libc.PtrSTR; (* alias list *)
-				h_addrtype*: INTEGER; (* host address type *)
-				h_length*: INTEGER; (* length of address *)
-				h_addr_list*: POINTER TO ARRAY [untagged] OF POINTER TO ARRAY [untagged] OF in_addr; (* list of addresses from name server *)
-			END;
+		Ptraddrinfo* = POINTER [untagged] TO addrinfo;
+		addrinfo* = RECORD [untagged]
+			(* OpenBSD 6.0 /usr/include/netdb.h *)
+				ai_flags*: intFlags; (* input flags *)
+				ai_family*: int; (* protocol family for socket *)
+				ai_socktype*: int; (* socket type *)
+				ai_protocol*: int; (* protocol for socket *)
+				ai_addrlen*: socklen_t; (* length of socket-address *)
+				ai_addr*: Ptrsockaddr; (* socket-address for socket *)
+				ai_canonname*: PtrSTR; (* canonical name for service location (iff req) *)
+				ai_next*: Ptraddrinfo; (* pointer to next in list *)
+		END;
 
-		(* /usr/include/sys/time.h *)
-			timeval* = RECORD [untagged]
-				tv_sec*: INTEGER; (* seconds *)
-				tv_usec*: INTEGER; (* and microseconds *)
-			END;
+		timeval* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				tv_sec*: time_t; (* seconds *)
+				tv_usec*: suseconds_t; (* and microseconds *)
+		END;
 
-		(* /usr/include/sys/select.h *)
+		pollfd* = RECORD [untagged]
+			(* Linux, FreeBSD, OpenBSD *)
+				fd*: int;
+				events*: short;
+				revents*: short;
+		END;
+
+		(* OpenBSD 6.0 /usr/include/sys/select.h *)
 			__fd_mask = SET;
 			fd_set* = ARRAY [untagged] (FD_SETSIZE + (SIZE(__fd_mask) * __NBBY - 1)) DIV (SIZE(__fd_mask) * __NBBY) OF __fd_mask;
 
-	VAR
-		h_errno*: INTEGER;
+	(* POSIX.1 *)
+		PROCEDURE [ccall] socket* (domain: int; type: int; protocol: int): SOCKET;
+		PROCEDURE [ccall] accept* (s: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
+		PROCEDURE [ccall] bind* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] connect* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
+		PROCEDURE [ccall] getsockname* (s: SOCKET; VAR name: sockaddr; VAR namelen: socklen_t): int;
+		PROCEDURE [ccall] listen* (s: SOCKET; backlog: int): int;
+		PROCEDURE [ccall] recv* (s: SOCKET; buf: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] send* (s: SOCKET; msg: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] shutdown* (s: SOCKET; how: int): int;
+		PROCEDURE [ccall] getsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; VAR [nil] optlen: socklen_t): int;
+		PROCEDURE [ccall] setsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; optlen: socklen_t): int;
 
-	PROCEDURE [ccall] socket* (domain: INTEGER; type: INTEGER; protocol: INTEGER): SOCKET;
-	PROCEDURE [ccall] accept* (s: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
-	PROCEDURE [ccall] bind* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): INTEGER;
-	PROCEDURE [ccall] connect* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): INTEGER;
-	PROCEDURE [ccall] listen* (s: SOCKET; backlog: INTEGER): INTEGER;
-	PROCEDURE [ccall] recv* (s: SOCKET; buf: Libc.PtrVoid; len: Libc.size_t; flags: SET): Libc.ssize_t;
-	PROCEDURE [ccall] send* (s: SOCKET; msg: Libc.PtrVoid; len: Libc.size_t; flags: SET): Libc.ssize_t;
-	PROCEDURE [ccall] shutdown* (s: SOCKET; how: INTEGER): INTEGER;
-	PROCEDURE [ccall] getsockopt* (s: SOCKET; level: INTEGER; optname: SET; optval: Libc.PtrVoid; VAR optlen: socklen_t): INTEGER;
-	PROCEDURE [ccall] setsockopt* (s: SOCKET; level: INTEGER; optname: SET; optval: Libc.PtrVoid; optlen: socklen_t): INTEGER;
+		PROCEDURE [ccall] inet_addr* (cp: PtrSTR): in_addr_t;
+		PROCEDURE [ccall] htons* (host16: uint16_t): uint16_t;
 
-	PROCEDURE [ccall] htons* (host16: SHORTINT): SHORTINT;
+		PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): int;
 
-	PROCEDURE [ccall] gethostbyname* (name: Libc.PtrSTR): Ptrhostent;
-	PROCEDURE [ccall] inet_addr* (cp: Libc.PtrSTR): in_addr_t;
-
-	PROCEDURE [ccall] getsockname* (s: SOCKET; VAR name: sockaddr; VAR namelen: socklen_t): INTEGER;
-
-	PROCEDURE [ccall] hstrerror* (err: INTEGER): Libc.PtrSTR;
+		PROCEDURE [ccall] poll* (VAR fds: ARRAY [untagged] OF pollfd; nfds: nfds_t; timeout: int): int;
 
 (*
 	PROCEDURE FD_ZERO (VAR set: Net.fd_set);
@@ -268,6 +307,10 @@ MODULE LinNet ["libc.so.70.0"];
 	END FD_SET;
 *)
 
-	PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): INTEGER;
+	(* POSIX.1g *)
+		PROCEDURE [ccall] getaddrinfo* (hostname: PtrSTR; servname: PtrSTR; VAR [nil] hints: addrinfo; VAR res: Ptraddrinfo): int;
+		PROCEDURE [ccall] freeaddrinfo* (ai: Ptraddrinfo);
+
+		PROCEDURE [ccall] gai_strerror* (ecode: int): PtrSTR;
 
 END LinNet.

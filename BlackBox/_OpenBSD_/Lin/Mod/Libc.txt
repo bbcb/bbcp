@@ -1,7 +1,7 @@
-MODULE LinLibc ["libc.so.70.0"];
+MODULE LinLibc ["libc.so.89.2"];
 
 	(*
-		OpenBSD 5.4
+		OpenBSD 6.0
 		i386
 	*)
 
@@ -17,20 +17,14 @@ MODULE LinLibc ["libc.so.70.0"];
 		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
 		MAP_SHARED* = {0}; (* share changes *)
 		MAP_PRIVATE* = {1}; (* changes are private *)
-		MAP_COPY* = {2}; (* "copy" region at mmap time *)
 		MAP_FIXED* = {4}; (* map addr must be exactly as requested *)
-		MAP_RENAME* = {5}; (* Sun: rename private pages to file *)
-		MAP_NORESERVE* = {6}; (* Sun: don't reserve needed swap area *)
-		MAP_INHERIT* = {7}; (* region is retained after exec *)
-		MAP_NOEXTEND* = {8}; (* for MAP_FILE, don't change file size *)
-		MAP_HASSEMAPHORE* = {9}; (* region may contain semaphores *)
-		MAP_TRYFIXED* = {10}; (* attempt hint address, even within heap *)
-		MAP_FILE* = {}; (* map from file (default) *)
 		MAP_ANON* = {12}; (* allocated from memory, swap space *)
-		MAP_FLAGMASK* = {0..2,4..12};
+		MAP_ANONYMOUS* = MAP_ANON; (* alternate POSIX spelling *)
+		MAP_FLAGMASK* = {0..2,4..13};
 		MAP_INHERIT_SHARE* = {}; (* share with child *)
 		MAP_INHERIT_COPY* = {0}; (* copy into child *)
 		MAP_INHERIT_NONE* = {1}; (* absent from child *)
+		MAP_INHERIT_ZERO* = {0,1}; (* zero in child *)
 
 
 		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
@@ -297,12 +291,15 @@ MODULE LinLibc ["libc.so.70.0"];
 		ECONNREFUSED* = 61; (* Connection refused *)
 		ELOOP* = 62; (* Too many levels of symbolic links *)
 		ENAMETOOLONG* = 63; (* File name too long *)
+		EHOSTUNREACH* = 65; (* No route to host *)
 		ENOTEMPTY* = 66; (* Directory not empty *)
 		EDQUOT* = 69; (* Disk quota exceeded *)
 		ESTALE* = 70; (* Stale NFS file handle *)
 		ENOLCK* = 77; (* No locks available *)
 		ENOSYS* = 78; (* Function not implemented *)
 		EILSEQ* = 84; (* Illegal byte sequence *)
+		EOVERFLOW* = 87; (* Value too large to be stored in data type *)
+		ECANCELED* = 88; (* Operation canceled *)
 		EIDRM* = 89; (* Identifier removed *)
 		ENOMSG* = 90; (* No message of desired type *)
 		ENOTSUP* = 91; (* Not supported *)
@@ -312,13 +309,12 @@ MODULE LinLibc ["libc.so.70.0"];
 		ESHUTDOWN* = 58; (* Can't send after socket shutdown *)
 		ETOOMANYREFS* = 59; (* Too many references: can't splice *)
 		EHOSTDOWN* = 64; (* Host is down *)
-		EHOSTUNREACH* = 65; (* No route to host *)
 		EPROCLIM* = 67; (* Too many processes *)
 		EUSERS* = 68; (* Too many users *)
 		EREMOTE* = 71; (* Too many levels of remote in path *)
 		EBADRPC* = 72; (* RPC struct is bad *)
 		ERPCMISMATCH* = 73; (* RPC version wrong *)
-		EPROGUNAVAIL* = 74; (* RPC prog. not avail *)
+		EPROGUNAVAIL* = 74; (* RPC program not available *)
 		EPROGMISMATCH* = 75; (* Program version wrong *)
 		EPROCUNAVAIL* = 76; (* Bad procedure for program *)
 		EFTYPE* = 79; (* Inappropriate file type or format *)
@@ -327,9 +323,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		EIPSEC* = 82; (* IPsec processing failure *)
 		ENOATTR* = 83; (* Attribute not found *)
 		ENOMEDIUM* = 85; (* No medium found *)
-		EMEDIUMTYPE* = 86; (* Wrong Medium Type *)
-		EOVERFLOW* = 87; (* Conversion overflow *)
-		ECANCELED* = 88; (* Operation canceled *)
+		EMEDIUMTYPE* = 86; (* Wrong medium type *)
 		ELAST* = 91; (* Must be equal largest errno *)
 		ERESTART* = -1; (* restart syscall *)
 		EJUSTRETURN* = -2; (* don't modify regs, just return *)
@@ -340,6 +334,10 @@ MODULE LinLibc ["libc.so.70.0"];
 		SEEK_SET* = 0;
 		SEEK_CUR* = 1;
 		SEEK_END* = 2;
+
+		STDIN_FILENO* = 0;
+		STDOUT_FILENO* = 1;
+		STDERR_FILENO* = 2;
 
 		P_tmpdir* = "/tmp";
 
@@ -366,7 +364,6 @@ MODULE LinLibc ["libc.so.70.0"];
 
 
 		CLOCK_REALTIME* = 0;
-		CLOCK_VIRTUAL* = 1;
 		CLOCK_PROCESS_CPUTIME_ID* = 2;
 		CLOCK_MONOTONIC* = 3;
 		CLOCK_THREAD_CPUTIME_ID* = 4;
@@ -396,6 +393,8 @@ MODULE LinLibc ["libc.so.70.0"];
 		dev_t* = INTEGER;
 		ino_t* = LONGINT;
 		nlink_t* = INTEGER;
+		blkcnt_t = LONGINT;
+		blksize_t = INTEGER;
 		int8_t* = SHORTCHAR;
 		u_int8_t* = SHORTCHAR;
 		int16_t* = SHORTINT;
@@ -415,7 +414,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		tmDesc* = RECORD [untagged]
 			(* NOTE: check record size *)
 			(* tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday [ , tm_gmtoff ] *)
-			(* OpenBSD 5.4 /usr/include/time.h *)
+			(* OpenBSD 6.0 /usr/include/time.h *)
 				tm_sec*: int; (* seconds after the minute [0-60] *)
 				tm_min*: int; (* minutes after the hour [0-59] *)
 				tm_hour*: int; (* hours since midnight [0-23] *)
@@ -432,7 +431,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		Ptrsiginfo_t* = POINTER TO siginfo_t;
 		siginfo_t = RECORD [untagged]
 			(* si_code, fault address *)
-			(* OpenBSD 5.4 /usr/include/sys/siginfo.h *)
+			(* OpenBSD 5.9 /usr/include/sys/siginfo.h *)
 				si_signo*: int; (* signal from signal.h *)
 				si_code*: int; (* code from above *)
 				si_errno*: int; (* error from errno.h *)
@@ -465,7 +464,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		Ptrucontext_t* = POINTER TO ucontext_t;
 		ucontext_t = RECORD [untagged]
 			(* IP, SP, FP *)
-			(* OpenBSD 5.4 /usr/include/i386/signal.h struct sigcontext *)
+			(* OpenBSD 5.9 /usr/include/i386/signal.h struct sigcontext *)
 				sc_gs*: int;
 				sc_fs*: int;
 				sc_es*: int;
@@ -491,7 +490,7 @@ MODULE LinLibc ["libc.so.70.0"];
 				sc_err*: int;
 
 				sc_fpstate*: RECORD [union]
-					(* OpenBSD 5.4 /usr/include/i386/npx.h union savefpu *)
+					(* OpenBSD 5.9 /usr/include/i386/npx.h union savefpu *)
 (*
 						sv_87*: RECORD [untagged]
 							...
@@ -508,7 +507,7 @@ MODULE LinLibc ["libc.so.70.0"];
 			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
-			(* OpenBSD 5.4 /usr/include/sys/signal.h *)
+			(* OpenBSD 5.9 /usr/include/sys/signal.h *)
 				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ctx: Ptrucontext_t);
 				sa_mask*: sigset_t;
 				sa_flags*: intFlags;
@@ -518,7 +517,7 @@ MODULE LinLibc ["libc.so.70.0"];
 (*
 			ss_sp*: PtrVoid, ss_size*: size_t, ss_flags*: intFlags
 *)
-			(* OpenBSD 5.4 /usr/include/sys/signal.h *)
+			(* OpenBSD 5.9 /usr/include/sys/signal.h *)
 				ss_sp*: PtrVoid; (* signal stack base *)
 				ss_size*: size_t; (* signal stack length *)
 				ss_flags*: intFlags; (* SS_DISABLE and/or SS_ONSTACK *)
@@ -529,7 +528,7 @@ MODULE LinLibc ["libc.so.70.0"];
 			NOTE: check record size
 			st_mode*: mode_t, st_size*: off_t, st_mtime*: time_t
 *)
-			(* OpenBSD 5.4 /usr/include/sys/stat.h *)
+			(* OpenBSD 5.9 /usr/include/sys/stat.h *)
 				st_mode*: mode_t;
 				st_dev*: dev_t;
 				st_ino*: ino_t;
@@ -546,8 +545,8 @@ MODULE LinLibc ["libc.so.70.0"];
 				st_ctimensec*: long;
 
 				st_size*: off_t;
-				st_blocks*: int64_t;
-				st_blksize*: u_int32_t;
+				st_blocks*: blkcnt_t;
+				st_blksize*: blksize_t;
 				st_flags*: u_int32_t;
 				st_gen*: u_int32_t;
 
@@ -563,7 +562,7 @@ MODULE LinLibc ["libc.so.70.0"];
 (*
 			d_name*: ARRAY [untagged] NAME_MAX + 1 OF SHORTCHAR
 *)
-			(* OpenBSD 5.4 /usr/include/sys/dirent.h *)
+			(* OpenBSD 5.9 /usr/include/sys/dirent.h *)
 				d_fileno*: ino_t; (* file number of entry *)
 				d_off*: off_t; (* offset after this entry *)
 				d_reclen*: u_int16_t; (* length of this record *)
@@ -574,7 +573,7 @@ MODULE LinLibc ["libc.so.70.0"];
 		END;
 
 		timespec_t* = RECORD [untagged]
-			(* OpenBSD 5.4 /usr/include/time.h *)
+			(* OpenBSD 5.9 /usr/include/time.h *)
 				tv_sec*: time_t; (* seconds *)
 				tv_nsec*: long; (* and nanoseconds *)
 		END;
@@ -591,14 +590,16 @@ MODULE LinLibc ["libc.so.70.0"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
 *)
+(*
 	VAR
 		(* OpenBSD: stdin, stdout, stderr *)
-			__sF*: ARRAY [untagged] 3 OF FILE; (* OpenBSD 5.2 /usr/include/stdio.h *)
+			__sF*: ARRAY [untagged] 3 OF FILE; (* OpenBSD 5.8 /usr/include/stdio.h *)
 				(*
 					stdin = SYSTEM.ADR(__sF[0])
 					stdout = SYSTEM.ADR(__sF[1])
 					stderr = SYSTEM.ADR(__sF[2])
 				*)
+*)
 
 	PROCEDURE [ccall] __errno_location* ["__errno"] (): PtrVoid;
 
@@ -650,6 +651,7 @@ MODULE LinLibc ["libc.so.70.0"];
 
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] fopen* (path, mode: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] fdopen* (fildes: int; mode: PtrSTR): PtrFILE;
 		PROCEDURE [ccall] fclose* (stream: PtrFILE): int;
 		PROCEDURE [ccall] fread* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;

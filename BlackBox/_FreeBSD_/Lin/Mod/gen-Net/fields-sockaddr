@@ -1,0 +1,4 @@
+			(* FreeBSD 11.0 /usr/include/sys/socket.h *)
+				sa_len*: SHORTCHAR; (* total length *)
+				sa_family*: sa_family_t; (* address family *)
+				sa_data*: ARRAY [untagged] 14 OF SHORTCHAR; (* actually longer; address value *)

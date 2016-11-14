@@ -1,0 +1,2 @@
+		(* /usr/include/i386-linux-gnu/bits/typesizes.h *)
+			__FD_SETSIZE = 1024;

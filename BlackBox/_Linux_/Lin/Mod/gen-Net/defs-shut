@@ -1,0 +1,4 @@
+		(* /usr/include/i386-linux-gnu/sys/socket.h *)
+			SHUT_RD* = 0;
+			SHUT_WR* = 1;
+			SHUT_RDWR* = 2;

@@ -1,0 +1,3 @@
+			(* /usr/include/i386-linux-gnu/bits/socket.h *)
+				sa_family: sa_family_t;
+				sa_data: ARRAY [untagged] 14 OF SHORTCHAR;

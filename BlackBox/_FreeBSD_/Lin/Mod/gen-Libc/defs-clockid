@@ -1,0 +1,15 @@
+		(* FreeBSD 11.0 /usr/include/time.h *)
+			CLOCK_REALTIME* = 0;
+			CLOCK_VIRTUAL* = 1;
+			CLOCK_PROF* = 2;
+			CLOCK_MONOTONIC* = 4;
+			CLOCK_UPTIME* = 5; (* FreeBSD-specific *)
+			CLOCK_UPTIME_PRECISE* = 7; (* FreeBSD-specific *)
+			CLOCK_UPTIME_FAST* = 8; (* FreeBSD-specific *)
+			CLOCK_REALTIME_PRECISE* = 9; (* FreeBSD-specific *)
+			CLOCK_REALTIME_FAST* = 10; (* FreeBSD-specific *)
+			CLOCK_MONOTONIC_PRECISE* = 11; (* FreeBSD-specific *)
+			CLOCK_MONOTONIC_FAST* = 12; (* FreeBSD-specific *)
+			CLOCK_SECOND* = 13; (* FreeBSD-specific *)
+			CLOCK_THREAD_CPUTIME_ID* = 14;
+			CLOCK_PROCESS_CPUTIME_ID* = 15;

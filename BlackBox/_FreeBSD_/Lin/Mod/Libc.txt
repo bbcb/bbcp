@@ -1,7 +1,7 @@
 MODULE LinLibc ["libc.so.7"];
 
 	(*
-		FreeBSD 9.0
+		FreeBSD 11.0
 		i386
 	*)
 
@@ -18,9 +18,8 @@ MODULE LinLibc ["libc.so.7"];
 		MAP_SHARED* = {0}; (* share changes *)
 		MAP_PRIVATE* = {1}; (* changes are private *)
 		MAP_FIXED* = {4}; (* map addr must be exactly as requested *)
-		MAP_COPY* = MAP_PRIVATE; (* Obsolete *)
-		MAP_RENAME* = {5}; (* Sun: rename private pages to file *)
-		MAP_NORESERVE* = {6}; (* Sun: don't reserve needed swap area *)
+		MAP_RESERVED0020* = {5}; (* previously unimplemented MAP_RENAME *)
+		MAP_RESERVED0040* = {6}; (* previously unimplemented MAP_NORESERVE *)
 		MAP_RESERVED0080* = {7}; (* previously misimplemented MAP_INHERIT *)
 		MAP_RESERVED0100* = {8}; (* previously unimplemented MAP_NOEXTEND *)
 		MAP_HASSEMAPHORE* = {9}; (* region may contain semaphores *)
@@ -28,8 +27,10 @@ MODULE LinLibc ["libc.so.7"];
 		MAP_NOSYNC* = {11}; (* page to but do not sync underlying file *)
 		MAP_FILE* = {}; (* map from file (default) *)
 		MAP_ANON* = {12}; (* allocated from memory, swap space *)
+		MAP_EXCL* = {14}; (* for MAP_FIXED, fail if address is used *)
 		MAP_NOCORE* = {17}; (* dont include these pages in a coredump *)
 		MAP_PREFAULT_READ* = {18}; (* prefault mapping for reading *)
+		MAP_ALIGNMENT_SHIFT* = {3,4};
 
 
 		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
@@ -103,6 +104,7 @@ MODULE LinLibc ["libc.so.7"];
 		SIGUSR2* = 31; (* user defined signal 2 *)
 		SIGTHR* = 32; (* reserved by thread library. *)
 		SIGLWP* = SIGTHR;
+		SIGLIBRT* = 33; (* reserved by real-time library. *)
 		SIGEV_NONE* = 0; (* No async notification. *)
 		SIGEV_SIGNAL* = 1; (* Generate a queued signal. *)
 		SIGEV_THREAD* = 2; (* Call back from another pthread. *)
@@ -304,11 +306,9 @@ MODULE LinLibc ["libc.so.7"];
 		EDOOFUS* = 88; (* Programming error *)
 		ENOTCAPABLE* = 93; (* Capabilities insufficient *)
 		ECAPMODE* = 94; (* Not permitted in capability mode *)
-		ELAST* = 94; (* Must be equal largest errno *)
-		ERESTART* = -1; (* restart syscall *)
-		EJUSTRETURN* = -2; (* don't modify regs, just return *)
-		ENOIOCTL* = -3; (* ioctl not handled by this layer *)
-		EDIRIOCTL* = -4; (* do direct ioctl in GEOM *)
+		ENOTRECOVERABLE* = 95; (* State not recoverable *)
+		EOWNERDEAD* = 96; (* Previous owner died *)
+		ELAST* = 96; (* Must be equal largest errno *)
 
 
 		NAME_MAX* = 255;
@@ -316,6 +316,10 @@ MODULE LinLibc ["libc.so.7"];
 		SEEK_SET* = 0;
 		SEEK_CUR* = 1;
 		SEEK_END* = 2;
+
+		STDIN_FILENO* = 0;
+		STDOUT_FILENO* = 1;
+		STDERR_FILENO* = 2;
 
 		P_tmpdir* = "/tmp";
 
@@ -330,6 +334,7 @@ MODULE LinLibc ["libc.so.7"];
 		O_EXEC* = {18}; (* Open for execute only *)
 		O_TTY_INIT* = {19}; (* Restore default termios attributes *)
 		O_CLOEXEC* = {20};
+		O_VERIFY* = {21}; (* open only after verification *)
 		O_RDONLY* = {}; (* open for reading only *)
 		O_WRONLY* = {0}; (* open for writing only *)
 		O_RDWR* = {1}; (* open for reading and writing *)
@@ -342,6 +347,22 @@ MODULE LinLibc ["libc.so.7"];
 		O_EXCL* = {11}; (* error if already exists *)
 		O_NOCTTY* = {15}; (* don't assign controlling terminal *)
 
+
+		(* FreeBSD 11.0 /usr/include/time.h *)
+			CLOCK_REALTIME* = 0;
+			CLOCK_VIRTUAL* = 1;
+			CLOCK_PROF* = 2;
+			CLOCK_MONOTONIC* = 4;
+			CLOCK_UPTIME* = 5; (* FreeBSD-specific *)
+			CLOCK_UPTIME_PRECISE* = 7; (* FreeBSD-specific *)
+			CLOCK_UPTIME_FAST* = 8; (* FreeBSD-specific *)
+			CLOCK_REALTIME_PRECISE* = 9; (* FreeBSD-specific *)
+			CLOCK_REALTIME_FAST* = 10; (* FreeBSD-specific *)
+			CLOCK_MONOTONIC_PRECISE* = 11; (* FreeBSD-specific *)
+			CLOCK_MONOTONIC_FAST* = 12; (* FreeBSD-specific *)
+			CLOCK_SECOND* = 13; (* FreeBSD-specific *)
+			CLOCK_THREAD_CPUTIME_ID* = 14;
+			CLOCK_PROCESS_CPUTIME_ID* = 15;
 
 	TYPE
 		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
@@ -357,6 +378,7 @@ MODULE LinLibc ["libc.so.7"];
 		ssize_t* = INTEGER;
 		off_t* = LONGINT;
 		clock_t* = INTEGER;
+		clockid_t* = INTEGER;
 		time_t* = INTEGER;
 		mode_t* = SHORTINT;
 		pid_t* = INTEGER;
@@ -555,6 +577,12 @@ MODULE LinLibc ["libc.so.7"];
 				d_name*: ARRAY [untagged] 255 + 1 (* 256 *) OF SHORTCHAR;
 		END;
 
+		timespec_t* = RECORD [untagged]
+			(* FreeBSD 11.0 /usr/include/sys/_timespec.h *)
+				tv_sec*: time_t; (* seconds *)
+				tv_nsec*: long; (* and nanoseconds *)
+		END;
+
 (*
 	VAR
 		stdin*: INTEGER;
@@ -567,9 +595,13 @@ MODULE LinLibc ["libc.so.7"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
 *)
+(*
 	VAR
 		errno*: INTEGER;
 		stdin* ["__stdinp"]: PtrFILE;
+*)
+
+	PROCEDURE [ccall] __errno_location* ["__error"] (): PtrVoid;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
@@ -577,6 +609,9 @@ MODULE LinLibc ["libc.so.7"];
 
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] clock* (): clock_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
 
 	PROCEDURE [ccall] mmap* (adr: PtrVoid; len: size_t; prot: intFlags; flags: intFlags; fd: int; offset: off_t): PtrVoid;
 	(* BSD *)
@@ -616,6 +651,7 @@ MODULE LinLibc ["libc.so.7"];
 
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] fopen* (path, mode: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] fdopen* (fildes: int; mode: PtrSTR): PtrFILE;
 		PROCEDURE [ccall] fclose* (stream: PtrFILE): int;
 		PROCEDURE [ccall] fread* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
@@ -650,6 +686,7 @@ MODULE LinLibc ["libc.so.7"];
 		PROCEDURE [ccall] write* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] read* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] close* (d: int): int;
+		PROCEDURE [ccall] lseek* (d: int; offset: off_t; whence: int): off_t;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;

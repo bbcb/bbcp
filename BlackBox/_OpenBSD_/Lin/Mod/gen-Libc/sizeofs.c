@@ -69,6 +69,8 @@ int main ()
 	D("dev_t", sizeof(dev_t), FALSE, TRUE);
 	D("ino_t", sizeof(ino_t), FALSE, TRUE);
 	D("nlink_t", sizeof(nlink_t), FALSE, TRUE);
+	D("blkcnt_t", sizeof(blkcnt_t), FALSE, FALSE);
+	D("blksize_t", sizeof(blksize_t), FALSE, FALSE);
 	D("int8_t", sizeof(int8_t), FALSE, TRUE);
 	D("u_int8_t", sizeof(u_int8_t), FALSE, TRUE);
 	D("int16_t", sizeof(int16_t), FALSE, TRUE);

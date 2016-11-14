@@ -1,4 +1,4 @@
-			(* OpenBSD 5.4 /usr/include/sys/dirent.h *)
+			(* OpenBSD 5.9 /usr/include/sys/dirent.h *)
 				d_fileno*: ino_t; (* file number of entry *)
 				d_off*: off_t; (* offset after this entry *)
 				d_reclen*: u_int16_t; (* length of this record *)

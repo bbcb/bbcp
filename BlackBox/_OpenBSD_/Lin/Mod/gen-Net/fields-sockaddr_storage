@@ -1,0 +1,6 @@
+			(* OpenBSD 6.0 /usr/include/sys/socket.h *)
+				ss_len*: SHORTCHAR; (* total length *)
+				ss_family*: sa_family_t; (* address family *)
+				__ss_pad1: ARRAY [untagged] 6 OF SHORTCHAR; (* align to quad *)
+				__ss_pad2: LONGINT; (* force alignment for stupid compilers *)
+				__ss_pad3: ARRAY [untagged] 240 OF SHORTCHAR; (* pad to a total of 256 bytes *)

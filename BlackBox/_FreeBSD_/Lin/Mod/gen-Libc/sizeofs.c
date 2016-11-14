@@ -59,6 +59,7 @@ int main ()
 	D("ssize_t", sizeof(ssize_t), FALSE, TRUE);
 	D("off_t", sizeof(off_t), FALSE, TRUE);
 	D("clock_t", sizeof(clock_t), FALSE, TRUE);
+	D("clockid_t", sizeof(clockid_t), FALSE, TRUE);
 	D("time_t", sizeof(time_t), FALSE, TRUE);
 	D("mode_t", sizeof(mode_t), TRUE, TRUE);
 	D("pid_t", sizeof(pid_t), FALSE, TRUE);

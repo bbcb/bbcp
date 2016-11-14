@@ -1,6 +1,10 @@
+(*
 	VAR
 		errno*: INTEGER;
 		stdin* ["__stdinp"]: PtrFILE;
+*)
+
+	PROCEDURE [ccall] __errno_location* ["__error"] (): PtrVoid;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;

@@ -1,4 +1,4 @@
-			(* OpenBSD 5.4 /usr/include/sys/stat.h *)
+			(* OpenBSD 5.9 /usr/include/sys/stat.h *)
 				st_mode*: mode_t;
 				st_dev*: dev_t;
 				st_ino*: ino_t;
@@ -15,8 +15,8 @@
 				st_ctimensec*: long;
 
 				st_size*: off_t;
-				st_blocks*: int64_t;
-				st_blksize*: u_int32_t;
+				st_blocks*: blkcnt_t;
+				st_blksize*: blksize_t;
 				st_flags*: u_int32_t;
 				st_gen*: u_int32_t;
 

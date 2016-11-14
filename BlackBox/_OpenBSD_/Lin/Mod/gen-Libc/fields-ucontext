@@ -1,4 +1,4 @@
-			(* OpenBSD 5.4 /usr/include/i386/signal.h struct sigcontext *)
+			(* OpenBSD 5.9 /usr/include/i386/signal.h struct sigcontext *)
 				sc_gs*: int;
 				sc_fs*: int;
 				sc_es*: int;
@@ -24,7 +24,7 @@
 				sc_err*: int;
 
 				sc_fpstate*: RECORD [union]
-					(* OpenBSD 5.4 /usr/include/i386/npx.h union savefpu *)
+					(* OpenBSD 5.9 /usr/include/i386/npx.h union savefpu *)
 (*
 						sv_87*: RECORD [untagged]
 							...

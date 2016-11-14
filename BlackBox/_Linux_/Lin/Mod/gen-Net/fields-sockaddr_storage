@@ -1,0 +1,4 @@
+			(* /usr/include/i386-linux-gnu/bits/socket.h *)
+				sa_family: sa_family_t;
+				__ss_align: INTEGER;
+				__ss_padding: ARRAY [untagged] 128 - 2 * 4 OF SHORTCHAR;

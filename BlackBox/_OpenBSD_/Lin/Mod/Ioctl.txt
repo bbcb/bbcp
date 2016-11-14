@@ -1,23 +1,20 @@
-MODULE LinIoctl ["libc.so.70.0"];
+MODULE LinIoctl ["libc.so.89.2"];
 
 	(*
-		A. V. Shiryaev, 2012.11, 2013.08
-
-		OpenBSD 5.4
-		32-bit
+		OpenBSD 6.0
+		i386
 	*)
 
 	CONST
-		(* /usr/include/sys/ttycom.h *)
-			TIOCM_LE* = {0}; (* line enable *)
-			TIOCM_DTR* = {1}; (* data terminal ready *)
-			TIOCM_RTS* = {2}; (* request to send *)
-			TIOCM_ST* = {3}; (* secondary transmit *)
-			TIOCM_SR* = {4}; (* secondary receive *)
-			TIOCM_CTS* = {5}; (* clear to send *)
-			TIOCM_CAR* = {6}; (* carrier detect *)
-			TIOCM_RNG* = {7}; (* ring *)
-			TIOCM_DSR* = {8}; (* data set ready *)
+		TIOCM_LE* = {0}; (* line enable *)
+		TIOCM_DTR* = {1}; (* data terminal ready *)
+		TIOCM_RTS* = {2}; (* request to send *)
+		TIOCM_ST* = {3}; (* secondary transmit *)
+		TIOCM_SR* = {4}; (* secondary receive *)
+		TIOCM_CTS* = {5}; (* clear to send *)
+		TIOCM_CAR* = {6}; (* carrier detect *)
+		TIOCM_RNG* = {7}; (* ring *)
+		TIOCM_DSR* = {8}; (* data set ready *)
 
 		FIOCLEX* = 536897025;
 		FIONCLEX* = 536897026;

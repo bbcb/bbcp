@@ -20,7 +20,7 @@ clockspersec:
 
 defs-map:
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/mman.h | grep "	MAP_" > ${.TARGET}
-	./dumpdefs.py 2 2 s ${INCDIR}/sys/mman.h | grep "	MAP_" >> ${.TARGET}
+	./dumpdefs.py 2 2 s ${INCDIR}/sys/mman.h | grep "	MAP_" | grep -v " = MAP_" >> ${.TARGET}
 
 defs-prot:
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/mman.h | grep "	PROT_" > ${.TARGET}
@@ -41,7 +41,7 @@ defs-sa:
 defs-errno:
 	./dumpdefs.py 2 0 i ${INCDIR}/sys/errno.h > ${.TARGET}
 	./dumpdefs.py 2 1 i ${INCDIR}/sys/errno.h >> ${.TARGET}
-	./dumpdefs.py 2 2 i ${INCDIR}/sys/errno.h >> ${.TARGET}
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/errno.h | grep -v "= -" >> ${.TARGET}
 
 namemax:
 	grep "	NAME_MAX	" ${INCDIR}/sys/syslimits.h | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}

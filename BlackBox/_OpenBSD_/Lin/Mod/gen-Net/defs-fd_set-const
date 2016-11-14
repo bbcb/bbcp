@@ -1,0 +1,3 @@
+		(* OpenBSD 6.0 /usr/include/sys/select.h *)
+			FD_SETSIZE = 1024;
+			__NBBY = 8;

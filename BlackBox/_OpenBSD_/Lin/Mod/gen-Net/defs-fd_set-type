@@ -1,0 +1,3 @@
+		(* OpenBSD 6.0 /usr/include/sys/select.h *)
+			__fd_mask = SET;
+			fd_set* = ARRAY [untagged] (FD_SETSIZE + (SIZE(__fd_mask) * __NBBY - 1)) DIV (SIZE(__fd_mask) * __NBBY) OF __fd_mask;

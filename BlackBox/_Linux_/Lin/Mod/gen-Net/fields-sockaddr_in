@@ -1,0 +1,5 @@
+			(* /usr/include/linux/in.h *)
+				sin_family*: sa_family_t; (* address family *)
+				sin_port*: SHORTINT; (* port number *)
+				sin_addr*: in_addr; (* internet address *)
+				__pad: ARRAY [untagged] 8 OF SHORTCHAR;

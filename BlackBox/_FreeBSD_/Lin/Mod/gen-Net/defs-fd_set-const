@@ -1,0 +1,3 @@
+		(* FreeBSD 11.0 /usr/include/sys/select.h *)
+			FD_SETSIZE = 1024;
+			_NFDBITS = 8 * 4;

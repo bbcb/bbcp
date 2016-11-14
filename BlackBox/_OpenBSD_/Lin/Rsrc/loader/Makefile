@@ -11,7 +11,7 @@ all: loader
 # -pthread required to dlopen libraries that depends on pthread
 
 loader: loader.c
-	${CC} ${CFLAGS} -o ${.TARGET} ${.ALLSRC} -pthread
+	${CC} ${CFLAGS} -o ${.TARGET} ${.ALLSRC} -pthread -Wl,-z,'wxneeded'
 
 clean:
 	rm -f loader

@@ -1,0 +1,6 @@
+			(* FreeBSD 11.0 /usr/include/sys/_sockaddr_storage.h *)
+				ss_len*: SHORTCHAR; (* address length *)
+				ss_family*: sa_family_t; (* address family *)
+				__ss_pad1: ARRAY [untagged] 8 - 2 OF SHORTCHAR;
+				__ss_align: LONGINT; (* force desired struct alignment *)
+				__ss_pad2: ARRAY [untagged] 128 - 1 - 1 - (8 - 2) - 8 OF SHORTCHAR;

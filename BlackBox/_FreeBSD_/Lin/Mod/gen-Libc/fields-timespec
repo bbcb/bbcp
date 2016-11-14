@@ -1,0 +1,3 @@
+			(* FreeBSD 11.0 /usr/include/sys/_timespec.h *)
+				tv_sec*: time_t; (* seconds *)
+				tv_nsec*: long; (* and nanoseconds *)

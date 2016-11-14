@@ -246,6 +246,10 @@ MODULE LinLibc ["libc.so.6"];
 
 		SIGSTKSZ* = 8192;
 
+		STDIN_FILENO* = 0;
+		STDOUT_FILENO* = 1;
+		STDERR_FILENO* = 2;
+
 	TYPE 
 		__ftw_func_t* = PROCEDURE (fileName: PtrSTR; VAR [nil] stat: stat_t; flag: INTEGER): INTEGER;
 		PtrVoid* = INTEGER;
@@ -396,7 +400,9 @@ MODULE LinLibc ["libc.so.6"];
 
 	VAR
 		timezone*: INTEGER; (* seconds from GMT *)		
+(*
 		stdin*, stdout*, stderr* : PtrFILE;
+*)
 
 	PROCEDURE [ccall] calloc* (num, size: size_t): PtrVoid;
 	PROCEDURE [ccall] clock* (): clock_t;
@@ -406,6 +412,7 @@ MODULE LinLibc ["libc.so.6"];
 	PROCEDURE [ccall] fclose* (fp: PtrFILE): INTEGER;
 	PROCEDURE [ccall] fflush* (fp: PtrFILE): INTEGER;
 	PROCEDURE [ccall] fopen* (filename, mode: PtrSTR): PtrFILE;
+	PROCEDURE [ccall] fdopen* (fildes: INTEGER; mode: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] feof* (fp: PtrFILE): INTEGER;
 	PROCEDURE [ccall] fread* (ptr: PtrVoid; size, nobj: size_t; stream: PtrFILE): size_t;
 	PROCEDURE [ccall] fseek* (stream: PtrFILE; offset, origin: INTEGER): INTEGER;

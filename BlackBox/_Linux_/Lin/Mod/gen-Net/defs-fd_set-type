@@ -1,0 +1,3 @@
+		(* /usr/include/i386-linux-gnu/sys/select.h *)
+			__fd_mask = SET;
+			fd_set* = ARRAY [untagged] __FD_SETSIZE DIV (SIZE(__fd_mask) * 8) OF __fd_mask;

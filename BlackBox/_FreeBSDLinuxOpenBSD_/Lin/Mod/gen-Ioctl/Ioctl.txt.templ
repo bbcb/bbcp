@@ -1,0 +1,14 @@
+MODULE LinIoctl ["libc.so%%libver%%"];
+
+	(*
+		%%osname%%
+		%%machine%%
+	*)
+
+	CONST
+%%defs-tiocm%%
+%%defs-ioctl%%
+	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: INTEGER; req: INTEGER): INTEGER;
+	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; VAR arg: INTEGER): INTEGER;
+
+END LinIoctl.

@@ -1,11 +1,13 @@
+(*
 	VAR
 		(* OpenBSD: stdin, stdout, stderr *)
-			__sF*: ARRAY [untagged] 3 OF FILE; (* OpenBSD 5.2 /usr/include/stdio.h *)
+			__sF*: ARRAY [untagged] 3 OF FILE; (* OpenBSD 5.8 /usr/include/stdio.h *)
 				(*
 					stdin = SYSTEM.ADR(__sF[0])
 					stdout = SYSTEM.ADR(__sF[1])
 					stderr = SYSTEM.ADR(__sF[2])
 				*)
+*)
 
 	PROCEDURE [ccall] __errno_location* ["__errno"] (): PtrVoid;
 
