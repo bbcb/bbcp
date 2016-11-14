@@ -36,7 +36,7 @@ DevCompiler.CompileThis StdLog
 DevCompiler.CompileThis Out
 DevCompiler.CompileThis ConsLog
 
-DevCompiler.CompileThis DevMarkers DevCommanders DevSelectors DevCPM DevCPT DevCPH DevCPB DevCPE DevCPS DevCPP DevCPL486 DevCPC486 DevCPV486 DevCompiler DevElfLinker16 DevLinker
+DevCompiler.CompileThis DevMarkers DevCommanders DevSelectors DevCPM DevCPT DevCPH DevCPB DevCPE DevCPS DevCPP DevCPL486 DevCPC486 DevCPV486 DevCompiler DevElfLinker DevLinker
 DevCompiler.CompileThis ConsCompiler
 
 DevCompiler.CompileThis StdInterpreter
