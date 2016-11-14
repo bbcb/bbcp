@@ -16,7 +16,7 @@ unset GTK_MODULES
 export LIBOVERLAY_SCROLLBAR=0
 
 # export LD_DEBUG=all
-env \
+exec env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
 	BB_PACKED_NAME="${lib}" \
 	"${pd}"/${loader} "${pd}"/${lib}

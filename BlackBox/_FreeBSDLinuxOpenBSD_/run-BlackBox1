@@ -7,11 +7,15 @@ rn=`readlink -f "${0}"`
 pd=`dirname "${rn}"`
 sd=`readlink -f .`
 
-loader="loader"
-lib="libBB0.so"
+exe="BlackBox1.run"
+
+# fix Ubuntu-specific problems:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+export LIBOVERLAY_SCROLLBAR=0
 
 # export LD_DEBUG=all
 exec env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
-	BB_PACKED_NAME="${lib}" \
-	"${pd}"/${loader} "${pd}"/${lib}
+	BB_PACKED_NAME="${exe}" \
+	"${pd}"/${exe}

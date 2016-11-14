@@ -16,7 +16,7 @@ checkAndRm () {
 none() {
 	checkAndRm || exit 2
 
-	rm -rf *.exe *.so loader
+	rm -rf *.exe *.so loader BlackBox1.run
 #		System/Code/Kernel.ocf System/Sym/Kernel.osf Code/Kernel.ocf Sym/Kernel.osf \
 #		System/Code/Init.ocf System/Sym/Init.osf Code/Init.ocf Sym/Init.osf \
 #		System/Code/Config.ocf System/Sym/Config.osf Code/Config.ocf Sym/Config.osf \
