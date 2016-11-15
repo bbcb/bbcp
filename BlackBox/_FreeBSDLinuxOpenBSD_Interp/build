@@ -3,6 +3,7 @@
 ./run-dev0 <<DATA
 ConsCompiler.Compile('Lin/Mod', 'Dl.txt')
 ConsCompiler.Compile('Lin/Mod', 'Libc.txt')
+ConsCompiler.Compile('Lin/Mod', 'LibW.txt')
 ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
 
 # Linux only
