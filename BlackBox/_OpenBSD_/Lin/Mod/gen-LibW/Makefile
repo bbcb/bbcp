@@ -22,4 +22,4 @@ defs-lc:
 	./dumpdefs.py 2 1 i ${INCDIR}/locale.h | grep "	LC_" > ${.TARGET}
 
 clean:
-	rm -f ${DEFS} Net.txt sizeofs
+	rm -f ${DEFS} LibW.txt sizeofs

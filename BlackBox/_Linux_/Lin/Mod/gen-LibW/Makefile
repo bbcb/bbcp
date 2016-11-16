@@ -13,13 +13,13 @@ DEFS = defs-basictypes defs-lc
 all: LibW.txt ${DEFS}
 
 LibW.txt: LibW.txt.templ ${DEFS} libver osname machine
-	${PY} ./untempl.py LibW.txt.templ ${.TARGET}
+	${PY} ./untempl.py LibW.txt.templ $@
 
 defs-basictypes: sizeofs
-	./sizeofs > ${.TARGET}
+	./sizeofs > $@
 
-defs-lc:
-	./dumpdefs.py 2 1 i ${INCDIR}/locale.h | grep "	LC_" > ${.TARGET}
+defs-lc: mklc
+	./mklc > $@
 
 clean:
-	rm -f ${DEFS} LibW.txt sizeofs
+	rm -f ${DEFS} LibW.txt sizeofs mklc
