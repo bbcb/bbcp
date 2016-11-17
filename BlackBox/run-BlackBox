@@ -7,8 +7,7 @@ rn=`readlink -f "${0}"`
 pd=`dirname "${rn}"`
 sd=`readlink -f .`
 
-loader="loader"
-lib="libBB.so"
+exe="blackboxc"
 
 # fix Ubuntu-specific problems:
 unset UBUNTU_MENUPROXY
@@ -18,5 +17,5 @@ export LIBOVERLAY_SCROLLBAR=0
 # export LD_DEBUG=all
 exec env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
-	BB_PACKED_NAME="${lib}" \
-	"${pd}"/${loader} "${pd}"/${lib}
+	BB_PACKED_NAME="${exe}" \
+	"${pd}"/${exe}

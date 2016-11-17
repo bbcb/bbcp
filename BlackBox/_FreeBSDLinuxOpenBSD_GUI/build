@@ -43,9 +43,6 @@ DevCompiler.CompileThis ConsInterp ConsCompiler
 DevCompiler.CompileThis DevAlienTool DevDebug DevDependencies DevHeapSpy DevInspector DevLinkChk DevMsgSpy DevRBrowser DevReferences DevSearch DevSubTool DevCmds DevBrowser DevAnalyzer
 DevCompiler.CompileThis HostPackedFiles DevPacker
 
-# Linux only
-DevCompiler.CompileThis LinLinker
-
 ### Xhtml:
 DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
 
@@ -58,9 +55,16 @@ DevCompiler.CompileThis CommV24 CommTCP
 
 ### Obx:
 DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
-DevCompiler.CompileThis ObxActions ObxAddress0 ObxAddress1 ObxAddress2 ObxAscii ObxBlackBox ObxButtons ObxCalc ObxCaps ObxContIter ObxControlShifter ObxControls ObxConv ObxCount0 ObxCount1 ObxCubes ObxDb ObxDialog ObxFact ObxFileTree ObxFldCtrls ObxGraphs ObxHello1 ObxLabelLister ObxLines ObxLinks ObxMMerge ObxOmosi ObxOpen0 ObxOpen1 ObxOrders ObxParCmd ObxPatterns ObxRatcalc ObxSample ObxScroll ObxStores ObxTabViews ObxTabs ObxTickers ObxTwins ObxUnitConv ObxViews0 ObxViews1 ObxViews10 ObxViews11 ObxViews12 ObxViews13 ObxViews14 ObxViews2 ObxViews3 ObxViews4 ObxViews5 ObxViews6 ObxWrappers
+DevCompiler.CompileThis ObxActions ObxAddress0 ObxAddress1 ObxAddress2 ObxAscii ObxBlackBox ObxButtons ObxCalc ObxCaps ObxContIter ObxControlShifter ObxControls ObxConv ObxCount0 ObxCount1 ObxCubes ObxDb ObxDialog ObxFact ObxFileTree ObxFldCtrls ObxGraphs ObxHello1 ObxLabelLister ObxLines ObxLinks ObxMMerge ObxOmosi ObxOpen0 ObxOpen1 ObxOrders ObxParCmd ObxPatterns ObxRatcalc ObxSample ObxScroll ObxStores ObxTabViews ObxTabs ObxTickers ObxTwins ObxUnitConv ObxViews0 ObxViews1 ObxViews10 ObxViews11 ObxViews12 ObxViews13 ObxViews14 ObxViews2 ObxViews3 ObxViews4 ObxViews5 ObxViews6 ObxWrappers ObxCtrls
 DevCompiler.CompileThis ObxPhoneDB ObxPhoneUI ObxPhoneUI1 ObxLookup0 ObxLookup1 ObxPDBRep0 ObxPDBRep1 ObxPDBRep2 ObxPDBRep3 ObxPDBRep4
 
-# TRAP:
-#DevCompiler.CompileThis ObxCtrls
+### Dev2
+DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2LnkChmod Dev2Linker1
+
+Dev2Linker1.LinkElfExe `uname -s` blackboxc := Kernel$+ Files HostFiles StdLoader
+
+DevCompiler.CompileThis HostGnome
+
+Dev2Linker1.LinkElfExe `uname -s` blackbox := Kernel$+ Files HostFiles HostGnome StdLoader
+
 DATA
