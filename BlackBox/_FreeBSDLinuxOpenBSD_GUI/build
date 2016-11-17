@@ -59,7 +59,8 @@ DevCompiler.CompileThis ObxActions ObxAddress0 ObxAddress1 ObxAddress2 ObxAscii 
 DevCompiler.CompileThis ObxPhoneDB ObxPhoneUI ObxPhoneUI1 ObxLookup0 ObxLookup1 ObxPDBRep0 ObxPDBRep1 ObxPDBRep2 ObxPDBRep3 ObxPDBRep4
 
 ### Dev2
-DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2LnkChmod Dev2Linker1
+DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2Linker1
+DevCompiler.CompileThis Dev2LnkChmod
 
 DevCompiler.CompileThis HostGnome
 
