@@ -61,8 +61,6 @@ DevCompiler.CompileThis ObxPhoneDB ObxPhoneUI ObxPhoneUI1 ObxLookup0 ObxLookup1 
 ### Dev2
 DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2LnkChmod Dev2Linker1
 
-Dev2Linker1.LinkElfExe `uname -s` blackboxc := Kernel$+ Files HostFiles StdLoader
-
 DevCompiler.CompileThis HostGnome
 
 Dev2Linker1.LinkElfExe `uname -s` blackbox := Kernel$+ Files HostFiles HostGnome StdLoader

@@ -68,7 +68,7 @@ DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
 DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2Linker1
 DevCompiler.CompileThis Dev2LnkChmod
 
-Dev2Linker1.LinkElfExe `uname -s` blackboxc := Kernel$+ Files HostFiles StdLoader
+Dev2Linker1.LinkElfExe `uname -s` blackbox := Kernel$+ Files HostFiles StdLoader
 
 DATA
 

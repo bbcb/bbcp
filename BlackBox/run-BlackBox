@@ -7,7 +7,7 @@ rn=`readlink -f "${0}"`
 pd=`dirname "${rn}"`
 sd=`readlink -f .`
 
-exe="blackboxc"
+exe="blackbox"
 
 # fix Ubuntu-specific problems:
 unset UBUNTU_MENUPROXY
