@@ -1,5 +1,6 @@
+Alexander: openBSD can not run sh script by the link, it should be in root BlackBox dir
 
-=== Windows version update pattern ===
+Ivan: windows version update pattern bellow
 
 Com -> _Windows_GUI
 Ctl -> _Windows_GUI
