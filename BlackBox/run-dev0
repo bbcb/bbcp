@@ -13,4 +13,4 @@ exe="dev0"
 exec env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
 	BB_PACKED_NAME="${exe}" \
-	"${pd}"/${exe}
+	"${pd}"/${exe} "${@}"
