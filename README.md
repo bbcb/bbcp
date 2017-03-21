@@ -2,11 +2,9 @@ BlackBox Component Builder port for OpenBSD, GNU/Linux, FreeBSD
 
 Repository includes version for Windows also.
 
-Tested on:
-* OpenBSD 6.0
-* Fedora Core 17
-* Ubuntu 14.04, 16.04 LTS
-* FreeBSD 11.0
+Distribution for Debian/Ubuntu:
+* [bbcb_1.7~a1.11_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.11_amd64.deb)
+* [bbcb_1.7~a1.11_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.11_i386.deb)
 
 Directories structure:
 
