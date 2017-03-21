@@ -58,7 +58,7 @@ Example: build, create assembly and run BlackBox from assembly:
 	./run-BlackBox
 
 Authors:
-* Oberon microsystems AG
-* BlackBox Framework Center
+* [Oberon microsystems AG](http://www.oberon.ch/blackbox.html)
+* [BlackBox Framework Center](http://blackboxframework.org)
 * Alexander V. Shiryaev, Igor A. Dehtyarenko, Ivan A. Denisov
 
