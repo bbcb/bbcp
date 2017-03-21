@@ -9,6 +9,7 @@ Tested on:
 * FreeBSD 11.0
 
 Directories structure:
+
 	BlackBox/
 		universal development environment based on BlackBox 1.7
 
@@ -19,35 +20,43 @@ Directories structure:
 
 Installation of required packages in Ubuntu (should work also with other Debian-based OS):
 
-32-bit version:
-	sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module
-	sudo apt-get install libgnomeui-0 gnome-icon-theme-full
+	32-bit version:
 
-64-bit version:
-	sudo dpkg --add-architecture i386
-	sudo apt-get update
-	sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
-	sudo apt-get install libgnomeui-0:i386 gnome-icon-theme-full
+		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module
+		sudo apt-get install libgnomeui-0 gnome-icon-theme-full
+
+	64-bit version:
+
+		sudo dpkg --add-architecture i386
+		sudo apt-get update
+		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
+		sudo apt-get install libgnomeui-0:i386 gnome-icon-theme-full
 
 To build BlackBox:
+
 	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
 
 To run BlackBox (after build):
+
 	./run-BlackBox
 
 for Linux version also you can run
+
 	./blackbox
 
 To create BlackBox assembly (after build):
+
 	./export <outputDirectory>
 
 To clean the BlackBox folder:
+
 	./switch-target none
 	./clean
 
 Example: build, create assembly and run BlackBox from assembly:
+
 	cd BlackBox
 	./switch-target `uname -s` GUI
 	./build
@@ -60,5 +69,7 @@ Example: build, create assembly and run BlackBox from assembly:
 Authors:
 * Oberon microsystems AG
 * BlackBox Framework Center
-* Alexander V. Shiryaev, Igor A. Dehtyarenko, Ivan A. Denisov
+* Alexander V. Shiryaev
+* Igor A. Dehtyarenko
+* Ivan A. Denisov
 
