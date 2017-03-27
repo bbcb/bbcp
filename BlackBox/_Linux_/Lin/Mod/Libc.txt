@@ -472,5 +472,8 @@ MODULE LinLibc ["libc.so.6"];
 	PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): INTEGER;
 
 	PROCEDURE [ccall] sigprocmask* (how: INTEGER; set: Ptrsigset_t; oldset: Ptrsigset_t): INTEGER;
+	
+	PROCEDURE [ccall] system* (cmd: PtrSTR): INTEGER;
+	PROCEDURE [ccall] popen* (cmd, mode: PtrSTR): INTEGER;
 
 END LinLibc.

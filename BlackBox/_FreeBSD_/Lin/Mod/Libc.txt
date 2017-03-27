@@ -691,4 +691,7 @@ MODULE LinLibc ["libc.so.7"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;
 
+	PROCEDURE [ccall] system* (cmd: PtrSTR): INTEGER;
+	PROCEDURE [ccall] popen* (cmd, mode: PtrSTR): INTEGER;
+
 END LinLibc.
