@@ -3,8 +3,8 @@ BlackBox Component Builder port for OpenBSD, GNU/Linux, FreeBSD
 Repository includes version for Windows also.
 
 Distribution for Debian/Ubuntu:
-* [bbcb_1.7~a1.11_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.11_amd64.deb)
-* [bbcb_1.7~a1.11_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.11_i386.deb)
+* [bbcb_1.7~a1.12_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.12_amd64.deb)
+* [bbcb_1.7~a1.12_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.12_i386.deb)
 
 Directories structure:
 
