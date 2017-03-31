@@ -25,5 +25,5 @@ sudo ./bbserver
 
 # To check the work of the server open browsel and look the page http://localhost
 
-# There are scripts ./start and ./stop for the deamon start and stop mode
+# There are scripts ./start and ./stop for the daemon start and stop mode
 
