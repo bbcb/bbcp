@@ -13,8 +13,7 @@ Directories structure:
 
 	examples/
 		encoder/ - encoding subsystems by StdCoder from the command line
-		fpstest/ - loop and fonts test
-		server/ - static single-thread web-server
+		server/  - static single-thread web-server
 
 Installation of required packages in Ubuntu (should work also with other Debian-based OS):
 

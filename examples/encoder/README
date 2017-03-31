@@ -1,11 +1,10 @@
-Application for web-service which edcode BlackBox subsystems.
+Application for web-service which encode BlackBox subsystems.
 Used by http://gitlab.molpit.org for processing of repository hooks.
-
-Author: Ivan Denisov, denisov@molpit.org
 
 Installation for Linux
 
 1. Prepare Interp version of BlackBox in "Linux_Interp" folder:
+	cd ../../BlackBox
 	./switch-target `uname -s` Interp
 	./build
 	./export ../Linux_Interp

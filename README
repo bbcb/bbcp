@@ -7,6 +7,7 @@ Tested on:
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS
 * FreeBSD 11.0
+* Debian Mate
 
 Directories structure:
 
@@ -15,8 +16,7 @@ Directories structure:
 
 	examples/
 		encoder/ - encoding subsystems by StdCoder from the command line
-		fpstest/ - loop and fonts test
-		server/ - static single-thread web-server
+		server/  - static single-thread web-server
 
 Installation of required packages in Ubuntu (should work also with other Debian-based OS):
 
