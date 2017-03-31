@@ -6,8 +6,8 @@
 cd ../../BlackBox
 
 # 2. Clean previous
-./clean
 ./switch-target none
+./clean
 
 # 3. Switch to BlackBox Interp and compile
 ./switch-target `uname -s` Interp
@@ -15,6 +15,7 @@ cd ../../BlackBox
 
 # 4. Go to the example folder and compile the example
 cd ../examples/server
+ln -s ../../BlackBox/_Linux_GUI/Gtk2 ./
 ../../BlackBox/run-BlackBox < buildExample
 
 # 5. Stop any other server that using 80 ports (apache, nginx, ...)
