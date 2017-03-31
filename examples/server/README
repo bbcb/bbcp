@@ -23,7 +23,7 @@ ln -s ../../BlackBox/_Linux_GUI/Gtk2 ./
 
 sudo ./bbserver
 
-# To check the work of the server open browsel and look the page http://localhost
+# To check the work of the server open browser and look the page http://localhost
 
 # There are scripts ./start and ./stop for the daemon start and stop mode
 
