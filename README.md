@@ -1,10 +1,15 @@
-BlackBox Component Builder port for OpenBSD, GNU/Linux, FreeBSD
+BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
-Repository includes version for Windows also.
-
-Distribution for Debian/Ubuntu:
-* [bbcb_1.7~a1.12_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.12_amd64.deb)
-* [bbcb_1.7~a1.12_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.12_i386.deb)
+Tested on:
+* Windows XP,7,10
+* OpenBSD 6.0
+* Fedora Core 17
+* Ubuntu 14.04, 16.04 LTS
+* Ubuntu GNOME 17.04
+* Arch Linux 4.9.6
+* Debian Mate
+* Red Hat Enterprise Linux Server 6.3
+* FreeBSD 11.0
 
 Directories structure:
 
@@ -64,9 +69,13 @@ Example: build, create assembly and run BlackBox from assembly:
 	./run-BlackBox
 
 Authors:
-* [Oberon microsystems AG](http://www.oberon.ch/blackbox.html)
-* [BlackBox Framework Center](http://blackboxframework.org)
+* Oberon microsystems AG
+* BlackBox Framework Center
 * Alexander V. Shiryaev
 * Igor A. Dehtyarenko
 * Ivan A. Denisov
+
+Download for Debian/Ubuntu:
+* [bbcb_1.7~a1.12_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.13_amd64.deb)
+* [bbcb_1.7~a1.12_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.13_i386.deb)
 
