@@ -17,6 +17,7 @@ Comm/Mod -> _Windows_
 
 Dev/Docu/Build-Tool+ComDebug+ComInterfaceGen+Profiler+P-S-I+TypeLibs -> _Windows_GUI
 Dev/Mod/ComDebug+ComInterfaceGen+Profiler+TypeLibs -> _Windows_GUI
+Dev/Mod/Cmds -> __GUI
 Dev/Mod/C*+Debug+Linker+Markers+Packer+Selectors -> .
 Dev/Rsrc/Errors+Strings -> .
 Dev/Rsrc/ComInterfaceGen -> _Windows_GUI
@@ -48,6 +49,7 @@ Sql -> .
 Std/Rsrc/Strings -> .
 Std/Rsrc -> __GUI
 Std/Mod/MenuTools+Tables+TabViews -> __GUI
+Std/Docu/MenuTools+Tables+TabViews -> __GUI
 Std -> .
 
 System/Mod/Kernel -> _Windows_
@@ -56,6 +58,7 @@ System/Docu/XYPlane -> _Windows_GUI
 System/Mod/Init -> __GUI
 System/Mod+Docu -> .
 System/Rsrc/Strings -> .
+System/Rsrc/About -> _Windows_GUI
 System/Rsrc/ -> __GUI
 
 Win/Mod/Api+MM+Net+Ole+Sql -> _Windows_

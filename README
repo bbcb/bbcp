@@ -1,13 +1,15 @@
-BlackBox Component Builder port for OpenBSD, GNU/Linux, FreeBSD
-
-Repository includes version for Windows also.
+BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
 Tested on:
+* Windows XP,7,10
 * OpenBSD 6.0
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS
-* FreeBSD 11.0
+* Ubuntu GNOME 17.04
+* Arch Linux 4.9.6
 * Debian Mate
+* Red Hat Enterprise Linux Server 6.3
+* FreeBSD 11.0
 
 Directories structure:
 
