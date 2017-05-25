@@ -1,8 +1,8 @@
 [Setup]
 AppName=BlackBox Component Builder
 AppVerName={#AppVerName}
-AppPublisher=BlackBox Framework Center
-AppPublisherURL=http://blackboxframework.org
+AppPublisher=Obertone
+AppPublisherURL=http://blackbox.obertone.ru
 AppVersion={#AppVersion}
 VersionInfoVersion={#VersionInfoVersion}
 AppCopyright=Copyright (c) 1994-2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
