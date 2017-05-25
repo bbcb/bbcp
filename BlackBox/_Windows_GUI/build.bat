@@ -12,7 +12,7 @@
 @echo DevCompiler.CompileThis ObxOpen0 ObxOpen1 ObxOrders ObxParCmd ObxPatterns ObxPDBRep0 ObxPDBRep1 ObxPDBRep2 ObxPDBRep3 ObxPDBRep4 ObxPhoneUI ObxPhoneUI1 ObxRatCalc ObxScroll ObxSample ObxTabs ObxTickers ObxTrap ObxTwins >> tmp.txt
 @echo DevCompiler.CompileThis ObxViews0 ObxViews1 ObxViews2 ObxViews3 ObxViews4 ObxViews5 ObxViews6 ObxViews10 ObxViews11 ObxViews12 ObxViews13 ObxViews14 ObxWrappers ObxContIter ObxPi ObxUnitConv ObxLabelLister ObxControlShifter ObxFileTree ObxTabViews ObxWordEdit ObxStores CommObxStreamsClient CommObxStreamsServer >> tmp.txt
 @echo DevCompiler.CompileThis Console HostConsole ConsLog ConsCompiler ConsInterp >> tmp.txt
-@echo DevLinker.Link BlackBox.exe := Kernel$+ Files HostFiles StdLoader 1 Applogo.ico 2 Doclogo.ico 3 SFLogo.ico 4 CFLogo.ico 5 DtyLogo.ico 6 folderimg.ico 7 openimg.ico 8 leafimg.ico 1 Move.cur 2 Copy.cur 3 Link.cur 4 Pick.cur 5 Stop.cur 6 Hand.cur 7 Table.cur >> tmp.txt
+@echo DevLinker.Link BlackBox.exe := Kernel$+ Files HostFiles StdLoader 1 BlackBox.res 1 Applogo.ico 2 Doclogo.ico 3 SFLogo.ico 4 CFLogo.ico 5 DtyLogo.ico 6 folderimg.ico 7 openimg.ico 8 leafimg.ico 1 Move.cur 2 Copy.cur 3 Link.cur 4 Pick.cur 5 Stop.cur 6 Hand.cur 7 Table.cur >> tmp.txt
 @echo Kernel.Quit(0) >> tmp.txt
 dev0.exe < tmp.txt
 del tmp.txt
