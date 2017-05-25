@@ -16,6 +16,9 @@ Directories structure:
 	BlackBox/
 		universal development environment based on BlackBox 1.7
 
+	devnotes/
+		technical information for framework developers
+
 	examples/
 		encoder/ - encoding subsystems by StdCoder from the command line
 		server/  - static single-thread web-server
