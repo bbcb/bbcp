@@ -11,6 +11,8 @@ Tested on:
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
+Download: [http://blackbox.obertone.ru/download]
+
 Directories structure:
 
 	BlackBox/
@@ -20,6 +22,7 @@ Directories structure:
 		technical information for framework developers
 
 	examples/
+		append/  - append string to .odc file
 		encoder/ - encoding subsystems by StdCoder from the command line
 		server/  - static single-thread web-server
 
@@ -77,8 +80,3 @@ Authors:
 * Alexander V. Shiryaev
 * Igor A. Dehtyarenko
 * Ivan A. Denisov
-
-Download for Debian/Ubuntu:
-* [bbcb_1.7~a1.12_amd64.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.13_amd64.deb)
-* [bbcb_1.7~a1.12_i386.deb](http://iadenisov.ru/blackbox/linux/bbcb_1.7~a1.13_i386.deb)
-
