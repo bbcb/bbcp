@@ -1,4 +1,4 @@
-Copyright (c) 2017 Obertone
+Copyright (c) 2017 Alexander V. Shiryaev, Ivan A. Denisov, Igor A. Dehtyarenko
 Copyright (c) 2013 - 2017 BlackBox Framework Center
 Copyright (c) 1994 - 2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
 

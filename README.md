@@ -1,7 +1,7 @@
 BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
 Tested on:
-* Windows XP,7,10
+* Windows XP, 7, 10
 * OpenBSD 6.0
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS
@@ -11,7 +11,7 @@ Tested on:
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
-Download: [http://blackbox.obertone.ru/download]
+Download: http://blackbox.obertone.ru/download
 
 Directories structure:
 
