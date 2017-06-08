@@ -1,0 +1,76 @@
+bbcb ({#VERSION}) unstable; urgency=low
+  * synced with 1.7.1
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 9 June 2017 15:00:00 +0700
+
+bbcb (1.7~a1.12) unstable; urgency=low
+  * RadioButtons & Edit Fields
+  * OpenExternal
+
+ -- Ivan Denisov <denisov@molpit.org>  Thu, 30 Mar 2017 15:00:00 +0700
+
+bbcb (1.7~a1.11) unstable; urgency=low
+  * clipboard fixed
+  * keyboard accelerators fixed
+
+ -- Ivan Denisov <denisov@molpit.org>  Wed, 18 Jan 2017 17:00:00 +0700
+
+bbcb (1.7~a1.10) unstable; urgency=low
+  * new linker
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 18 Nov 2016 01:00:00 +0700
+
+bbcb (1.7~a1.9) unstable; urgency=low
+  * synced with 1.7
+
+ -- Ivan Denisov <denisov@molpit.org>  Sat, 1 Oct 2016 23:00:00 +0700
+
+bbcb (1.7~a1.8) unstable; urgency=low
+  * Remove debug information after file choosing
+
+ -- Ivan Denisov <denisov@molpit.org>  Mon, 29 Aug 2016 09:40:00 +0700
+
+bbcb (1.7~a1.7) unstable; urgency=low
+  * File choose dialog improved
+  * Utf8 module removed and it's functions changed by Kernel utf8 abilities
+
+ -- Ivan Denisov <denisov@molpit.org>  Mon, 29 Aug 2016 01:46:00 +0700
+
+bbcb (1.7-a1-6) unstable; urgency=low
+  * ConsLog changed to have less dependencies
+  * Documentation with examples for Console and ConsLog
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 20 May 2016 13:36:00 +0700
+
+bbcb (1.7-a1-5) unstable; urgency=low
+  * synced with 1.7-beta1
+  * icon updated
+
+ -- Ivan Denisov <denisov@molpit.org>  Sun, 10 May 2016 03:50:00 +0700
+
+bbcb (1.7-a1-4) unstable; urgency=low
+  * core C-loader updated to use protected memory. By A.V.Shiryaev
+  * documentation for LinLinker, Lin/Rsrc/exe.img and it's sources added
+  * About dialog updated
+  * description modified
+
+ -- Ivan Denisov <denisov@molpit.org>  Sun, 04 Oct 2015 18:50:00 +0700
+
+bbcb (1.7-a1-3) unstable; urgency=low
+  * Dialog matching Center version, added procedures IsLinux, IsWindows, IsMac
+  * fixed bug with links Unicode content saving
+  * forgotten Tour.odc and Empty.odc files were added
+
+ -- Ivan Denisov <denisov@molpit.org>  Tue, 12 May 2015 00:20:00 +0700
+
+
+bbcb (1.7-a1-2) unstable; urgency=low
+  * add changelog
+
+ -- Ivan Denisov <denisov@molpit.org>  Thu, 7 May 2015 20:00:00 +0700
+
+
+bbcb (1.7-a1-1) unstable; urgency=low
+  * Folds arrows display (Closes: #38)
+ 
+ -- Ivan Denisov <denisov@molpit.org>  Wed, 6 May 2015 22:00:00 +0700

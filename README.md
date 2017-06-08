@@ -16,15 +16,15 @@ Download: http://blackbox.obertone.ru/download
 Directories structure:
 
 	BlackBox/
-		universal development environment based on BlackBox 1.7
+		universal development environment for Component Pascal programing language
 
-	devnotes/
-		technical information for framework developers
+	dev/
+		files for continuous integration system & technical notes for framework developers
 
 	examples/
 		append/  - append string to .odc file
 		encoder/ - encoding subsystems by StdCoder from the command line
-		server/  - static single-thread web-server
+		server/  - static web-server
 
 Installation of required packages in Ubuntu (should work also with other Debian-based OS):
 
