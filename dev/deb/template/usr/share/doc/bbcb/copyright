@@ -3,7 +3,9 @@ Upstream-Name: bbcb
 Source: https://github.com/bbcb/freenix
 
 Files: *
-Copyright: 1994 - 2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
+Copyright: 2017 Alexander V. Shiryaev, Ivan A. Denisov, Igor A. Dehtyarenko
+ 2013 - 2017 BlackBox Framework Center
+ 1994 - 2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
 License: BSD-2-clause
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  .
