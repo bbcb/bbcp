@@ -40,7 +40,7 @@ DevCompiler.CompileThis Config Init
 ### Dev:
 DevCompiler.CompileThis DevMarkers DevCommanders DevSelectors DevCPM DevCPT DevCPH DevCPB DevCPE DevCPS DevCPP DevCPL486 DevCPC486 DevCPV486 DevCompiler DevElfLinker DevLinker
 DevCompiler.CompileThis ConsInterp ConsCompiler
-DevCompiler.CompileThis DevAlienTool DevReferences DevDebug DevDependencies DevHeapSpy DevInspector DevLinkChk DevMsgSpy DevRBrowser DevSearch DevSubTool DevCmds DevDecoder386 DevBrowser DevAnalyzer
+DevCompiler.CompileThis DevAlienTool DevReferences DevDebug DevDependencies DevHeapSpy DevInspector DevLinkChk DevMsgSpy DevRBrowser DevSearch DevSubTool DevCmds DevDecoder386 DevBrowser DevAnalyzer DevProfiler
 DevCompiler.CompileThis HostPackedFiles DevPacker
 
 ### Xhtml:
