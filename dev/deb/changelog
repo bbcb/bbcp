@@ -1,4 +1,10 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * Remove digitspaces from loaded modules list (Nikita Plynskii)
+  * Reduced version of Profiler for Linux/OpenBSD/FreeBSD version (Nikita Plynskii)
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 23 June 2017 12:00:00 +0700
+
+bbcb (1.7~a1.16) unstable; urgency=low
   * synced with 1.7.1
 
  -- Ivan Denisov <denisov@molpit.org>  Fri, 9 June 2017 15:00:00 +0700
