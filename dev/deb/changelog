@@ -1,4 +1,19 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * Support for [ccall16] which allows to align stack to a 16-byte boundary (luowy)
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 11 August 2017 22:00:00 +0700
+
+bbcb (1.7~a1.21) unstable; urgency=low
+  * Fix bug with close only focus window
+
+ -- Ivan Denisov <denisov@molpit.org>  Wed, 9 August 2017 14:00:00 +0700
+
+bbcb (1.7~a1.20) unstable; urgency=low
+  * HostCFrames improved edit fields, checkboxes and radiobuttons
+
+ -- Ivan Denisov <denisov@molpit.org>  Wed, 31 July 2017 12:00:00 +0700
+
+bbcb (1.7~a1.18) unstable; urgency=low
   * Remove digitspaces from loaded modules list (Nikita Plynskii)
   * Reduced version of Profiler for Linux/OpenBSD/FreeBSD version (Nikita Plynskii)
 
