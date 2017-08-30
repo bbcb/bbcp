@@ -1,4 +1,14 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * center issue-#161 fixing Dialog.MapString with empty message
+  * center issue-#164 Backward compatibilty with UpDn Controls
+  * center issue-#163 Adding 'Decimal' Tabs to Rulers
+  * center issue-#165 Check for passing guarded function
+  * center issue-#167 endless loop in DevBrowser for cyclic pointer
+  * center issue-#168 Improvements in DevLinkChk
+
+ -- Ivan Denisov <denisov@molpit.org>  Wed, 30 August 2017 10:00:00 +0700
+
+bbcb (1.7~a1.23) unstable; urgency=low
   * Support for [ccall16] which allows to align stack to a 16-byte boundary (luowy)
 
  -- Ivan Denisov <denisov@molpit.org>  Fri, 11 August 2017 22:00:00 +0700
