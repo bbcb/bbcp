@@ -1,4 +1,12 @@
 bbcb ({#VERSION}) unstable; urgency=low
+
+  * center issue-#172 Adding BOOLEAN parameters to StdInterpreter
+  * center issue-#171 Fixing inconsistent links in docu
+  * center issue-#170 DevBrowser.ImportSymFile should return TextViews.
+
+ -- Ivan Denisov <denisov@molpit.org>  Mon, 4 September 2017 10:00:00 +0700
+
+bbcb (1.7~a1.25) unstable; urgency=low
   * center issue-#161 fixing Dialog.MapString with empty message
   * center issue-#164 Backward compatibilty with UpDn Controls
   * center issue-#163 Adding 'Decimal' Tabs to Rulers
