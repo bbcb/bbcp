@@ -1,4 +1,4 @@
-MODULE LinDl ["libc.so.89.2"];
+MODULE LinDl ["libc.so.90.0"];
 
 	(*
 		A. V. Shiryaev, 2012.09, 2013.08

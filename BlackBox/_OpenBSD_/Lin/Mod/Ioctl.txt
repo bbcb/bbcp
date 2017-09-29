@@ -1,4 +1,4 @@
-MODULE LinIoctl ["libc.so.89.2"];
+MODULE LinIoctl ["libc.so.90.0"];
 
 	(*
 		OpenBSD 6.0

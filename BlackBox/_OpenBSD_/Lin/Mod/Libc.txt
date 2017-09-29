@@ -1,4 +1,4 @@
-MODULE LinLibc ["libc.so.89.2"];
+MODULE LinLibc ["libc.so.90.0"];
 
 	(*
 		OpenBSD 6.0
