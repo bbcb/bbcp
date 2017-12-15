@@ -5,20 +5,14 @@ Ivan:
 issues from Center, which are not used in Freenix version
 - #156 Adding coroutines to BlackBox
 	should be done another way
-- #138 Support for files larger than 2Gb
-	can be distributed as an extension
 
 issues from Center, which have different realisation
 - #158 LowLevel debugging
 	assuming that ConsLog can be used
 - #153 Basic in/out console functionality
 	using basic realisation from Alexander
-- #160 outdated link to OP2.Paper.ps
-	use another link
 - #169 ccall bug with stack management after a call
 	use different code composition because of [ccall16] implementation
-- issue-#163 Adding 'Decimal' Tabs to Rulers
-	use modifier insted of right mouse button to prevent import of HostPorts in Text subsystem
 
 windows version update pattern bellow
 
@@ -28,6 +22,10 @@ Ole -> _Windows_GUI
 Form -> __GUI
 Text -> .
 Xhtml -> .
+
+Sql/Mod/Odbc* -> _Windows_
+Sql/Docu/Odbc* -> _Windows_
+Sql -> .
 
 Comm/Docu/Obx* -> __GUI
 Comm/Docu -> .
@@ -61,10 +59,6 @@ Obx/Mod/Hello0+Pi+Random+Trap -> .
 Obx/Mod/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
 Obx/Docu/Bitmap+Excel+Fern+WordEdit -> _Windows_GUI
 Obx -> __GUI
-
-Sql/Mod/Odbc* -> _Windows_
-Sql/Docu/Odbc* -> _Windows_
-Sql -> .
 
 Std/Rsrc/Strings -> .
 Std/Rsrc -> __GUI

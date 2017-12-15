@@ -2,7 +2,7 @@ BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
 Tested on:
 * Windows XP, 7, 10
-* OpenBSD 6.0
+* OpenBSD 6.2
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS
 * Ubuntu GNOME 17.04
