@@ -1,5 +1,13 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * center issue-#182 Fixing code page conversion in RTF import
+  * center issue-#174 fixing resource keys in StdLinks
+  * center issue-#173 adding new modifiers in Controllers
+
+ -- Ivan Denisov <denisov@molpit.org>  Fri, 15 December 2017 21:00:00 +0700
+
+bbcb (1.7~a1.29) unstable; urgency=low
+
   * center issue-#172 Adding BOOLEAN parameters to StdInterpreter
   * center issue-#171 Fixing inconsistent links in docu
   * center issue-#170 DevBrowser.ImportSymFile should return TextViews.
