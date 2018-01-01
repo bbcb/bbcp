@@ -8,6 +8,8 @@ ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
 ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
 ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
 ConsCompiler.Compile('Lin/Mod', 'Net.txt')
+
+# Linux only
 ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
 
 DevCompiler.CompileSubs System Gtk2 Std Cons Host Text Form Dev Xhtml Comm Obx

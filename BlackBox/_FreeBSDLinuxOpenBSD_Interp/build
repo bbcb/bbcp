@@ -5,64 +5,14 @@ ConsCompiler.Compile('Lin/Mod', 'Dl.txt')
 ConsCompiler.Compile('Lin/Mod', 'Libc.txt')
 ConsCompiler.Compile('Lin/Mod', 'LibW.txt')
 ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
+ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
+ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
+ConsCompiler.Compile('Lin/Mod', 'Net.txt')
 
 # Linux only
 ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
 
-DevCompiler.CompileThis Kernel
-
-DevCompiler.CompileThis Files Console Math Strings Meta Log Dialog
-
-DevCompiler.CompileThis HostLang HostFiles HostConsole
-
-DevCompiler.CompileThis Stores Converters Dates Integers Sequencers Services SMath
-
-DevCompiler.CompileThis Fonts Ports Printers Models Views Printing Mechanisms Controllers Properties Containers Documents Windows
-
-DevCompiler.CompileThis TextModels TextMappers TextRulers TextSetters TextViews TextControllers TextCmds
-
-DevCompiler.CompileThis In
-
-DevCompiler.CompileThis StdDialog StdApi StdCFrames Controls StdCmds StdLogos StdScrollers StdViewSizer
-
-DevCompiler.CompileThis StdClocks StdCoder StdFolds StdDebug StdStamps StdETHConv StdHeaders StdLinks
-
-DevCompiler.CompileThis StdLoader
-DevCompiler.CompileThis Kernel_so_init
-
-# before StdLog
-DevCompiler.CompileThis HostDialog
-
-DevCompiler.CompileThis StdLog
-DevCompiler.CompileThis Out
-DevCompiler.CompileThis ConsLog
-
-DevCompiler.CompileThis DevMarkers DevCommanders DevSelectors DevCPM DevCPT DevCPH DevCPB DevCPE DevCPS DevCPP DevCPL486 DevCPC486 DevCPV486 DevCompiler DevElfLinker DevLinker
-DevCompiler.CompileThis ConsCompiler
-
-DevCompiler.CompileThis StdInterpreter
-
-### BlackBox
-
-DevCompiler.CompileThis HostFonts HostWindows
-DevCompiler.CompileThis HostDates
-DevCompiler.CompileThis HostTextConv
-
-DevCompiler.CompileThis ConsInterp
-
-DevCompiler.CompileThis Init Config
-
-DevCompiler.CompileThis HostPackedFiles DevPacker
-
-DevCompiler.CompileThis CommStreams
-ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
-ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
-ConsCompiler.Compile('Lin/Mod', 'Net.txt')
-DevCompiler.CompileThis CommV24 CommTCP
-
-DevCompiler.CompileThis XhtmlEntitySets XhtmlWriters XhtmlStdFileWriters XhtmlTextTableMarkers XhtmlExporter
-
-DevCompiler.CompileThis ObxHello0 ObxPi ObxRandom ObxTrap
+DevCompiler.CompileSubs System Std Host Cons Text Form Dev Xhtml Comm Obx
 
 ### Dev2
 DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2Linker1
