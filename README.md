@@ -8,6 +8,7 @@ Tested on:
 * Ubuntu GNOME 17.04
 * Arch Linux 4.9.6
 * Debian Mate
+* Debian 9.3 Xfce
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
