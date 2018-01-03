@@ -1,8 +1,14 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * captions background
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 4 Jan 2018 02:00:00 +0700
+
+bbcb (1.7~a1.36) unstable; urgency=low
+
   * log window position
 
- -- Ivan Denisov <denisov@molpit.org>  Tue, 2 Jan 2018 04:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 2 Jan 2018 04:00:00 +0700
 
 bbcb (1.7~a1.34) unstable; urgency=low
 
@@ -10,7 +16,7 @@ bbcb (1.7~a1.34) unstable; urgency=low
   * center issue-#174 fixing resource keys in StdLinks
   * center issue-#173 adding new modifiers in Controllers
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 15 Dec 2017 21:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 15 Dec 2017 21:00:00 +0700
 
 bbcb (1.7~a1.29) unstable; urgency=low
 
@@ -18,7 +24,7 @@ bbcb (1.7~a1.29) unstable; urgency=low
   * center issue-#171 Fixing inconsistent links in docu
   * center issue-#170 DevBrowser.ImportSymFile should return TextViews.
 
- -- Ivan Denisov <denisov@molpit.org>  Mon, 4 Sep 2017 10:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 4 Sep 2017 10:00:00 +0700
 
 bbcb (1.7~a1.25) unstable; urgency=low
   * center issue-#161 fixing Dialog.MapString with empty message
@@ -28,78 +34,78 @@ bbcb (1.7~a1.25) unstable; urgency=low
   * center issue-#167 endless loop in DevBrowser for cyclic pointer
   * center issue-#168 Improvements in DevLinkChk
 
- -- Ivan Denisov <denisov@molpit.org>  Wed, 30 Aug 2017 10:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 30 Aug 2017 10:00:00 +0700
 
 bbcb (1.7~a1.23) unstable; urgency=low
   * Support for [ccall16] which allows to align stack to a 16-byte boundary (luowy)
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 11 Aug 2017 22:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 11 Aug 2017 22:00:00 +0700
 
 bbcb (1.7~a1.21) unstable; urgency=low
   * Fix bug with close only focus window
 
- -- Ivan Denisov <denisov@molpit.org>  Wed, 9 Aug 2017 14:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 9 Aug 2017 14:00:00 +0700
 
 bbcb (1.7~a1.20) unstable; urgency=low
   * HostCFrames improved edit fields, checkboxes and radiobuttons
 
- -- Ivan Denisov <denisov@molpit.org>  Wed, 31 July 2017 12:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 31 July 2017 12:00:00 +0700
 
 bbcb (1.7~a1.18) unstable; urgency=low
   * Remove digitspaces from loaded modules list (Nikita Plynskii)
   * Reduced version of Profiler for Linux/OpenBSD/FreeBSD version (Nikita Plynskii)
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 23 June 2017 12:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 23 June 2017 12:00:00 +0700
 
 bbcb (1.7~a1.16) unstable; urgency=low
   * synced with 1.7.1
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 9 June 2017 15:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 9 June 2017 15:00:00 +0700
 
 bbcb (1.7~a1.12) unstable; urgency=low
   * RadioButtons & Edit Fields
   * OpenExternal
 
- -- Ivan Denisov <denisov@molpit.org>  Thu, 30 Mar 2017 15:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 30 Mar 2017 15:00:00 +0700
 
 bbcb (1.7~a1.11) unstable; urgency=low
   * clipboard fixed
   * keyboard accelerators fixed
 
- -- Ivan Denisov <denisov@molpit.org>  Wed, 18 Jan 2017 17:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 18 Jan 2017 17:00:00 +0700
 
 bbcb (1.7~a1.10) unstable; urgency=low
   * new linker
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 18 Nov 2016 01:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 18 Nov 2016 01:00:00 +0700
 
 bbcb (1.7~a1.9) unstable; urgency=low
   * synced with 1.7
 
- -- Ivan Denisov <denisov@molpit.org>  Sat, 1 Oct 2016 23:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 1 Oct 2016 23:00:00 +0700
 
 bbcb (1.7~a1.8) unstable; urgency=low
   * Remove debug information after file choosing
 
- -- Ivan Denisov <denisov@molpit.org>  Mon, 29 Aug 2016 09:40:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 29 Aug 2016 09:40:00 +0700
 
 bbcb (1.7~a1.7) unstable; urgency=low
   * File choose dialog improved
   * Utf8 module removed and it's functions changed by Kernel utf8 abilities
 
- -- Ivan Denisov <denisov@molpit.org>  Mon, 29 Aug 2016 01:46:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 29 Aug 2016 01:46:00 +0700
 
 bbcb (1.7-a1-6) unstable; urgency=low
   * ConsLog changed to have less dependencies
   * Documentation with examples for Console and ConsLog
 
- -- Ivan Denisov <denisov@molpit.org>  Fri, 20 May 2016 13:36:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 20 May 2016 13:36:00 +0700
 
 bbcb (1.7-a1-5) unstable; urgency=low
   * synced with 1.7-beta1
   * icon updated
 
- -- Ivan Denisov <denisov@molpit.org>  Sun, 10 May 2016 03:50:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sun, 10 May 2016 03:50:00 +0700
 
 bbcb (1.7-a1-4) unstable; urgency=low
   * core C-loader updated to use protected memory. By A.V.Shiryaev
@@ -107,23 +113,23 @@ bbcb (1.7-a1-4) unstable; urgency=low
   * About dialog updated
   * description modified
 
- -- Ivan Denisov <denisov@molpit.org>  Sun, 04 Oct 2015 18:50:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sun, 04 Oct 2015 18:50:00 +0700
 
 bbcb (1.7-a1-3) unstable; urgency=low
   * Dialog matching Center version, added procedures IsLinux, IsWindows, IsMac
   * fixed bug with links Unicode content saving
   * forgotten Tour.odc and Empty.odc files were added
 
- -- Ivan Denisov <denisov@molpit.org>  Tue, 12 May 2015 00:20:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 12 May 2015 00:20:00 +0700
 
 
 bbcb (1.7-a1-2) unstable; urgency=low
   * add changelog
 
- -- Ivan Denisov <denisov@molpit.org>  Thu, 7 May 2015 20:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 7 May 2015 20:00:00 +0700
 
 
 bbcb (1.7-a1-1) unstable; urgency=low
   * Folds arrows display (Closes: #38)
  
- -- Ivan Denisov <denisov@molpit.org>  Wed, 6 May 2015 22:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 6 May 2015 22:00:00 +0700
