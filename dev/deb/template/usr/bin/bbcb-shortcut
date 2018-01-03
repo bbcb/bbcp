@@ -1,0 +1,16 @@
+#!/bin/sh
+
+pd="/usr/lib/blackbox"
+sd="$HOME/blackbox"
+
+# fix Ubuntu-specific problems:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+export LIBOVERLAY_SCROLLBAR=0
+
+mkdir -p $sd
+
+# export LD_DEBUG=all
+env \
+	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
+	"${pd}"/blackbox

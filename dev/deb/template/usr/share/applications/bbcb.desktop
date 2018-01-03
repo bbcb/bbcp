@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=BlackBox Component Builder for Linux
 Comment=IDE and component framework for programming language Component Pascal
-Exec=/usr/bin/bbcb
+Exec=/usr/bin/bbcb-shortcut
 Path=
 Icon=/usr/share/pixmaps/blackbox.svg
 Categories=Development;
