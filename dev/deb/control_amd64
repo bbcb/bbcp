@@ -1,7 +1,7 @@
 Source: bbcb
 Section: devel
-Maintainer: Ivan Denisov <denisov@molpit.org>
-Homepage: https://github.com/bbcb/freenix
+Maintainer: Ivan Denisov <d.ivan.krsk@gmail.com>
+Homepage: https://github.com/bbcb/bbcp
 Package: bbcb
 Version: {#VERSION}
 Priority: optional
