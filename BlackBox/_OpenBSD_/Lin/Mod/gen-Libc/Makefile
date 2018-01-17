@@ -8,7 +8,7 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
-DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid
+DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait
 
 all: Libc.txt ${DEFS} strerrnocase.txt
 
@@ -70,6 +70,12 @@ defs-clockid:
 #	./dumpdefs.py 2 2 i ${INCDIR}/sys/siginfo.h | grep ILL_ >> ${.TARGET}
 #	./dumpdefs.py 2 2 i ${INCDIR}/sys/siginfo.h | grep SEGV_ >> ${.TARGET}
 #	./dumpdefs.py 2 2 i ${INCDIR}/sys/siginfo.h | grep BUS_ >> ${.TARGET}
+
+defs-wait:
+	./dumpdefs.py 2 2 i ${INCDIR}/sys/wait.h | grep WAIT_ > ${.TARGET}
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WCONTINUED | grep -v _WCONTINUED >> ${.TARGET}
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WNOHANG >> ${.TARGET}
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WUNTRACED >> ${.TARGET}
 
 dumpstrerrno.c: defs-errno
 	grep -v ERESTART ${.ALLSRC} | grep -v EJUSTRETURN | ./mkdumpstrerrno.py > ${.TARGET}

@@ -43,6 +43,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		(* ENOENT, EEXIST, EACCES, ENOMEM, EDQUOT, EMFILE, ENOTDIR (int) *)
 %%defs-errno%%
 
+%%defs-wait%%
+
 		NAME_MAX* = %%namemax%%;
 
 		SEEK_SET* = 0;
@@ -225,10 +227,18 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] fchmod* (fd: int; mode: mode_t): int;
 
 	(* POSIX.1 *)
-		PROCEDURE [ccall] sysconf* (name: int): long;
+		PROCEDURE [ccall] fork* (): pid_t;
+		PROCEDURE [ccall] waitpid* (wpid: pid_t; VAR [nil] status: int; options: intFlags): pid_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] execv* (path: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
+		PROCEDURE [ccall] execvp* (file: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
 
 	(* POSIX.2 *)
 		PROCEDURE [ccall] system* (string: PtrSTR): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sysconf* (name: int): long;
 
 	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;

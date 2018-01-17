@@ -1,7 +1,7 @@
-MODULE LinLibc ["libc.so.90.0"];
+MODULE LinLibc ["libc.so.90"];
 
 	(*
-		OpenBSD 6.0
+		OpenBSD 6.2
 		i386
 	*)
 
@@ -303,6 +303,10 @@ MODULE LinLibc ["libc.so.90.0"];
 		EIDRM* = 89; (* Identifier removed *)
 		ENOMSG* = 90; (* No message of desired type *)
 		ENOTSUP* = 91; (* Not supported *)
+		EBADMSG* = 92; (* Bad message *)
+		ENOTRECOVERABLE* = 93; (* State not recoverable *)
+		EOWNERDEAD* = 94; (* Previous owner died *)
+		EPROTO* = 95; (* Protocol error *)
 		ENOTBLK* = 15; (* Block device required *)
 		ESOCKTNOSUPPORT* = 44; (* Socket type not supported *)
 		EPFNOSUPPORT* = 46; (* Protocol family not supported *)
@@ -324,9 +328,16 @@ MODULE LinLibc ["libc.so.90.0"];
 		ENOATTR* = 83; (* Attribute not found *)
 		ENOMEDIUM* = 85; (* No medium found *)
 		EMEDIUMTYPE* = 86; (* Wrong medium type *)
-		ELAST* = 91; (* Must be equal largest errno *)
+		ELAST* = 95; (* Must be equal largest errno *)
 		ERESTART* = -1; (* restart syscall *)
 		EJUSTRETURN* = -2; (* don't modify regs, just return *)
+
+
+		WAIT_ANY* = -1; (* any process *)
+		WAIT_MYPGRP* = 0; (* any process in my process group *)
+		WCONTINUED* = {3}; (* report a job control continued process *)
+		WNOHANG* = {0}; (* don't hang in wait *)
+		WUNTRACED* = {1}; (* tell about stopped, untraced children *)
 
 
 		NAME_MAX* = 255;
@@ -693,10 +704,18 @@ MODULE LinLibc ["libc.so.90.0"];
 		PROCEDURE [ccall] fchmod* (fd: int; mode: mode_t): int;
 
 	(* POSIX.1 *)
-		PROCEDURE [ccall] sysconf* (name: int): long;
+		PROCEDURE [ccall] fork* (): pid_t;
+		PROCEDURE [ccall] waitpid* (wpid: pid_t; VAR [nil] status: int; options: intFlags): pid_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] execv* (path: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
+		PROCEDURE [ccall] execvp* (file: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
 
 	(* POSIX.2 *)
 		PROCEDURE [ccall] system* (string: PtrSTR): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sysconf* (name: int): long;
 
 	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;

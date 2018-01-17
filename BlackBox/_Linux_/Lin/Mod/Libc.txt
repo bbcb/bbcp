@@ -250,6 +250,11 @@ MODULE LinLibc ["libc.so.6"];
 		STDOUT_FILENO* = 1;
 		STDERR_FILENO* = 2;
 
+		WAIT_ANY* = -1;
+		WCONTINUED* = {3};
+		WNOHANG* = {0};
+		WUNTRACED* = {1};
+
 	TYPE 
 		__ftw_func_t* = PROCEDURE (fileName: PtrSTR; VAR [nil] stat: stat_t; flag: INTEGER): INTEGER;
 		PtrVoid* = INTEGER;
@@ -467,14 +472,20 @@ MODULE LinLibc ["libc.so.6"];
 	PROCEDURE [ccall] mprotect* (addr: PtrVoid; len: size_t; prot: SET): INTEGER;
 
 	PROCEDURE [ccall] getenv* (name: PtrSTR): PtrSTR;
-
-	PROCEDURE [ccall] sysconf* (name: INTEGER): INTEGER;
 	
 	PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): INTEGER;
 
 	PROCEDURE [ccall] sigprocmask* (how: INTEGER; set: Ptrsigset_t; oldset: Ptrsigset_t): INTEGER;
-	
+
+	PROCEDURE [ccall] fork* (): pid_t;
+	PROCEDURE [ccall] waitpid* (wpid: pid_t; VAR [nil] status: INTEGER; options: SET): pid_t;
+
+	PROCEDURE [ccall] execv* (path: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): INTEGER;
+	PROCEDURE [ccall] execvp* (file: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): INTEGER;
+
 	PROCEDURE [ccall] system* (string: PtrSTR): INTEGER;
+
+	PROCEDURE [ccall] sysconf* (name: INTEGER): INTEGER;
 
 	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] pclose* (stream: PtrFILE): INTEGER;

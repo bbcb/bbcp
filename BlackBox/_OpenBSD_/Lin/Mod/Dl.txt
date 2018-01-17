@@ -1,16 +1,16 @@
-MODULE LinDl ["libc.so.90.0"];
+MODULE LinDl ["libc.so.90"];
 
 	(*
 		A. V. Shiryaev, 2012.09, 2013.08
 
-		OpenBSD 5.6
+		OpenBSD 6.2
 		32-bit
 	*)
 
 	CONST
 		NULL* = 0H;
 
-		(* from OpenBSD 5.2 /usr/include/dlfcn.h *)
+		(* from OpenBSD 6.2 /usr/include/dlfcn.h *)
 			RTLD_LAZY* = 1;
 			(* DL_LAZY* = RTLD_LAZY; *) (* compat *)
 			RTLD_NOW* = 2;

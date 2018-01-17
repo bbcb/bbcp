@@ -1,7 +1,7 @@
-MODULE LinNet ["libc.so.90.0"];
+MODULE LinNet ["libc.so.90"];
 
 	(*
-		OpenBSD 6.0
+		OpenBSD 6.2
 		i386
 	*)
 
@@ -109,6 +109,7 @@ MODULE LinNet ["libc.so.90.0"];
 			SO_REUSEPORT* = {9}; (* allow local address & port reuse *)
 			SO_TIMESTAMP* = {11}; (* timestamp received dgram traffic *)
 			SO_BINDANY* = {12}; (* allow bind to any address *)
+			SO_ZEROIZE* = {13}; (* zero out all mbufs sent over socket *)
 			SO_SNDBUF* = {0,12}; (* send buffer size *)
 			SO_RCVBUF* = {1,12}; (* receive buffer size *)
 			SO_SNDLOWAT* = {0,1,12}; (* send low-water mark *)
