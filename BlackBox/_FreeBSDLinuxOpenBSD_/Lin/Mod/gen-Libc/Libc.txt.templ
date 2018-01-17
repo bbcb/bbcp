@@ -222,6 +222,7 @@ MODULE LinLibc ["libc.so%%libver%%"];
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t): int;
+		PROCEDURE [ccall] fchmod* (fd: int; mode: mode_t): int;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;
