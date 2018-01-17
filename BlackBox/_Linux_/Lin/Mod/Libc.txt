@@ -407,7 +407,7 @@ MODULE LinLibc ["libc.so.6"];
 	PROCEDURE [ccall] calloc* (num, size: size_t): PtrVoid;
 	PROCEDURE [ccall] clock* (): clock_t;
 	PROCEDURE [ccall] closedir* (dir: PtrDIR): INTEGER;
-	PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t);
+	PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t): INTEGER;
 	PROCEDURE [ccall] exit* (status: INTEGER);
 	PROCEDURE [ccall] fclose* (fp: PtrFILE): INTEGER;
 	PROCEDURE [ccall] fflush* (fp: PtrFILE): INTEGER;
