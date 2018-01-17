@@ -13,3 +13,6 @@
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigsetjmp* (VAR env: sigjmp_buf; savemask: int): int;

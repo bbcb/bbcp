@@ -1,0 +1,38 @@
+	TYPE
+		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
+			sigval_t* = RECORD [union]
+				sival_int*: int;
+				sival_ptr*: PtrVoid
+			END;
+
+		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/sys/ucontext.h: *)
+			greg_t* = int;
+			gregset_t* = ARRAY [untagged] 19 OF greg_t;
+			fpregset_t* = POINTER [untagged] TO fpstate;
+			fpreg* = RECORD [untagged]
+				significand*: ARRAY [untagged] 4 OF SHORTINT; (* unsigned short int *)
+				exponent*: SHORTINT; (* unsigned short int *)
+			END;
+			fpstate* = RECORD [untagged]
+				cw*: INTEGER; (* unsigned long int *)
+				sw*: INTEGER; (* unsigned long int *)
+				tag*: INTEGER; (* unsigned long int *)
+				ipoff*: INTEGER; (* unsigned long int *)
+				cssel*: INTEGER; (* unsigned long int *)
+				dataoff*: INTEGER; (* unsigned long int *)
+				datasel*: INTEGER; (* unsigned long int *)
+				_st: ARRAY [untagged] 8 OF fpreg;
+				status*: INTEGER; (* unsigned long int *)
+			END;
+
+	VAR
+		timezone*: INTEGER; (* seconds from GMT *)
+(*
+		stdin*, stdout*, stderr* : PtrFILE;
+*)
+
+	PROCEDURE [ccall] __errno_location*(): INTEGER;
+
+	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+
+	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: int): int;

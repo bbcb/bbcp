@@ -1,0 +1,4 @@
+			(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/stack_t.h: *)
+				ss_sp*: PtrVoid;
+				ss_flags*: intFlags;
+				ss_size*: size_t;

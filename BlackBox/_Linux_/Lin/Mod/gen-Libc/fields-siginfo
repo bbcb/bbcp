@@ -1,0 +1,49 @@
+			(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/siginfo_t.h: *)
+				si_signo*: int; 	(* Signal number *)
+				si_errno*: int;  	(* An errno value *)
+				si_code*: int;   	(* Signal code *)
+
+				_sifields*: RECORD [union]
+					_pad: ARRAY [untagged] 29 OF int;
+					_kill*: RECORD [untagged]
+						si_pid*: pid_t;
+						si_uid*: uid_t
+					END;
+					_timer*: RECORD [untagged]
+						si_tid*: int;
+						si_overrun*: int;
+						si_sigval*: sigval_t
+					END;
+					_rt*: RECORD [untagged]
+						si_pid*: pid_t;
+						si_uid*: uid_t;
+						si_sigval*: sigval_t
+					END;
+					_sigchild*: RECORD [untagged]
+						si_pid: pid_t;
+						si_uid*: uid_t;
+						si_status*: int;
+						si_utime*: clock_t;
+						si_stime*: clock_t
+					END;
+					_sigfault*: RECORD [untagged]
+						si_addr*: PtrVoid;
+						si_addr_lsb*: SHORTINT;
+						_bounds*: RECORD [union]
+							_addr_bnd*: RECORD [untagged]
+								_lower*: PtrVoid;
+								_upper*: PtrVoid
+							END;
+							_pkey: INTEGER
+						END
+					END;
+					_sigpoll: RECORD [untagged]
+						si_band*: int; (* long int *);
+						si_fd*: int
+					END;
+					_sigsys*: RECORD [untagged]
+						_call_addr*: PtrVoid;
+						_syscall*: int;
+						_arch*: int (* unsigned int *)
+					END
+				END;

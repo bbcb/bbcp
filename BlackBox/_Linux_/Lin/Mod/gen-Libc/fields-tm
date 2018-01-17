@@ -1,0 +1,13 @@
+			(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/struct_tm.h: *)
+				tm_sec*: int; (* Seconds.     [0-60] (1 leap second) *)
+				tm_min*: int; (* Minutes.     [0-59] *)
+				tm_hour*: int; (* Hours.       [0-23] *)
+				tm_mday*: int; (* Day.         [1-31] *)
+				tm_mon*: int; (* Month.       [0-11] *)
+				tm_year*: int; (* Year - 1900.  *)
+				tm_wday*: int; (* Day of week. [0-6] *)
+				tm_yday*: int; (* Days in year.[0-365] *)
+				tm_isdst*: int; (* DST.         [-1/0/1] *)
+
+				tm_gmtoff*: int; (* long int *) (* Seconds east of UTC *)
+				tm_zone*: PtrSTR; (* Timezone abbreviation *)

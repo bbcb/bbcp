@@ -80,10 +80,12 @@ int main ()
 	D("int64_t", sizeof(int64_t), FALSE, TRUE);
 	D("u_int64_t", sizeof(u_int64_t), FALSE, TRUE);
 	D("wchar_t", sizeof(wchar_t), FALSE, TRUE);
-	D("sigset_t", sizeof(sigset_t), TRUE, TRUE);
 	D("sigjmp_buf", sizeof(sigjmp_buf), FALSE, TRUE);
 	D("intFlags", sizeof(int), TRUE, TRUE);
 	D("FILE", sizeof(FILE), FALSE, FALSE);
+
+	printf("%ssigset_t* = ARRAY [untagged] %d OF BYTE;\n", TABS, (int)sizeof(sigset_t));
+	printf("%sPtrSigset_t* = POINTER [untagged] TO sigset_t;\n", TABS);
 
 	return 0;
 }

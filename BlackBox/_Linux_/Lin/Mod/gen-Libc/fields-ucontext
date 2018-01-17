@@ -1,0 +1,11 @@
+				uc_flags*: INTEGER;	(* unsigned long int *)
+				uc_link*: Ptrucontext_t;
+				uc_stack*: stack_t;
+				uc_mcontext*: RECORD [untagged] (* mcontext_t *)
+					gregs*: gregset_t;
+					fpregs*: fpregset_t;
+					oldmask*: INTEGER; (* unsigned long int *)
+					cr2*: INTEGER; (* unsigned long int *)
+				END;
+				uc_sigmask: sigset_t;
+				__fpregs_mem*: fpstate;
