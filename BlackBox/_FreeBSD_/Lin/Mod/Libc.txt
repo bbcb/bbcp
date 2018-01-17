@@ -689,9 +689,15 @@ MODULE LinLibc ["libc.so.7"];
 		PROCEDURE [ccall] lseek* (d: int; offset: off_t; whence: int): off_t;
 
 	(* POSIX.1 *)
+		PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t): int;
+
+	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;
 
-	PROCEDURE [ccall] system* (cmd: PtrSTR): INTEGER;
-	PROCEDURE [ccall] popen* (cmd, mode: PtrSTR): INTEGER;
+	(* POSIX.2 *)
+		PROCEDURE [ccall] system* (string: PtrSTR): int;
+
+	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
+	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
 
 END LinLibc.
