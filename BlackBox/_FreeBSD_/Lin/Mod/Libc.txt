@@ -661,6 +661,9 @@ MODULE LinLibc ["libc.so.7"];
 		PROCEDURE [ccall] fseek* (stream: PtrFILE; offset: long; whence: int): int;
 
 	(* POSIX.1 *)
+		PROCEDURE [ccall] fileno* (stream: PtrFILE): int;
+
+	(* POSIX.1 *)
 		PROCEDURE [ccall] rename* (from, to: PtrSTR): int;
 		PROCEDURE [ccall] mkdir* (path: PtrSTR; mode: mode_t): int;
 		PROCEDURE [ccall] opendir* (filename: PtrSTR): PtrDIR;
