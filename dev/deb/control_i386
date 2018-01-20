@@ -7,7 +7,7 @@ Version: {#VERSION}
 Priority: optional
 Installed-Size: 11500
 Architecture: i386
-Depends: libc6, libgtk2.0-0, libgnomeui-0, gtk2-engines, gtk2-engines-murrine, libcanberra-gtk-module, libgnomeui-0, gnome-icon-theme-full
+Depends: libc6, libgtk2.0-0, gtk2-engines, gtk2-engines-murrine, libcanberra-gtk-module, gnome-icon-theme-full
 Description: IDE for Component Pascal programming language.
  BlackBox Component Builder is an IDE for Component Pascal programming language.
  .

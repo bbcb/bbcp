@@ -31,15 +31,13 @@ Installation of required packages in Ubuntu (should work also with other Debian-
 
 	32-bit version:
 
-		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module
-		sudo apt-get install libgnomeui-0 gnome-icon-theme-full
+		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module gnome-icon-theme-full
 
 	64-bit version:
 
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
-		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
-		sudo apt-get install libgnomeui-0:i386 gnome-icon-theme-full
+		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
 
 To build BlackBox:
 
