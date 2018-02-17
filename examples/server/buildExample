@@ -1,5 +1,0 @@
-DevCompiler.CompileThis TcpService TcpServer TcpBytes TcpTask
-
-DevCompiler.CompileThis Gtk2GLib Gtk2GObject Gtk2Pango Gtk2Gdk Gtk2Gtk
-
-DevCompiler.CompileThis Init

@@ -15,8 +15,7 @@ cd ../../BlackBox
 
 # 4. Go to the example folder and compile the example
 cd ../examples/server
-ln -s ../../BlackBox/_Linux_GUI/Gtk2 ./
-../../BlackBox/run-BlackBox < buildExample
+echo "DevCompiler.CompileThis TcpService TcpServer TcpBytes TcpTask CommTCP Init" | ../../BlackBox/run-BlackBox
 
 # 5. Stop any other server that using 80 ports (apache, nginx, ...)
 # 6. Then you can start server using command:
