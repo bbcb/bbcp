@@ -45,6 +45,8 @@ MODULE LinNet ["libc.so.6"];
 			PF_PPPOX* = 24; (* PPPoX sockets. *)
 			PF_WANPIPE* = 25; (* Wanpipe API sockets. *)
 			PF_LLC* = 26; (* Linux LLC. *)
+			PF_IB* = 27; (* Native InfiniBand address. *)
+			PF_MPLS* = 28; (* MPLS. *)
 			PF_CAN* = 29; (* Controller Area Network. *)
 			PF_TIPC* = 30; (* TIPC sockets. *)
 			PF_BLUETOOTH* = 31; (* Bluetooth sockets. *)
@@ -57,7 +59,10 @@ MODULE LinNet ["libc.so.6"];
 			PF_ALG* = 38; (* Algorithm sockets. *)
 			PF_NFC* = 39; (* NFC sockets. *)
 			PF_VSOCK* = 40; (* vSockets. *)
-			PF_MAX* = 41; (* For now.. *)
+			PF_KCM* = 41; (* Kernel Connection Multiplexor. *)
+			PF_QIPCRTR* = 42; (* Qualcomm IPC Router. *)
+			PF_SMC* = 43; (* SMC sockets. *)
+			PF_MAX* = 44; (* For now.. *)
 
 		(* socket types *)
 			(* /usr/include/i386-linux-gnu/bits/socket_type.h *)
@@ -142,6 +147,17 @@ MODULE LinNet ["libc.so.6"];
 			SO_SELECT_ERR_QUEUE* = {0,2,3,5};
 			SO_BUSY_POLL* = {1..3,5};
 			SO_MAX_PACING_RATE* = {0..3,5};
+			SO_BPF_EXTENSIONS* = {4,5};
+			SO_INCOMING_CPU* = {0,4,5};
+			SO_ATTACH_BPF* = {1,4,5};
+			SO_ATTACH_REUSEPORT_CBPF* = {0,1,4,5};
+			SO_ATTACH_REUSEPORT_EBPF* = {2,4,5};
+			SO_CNX_ADVICE* = {0,2,4,5};
+			SO_MEMINFO* = {0..2,4,5};
+			SO_INCOMING_NAPI_ID* = {3..5};
+			SO_COOKIE* = {0,3..5};
+			SO_PEERGROUPS* = {0,1,3..5};
+			SO_ZEROCOPY* = {2..5};
 
 		(* /usr/include/i386-linux-gnu/sys/socket.h *)
 			SHUT_RD* = 0;
@@ -309,7 +325,9 @@ MODULE LinNet ["libc.so.6"];
 		PROCEDURE [ccall] getsockname* (s: SOCKET; VAR name: sockaddr; VAR namelen: socklen_t): int;
 		PROCEDURE [ccall] listen* (s: SOCKET; backlog: int): int;
 		PROCEDURE [ccall] recv* (s: SOCKET; buf: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] recvfrom* (s: SOCKET; buf: PtrVoid; len: size_t; flags: intFlags; VAR from: sockaddr; VAR fromlen: socklen_t): ssize_t;
 		PROCEDURE [ccall] send* (s: SOCKET; msg: PtrVoid; len: size_t; flags: intFlags): ssize_t;
+		PROCEDURE [ccall] sendto* (s: SOCKET; msg: PtrVoid; len: size_t; flags: intFlags; VAR to: sockaddr; tolen: socklen_t): ssize_t;
 		PROCEDURE [ccall] shutdown* (s: SOCKET; how: int): int;
 		PROCEDURE [ccall] getsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; VAR [nil] optlen: socklen_t): int;
 		PROCEDURE [ccall] setsockopt* (s: SOCKET; level: int; optname: intFlags; optval: PtrVoid; optlen: socklen_t): int;

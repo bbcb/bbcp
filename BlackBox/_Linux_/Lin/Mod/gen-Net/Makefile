@@ -8,6 +8,8 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
+CFLAGS += -m32
+
 DEFS = defs-basictypes defs-af defs-so defs-sol defs-ai defs-eai defs-somaxconn
 
 all: Net.txt ${DEFS}

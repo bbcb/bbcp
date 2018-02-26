@@ -7,8 +7,8 @@ import sys, re
 
 INDENT = "\t"
 
-_p1 = re.compile('^#define\s+([^\s]+)\s+([A-Za-z0-9]+)\s*$')
-_p2 = re.compile('^#define\s+([^\s]+)\s+([^\s]+)\s+\/\*([^\*]+)\*\/\s*$')
+_p1 = re.compile('^# *define\s+([^\s]+)\s+([A-Za-z0-9]+)\s*$')
+_p2 = re.compile('^# *define\s+([^\s]+)\s+([^\s]+)\s+\/\*([^\*]+)\*\/\s*$')
 
 def mkset (x):
 	if x >= 0:
