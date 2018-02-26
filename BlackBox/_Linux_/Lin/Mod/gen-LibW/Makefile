@@ -8,6 +8,8 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
+CFLAGS += -m32
+
 DEFS = defs-basictypes defs-lc
 
 all: LibW.txt ${DEFS}
