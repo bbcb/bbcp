@@ -5,10 +5,9 @@ Tested on:
 * OpenBSD 6.2
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS
-* Ubuntu GNOME 17.04
+* Ubuntu GNOME 17.04, 17.10
 * Arch Linux 4.9.6
-* Debian Mate
-* Debian 9.3 Xfce
+* Debian 9.3 Xfce/Mate/GNOME
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
