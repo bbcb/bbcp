@@ -63,7 +63,7 @@
 
 	PROCEDURE [ccall] __xstat* (version: int; filename: PtrSTR; VAR buf: stat_t): int;
 	PROCEDURE [ccall] __xstat64* (version: int; filename: PtrSTR; VAR buf: stat64_t): int;
-
+	PROCEDURE [ccall] fopen64* (path, mode: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] lseek64* (fd: int; offset: off64_t; whence: int): off64_t;
 
 	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: int): int;
