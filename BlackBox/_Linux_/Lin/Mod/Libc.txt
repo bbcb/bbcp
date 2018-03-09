@@ -517,6 +517,28 @@ MODULE LinLibc ["libc.so.6"];
 
 	TYPE
 		off64_t* = LONGINT;
+		blkcnt64_t* = LONGINT;
+		ino64_t* = LONGINT;
+
+		(* Ubuntu 18.04 /usr/include/i386-linux-gnu/bits/stat.h: *)
+			stat64_t* = RECORD [untagged]
+				st_dev*: dev_t;
+				__pad1: int; (* unsigned int *)
+				__st_ino: ino_t;
+				st_mode*: mode_t;
+				st_nlink*: nlink_t;
+				st_uid*: uid_t;
+				st_gid*: gid_t;
+				st_rdev*: dev_t;
+				__pad2: int; (* unsigned int *)
+				st_size*: off64_t;
+				st_blksize*: blksize_t;
+				st_blocks*: blkcnt64_t;
+				st_atim*: timespec_t;
+				st_mtim*: timespec_t;
+				st_ctim*: timespec_t;
+				st_ino*: ino64_t;
+			END;
 
 		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
 			sigval_t* = RECORD [union]
@@ -550,9 +572,10 @@ MODULE LinLibc ["libc.so.6"];
 		stdin*, stdout*, stderr* : PtrFILE;
 *)
 
-	PROCEDURE [ccall] __errno_location*(): INTEGER;
+	PROCEDURE [ccall] __errno_location*(): PtrVoid;
 
-	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+	PROCEDURE [ccall] __xstat* (version: int; filename: PtrSTR; VAR buf: stat_t): int;
+	PROCEDURE [ccall] __xstat64* (version: int; filename: PtrSTR; VAR buf: stat64_t): int;
 
 	PROCEDURE [ccall] lseek64* (fd: int; offset: off64_t; whence: int): off64_t;
 
