@@ -516,6 +516,8 @@ MODULE LinLibc ["libc.so.6"];
 			_STAT_VER_LINUX* = 3;
 
 	TYPE
+		off64_t* = LONGINT;
+
 		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
 			sigval_t* = RECORD [union]
 				sival_int*: int;
@@ -551,6 +553,8 @@ MODULE LinLibc ["libc.so.6"];
 	PROCEDURE [ccall] __errno_location*(): INTEGER;
 
 	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+
+	PROCEDURE [ccall] lseek64* (fd: int; offset: off64_t; whence: int): off64_t;
 
 	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: int): int;
 
@@ -639,7 +643,6 @@ MODULE LinLibc ["libc.so.6"];
 		PROCEDURE [ccall] write* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] read* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
 		PROCEDURE [ccall] close* (d: int): int;
-		PROCEDURE [ccall] lseek* (d: int; offset: off_t; whence: int): off_t;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t): int;
