@@ -1,3 +1,7 @@
+	CONST
+		(* Ubuntu 18.04 /usr/include/i386-linux-gnu/bits/stat.h *)
+			_STAT_VER_LINUX* = 3;
+
 	TYPE
 		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
 			sigval_t* = RECORD [union]
