@@ -3,6 +3,8 @@
 			_STAT_VER_LINUX* = 3;
 
 	TYPE
+		off64_t* = LONGINT;
+
 		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
 			sigval_t* = RECORD [union]
 				sival_int*: int;
@@ -38,5 +40,7 @@
 	PROCEDURE [ccall] __errno_location*(): INTEGER;
 
 	PROCEDURE [ccall] __xstat* (version: INTEGER; filename: PtrSTR; VAR buf: stat_t): INTEGER;
+
+	PROCEDURE [ccall] lseek64* (fd: int; offset: off64_t; whence: int): off64_t;
 
 	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: int): int;
