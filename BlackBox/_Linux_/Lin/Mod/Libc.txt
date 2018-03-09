@@ -17,12 +17,11 @@ MODULE LinLibc ["libc.so.6"];
 		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
 		MAP_SHARED* = {0}; (* Share changes *)
 		MAP_PRIVATE* = {1}; (* Changes are private *)
+		MAP_SHARED_VALIDATE* = {0,1}; (* share + validate extension flags *)
 		MAP_TYPE* = {0..3}; (* Mask for type of mapping *)
 		MAP_FIXED* = {4}; (* Interpret addr exactly *)
 		MAP_ANONYMOUS* = {5}; (* don't use a file *)
 		MAP_FILE* = {};
-		MAP_HUGE_SHIFT* = {1,3,4};
-		MAP_HUGE_MASK* = {0..5};
 		MAP_ANON* = MAP_ANONYMOUS;
 
 
@@ -512,6 +511,10 @@ MODULE LinLibc ["libc.so.6"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
 *)
+	CONST
+		(* Ubuntu 18.04 /usr/include/i386-linux-gnu/bits/stat.h *)
+			_STAT_VER_LINUX* = 3;
+
 	TYPE
 		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
 			sigval_t* = RECORD [union]
