@@ -4,10 +4,10 @@ Tested on:
 * Windows XP, 7, 10
 * OpenBSD 6.2
 * Fedora Core 17
-* Ubuntu 14.04, 16.04 LTS
-* Ubuntu GNOME 17.04, 17.10
+* Ubuntu 14.04, 16.04 LTS, 17.10, 18.04 LTS
+* Ubuntu GNOME 17.04
 * Arch Linux 4.9.6
-* Debian 9.3 Xfce/Mate/GNOME
+* Debian 9.3, 9.4 Xfce/Mate/GNOME
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
@@ -37,6 +37,13 @@ Installation of required packages in Ubuntu (should work also with other Debian-
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
+
+	Ubuntu 18.04 Bionic Beaver:
+
+		sudo dpkg --add-architecture i386
+		sudo apt-get update
+		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
+
 
 To build BlackBox:
 

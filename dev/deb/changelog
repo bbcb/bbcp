@@ -1,5 +1,18 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * center issue-#186 aligning code procedure syntax with docu
+  * center issue-#184 HYPERLINK ignored in RTF import
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 7 June 2018 01:00:00 +0700
+
+bbcb (1.7~a1.70) unstable; urgency=low
+
+  * HostCFrames buttons and edit fields improved
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 15 May 2018 14:20:00 +0700
+
+bbcb (1.7~a1.68) unstable; urgency=low
+
   * HostFiles64 for large files (by A.V.Shiryaev)
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 10 Mar 2018 00:20:00 +0700
