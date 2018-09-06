@@ -1,5 +1,12 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * save default and dialog font;
+  * preferences help.
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 7 Sep 2018 01:00:00 +0700
+
+bbcb (1.7~a1.77) unstable; urgency=low
+
   * center issue-#186 aligning code procedure syntax with docu
   * center issue-#184 HYPERLINK ignored in RTF import
 
