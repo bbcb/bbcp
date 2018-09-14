@@ -15,7 +15,7 @@ Download: http://blackbox.obertone.ru/download
 Directories structure:
 
 	BlackBox/
-		universal development environment for Component Pascal programing language
+		universal development environment for Component Pascal programming language
 
 	dev/
 		files for continuous integration system & technical notes for framework developers

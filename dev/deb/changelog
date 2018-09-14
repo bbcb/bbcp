@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * fix opening of typeface settings dialog;
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 14 Sep 2018 10:00:00 +0700
+
+bbcb (1.7~a1.78) unstable; urgency=low
+
   * save default and dialog font;
   * preferences help.
 
