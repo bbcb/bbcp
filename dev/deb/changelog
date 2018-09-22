@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * basic drag and drop inside one window;
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sun, 23 Sep 2018 02:00:00 +0700
+
+bbcb (1.7~a1.79) unstable; urgency=low
+
   * fix opening of typeface settings dialog;
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 14 Sep 2018 10:00:00 +0700
