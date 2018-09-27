@@ -1,25 +1,26 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
-  * center issue-#188 compiler trap with SYSTEM.VAL;
+  * center issue-#189 improving the treatment of the sign bit in Math/SMath
+  * center issue-#188 compiler trap with SYSTEM.VAL
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 27 Sep 2018 11:00:00 +0700
 
 bbcb (1.7~a1.80) unstable; urgency=low
 
-  * basic drag and drop inside one window;
+  * basic drag and drop inside one window
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sun, 23 Sep 2018 02:00:00 +0700
 
 bbcb (1.7~a1.79) unstable; urgency=low
 
-  * fix opening of typeface settings dialog;
+  * fix opening of typeface settings dialog
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 14 Sep 2018 10:00:00 +0700
 
 bbcb (1.7~a1.78) unstable; urgency=low
 
-  * save default and dialog font;
-  * preferences help.
+  * save default and dialog font
+  * preferences help
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 7 Sep 2018 01:00:00 +0700
 
