@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * fix hanging then call menu command causing TRAP
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 27 Sep 2018 14:00:00 +0700
+
+bbcb (1.7~a1.81) unstable; urgency=low
+
   * center issue-#189 improving the treatment of the sign bit in Math/SMath
   * center issue-#188 compiler trap with SYSTEM.VAL
 
