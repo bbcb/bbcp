@@ -1,4 +1,10 @@
-bbcb ({#VERSION}) unstable; urgency=low
+bbcb ({#VERSION}) unstable; urgency=high
+
+  * fix hanging then call menu command causing TRAP (ver 2. by A.V.Shiryaev)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 9 Nov 2018 01:00:00 +0700
+
+bbcb (1.7~a1.85) unstable; urgency=low
 
   * fix hanging then call menu command causing TRAP
 
