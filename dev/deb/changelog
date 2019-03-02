@@ -1,6 +1,8 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
-  * center issue-#191, Compiler trap by erroneous program
+  * center issue-#195 support for long identifiers in trap handlers
+  * center issue-#193 typing error in Documents.SetPageOp.Do
+  * center issue-#191 Compiler trap by erroneous program
   * center issue-#196 StdCoder to support both "\" & "/" in file paths
   * center issue-#190 add comment about stack and heap memory config
 
