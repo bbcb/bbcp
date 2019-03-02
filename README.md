@@ -5,7 +5,7 @@ Tested on:
 * OpenBSD 6.2
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS, 17.04 GNOME, 17.10, 18.04 LTS
-* Debian 9.3, 9.4 Xfce/Mate/GNOME
+* Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
 * Arch Linux 4.9.6
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
@@ -16,6 +16,8 @@ Directories structure:
 
 	BlackBox/
 		universal development environment for Component Pascal programming language
+	BlackBox/_*
+		platform-specific files
 
 	dev/
 		files for continuous integration system & technical notes for framework developers
@@ -25,7 +27,14 @@ Directories structure:
 		encoder/ - encoding subsystems by StdCoder from the command line
 		server/  - static web-server
 
-Installation of required packages in Ubuntu (should work also with other Debian-based OS):
+Prepare BlackBox from repository on Windows:
+
+	copy _Windows_, _Windows_GUI and __GUI content to the BlackBox directory
+	remove other directories starting with "_"
+	run build.bat
+
+
+Installation of required packages in Debian-based systems:
 
 	32-bit version:
 
