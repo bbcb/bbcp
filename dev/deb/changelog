@@ -1,8 +1,10 @@
-bbcb ({#VERSION}) unstable; urgency=high
+bbcb ({#VERSION}) unstable; urgency=low
 
+  * center issue-#191, Compiler trap by erroneous program
   * center issue-#196 StdCoder to support both "\" & "/" in file paths
+  * center issue-#190 add comment about stack and heap memory config
 
- -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sut, 2 Mar 2019 17:00:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 2 Mar 2019 17:00:00 +0700
 
 bbcb (1.7~a1.86) unstable; urgency=high
 
