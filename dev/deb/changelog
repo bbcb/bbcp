@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * fix Dev2 linker for better support of long identifiers
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 6 Wed 2019 22:00:00 +0700
+
+bbcb (1.7~a1.87) unstable; urgency=high
+
   * center issue-#195 support for long identifiers in trap handlers
   * center issue-#193 typing error in Documents.SetPageOp.Do
   * center issue-#191 Compiler trap by erroneous program
