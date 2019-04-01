@@ -1,5 +1,12 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * ScrollBar was made cross-platform in HostCFrames
+  * HostFiles64 and CommTCP fixed (by A.V.Shiryaev)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 1 Apr 2019 10:00:00 +0700
+
+bbcb (1.7~a1.88) unstable; urgency=high
+
   * fix Dev2 linker for better support of long identifiers
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 6 Wed 2019 22:00:00 +0700
