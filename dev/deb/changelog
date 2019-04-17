@@ -1,4 +1,10 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * center issue-#192 Kernel.Call does not work with ANYREC-parameters
+  * center issue-#194 Meta.PutParam and Kernel.Call for open arrays are mismatched
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 17 Apr 2019 23:00:00 +0700
+
+bbcb (1.7~a1.96) unstable; urgency=high
 
   * ScrollBar was made cross-platform in HostCFrames
   * HostFiles64 and CommTCP fixed (by A.V.Shiryaev)
