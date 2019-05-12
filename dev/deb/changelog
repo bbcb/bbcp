@@ -1,4 +1,13 @@
 bbcb ({#VERSION}) unstable; urgency=low
+
+  * ComboBox v1
+  * persistant language recovery and over Prefs settings
+  * Add [ccall16] flag to Gtk procedures and improve Gtk initialization
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 13 May 2019 01:00:00 +0700
+
+bbcb (1.7~a1.97) unstable; urgency=high
+
   * center issue-#192 Kernel.Call does not work with ANYREC-parameters
   * center issue-#194 Meta.PutParam and Kernel.Call for open arrays are mismatched
 
