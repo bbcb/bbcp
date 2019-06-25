@@ -1,0 +1,3 @@
+			SIG_DFL* = 0;
+			SIG_IGN* = 1;
+			SIG_ERR* = -1;

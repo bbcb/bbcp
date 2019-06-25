@@ -1,7 +1,7 @@
-MODULE LinLibc ["libc.so.90"];
+MODULE LinLibc ["libc.so.95"];
 
 	(*
-		OpenBSD 6.2
+		OpenBSD 6.5
 		i386
 	*)
 
@@ -20,7 +20,9 @@ MODULE LinLibc ["libc.so.90"];
 		MAP_FIXED* = {4}; (* map addr must be exactly as requested *)
 		MAP_ANON* = {12}; (* allocated from memory, swap space *)
 		MAP_ANONYMOUS* = MAP_ANON; (* alternate POSIX spelling *)
-		MAP_FLAGMASK* = {0..2,4..13};
+		MAP_STACK* = {14}; (* mapping is used for a stack *)
+		MAP_CONCEAL* = {15}; (* omit from dumps *)
+		MAP_FLAGMASK* = {0..2,4..15};
 		MAP_INHERIT_SHARE* = {}; (* share with child *)
 		MAP_INHERIT_COPY* = {0}; (* copy into child *)
 		MAP_INHERIT_NONE* = {1}; (* absent from child *)
@@ -93,6 +95,12 @@ MODULE LinLibc ["libc.so.90"];
 		SIGTHR* = 32; (* thread library AST *)
 
 		_NSIG* = 33;
+
+		(* SIG_DFL, SIG_IGN, SIG_ERR *)
+			SIG_DFL* = 0;
+			SIG_IGN* = 1;
+			SIG_ERR* = -1;
+
 
 (*
 		PAGE_SIZE* = 4096;
@@ -379,6 +387,7 @@ MODULE LinLibc ["libc.so.90"];
 		CLOCK_MONOTONIC* = 3;
 		CLOCK_THREAD_CPUTIME_ID* = 4;
 		CLOCK_UPTIME* = 5;
+		CLOCK_BOOTTIME* = 6;
 
 
 	TYPE

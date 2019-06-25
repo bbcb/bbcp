@@ -102,6 +102,11 @@ MODULE LinLibc ["libc.so.6"];
 
 		_NSIG* = 64;
 
+		(* SIG_DFL, SIG_IGN, SIG_ERR *)
+			SIG_DFL* = 0;
+			SIG_IGN* = 1;
+			SIG_ERR* = -1;
+
 (*
 		PAGE_SIZE* = 4096;
 *)
