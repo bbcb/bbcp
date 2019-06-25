@@ -1,7 +1,7 @@
-MODULE LinNet ["libc.so.90"];
+MODULE LinNet ["libc.so.95"];
 
 	(*
-		OpenBSD 6.2
+		OpenBSD 6.5
 		i386
 	*)
 
@@ -16,8 +16,8 @@ MODULE LinNet ["libc.so.90"];
 
 		(* socket domains *)
 			AF_UNSPEC* = 0; (* unspecified *)
-			AF_LOCAL* = 1; (* local to host (pipes, portals) *)
-			AF_UNIX* = AF_LOCAL; (* backward compatibility *)
+			AF_UNIX* = 1; (* local to host *)
+			AF_LOCAL* = AF_UNIX; (* draft POSIX compatibility *)
 			AF_INET* = 2; (* internetwork: UDP, TCP, etc. *)
 			AF_IMPLINK* = 3; (* arpanet imp addresses *)
 			AF_PUP* = 4; (* pup protocols: e.g. BSP *)
@@ -93,8 +93,6 @@ MODULE LinNet ["libc.so.90"];
 			IPPROTO_MAX* = 256;
 			IPPROTO_DIVERT* = 258; (* Divert sockets *)
 			IPPROTO_DONE* = 257;
-			IPPROTO_DIVERT_RESP* = 01H; (* {0} *) (* divert response packets *)
-			IPPROTO_DIVERT_INIT* = 02H; (* {1} *) (* divert packets initial direction *)
 
 		(* socket options *)
 			SO_DEBUG* = {0}; (* turn on debugging info recording *)
