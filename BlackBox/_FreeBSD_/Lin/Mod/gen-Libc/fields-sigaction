@@ -1,4 +1,4 @@
 			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
-				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* signal handler *)
+				sa_sigaction*: sa_sigaction_t; (* signal handler *)
 				sa_flags*: intFlags; (* see options *)
 				sa_mask*: sigset_t; (* signal mask to apply *)

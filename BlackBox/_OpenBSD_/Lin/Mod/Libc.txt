@@ -523,13 +523,14 @@ MODULE LinLibc ["libc.so.95"];
 				END;
 		END;
 
+		sa_sigaction_t* = PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; context: Ptrucontext_t);
 		sigaction_t* = RECORD [untagged]
 (*
-			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
+			sa_sigaction*: sa_sigaction_t,
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
 			(* OpenBSD 5.9 /usr/include/sys/signal.h *)
-				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ctx: Ptrucontext_t);
+				sa_sigaction*: sa_sigaction_t;
 				sa_mask*: sigset_t;
 				sa_flags*: intFlags;
 		END;

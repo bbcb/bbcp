@@ -498,13 +498,14 @@ MODULE LinLibc ["libc.so.7"];
 				sc_spare2: ARRAY 6 OF int;
 		END;
 
+		sa_sigaction_t* = PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; context: Ptrucontext_t);
 		sigaction_t* = RECORD [untagged]
 (*
-			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
+			sa_sigaction*: sa_sigaction_t,
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
 			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
-				sa_sigaction*: PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* signal handler *)
+				sa_sigaction*: sa_sigaction_t; (* signal handler *)
 				sa_flags*: intFlags; (* see options *)
 				sa_mask*: sigset_t; (* signal mask to apply *)
 		END;

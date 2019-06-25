@@ -435,13 +435,14 @@ MODULE LinLibc ["libc.so.6"];
 
 		END;
 
+		sa_sigaction_t* = PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; context: Ptrucontext_t);
 		sigaction_t* = RECORD [untagged]
 (*
-			sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; context: Ptrucontext_t),
+			sa_sigaction*: sa_sigaction_t,
 			sa_flags*: intFlags, sa_mask*: sigset_t
 *)
 			(* Ubuntu 17.10 /usr/include/i386-linux-gnu/asm/signal.h, /usr/include/i386-linux-gnu/bits/sigaction.h *)
-				sa_sigaction*: PROCEDURE [ccall] (sig: INTEGER; siginfo: Ptrsiginfo_t; ptr: Ptrucontext_t); (* union with sa_handler*: PtrProc;*)
+				sa_sigaction*: sa_sigaction_t; (* union with sa_handler*: PtrProc; *)
 				sa_mask*: sigset_t;
 				sa_flags*: intFlags;
 				sa_restorer*: PROCEDURE [ccall];
