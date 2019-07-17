@@ -1,4 +1,14 @@
-bbcb ({#VERSION}) unstable; urgency=hight
+bbcb ({#VERSION}) unstable; urgency=low
+
+  * increase N constant 4 times in Kernel.AllocHeapMem to speed up heap grow
+  * center #200, network file delete under Win10 sometimes fails
+  * center #199, compiler trap with SYSTEM.ADR(BasicType)
+  * TextViews scrolling by 3 lines
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 18 Jul 2019 04:10:00 +0700
+
+
+bbcb ({1.7~a1.107}) unstable; urgency=hight
 
   * RunExternal (by A.D.)
   * Drawing of Ports.MarkRect improved (by A.D.)

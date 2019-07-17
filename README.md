@@ -6,6 +6,7 @@ Tested on:
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS, 17.04 GNOME, 17.10, 18.04 LTS
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
+* Linux Mint 19.1 Cinnamon
 * Arch Linux 4.9.6
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
