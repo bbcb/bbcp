@@ -7,7 +7,7 @@ Tested on:
 * Ubuntu 14.04, 16.04 LTS, 17.04 GNOME, 17.10, 18.04 LTS
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
 * Linux Mint 19.1 Cinnamon
-* Arch Linux 4.9.6
+* Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
@@ -52,6 +52,12 @@ Installation of required packages in Debian-based systems:
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
+
+Installation of required packages in Arch-based systems:
+
+	64-bit version:
+
+		sudo pacman -S multilib/lib32-gtk2
 
 
 To build BlackBox:
