@@ -1,5 +1,9 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * remove Gtk2 from HostCFrames, improve Scrollers and UpDownField
+
+bbcb ({1.7~a1.110}) unstable; urgency=low
+
   * increase N constant 4 times in Kernel.AllocHeapMem to speed up heap grow
   * center #200, network file delete under Win10 sometimes fails
   * center #199, compiler trap with SYSTEM.ADR(BasicType)
