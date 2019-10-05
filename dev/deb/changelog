@@ -1,5 +1,6 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * issue-#201 Importer and Exporter for UTF-8 texts
   * remove Gtk2 from HostCFrames, improve Scrollers and UpDownField
 
 bbcb ({1.7~a1.110}) unstable; urgency=low
