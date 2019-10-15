@@ -1,7 +1,16 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * "ask" returned to HostFiles and HostFiles64
+  * move global variable dialogIsOpen from HostWindows to HostGnome for correct processing of Kernel.MessageBox (by Eugene Temirgaleev)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 16 Oct 2019 03:00:00 +0700
+
+bbcb ({1.7~a1.119) unstable; urgency=low
+
   * issue-#201 Importer and Exporter for UTF-8 texts
   * remove Gtk2 from HostCFrames, improve Scrollers and UpDownField
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 15 Oct 2019 09:00:00 +0700
 
 bbcb ({1.7~a1.110}) unstable; urgency=low
 
