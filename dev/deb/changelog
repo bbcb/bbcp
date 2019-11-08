@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * HostTabFrames (by Peter Kushnir)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 9 Nov 2019 01:30:00 +0700
+
+bbcb ({1.7~a1.122) unstable; urgency=low
+
   * "ask" returned to HostFiles and HostFiles64
   * move global variable dialogIsOpen from HostWindows to HostGnome for correct processing of Kernel.MessageBox (by Eugene Temirgaleev)
 
