@@ -1,7 +1,7 @@
-MODULE LinNet ["libc.so.95"];
+MODULE LinNet ["libc.so.96"];
 
 	(*
-		OpenBSD 6.5
+		OpenBSD 6.6
 		i386
 	*)
 
@@ -87,6 +87,7 @@ MODULE LinNet ["libc.so.95"];
 			IPPROTO_PIM* = 103; (* Protocol indep. multicast *)
 			IPPROTO_IPCOMP* = 108; (* IP Payload Comp. Protocol *)
 			IPPROTO_CARP* = 112; (* CARP *)
+			IPPROTO_UDPLITE* = 136; (* UDP-Lite, RFC 3828 *)
 			IPPROTO_MPLS* = 137; (* unicast MPLS packet *)
 			IPPROTO_PFSYNC* = 240; (* PFSYNC *)
 			IPPROTO_RAW* = 255; (* raw IP packet *)
@@ -120,6 +121,8 @@ MODULE LinNet ["libc.so.95"];
 			SO_RTABLE* = {0,5,12}; (* routing table to be used *)
 			SO_PEERCRED* = {1,5,12}; (* get connect-time credentials *)
 			SO_SPLICE* = {0,1,5,12}; (* splice data to other socket *)
+			SO_DOMAIN* = {2,5,12}; (* get socket domain *)
+			SO_PROTOCOL* = {0,2,5,12}; (* get socket protocol *)
 
 		SHUT_RD* = 0;
 		SHUT_WR* = 1;

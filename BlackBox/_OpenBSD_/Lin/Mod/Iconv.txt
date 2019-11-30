@@ -1,4 +1,4 @@
-MODULE LinIconv ["libiconv.so.6"];
+MODULE LinIconv ["libiconv.so.7"];
 
 	IMPORT Libc := LinLibc;
 

@@ -1,7 +1,7 @@
-MODULE LinIoctl ["libc.so.95"];
+MODULE LinIoctl ["libc.so.96"];
 
 	(*
-		OpenBSD 6.5
+		OpenBSD 6.6
 		i386
 	*)
 

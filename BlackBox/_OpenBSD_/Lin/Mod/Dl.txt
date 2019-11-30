@@ -1,9 +1,9 @@
-MODULE LinDl ["libc.so.95"];
+MODULE LinDl ["libc.so.96"];
 
 	(*
 		A. V. Shiryaev, 2012.09, 2013.08
 
-		OpenBSD 6.5
+		OpenBSD 6.6
 		32-bit
 	*)
 
