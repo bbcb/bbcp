@@ -1,6 +1,6 @@
 # This example demonstrates simple server based on console version of BlackBox.
 
-# To run this example you need to build console version of BlackBox:
+# To run this example you need to build 'Interp' version of BlackBox:
 
 # 1. Go to the BlackBox folder
 cd ../../BlackBox
@@ -15,7 +15,7 @@ cd ../../BlackBox
 
 # 4. Go to the example folder and compile the example
 cd ../examples/server
-echo "DevCompiler.CompileThis TcpService TcpServer TcpBytes TcpTask CommTCP Init" | ../../BlackBox/run-BlackBox
+echo "DevCompiler.CompileThis TcpService TcpServer TcpBytes TcpTask Init" | ../../BlackBox/run-BlackBox
 
 # 5. Stop any other server that using 80 ports (apache, nginx, ...)
 # 6. Then you can start server using command:
@@ -24,5 +24,5 @@ sudo ./bbserver
 
 # To check the work of the server open browser and look the page http://localhost
 
-# There are scripts ./start and ./stop for the daemon start and stop mode
+# There are scripts ./start and ./stop for the daemon start and stop modes
 
