@@ -61,5 +61,6 @@ else
 	echo "usage: `basename $0` ( none | OS [ configuration ] )"
 	echo "	OS: Linux | OpenBSD | FreeBSD | Windows"
 	echo "	configuration: GUI | Interp"
+	echo "	(default configuration: Interp)"
 	exit 1
 fi
