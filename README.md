@@ -6,12 +6,13 @@ Tested on:
 * Fedora Core 17
 * Ubuntu 14.04, 16.04 LTS, 17.04 GNOME, 17.10, 18.04 LTS
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
-* Linux Mint 19.1 Cinnamon
+* Linux Mint 19.3 Cinnamon
+* CentOS 8
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
-Download: http://blackbox.obertone.ru/download
+Download: https://blackbox.oberone.org/download
 
 Directories structure:
 
@@ -100,3 +101,4 @@ Authors:
 * Alexander V. Shiryaev
 * Igor A. Dehtyarenko
 * Ivan A. Denisov
+* Anton A. Dmitriev

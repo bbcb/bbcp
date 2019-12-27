@@ -1,24 +1,31 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * correct setting of windows title (reported by luowy)
+  * Dialog.RunExternal works with multiline scripts (A.Dmitriev)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 28 Dec 2019 02:00:00 +0700
+
+bbcb (1.7~b1.131) unstable; urgency=low
+
   * HostTabFrames (by Peter Kushnir)
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 9 Nov 2019 01:30:00 +0700
 
-bbcb ({1.7~a1.122) unstable; urgency=low
+bbcb (1.7~a1.122) unstable; urgency=low
 
   * "ask" returned to HostFiles and HostFiles64
   * move global variable dialogIsOpen from HostWindows to HostGnome for correct processing of Kernel.MessageBox (by Eugene Temirgaleev)
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Wed, 16 Oct 2019 03:00:00 +0700
 
-bbcb ({1.7~a1.119) unstable; urgency=low
+bbcb (1.7~a1.119) unstable; urgency=low
 
   * issue-#201 Importer and Exporter for UTF-8 texts
   * remove Gtk2 from HostCFrames, improve Scrollers and UpDownField
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 15 Oct 2019 09:00:00 +0700
 
-bbcb ({1.7~a1.110}) unstable; urgency=low
+bbcb (1.7~a1.110) unstable; urgency=low
 
   * increase N constant 4 times in Kernel.AllocHeapMem to speed up heap grow
   * center #200, network file delete under Win10 sometimes fails
@@ -28,7 +35,7 @@ bbcb ({1.7~a1.110}) unstable; urgency=low
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 18 Jul 2019 04:10:00 +0700
 
 
-bbcb ({1.7~a1.107}) unstable; urgency=hight
+bbcb (1.7~a1.107) unstable; urgency=hight
 
   * RunExternal (by A.D.)
   * Drawing of Ports.MarkRect improved (by A.D.)
