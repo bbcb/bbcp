@@ -4,15 +4,15 @@ Tested on:
 * Windows XP, 7, 10
 * OpenBSD 6.6
 * Fedora Core 17
-* Ubuntu 14.04, 16.04 LTS, 17.04 GNOME, 17.10, 18.04 LTS
+* Ubuntu 16.04 LTS, 18.04 LTS
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
-* Linux Mint 19.3 Cinnamon
+* Linux Mint 19.1/19.2/19.3 Cinnamon
 * CentOS 8
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 11.0
 
-Download: https://blackbox.oberone.org/download
+Download: https://blackbox.oberon.org/download
 
 Directories structure:
 
@@ -38,21 +38,27 @@ Prepare BlackBox from repository on Windows:
 
 Installation of required packages in Debian-based systems:
 
-	32-bit version:
+	Ubuntu 18.04 LTS Bionic Beaver / Linux Mint 19.X:
+
+		sudo dpkg --add-architecture i386
+		sudo apt update
+		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
+
+	Debian 9.X GNOME/Xfce/KDE
+		sudo dpkg --add-architecture i386
+		sudo apt update
+		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
+
+	Ubuntu 16.04 LTS i386:
 
 		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module gnome-icon-theme-full
 
-	64-bit version:
+	Ubuntu 16.04 LTS amd64:
 
 		sudo dpkg --add-architecture i386
 		sudo apt-get update
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
 
-	Ubuntu 18.04 Bionic Beaver:
-
-		sudo dpkg --add-architecture i386
-		sudo apt-get update
-		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
 
 Installation of required packages in Arch-based systems:
 
