@@ -5,9 +5,9 @@ Homepage: https://github.com/bbcb/bbcp
 Package: bbcb
 Version: {#VERSION}
 Priority: optional
-Installed-Size: 11500
-Architecture: amd64
-Depends: libc6:i386, libgtk2.0-0:i386, gtk2-engines:i386, gtk2-engines-murrine:i386, libcanberra-gtk-module:i386, gnome-icon-theme-full:amd64
+Installed-Size: 12000
+Architecture: i386
+Depends: libc6, libgtk2.0-0, gtk2-engines, gtk2-engines-murrine, libcanberra-gtk-module, gtk2-engines-pixbuf, libatk-adaptor, libgail-common, gnome-icon-theme:i386 | gnome-icon-theme:amd64, gnome-themes-extra | gnome-themes-standard
 Description: IDE for Component Pascal programming language.
  BlackBox Component Builder is an IDE for Component Pascal programming language.
  .
