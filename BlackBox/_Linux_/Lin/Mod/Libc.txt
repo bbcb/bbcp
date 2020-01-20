@@ -572,9 +572,9 @@ MODULE LinLibc ["libc.so.6"];
 				status*: INTEGER; (* unsigned long int *)
 			END;
 
+(*
 	VAR
 		timezone*: INTEGER; (* seconds from GMT *)
-(*
 		stdin*, stdout*, stderr* : PtrFILE;
 *)
 

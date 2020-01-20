@@ -53,9 +53,9 @@
 				status*: INTEGER; (* unsigned long int *)
 			END;
 
+(*
 	VAR
 		timezone*: INTEGER; (* seconds from GMT *)
-(*
 		stdin*, stdout*, stderr* : PtrFILE;
 *)
 
