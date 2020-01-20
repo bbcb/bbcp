@@ -1,0 +1,6 @@
+#!/bin/sh
+
+./runc <<DATA
+Dev2Linker1.LinkElf `uname -s` text2odc := Kernel$+ Files HostFiles Math Strings Dates Meta Log Dialog Services Fonts Ports Stores Converters Sequencers Models Printers Views Controllers Properties Printing Mechanisms Containers Documents Windows Console StdInterpreter HostConsole HostRegistry HostFonts HostWindows HostDates HostDialog StdDialog ConsLog HostLang ConsLog TextModels TextRulers TextSetters TextViews TextControllers TextMappers StdApi StdCmds StdLinks HostTextConv Text2odc
+DATA
+
