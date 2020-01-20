@@ -1,0 +1,20 @@
+# Application for convetion utf8-encoded text documents to "odc" format
+
+# Installation for Linux
+
+# 1. Prepare Interp version of BlackBox in "Linux_Interp" folder:
+cd ../../BlackBox
+./switch-target `uname -s` Interp
+./build
+./export ../Linux_Interp
+
+# 2. Compile this example:
+cd ../examples/text2odc
+echo "DevCompiler.CompileThis Text2odc" | ./runc
+
+# 3. Link standalone executable:
+./link
+
+# 3. For demonstration run:
+FILEPATH='' FILENAME='README' ./text2odc
+

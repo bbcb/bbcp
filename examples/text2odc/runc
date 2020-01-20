@@ -1,0 +1,4 @@
+#!/bin/sh
+env \
+  BB_PRIMARY_DIR="../../Linux_Interp" BB_SECONDARY_DIR="$PWD" \
+../../Linux_Interp/blackbox $@
