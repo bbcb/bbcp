@@ -6,7 +6,10 @@
 
 INCDIR ?= /usr/include
 
-all: mkioctl Ioctl.txt
+all: mkioctl Ioctl.odc
+
+Ioctl.odc: Ioctl.txt
+	./txt2odc.py Ioctl.txt Ioctl.odc
 
 PY = python2.7
 DEFS = defs-tiocm defs-ioctl
@@ -21,4 +24,4 @@ defs-tiocm:
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/ttycom.h | grep TIOCM_ > ${.TARGET}
 
 clean:
-	rm -f mkioctl Ioctl.txt ${DEFS}
+	rm -f mkioctl Ioctl.txt Ioctl.odc ${DEFS}

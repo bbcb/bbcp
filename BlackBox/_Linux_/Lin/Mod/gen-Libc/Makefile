@@ -11,7 +11,10 @@ PY = python2.7
 
 DEFS = clockspersec sigstksz defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait
 
-all: Libc.txt ${DEFS} strerrnocase.txt
+all: Libc.odc ${DEFS} strerrnocase.txt
+
+Libc.odc: Libc.txt
+	./txt2odc.py Libc.txt Libc.odc
 
 Libc.txt: Libc.txt.templ ${DEFS} libver osname machine custom fields-dirent fields-sigaction fields-siginfo fields-stack fields-stat fields-tm fields-ucontext fields-timespec
 	${PY} ./untempl.py Libc.txt.templ $@
@@ -83,4 +86,4 @@ sizeofs: sizeofs.c
 	${CC} -m32 sizeofs.c -o $@
 
 clean:
-	rm -f ${DEFS} Libc.txt dumpstrerrno dumpstrerrno.c strerrnocase.txt sizeofs scs
+	rm -f ${DEFS} Libc.txt Libc.odc dumpstrerrno dumpstrerrno.c strerrnocase.txt sizeofs scs
