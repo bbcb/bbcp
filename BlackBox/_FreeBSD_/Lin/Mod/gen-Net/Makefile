@@ -10,7 +10,10 @@ PY = python2.7
 
 DEFS = defs-basictypes defs-af defs-sock defs-proto defs-shut defs-so defs-sol defs-msg defs-ai defs-eai defs-somaxconn
 
-all: Net.txt ${DEFS}
+all: Net.odc ${DEFS}
+
+Net.odc: Net.txt
+	./txt2odc.py Net.txt Net.odc
 
 Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set-const defs-fd_set-type
 	${PY} ./untempl.py Net.txt.templ ${.TARGET}
@@ -49,4 +52,4 @@ defs-eai:
 	./dumpdefs.py 3 1 i ${INCDIR}/netdb.h | grep "	EAI_" > ${.TARGET}
 
 clean:
-	rm -f ${DEFS} Net.txt sizeofs
+	rm -f ${DEFS} Net.txt Net.odc sizeofs

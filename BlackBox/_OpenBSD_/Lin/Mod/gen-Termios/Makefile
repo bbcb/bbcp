@@ -6,7 +6,10 @@
 
 INCDIR ?= /usr/include
 
-all: Termios.txt
+all: Termios.odc
+
+Termios.odc: Termios.txt
+	./txt2odc.py Termios.txt Termios.odc
 
 PY = python2.7
 DEFS = defs-termios
@@ -20,4 +23,4 @@ defs-termios:
 	./dumpdefs.py 2 2 i ${INCDIR}/termios.h | grep -v compat | grep -v CHWFLOW >> ${.TARGET}
 
 clean:
-	rm -f Termios.txt ${DEFS}
+	rm -f Termios.txt Termios.odc ${DEFS}

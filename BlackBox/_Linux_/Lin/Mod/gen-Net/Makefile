@@ -12,7 +12,10 @@ CFLAGS += -m32
 
 DEFS = defs-basictypes defs-af defs-so defs-sol defs-ai defs-eai defs-somaxconn
 
-all: Net.txt ${DEFS}
+all: Net.odc ${DEFS}
+
+Net.odc: Net.txt
+	./txt2odc.py Net.txt Net.odc
 
 Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set-const defs-fd_set-type
 	${PY} ./untempl.py Net.txt.templ $@
@@ -39,4 +42,4 @@ defs-eai:
 	./dumpdefs.py 3 2 i ${INCDIR}/netdb.h | grep "	EAI_" > $@
 
 clean:
-	rm -f ${DEFS} Net.txt sizeofs
+	rm -f ${DEFS} Net.txt Net.odc sizeofs

@@ -1,16 +1,10 @@
 #!/bin/sh
 
 ./run-dev0 <<DATA
-ConsCompiler.Compile('Lin/Mod', 'Dl.txt')
-ConsCompiler.Compile('Lin/Mod', 'Libc.txt')
-ConsCompiler.Compile('Lin/Mod', 'LibW.txt')
-ConsCompiler.Compile('Lin/Mod', 'Iconv.txt')
-ConsCompiler.Compile('Lin/Mod', 'Termios.txt')
-ConsCompiler.Compile('Lin/Mod', 'Ioctl.txt')
-ConsCompiler.Compile('Lin/Mod', 'Net.txt')
+DevCompiler.CompileThis LinDl LinLibc LinLibW LinIconv LinTermios LinIoctl LinNet
 
 # Linux only
-ConsCompiler.Compile('Lin/Mod', 'Rt.txt')
+DevCompiler.CompileThis LinRt
 
 DevCompiler.CompileSubs System Std Host Cons Text Form Dev Xhtml Comm Obx
 
@@ -21,4 +15,3 @@ DevCompiler.CompileThis Dev2LnkChmod
 Dev2Linker1.LinkElfExe `uname -s` blackbox := Kernel$+ Files HostFiles StdLoader
 
 DATA
-
