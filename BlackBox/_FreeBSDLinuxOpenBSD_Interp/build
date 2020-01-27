@@ -1,12 +1,7 @@
 #!/bin/sh
 
 ./run-dev0 <<DATA
-DevCompiler.CompileThis LinDl LinLibc LinLibW LinIconv LinTermios LinIoctl LinNet
-
-# Linux only
-DevCompiler.CompileThis LinRt
-
-DevCompiler.CompileSubs System Std Host Cons Text Form Dev Xhtml Comm Obx
+DevCompiler.CompileSubs Lin System Std Host Cons Text Form Dev Xhtml Comm Obx
 
 ### Dev2
 DevCompiler.CompileThis Dev2LnkBase Dev2LnkLoad Dev2LnkWritePe Dev2LnkWriteElf Dev2LnkWriteElfStatic Dev2Linker Dev2Linker1
