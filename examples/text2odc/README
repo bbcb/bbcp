@@ -1,4 +1,4 @@
-# Application for convetion utf8-encoded text documents to "odc" format
+# Application for conversion utf8-encoded text documents to "odc" format
 
 # Installation for Linux
 
@@ -16,5 +16,5 @@ echo "DevCompiler.CompileThis Text2odc" | ./runc
 ./link
 
 # 3. For demonstration run:
-FILEPATH='' FILENAME='README' ./text2odc
+./text2odc README
 
