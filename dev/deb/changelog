@@ -1,5 +1,22 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * fix drawing of rectangles
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 13 Feb 2019 18:00:00 +0700
+
+bbcb (1.7.2~b1.148) unstable; urgency=low
+
+  * fix trap for not standart locator (https://forum.oberoncore.ru/viewtopic.php?f=134&t=6485)
+  * translate dialog titles
+  * fix default path for files open dialog
+  * sign of UTC bias fixed
+  * remember converter for files opened in browser mode
+  * support only UTF-8 console encoding
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 12 Feb 2019 02:00:00 +0700
+
+bbcb (1.7~b1.147) unstable; urgency=low
+
   * correct setting of windows title (reported by luowy)
   * Dialog.RunExternal works with multiline scripts (A.Dmitriev)
 
