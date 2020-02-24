@@ -12,5 +12,5 @@ exe="dev0"
 # export LD_DEBUG=all
 exec env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
-	BB_PACKED_NAME="${exe}" \
+	BB_PACKED_NAME="${exe}" BB_PACKED_FIRST=  \
 	"${pd}"/${exe} "${@}"
