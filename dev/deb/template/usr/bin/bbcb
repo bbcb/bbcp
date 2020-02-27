@@ -11,4 +11,4 @@ export LIBOVERLAY_SCROLLBAR=0
 # export LD_DEBUG=all
 env \
 	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
-	"${pd}"/blackbox
+	"${pd}"/blackbox $@
