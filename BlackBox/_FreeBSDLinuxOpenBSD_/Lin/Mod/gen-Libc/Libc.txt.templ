@@ -211,6 +211,7 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] closedir* (dirp: PtrDIR): int;
 	(* ANSI C 89, XPG4.2 *)
 		PROCEDURE [ccall] remove* (path: PtrSTR): int;
+		PROCEDURE [ccall] canonicalize_file_name* (path: PtrSTR): PtrSTR;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] getcwd* (buf: PtrSTR; size: size_t): PtrSTR;
