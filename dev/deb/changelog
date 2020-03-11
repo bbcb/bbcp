@@ -1,5 +1,14 @@
 bbcb ({#VERSION}) unstable; urgency=low
 
+  * Remove Kernel from Strings, use Unicode (SovietPony)
+  * switch to Utf, remove export of conversions from Kernel
+  * respect to symlinks (A.Dmitriev)
+  * StdCmds.result (E.Temirgaleev)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 13 Feb 2019 18:00:00 +0700
+
+bbcb (1.8~a1.15) unstable; urgency=low
+
   * fix drawing of rectangles
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 13 Feb 2019 18:00:00 +0700
