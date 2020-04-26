@@ -59,6 +59,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		STDERR_FILENO* = 2;
 
 		P_tmpdir* = "/tmp";
+		
+		RLIMIT_STACK* = 3;
 
 		(* O_RDWR, O_NONBLOCK (intFlags) *)
 %%defs-fcntlo%%
@@ -130,6 +132,10 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		timespec_t* = RECORD [untagged]
 %%fields-timespec%%
 		END;
+		
+		rlimit* = RECORD [untagged]
+			rlim_cur*, rlim_max*: INTEGER;	(* rlim_t *)
+		END;
 
 (*
 	VAR
@@ -156,9 +162,9 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] munmap* (adr: PtrVoid; len: size_t): int;
 		PROCEDURE [ccall] mprotect* (adr: PtrVoid; len: size_t; prot: intFlags): int;
 
-(*
+
 	PROCEDURE [ccall] calloc* (nmemb: size_t; size: size_t): PtrVoid;
-	(* ANSI C 89 *)
+(*	(* ANSI C 89 *)
 		PROCEDURE [ccall] malloc* (size: size_t): PtrVoid;
 *)
 		PROCEDURE [ccall] free* (ptr: PtrVoid);
@@ -251,5 +257,7 @@ MODULE LinLibc ["libc.so%%libver%%"];
 
 	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
 	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
+
+	PROCEDURE [ccall] getrlimit* (resource: INTEGER; VAR rlim: rlimit);
 
 END LinLibc.
