@@ -8,7 +8,7 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
-DEFS = clockspersec defs-map defs-prot defs-sigmask defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc
+DEFS = clockspersec defs-map defs-prot defs-sigmask defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-wait
 
 all: Libc.odc ${DEFS} strerrnocase.txt
 
@@ -59,6 +59,12 @@ defs-basictypes: sizeofs
 defs-sc:
 	./dumpdefs.py 2 1 i ${INCDIR}/unistd.h | grep _SC_ > ${.TARGET}
 	./dumpdefs.py 2 2 i ${INCDIR}/unistd.h | grep _SC_ > ${.TARGET}
+
+defs-wait:
+	grep "define WAIT_ANY" ${INCDIR_I386}/sys/wait.h | sed s'/(//' | sed s'/)//' | awk '{print "		" $$3 "* = " $$4 ";"}' > $@
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep "	WCONTINUED" >> $@
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep "	WNOHANG" >> $@
+	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep "	WUNTRACED" >> $@
 
 #defs-madv:
 #	./dumpdefs.py 2 1 i ${INCDIR}/sys/mman.h | grep MADV | sed 's/_//' > ${.TARGET}
