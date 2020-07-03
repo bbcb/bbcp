@@ -68,6 +68,8 @@ int main ()
 	D("dev_t", sizeof(dev_t), FALSE, TRUE);
 	D("ino_t", sizeof(ino_t), FALSE, TRUE);
 	D("nlink_t", sizeof(nlink_t), FALSE, TRUE);
+	D("blkcnt_t", sizeof(blkcnt_t), FALSE, FALSE);
+	D("blksize_t", sizeof(blksize_t), FALSE, FALSE);
 	D("int8_t", sizeof(int8_t), FALSE, TRUE);
 	D("uint8_t", sizeof(u_int8_t), FALSE, TRUE);
 	D("int16_t", sizeof(int16_t), FALSE, TRUE);
@@ -77,13 +79,13 @@ int main ()
 	D("int64_t", sizeof(int64_t), FALSE, TRUE);
 	D("uint64_t", sizeof(u_int64_t), FALSE, TRUE);
 	D("wchar_t", sizeof(wchar_t), FALSE, TRUE);
-	D("sigset_t", sizeof(sigset_t), TRUE, TRUE);
 	D("sigjmp_buf", sizeof(sigjmp_buf), FALSE, TRUE);
 	D("intFlags", sizeof(int), TRUE, TRUE);
 	/* D("FILE", sizeof(FILE), FALSE, FALSE); */
-	D("blkcnt_t", sizeof(blkcnt_t), FALSE, TRUE);
-	D("blksize_t", sizeof(blksize_t), FALSE, TRUE);
 	D("fflags_t", sizeof(fflags_t), TRUE, TRUE);
+
+	printf("%ssigset_t* = ARRAY [untagged] %d OF BYTE;\n", TABS, (int)sizeof(sigset_t));
+	printf("%sPtrSigset_t* = POINTER [untagged] TO sigset_t;\n", TABS);
 
 	return 0;
 }

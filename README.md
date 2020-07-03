@@ -10,7 +10,7 @@ Tested on:
 * CentOS 8
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
-* FreeBSD 11.0
+* FreeBSD 12.1
 
 Download: https://blackbox.oberon.org/download
 

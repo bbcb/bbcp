@@ -35,6 +35,7 @@ defs-sol:
 
 defs-msg:
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/socket.h | grep "	MSG_" > ${.TARGET}
+	./dumpdefs.py 2 2 s ${INCDIR}/sys/socket.h | grep "	MSG_NOSIGNAL" >> ${.TARGET}
 
 defs-somaxconn:
 	./dumpdefs.py 2 1 i ${INCDIR}/sys/socket.h | grep "	SOMAXCONN" > ${.TARGET}
