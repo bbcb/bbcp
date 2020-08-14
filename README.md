@@ -6,7 +6,7 @@ Tested on:
 * Fedora Core 17
 * Ubuntu 16.04 LTS, 18.04 LTS
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
-* Linux Mint 19.1/19.2/19.3 Cinnamon
+* Linux Mint 19.1/19.2/19.3/20 Cinnamon
 * CentOS 8
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
@@ -43,6 +43,8 @@ Installation of required packages in Debian-based systems:
 		sudo dpkg --add-architecture i386
 		sudo apt update
 		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
+		
+	Linux Mint 20 has no package 'gnome-themes-extra:i386', it can be safly ignored. There will be warning in console.
 
 	Debian 9.X GNOME/Xfce/KDE
 		sudo dpkg --add-architecture i386
@@ -65,6 +67,9 @@ Installation of required packages in Arch-based systems:
 	64-bit version:
 
 		sudo pacman -S multilib/lib32-gtk2
+
+In OpenBSD use 'wxallowed' flag in mount options for the partition to start BlackBox from.
+
 
 
 To build BlackBox:
@@ -108,3 +113,4 @@ Authors:
 * Igor A. Dehtyarenko
 * Ivan A. Denisov
 * Anton A. Dmitriev
+
