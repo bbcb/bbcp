@@ -26,7 +26,8 @@ sigstksz:
 	grep "define SIGSTKSZ" ${INCDIR}/asm-generic/signal.h | awk '{print $$3}' | tr -d '\n' > $@
 
 defs-map:
-	./dumpdefs.py 2 1 s ${INCDIR}/asm-generic/mman-common.h | grep "MAP_" > $@
+	./dumpdefs.py 2 1 s ${INCDIR}/linux/mman.h | grep "MAP_" > $@
+	./dumpdefs.py 2 1 s ${INCDIR}/asm-generic/mman-common.h | grep "MAP_" >> $@
 	echo "		MAP_ANON* = MAP_ANONYMOUS;" >> $@
 
 defs-prot:

@@ -61,6 +61,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		P_tmpdir* = "/tmp";
 		
 		RLIMIT_STACK* = 3;
+		
+		UTIME_OMIT* = ASH(1, 30) - 2;
 
 		(* O_RDWR, O_NONBLOCK (intFlags) *)
 %%defs-fcntlo%%
@@ -136,6 +138,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		rlimit* = RECORD [untagged]
 			rlim_cur*, rlim_max*: INTEGER;	(* rlim_t *)
 		END;
+		
+		TVP* = RECORD [untagged] access*, modification*: timespec_t END;
 
 (*
 	VAR
@@ -259,5 +263,9 @@ MODULE LinLibc ["libc.so%%libver%%"];
 	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
 
 	PROCEDURE [ccall] getrlimit* (resource: INTEGER; VAR rlim: rlimit);
+	
+	PROCEDURE [ccall] sendfile* (out_fd, in_fd: INTEGER; VAR [nil] offset: INTEGER; count: INTEGER): INTEGER;
+	PROCEDURE [ccall] utimensat* (fd: INTEGER; file: PtrSTR; VAR tvp: TVP; flags: SET): INTEGER;
+	PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
 
 END LinLibc.
