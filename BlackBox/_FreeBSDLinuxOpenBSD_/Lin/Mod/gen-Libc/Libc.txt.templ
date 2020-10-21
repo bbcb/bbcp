@@ -59,22 +59,22 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		STDERR_FILENO* = 2;
 
 		P_tmpdir* = "/tmp";
-		
-		RLIMIT_STACK* = 3;
-		
-		UTIME_OMIT* = ASH(1, 30) - 2;
 
 		(* O_RDWR, O_NONBLOCK (intFlags) *)
 %%defs-fcntlo%%
 
 %%defs-clockid%%
 
+%%defs-rlimit%%
+
+%%defs-utime%%
+
 	TYPE
 		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
 		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
 
 		(* PtrVoid, int, long, size_t, ssize_t, off_t, time_t, clock_t, sigjmp_buf *)
-		(* mode_t, intFlags, sigset_t (set) *)
+		(* mode_t, rlim_t, intFlags, sigset_t (set) *)
 %%defs-basictypes%%
 
 		tm* = POINTER TO tmDesc;
@@ -134,11 +134,11 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		timespec_t* = RECORD [untagged]
 %%fields-timespec%%
 		END;
-		
+
 		rlimit* = RECORD [untagged]
-			rlim_cur*, rlim_max*: INTEGER;	(* rlim_t *)
+			rlim_cur*, rlim_max*: rlim_t
 		END;
-		
+
 		TVP* = RECORD [untagged] access*, modification*: timespec_t END;
 
 (*
@@ -161,11 +161,18 @@ MODULE LinLibc ["libc.so%%libver%%"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
 
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] time* (VAR [nil] tloc: time_t): time_t;
+
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] gmtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] localtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
+
 	PROCEDURE [ccall] mmap* (adr: PtrVoid; len: size_t; prot: intFlags; flags: intFlags; fd: int; offset: off_t): PtrVoid;
 	(* BSD *)
 		PROCEDURE [ccall] munmap* (adr: PtrVoid; len: size_t): int;
 		PROCEDURE [ccall] mprotect* (adr: PtrVoid; len: size_t; prot: intFlags): int;
-
 
 	PROCEDURE [ccall] calloc* (nmemb: size_t; size: size_t): PtrVoid;
 (*	(* ANSI C 89 *)
@@ -173,10 +180,6 @@ MODULE LinLibc ["libc.so%%libver%%"];
 *)
 		PROCEDURE [ccall] free* (ptr: PtrVoid);
 
-	(* AT&T *)
-		PROCEDURE [ccall] time* (VAR [nil] t: time_t): time_t;
-	PROCEDURE [ccall] gmtime* (VAR [nil] t: time_t): tm;
-	PROCEDURE [ccall] localtime* (VAR [nil] t: time_t): tm;
 
 	(* POSIX.1 *)
 (*
@@ -259,13 +262,17 @@ MODULE LinLibc ["libc.so%%libver%%"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sysconf* (name: int): long;
 
-	PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
-	PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
+	(* POSIX.1 *)
+		PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
 
-	PROCEDURE [ccall] getrlimit* (resource: INTEGER; VAR rlim: rlimit);
-	
-	PROCEDURE [ccall] sendfile* (out_fd, in_fd: INTEGER; VAR [nil] offset: INTEGER; count: INTEGER): INTEGER;
-	PROCEDURE [ccall] utimensat* (fd: INTEGER; file: PtrSTR; VAR tvp: TVP; flags: SET): INTEGER;
-	PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
+	(* POSIX.1 *)
+		PROCEDURE [ccall] getrlimit* (resource: int; VAR rlim: rlimit): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] utimensat* (fd: int; path: PtrSTR; VAR times: TVP; flag: intFlags): int;
+
+	(* Linux only *)
+		PROCEDURE [ccall] sendfile* (out_fd: int; in_fd: int; VAR [nil] offset: off_t; count: size_t): ssize_t;
 
 END LinLibc.

@@ -1,4 +1,4 @@
-# This is BSD Makefile
+# This is GNU Makefile
 #    BSD       GNU
 # ${.TARGET}    $@
 # ${.ALLSRC}    $^
@@ -9,7 +9,7 @@ INCDIR_I386 ?= ${INCDIR}/i386-linux-gnu
 
 PY = python2.7
 
-DEFS = clockspersec sigstksz defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait
+DEFS = clockspersec sigstksz defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait defs-rlimit
 
 all: Libc.odc ${DEFS} strerrnocase.txt
 
@@ -73,6 +73,9 @@ defs-wait:
 	./dumpdefs.py 2 1 s ${INCDIR}/linux/wait.h | grep "	WCONTINUED" >> $@
 	./dumpdefs.py 2 1 s ${INCDIR}/linux/wait.h | grep "	WNOHANG" >> $@
 	./dumpdefs.py 2 1 s ${INCDIR}/linux/wait.h | grep "	WUNTRACED" >> $@
+
+defs-rlimit:
+	grep "  RLIMIT_" ${INCDIR_I386}/bits/resource.h | cut -d',' -f 1 | awk '{print "		" $$1 "* = " $$3 ";"}' > $@
 
 dumpstrerrno.c: defs-errno
 	grep -v ERESTART $^ | grep -v EJUSTRETURN | ./mkdumpstrerrno.py > $@
