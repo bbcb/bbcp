@@ -8,7 +8,7 @@ INCDIR ?= /usr/include
 
 PY = python2.7
 
-DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait
+DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait defs-rlimit defs-utime
 
 all: Libc.odc ${DEFS} strerrnocase.txt
 
@@ -79,6 +79,12 @@ defs-wait:
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WCONTINUED | grep -v _WCONTINUED >> ${.TARGET}
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WNOHANG >> ${.TARGET}
 	./dumpdefs.py 2 1 s ${INCDIR}/sys/wait.h | grep WUNTRACED >> ${.TARGET}
+
+defs-rlimit:
+	./dumpdefs.py 2 1 i ${INCDIR}/sys/resource.h | grep RLIMIT_ > ${.TARGET}
+
+defs-utime:
+	grep "UTIME_" ${INCDIR}/sys/stat.h | sed s'/L$$//' | awk '{print "		" $$2 "* = " $$3 ";"}' > ${.TARGET}
 
 dumpstrerrno.c: defs-errno
 	grep -v ERESTART ${.ALLSRC} | grep -v EJUSTRETURN | ./mkdumpstrerrno.py > ${.TARGET}
