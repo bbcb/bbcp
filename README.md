@@ -11,6 +11,7 @@ Tested on:
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 12.1
+* Alt Education 9.1
 
 Download: https://blackbox.oberon.org/download
 
