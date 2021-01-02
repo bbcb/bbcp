@@ -39,15 +39,20 @@ Prepare BlackBox from repository on Windows:
 
 Installation of required packages in Debian-based systems:
 
+	For Alt Education 9.1
+
+		apt-get install i586-libgtk+2-devel.32bit
+
 	Ubuntu 18.04 LTS Bionic Beaver / Linux Mint 19.X:
 
 		sudo dpkg --add-architecture i386
 		sudo apt update
 		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
-		
+
 	Linux Mint 20 has no package 'gnome-themes-extra:i386', it can be safly ignored. There will be warning in console.
 
 	Debian 9.X GNOME/Xfce/KDE
+
 		sudo dpkg --add-architecture i386
 		sudo apt update
 		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
@@ -63,9 +68,7 @@ Installation of required packages in Debian-based systems:
 		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
 
 
-Installation of required packages in Arch-based systems:
-
-	64-bit version:
+	Arch-based systems amd64:
 
 		sudo pacman -S multilib/lib32-gtk2
 
@@ -87,7 +90,7 @@ for Linux version also you can run
 
 	./blackbox
 
-To create BlackBox assembly (after build):
+To create BlackBox framework assembly (after build):
 
 	./export <outputDirectory>
 
@@ -96,7 +99,7 @@ To clean the BlackBox folder:
 	./switch-target none
 	./clean
 
-Example: build, create assembly and run BlackBox from assembly:
+Example: build, create framework assembly and run BlackBox from it:
 
 	cd BlackBox
 	./switch-target `uname -s` GUI

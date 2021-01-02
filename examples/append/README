@@ -1,5 +1,5 @@
 # Application for build server which append strings to System/Rsrc/Strings.odc.
-# Used by http://blackbox.obertone.ru in BlackBox CI system.
+# Used by http://blackbox.oberon.org in BlackBox CI system.
 
 # Installation for Linux
 
