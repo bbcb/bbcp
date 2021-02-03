@@ -1,2 +1,0 @@
-#!/bin/sh
-pkill --signal kill -x bbserver

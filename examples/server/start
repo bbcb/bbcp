@@ -1,2 +1,0 @@
-#!/bin/sh
-nohup nice ./bbserver > ./server.log 2>&1 &
