@@ -4,8 +4,8 @@
 # ulimit -a
 
 rn=`readlink -f "${0}"`
-pd=`dirname "${rn}"`
-sd=`readlink -f .`
+standardDir=`dirname "${rn}"`
+useDir=`readlink -f .`
 
 exe="blackbox"
 
@@ -16,6 +16,6 @@ export LIBOVERLAY_SCROLLBAR=0
 
 # export LD_DEBUG=all
 exec env \
-	BB_PRIMARY_DIR="${pd}" BB_SECONDARY_DIR="${sd}" \
+	BB_STANDART_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
 	BB_PACKED_NAME="${exe}" \
-	"${pd}"/${exe} "${@}"
+	"${standardDir}"/${exe} "${@}"
