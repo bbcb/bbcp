@@ -1,5 +1,11 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * three directories structure STANDARD/CUSTOM/USE
+  * HostDates separated
+  * HostEnv, Unicode, Utf etc.
 
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 5 Feb 2021 18:00:00 +0700
+
+bbcb (1.8~a1.55) unstable; urgency=low
   * Remove Kernel from Strings, use Unicode (SovietPony)
   * switch to Utf, remove export of conversions from Kernel
   * respect to symlinks (A.Dmitriev)
