@@ -7,7 +7,7 @@ rn=`readlink -f "${0}"`
 standardDir=`dirname "${rn}"`
 useDir=`readlink -f .`
 
-exe="dev0"
+exe="dev0lin"
 
 # export LD_DEBUG=all
 exec env \
