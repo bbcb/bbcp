@@ -2,7 +2,7 @@
 
 ./run-dev0 <<DATA
 DevCompiler.CompileThis Unicode LinLibc LinLibW LinDl LinRt KernelKernelLinux
-DevCompiler.CompileSubs Lin System Gtk2 Std Cons Var Host Text Form Dev Dev2 Tyler
+DevCompiler.CompileSubs Lin System Std Cons Var Text Form Dev Dev2 Tyler
 
 Dev2Linker1.LinkElfExe `uname -s` blackbox := Unicode Kernel$+ Files Utf LinEnv LinFiles LinGui StdLoader LinLoader
 
