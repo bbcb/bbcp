@@ -1,0 +1,2 @@
+#!/bin/bash
+wine cmd.exe /C build-windows-gui.bat
