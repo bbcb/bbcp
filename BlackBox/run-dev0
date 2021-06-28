@@ -11,6 +11,6 @@ exe="dev0"
 
 # export LD_DEBUG=all
 exec env \
-    BB_STANDART_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
+    BB_STANDARD_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
 	BB_PACKED_NAME="${exe}" BB_PACKED_FIRST=  \
 	"${standardDir}"/${exe} "${@}"
