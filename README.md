@@ -1,17 +1,17 @@
 BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
 Tested on:
-* Windows XP, 7, 10
-* OpenBSD 6.6
-* Fedora Core 17
-* Ubuntu 16.04 LTS, 18.04 LTS
+* Windows XP, 7, 10, 11
+* Ubuntu 16.04 LTS, 18.04 LTS, 20.04 LTS
+* Alt Education 9.1
 * Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
-* Linux Mint 19.1/19.2/19.3/20 Cinnamon
+* Linux Mint 20 Cinnamon
+* FreeBSD 12.1
+* OpenBSD 6.8
 * CentOS 8
 * Arch Linux 4.9.6, Manjaro Linux 18.0.4
 * Red Hat Enterprise Linux Server 6.3
-* FreeBSD 12.1
-* Alt Education 9.1
+* Fedora Core 17
 
 Download: https://blackbox.oberon.org/download
 
@@ -117,4 +117,4 @@ Authors:
 * Igor A. Dehtyarenko
 * Ivan A. Denisov
 * Anton A. Dmitriev
-
+* Boris V. Rumshin
