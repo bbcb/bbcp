@@ -1,6 +1,9 @@
 *~
 *.ocf
 *.osf
+odc?????
 Linux_*
 OpenBSD_*
 FreeBSD_*
+BlackBox.exe
+blackbox
