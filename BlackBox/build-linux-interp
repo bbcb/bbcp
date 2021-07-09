@@ -1,9 +1,20 @@
 #!/bin/sh
 
+echo "cleaning"
+
+./clean
+
+echo "compiling"
+
 ./run-dev0 <<DATA
-DevCompiler.CompileThis Unicode LinLibc LinLibW LinDl LinRt KernelKernelLinux
-DevCompiler.CompileSubs Lin System Std Cons Var Text Form Dev Dev2 Tyler
-
-Dev2Linker1.LinkElfExe `uname -s` blackbox := Unicode Kernel$+ Files Utf LinEnv LinFiles StdLoader InterpLoader
-
+DevCompiler.CompileSubs Lin System Std Cons Var Text Form Dev Dev2 Linint
+Kernel.Quit(0)
 DATA
+
+echo "linking"
+
+./run-dev0 <<DATA
+Dev2Linker1.LinkElfExe `uname -s` blackbox := Unicode Kernel$+ Files Utf LinEnv LinFiles StdLoader LinintLoader
+Kernel.Quit(0)
+DATA
+
