@@ -22,7 +22,7 @@ Installation of required packages in Debian-based systems:
 
 		apt-get install i586-libgtk+2-devel.32bit
 
-	Ubuntu 18/20 LTS, Linux Mint 19/20:
+	Ubuntu 18/20 LTS, Mint 19/20:
 
 		sudo dpkg --add-architecture i386
 		sudo apt update
@@ -45,7 +45,8 @@ Installation of required packages in Debian-based systems:
 
 To build BlackBox:
 
-	./build
+	./build-linux
+	./build-windows
 
 To run GUI:
 
