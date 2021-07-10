@@ -17,6 +17,6 @@ DATA
 echo "\nlinking interp\n"
 
 ./run-dev0 <<DATA
-DevLinker.Link BBInt.exe := Unicode Kernel$+ Files Utf WinKernel WinEnv WinFiles StdLoader WinIntLoader
+DevLinker.Link BlackBoxInterp.exe := Unicode Kernel$+ Files Utf WinKernel WinEnv WinFiles StdLoader WinIntLoader
 Kernel.Quit(0)
 DATA

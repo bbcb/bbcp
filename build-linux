@@ -3,20 +3,20 @@
 echo "\ncompiling\n"
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Dev2 Tyler
+DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Tyler
 Kernel.Quit(0)
 DATA
 
 echo "\nlinking gui\n"
 
 ./run-dev0 <<DATA
-Dev2Linker1.LinkElfExe Linux blackbox := Unicode Kernel$+ Files Utf LinEnv LinFiles LinGui StdLoader LinLoader
+DevLinker1.LinkElfExe Linux blackbox := Unicode Kernel$+ Files Utf LinEnv LinFiles LinGui StdLoader LinLoader
 Kernel.Quit(0)
 DATA
 
 echo "\nlinking interp\n"
 
 ./run-dev0 <<DATA
-Dev2Linker1.LinkElfExe Linux blackboxInterp := Unicode Kernel$+ Files Utf LinEnv LinFiles StdLoader LinIntLoader
+DevLinker1.LinkElfExe Linux blackboxInterp := Unicode Kernel$+ Files Utf LinEnv LinFiles StdLoader LinIntLoader
 Kernel.Quit(0)
 DATA
