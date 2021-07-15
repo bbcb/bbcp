@@ -4,7 +4,7 @@
 # ulimit -a
 
 rn=`readlink -f "${0}"`
-standardDir=`dirname "${rn}"`
+standardDir="/home/ivan/oberon/20devBack"
 useDir=`readlink -f .`
 
 exe="blackbox"
@@ -17,5 +17,4 @@ export LIBOVERLAY_SCROLLBAR=0
 # export LD_DEBUG=all
 exec env \
 	BB_STANDARD_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
-	BB_PACKED_NAME="${exe}" \
 	"${standardDir}"/${exe} "${@}"

@@ -10,14 +10,14 @@ DATA
 echo "\nlinking gui\n"
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe Linux blackbox := Kernel$+ LinKernel Files Utf LinEnv LinFiles LinGui StdLoader LinLoader
+DevLinker1.LinkElfExe Linux blackbox := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
 Kernel.Quit(0)
 DATA
 
 echo "\nlinking interp\n"
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ LinKernel Files Utf LinEnv LinFiles StdLoader LinIntLoader
+DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
 Kernel.Quit(0)
 DATA
 
