@@ -4,7 +4,7 @@
 # ulimit -a
 
 rn=`readlink -f "${0}"`
-standardDir="/home/ivan/oberon/20devBack"
+standardDir=`dirname "${rn}"`
 useDir=`readlink -f .`
 
 exe="blackbox"
