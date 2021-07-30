@@ -1,4 +1,12 @@
 bbcb ({#VERSION}) unstable; urgency=low
+  * Unicode reduced (included to Strings)
+  * Kernel.SplitName replaced by StdLibrarian.SplitName
+  * Kernel.MakeFileName replaced by Files.dir.GetFileName
+  * removed Kernel.Beep (Dialog.Beep should be used insted)
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sat, 31 Jul 2021 02:00:00 +0700
+
+bbcb (1.8~a1.160) unstable; urgency=low
   * three directories structure STANDARD/CUSTOM/USE
   * HostDates separated
   * HostEnv, Unicode, Utf etc.
