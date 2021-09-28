@@ -6,6 +6,7 @@ Linux_*
 OpenBSD_*
 FreeBSD_*
 BlackBox.exe
+BlackBoxMDI.exe
 BlackBoxInterp.exe
 blackbox
 blackboxInterp
