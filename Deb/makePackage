@@ -1,0 +1,51 @@
+#!/bin/bash
+
+declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Lin" "Obx" "Std" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
+
+version=`cat ../version.txt`
+buildNum=`cat buildNum`
+buildDate=`date +"%Y-%m-%d"`
+echo "$version"
+echo "$buildNum"
+echo "$buildDate"
+
+rm build -r
+cp template build -r
+
+mkdir "build/usr/lib"
+mkdir "build/usr/lib/blackbox2"
+for i in "${arr[@]}"
+do
+    cp -r '../'$i 'build/usr/lib/blackbox2'
+done
+
+cp changelog changelogTmp
+sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' changelogTmp
+gzip -9c -n changelogTmp > build/usr/share/doc/bbcb2/changelog.Debian.gz
+rm changelogTmp
+
+env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="appVersion" VALUE="$version" ./append
+env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="buildNum" VALUE="$buildNum" ./append
+env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="buildDate" VALUE="$buildDate" ./append
+
+cd build
+find . -type f -exec chmod 644 {} ";"
+find . -type d -exec chmod 755 {} ";"
+chmod +x usr/bin/bbcb2
+chmod +x usr/bin/bbcb2-shortcut 
+chmod +x usr/lib/blackbox2/blackbox 
+chmod +x usr/lib/blackbox2/run-BlackBox
+
+cd ../
+
+mkdir build/DEBIAN
+cp control build/DEBIAN/control
+sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/DEBIAN/control
+sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/usr/share/applications/bbcb2.desktop
+sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/usr/share/applications/bbcb2.desktop
+cd build
+md5deep -rl usr > DEBIAN/md5sums
+cd ../
+fakeroot dpkg-deb --build build
+mv build.deb bbcb2.deb 
+lintian bbcb2.deb 

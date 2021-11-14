@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=BlackBox Component Builder 2.0
+Comment=IDE and component framework for programming language Component Pascal
+Exec=/usr/bin/bbcb2-shortcut
+Path=
+Icon=/usr/share/pixmaps/blackbox2.svg
+Categories=Development;
+Version=#VERSION#
+Type=Application
+Terminal=0
+Name[ru]=Блэкбокс 2.0
