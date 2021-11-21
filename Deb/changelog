@@ -1,4 +1,23 @@
 bbcb (#VERSION#) unstable; urgency=low
+  * change StdTiles interface, make filtering inside StdConfig
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com> Mon, 22 Nov 2021 01:50:00 +0700
+
+bbcb (2.0-a1-3) unstable; urgency=low
+  * fix menu
+  * fix grids
+  * fix StdStdCFrames
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com> Mon, 22 Nov 2021 01:40:00 +0700
+
+bbcb (2.0-a1-2) unstable; urgency=low
+  * changed tiled workspace construction location to StdConfig
+  * platforms specification changed
+  * improve menus
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Fri, 19 Nov 2021 05:00:00 +0700
+
+bbcb (2.0-a1-1) unstable; urgency=low
   * Initial version for BlackBox 2.0
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Sun, 14 Nov 2021 15:00:00 +0700
