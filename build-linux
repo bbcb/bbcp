@@ -3,7 +3,7 @@
 echo "\ncompiling\n"
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm
+DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm Obx
 Kernel.Quit(0)
 DATA
 
