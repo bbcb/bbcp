@@ -13,8 +13,8 @@ echo "$buildNum"
 echo "$buildDate"
 
 verArr=(${version//-/ })
-version=${verArr[0]}'~'${verArr[1]}'.build'$buildNum
-echo "$version"
+debVersion=${verArr[0]}'~'${verArr[1]}'.build'$buildNum
+echo "$debVersion"
 
 rm build -r
 cp template build -r
@@ -27,7 +27,7 @@ do
 done
 
 cp changelog changelogTmp
-sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' changelogTmp
+sed -i -e 's/#VERSION#/'$debVersion'/g' changelogTmp
 gzip -9c -n changelogTmp > build/usr/share/doc/bbcb2/changelog.Debian.gz
 rm changelogTmp
 
@@ -47,14 +47,14 @@ cd ../
 
 mkdir build/DEBIAN
 cp control build/DEBIAN/control
-sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/DEBIAN/control
-sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/usr/share/applications/bbcb2.desktop
-sed -i -e 's/#VERSION#/'$version'-'$buildNum'/g' build/usr/share/applications/bbcb2.desktop
+sed -i -e 's/#VERSION#/'$debVersion'/g' build/DEBIAN/control
+sed -i -e 's/#VERSION#/'$debVersion'/g' build/usr/share/applications/bbcb2.desktop
+sed -i -e 's/#VERSION#/'$debVersion'/g' build/usr/share/applications/bbcb2.desktop
 cd build
 md5deep -rl usr > DEBIAN/md5sums
 cd ../
 fakeroot dpkg-deb --build build
 
-newname='bbcb2-'$version'.deb'
+newname='bbcb2-'$debVersion'.deb'
 mv build.deb $newname
 lintian $newname
