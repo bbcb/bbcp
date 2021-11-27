@@ -55,6 +55,6 @@ md5deep -rl usr > DEBIAN/md5sums
 cd ../
 fakeroot dpkg-deb --build build
 
-newname='bbcb2-'$debVersion'.deb'
+newname='bbcb2-'$debVersion'_i386.deb'
 mv build.deb $newname
 lintian $newname
