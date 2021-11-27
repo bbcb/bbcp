@@ -1,11 +1,11 @@
 [Setup]
 AppName=BlackBox Component Builder
 AppVerName={#AppVerName}
-AppPublisher=Obertone
-AppPublisherURL=http://blackbox.obertone.ru
+AppPublisher=BlackBox Cross-Platform Team 
+AppPublisherURL=https://blackbox.oberon.org
 AppVersion={#AppVersion}
 VersionInfoVersion={#VersionInfoVersion}
-AppCopyright=Copyright (c) 1994-2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
+AppCopyright=BSD 2-Clause License, Oberon microsystems, Inc. et al.
 Compression=bzip
 SolidCompression=yes
 PrivilegesRequired=poweruser
@@ -58,4 +58,4 @@ Root: HKCR; Subkey: "CLSID\{{00000001-1000-11cf-adf0-444553540000}\verb\0"; Valu
 Root: HKCR; Subkey: "CLSID\{{00000001-1000-11cf-adf0-444553540000}\verb\1"; ValueType: string; ValueName: ""; ValueData: "&Open,0,2"; Flags: deletekey uninsdeletekey
 
 [Files]
-Source: "*"; Excludes: "*~,odc*,Output,LICENSE.txt"; DestDir: "{app}\"; Flags: replacesameversion recursesubdirs
+Source: "*"; Excludes: "*~,odc*,Output"; DestDir: "{app}\"; Flags: replacesameversion recursesubdirs
