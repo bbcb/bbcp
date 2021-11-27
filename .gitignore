@@ -11,5 +11,5 @@ BlackBoxInterp.exe
 blackbox
 blackboxInterp
 Deb/append
-Deb/bbcb2.deb
+Deb/*.deb
 Deb/build

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# use ./makePackage n 
+# n - is build number
+
 declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Lin" "Obx" "Std" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
 
 version=`cat ../version.txt`
@@ -8,6 +11,10 @@ buildDate=`date +"%Y-%m-%d"`
 echo "$version"
 echo "$buildNum"
 echo "$buildDate"
+
+verArr=(${version//-/ })
+version=${verArr[0]}'~'${verArr[1]}'.build'$buildNum
+echo "$version"
 
 rm build -r
 cp template build -r
@@ -47,5 +54,7 @@ cd build
 md5deep -rl usr > DEBIAN/md5sums
 cd ../
 fakeroot dpkg-deb --build build
-mv build.deb 'bbcb-'$version'-'$buildNum'.deb' 
-lintian bbcb2.deb 
+
+newname='bbcb2-'$version'.deb'
+mv build.deb $newname
+lintian $newname
