@@ -8,7 +8,8 @@ Tested on:
 * Debian 9.3, 9.4, 10.4 Xfce/Mate/GNOME/Cinnamon
 * Linux Mint 19.1/19.2/19.3/20 Cinnamon
 * CentOS 8
-* Arch Linux 4.9.6, Manjaro Linux 18.0.4
+* Arch Linux 4.9.6
+* Manjaro Linux 18.0.4, 21.2.0
 * Red Hat Enterprise Linux Server 6.3
 * FreeBSD 12.1
 * Alt Education 9.1
@@ -39,6 +40,7 @@ Installation of required packages in Debian-based systems:
 	Arch-based systems amd64:
 
 		sudo pacman -S multilib/lib32-gtk2
+		sudo pacman -Rc lib32-librsvg
 
 	In OpenBSD use 'wxallowed' flag in mount options for the partition to start BlackBox from.
 
