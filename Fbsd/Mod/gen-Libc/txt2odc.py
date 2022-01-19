@@ -1,1 +1,0 @@
-../../../../_OpenBSD_/Lin/Mod/gen-Libc/txt2odc.py
