@@ -1,20 +1,25 @@
 bbcb (#VERSION#) unstable; urgency=low
+  * update Kernels
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 20 Jan 2022 02:15:00 +0700
+
+bbcb (2.0-a1-6) unstable; urgency=low
   * change errors marks
   * make CommV24 cross-platform
 
- -- Ivan Denisov <d.ivan.krsk@gmail.com> Tue, 23 Nov 2021 19:30:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Tue, 23 Nov 2021 19:30:00 +0700
 
 bbcb (2.0-a1-5) unstable; urgency=low
   * change StdTiles interface, make filtering inside StdConfig
 
- -- Ivan Denisov <d.ivan.krsk@gmail.com> Mon, 22 Nov 2021 01:50:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 22 Nov 2021 01:50:00 +0700
 
 bbcb (2.0-a1-3) unstable; urgency=low
   * fix menu
   * fix grids
   * fix StdStdCFrames
 
- -- Ivan Denisov <d.ivan.krsk@gmail.com> Mon, 22 Nov 2021 01:40:00 +0700
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Mon, 22 Nov 2021 01:40:00 +0700
 
 bbcb (2.0-a1-2) unstable; urgency=low
   * changed tiled workspace construction location to StdConfig

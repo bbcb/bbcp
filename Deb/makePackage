@@ -25,10 +25,11 @@ for i in "${arr[@]}"
 do
     cp -r '../'$i 'build/usr/lib/blackbox2'
 done
+rm "build/usr/lib/blackbox2/Lin/Xtras" -r
 
 cp changelog changelogTmp
 sed -i -e 's/#VERSION#/'$debVersion'/g' changelogTmp
-gzip -9c -n changelogTmp > build/usr/share/doc/bbcb2/changelog.Debian.gz
+gzip -9c -n changelogTmp > build/usr/share/doc/bbcb2/changelog.gz
 rm changelogTmp
 
 env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="appVersion" VALUE="$version" ./append
