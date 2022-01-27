@@ -1,6 +1,6 @@
 BSD 2-Clause License
 
-Copyright (c) 2017 - 2021 BlackBox Cross-Platform Team
+Copyright (c) 2017 - 2022 BlackBox Cross-Platform Team
 Copyright (c) 2013 - 2021 OberonCore
 Copyright (c) 2013 - 2019 BlackBox Framework Center
 Copyright (c) 1994 - 2013 Oberon microsystems, Inc., Switzerland. All rights reserved.
