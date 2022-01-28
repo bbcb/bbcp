@@ -17,7 +17,7 @@ all: Net.odc ${DEFS}
 Net.odc: Net.txt
 	./txt2odc.py Net.txt Net.odc
 
-Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set-const defs-fd_set-type
+Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set_const defs-fd_set_type
 	${PY} ./untempl.py Net.txt.templ $@
 
 defs-basictypes: sizeofs

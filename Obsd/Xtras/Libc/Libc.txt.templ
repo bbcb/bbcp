@@ -1,0 +1,278 @@
+MODULE LinLibc ["libc.so%%libver%%"];
+
+	(*
+		%%osname%%
+		%%machine%%
+	*)
+
+	CONST
+		NULL* = 0H;
+		FALSE* = 0;
+		TRUE* = 1;
+
+		CLOCKS_PER_SEC* = %%clockspersec%%;
+
+		MAP_FAILED* = -1;
+
+		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
+%%defs-map%%
+
+		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
+%%defs-prot%%
+
+		(* SIG_UNBLOCK, SIG_SETMASK (int) *)
+%%defs-sigmask%%
+
+		(* FPE_INTDIV, FPE_INTOVF, FPE_FLTDIV, FPE_FLTOVF, FPE_FLTUND, FPE_FLTRES, FPE_FLTINV, FPE_FLTSUB (int) *)
+%%defs-fpe%%
+
+		(* SA_SIGINFO (intFlags) *)
+%%defs-sa%%
+
+		(* SIGINT, SIGILL, SIGFPE, SIGSEGV, SIGKILL, SIGSTOP, SIGWINCH, SIGTHR (int) *)
+%%defs-signo%%
+		_NSIG* = %%nsig%%;
+
+		(* SIG_DFL, SIG_IGN, SIG_ERR *)
+%%defs-sig%%
+
+(*
+		PAGE_SIZE* = 4096;
+*)
+%%defs-sc%%
+
+		SIGSTKSZ* = %%sigstksz%%;
+
+		(* ENOENT, EEXIST, EACCES, ENOMEM, EDQUOT, EMFILE, ENOTDIR (int) *)
+%%defs-errno%%
+
+%%defs-wait%%
+
+		NAME_MAX* = %%namemax%%;
+
+		SEEK_SET* = 0;
+		SEEK_CUR* = 1;
+		SEEK_END* = 2;
+
+		STDIN_FILENO* = 0;
+		STDOUT_FILENO* = 1;
+		STDERR_FILENO* = 2;
+
+		P_tmpdir* = "/tmp";
+
+		(* O_RDWR, O_NONBLOCK (intFlags) *)
+%%defs-fcntlo%%
+
+%%defs-clockid%%
+
+%%defs-rlimit%%
+
+%%defs-utime%%
+
+	TYPE
+		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
+		PtrSTR* = POINTER TO ARRAY [untagged] OF SHORTCHAR;
+
+		(* PtrVoid, int, long, size_t, ssize_t, off_t, time_t, clock_t, sigjmp_buf *)
+		(* mode_t, rlim_t, intFlags, sigset_t (set) *)
+%%defs-basictypes%%
+
+		tm* = POINTER TO tmDesc;
+		tmDesc* = RECORD [untagged]
+			(* NOTE: check record size *)
+			(* tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday [ , tm_gmtoff ] *)
+%%fields-tm%%
+		END;
+
+		Ptrsiginfo_t* = POINTER TO siginfo_t;
+		siginfo_t = RECORD [untagged]
+			(* si_code, fault address *)
+%%fields-siginfo%%
+		END;
+
+		Ptrucontext_t* = POINTER TO ucontext_t;
+		ucontext_t = RECORD [untagged]
+			(* IP, SP, FP *)
+%%fields-ucontext%%
+		END;
+
+		sa_sigaction_t* = PROCEDURE [ccall] (sig: int; siginfo: Ptrsiginfo_t; context: Ptrucontext_t);
+		sigaction_t* = RECORD [untagged]
+(*
+			sa_sigaction*: sa_sigaction_t,
+			sa_flags*: intFlags, sa_mask*: sigset_t
+*)
+%%fields-sigaction%%
+		END;
+
+		stack_t* = RECORD [untagged]
+(*
+			ss_sp*: PtrVoid, ss_size*: size_t, ss_flags*: intFlags
+*)
+%%fields-stack%%
+		END;
+
+		stat_t* = RECORD [untagged]
+(*
+			NOTE: check record size
+			st_mode*: mode_t, st_size*: off_t, st_mtime*: time_t
+*)
+%%fields-stat%%
+		END;
+
+		PtrFILE* = PtrVoid;
+		PtrDIR* = PtrVoid;
+
+		PtrDirent* = POINTER TO Dirent;
+		Dirent = RECORD [untagged]
+(*
+			d_name*: ARRAY [untagged] NAME_MAX + 1 OF SHORTCHAR
+*)
+%%fields-dirent%%
+		END;
+
+		timespec_t* = RECORD [untagged]
+%%fields-timespec%%
+		END;
+
+		rlimit* = RECORD [untagged]
+			rlim_cur*, rlim_max*: rlim_t
+		END;
+
+		TVP* = RECORD [untagged] access*, modification*: timespec_t END;
+
+(*
+	VAR
+		stdin*: INTEGER;
+		timezone*: INTEGER; (* or tm.tm_gmtoff *)
+*)
+(*
+	PROCEDURE [ccall] __errno_location* (): PtrVoid;
+*)
+(*
+	(* POSIX.1 *)
+		PROCEDURE [ccall] stat* (path: PtrSTR; VAR sp: stat_t): int;
+*)
+%%custom%%
+
+	(* ANSI C 89 *)
+		PROCEDURE [ccall] clock* (): clock_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
+
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] time* (VAR [nil] tloc: time_t): time_t;
+
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] gmtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] localtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
+
+	PROCEDURE [ccall] mmap* (adr: PtrVoid; len: size_t; prot: intFlags; flags: intFlags; fd: int; offset: off_t): PtrVoid;
+	(* BSD *)
+		PROCEDURE [ccall] munmap* (adr: PtrVoid; len: size_t): int;
+		PROCEDURE [ccall] mprotect* (adr: PtrVoid; len: size_t; prot: intFlags): int;
+
+	PROCEDURE [ccall] calloc* (nmemb: size_t; size: size_t): PtrVoid;
+(*	(* ANSI C 89 *)
+		PROCEDURE [ccall] malloc* (size: size_t): PtrVoid;
+*)
+		PROCEDURE [ccall] free* (ptr: PtrVoid);
+
+
+	(* POSIX.1 *)
+(*
+		PROCEDURE [ccall] sigsetjmp* (VAR env: sigjmp_buf; savemask: int): int;
+*)
+		PROCEDURE [ccall] siglongjmp* (VAR env: sigjmp_buf; val: int);
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigemptyset* (set: PtrSigset_t): int;
+		PROCEDURE [ccall] sigfillset* (set: PtrSigset_t): int;
+		PROCEDURE [ccall] sigaddset* (set: PtrSigset_t; signo: int): int;
+		PROCEDURE [ccall] sigprocmask* (how: int; set: PtrSigset_t; oset: PtrSigset_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigaction* (sig: int; VAR [nil] act: sigaction_t; VAR [nil] oact: sigaction_t): int;
+
+	(* BSD *)
+		PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): int;
+
+	(* ANSI C 89 *)
+		PROCEDURE [ccall] getenv* (s: PtrSTR): PtrSTR;
+
+	(* ANSI C 89 *)
+		PROCEDURE [ccall] fopen* (path, mode: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] fdopen* (fildes: int; mode: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] fclose* (stream: PtrFILE): int;
+		PROCEDURE [ccall] fread* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
+		PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
+		PROCEDURE [ccall] fflush* (s: PtrFILE): int;
+		PROCEDURE [ccall] printf* (s: PtrSTR): int;
+	(* ANSI C 89, XPG4 *)
+		PROCEDURE [ccall] fseek* (stream: PtrFILE; offset: long; whence: int): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] fileno* (stream: PtrFILE): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] rename* (from, to: PtrSTR): int;
+		PROCEDURE [ccall] mkdir* (path: PtrSTR; mode: mode_t): int;
+		PROCEDURE [ccall] opendir* (filename: PtrSTR): PtrDIR;
+		PROCEDURE [ccall] readdir* (dirp: PtrDIR): PtrDirent;
+		PROCEDURE [ccall] closedir* (dirp: PtrDIR): int;
+	(* ANSI C 89, XPG4.2 *)
+		PROCEDURE [ccall] remove* (path: PtrSTR): int;
+		PROCEDURE [ccall] canonicalize_file_name* (path: PtrSTR): PtrSTR;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] getcwd* (buf: PtrSTR; size: size_t): PtrSTR;
+
+	(* ANSI C 99 *)
+		PROCEDURE [ccall] exit* (status: int);
+
+	(* ANSI C 89 *)
+		PROCEDURE [ccall] strftime* (buf: PtrSTR; maxsize: size_t; format: PtrSTR; timeptr: tm): size_t;
+
+	(* XXX: use fread instead *)
+		PROCEDURE [ccall] fgets* (str: PtrSTR; size: int; stream: PtrFILE): PtrSTR;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] open* (path: PtrSTR; flags: intFlags; mode: mode_t): int;
+		PROCEDURE [ccall] write* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
+		PROCEDURE [ccall] read* (d: int; buf: PtrVoid; nbytes: size_t): ssize_t;
+		PROCEDURE [ccall] close* (d: int): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] chmod* (path: PtrSTR; mode: mode_t): int;
+		PROCEDURE [ccall] fchmod* (fd: int; mode: mode_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] fork* (): pid_t;
+		PROCEDURE [ccall] waitpid* (wpid: pid_t; VAR [nil] status: int; options: intFlags): pid_t;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] execv* (path: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
+		PROCEDURE [ccall] execvp* (file: PtrSTR; argv: POINTER [untagged] TO ARRAY [untagged] OF PtrSTR): int;
+
+	(* POSIX.2 *)
+		PROCEDURE [ccall] system* (string: PtrSTR): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sysconf* (name: int): long;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] popen* (command, type: PtrSTR): PtrFILE;
+		PROCEDURE [ccall] pclose* (stream: PtrFILE): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] getrlimit* (resource: int; VAR rlim: rlimit): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] utimensat* (fd: int; path: PtrSTR; VAR times: TVP; flag: intFlags): int;
+
+	(* Linux only *)
+		PROCEDURE [ccall] sendfile* (out_fd: int; in_fd: int; VAR [nil] offset: off_t; count: size_t): ssize_t;
+
+END LinLibc.

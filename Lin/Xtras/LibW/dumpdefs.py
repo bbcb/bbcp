@@ -1,1 +1,1 @@
-../dumpdefs.py
+../../../Obsd/Xtras/dumpdefs.py

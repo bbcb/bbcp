@@ -1,1 +1,1 @@
-../untempl.py
+../../../Obsd/Xtras/untempl.py
