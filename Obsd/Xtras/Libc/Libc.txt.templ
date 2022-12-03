@@ -275,4 +275,7 @@ MODULE LinLibc ["libc.so%%libver%%"];
 	(* Linux only *)
 		PROCEDURE [ccall] sendfile* (out_fd: int; in_fd: int; VAR [nil] offset: off_t; count: size_t): ssize_t;
 
+	(* POSIX.1 *)
+		PROCEDURE [ccall] readlink* (path: PtrSTR; buf: PtrSTR; bufsiz: size_t): ssize_t;
+
 END LinLibc.
