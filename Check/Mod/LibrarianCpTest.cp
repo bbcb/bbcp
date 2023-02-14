@@ -4,7 +4,7 @@ MODULE CheckLibrarianCpTest;
 
 	PROCEDURE Do*;
 	BEGIN
-		StdLog.String("привет мир 123"); StdLog.Ln	(* write string and 0DX into log *)
+		StdLog.String("Hello World"); StdLog.Ln
 	END Do;
 
 END CheckLibrarianCpTest.
