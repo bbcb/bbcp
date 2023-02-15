@@ -1,4 +1,9 @@
 bbcb (#VERSION#) unstable; urgency=low
+  * add Fig subsytem,
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 16 Feb 2023 02:10:00 +0700
+
+bbcb (2.0-a1-28) unstable; urgency=low
   * update Kernels
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 20 Jan 2022 02:15:00 +0700

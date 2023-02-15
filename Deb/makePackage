@@ -3,7 +3,7 @@
 # use ./makePackage n 
 # n - is build number
 
-declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Lin" "Obx" "Std" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
+declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Fig" "Lin" "Obx" "Std" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
 
 version=`cat ../version.txt`
 buildNum=$@
