@@ -3,7 +3,7 @@
 echo "\ncompiling with Check susbsytem\n"
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm Obx Check
+DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm Fig Obx Check
 Kernel.Quit(0)
 DATA
 

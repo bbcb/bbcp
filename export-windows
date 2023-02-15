@@ -6,7 +6,7 @@ repoDir="./"
 rm $targDir -R
 mkdir $targDir
 
-declare -a arr=("Com" "Comm" "Cons" "Ctl" "Dev" "Docu" "Form" "Mdi" "Obx" "Ole" "Sql" "Std" "System" "Text" "Win" "Xhtml" "BlackBoxMDI.exe" "BlackBox.exe.manifest" "LICENSE.txt")
+declare -a arr=("Com" "Comm" "Cons" "Ctl" "Dev" "Docu" "Form" "Fig" "Mdi" "Obx" "Ole" "Sql" "Std" "System" "Text" "Win" "Xhtml" "BlackBoxMDI.exe" "BlackBox.exe.manifest" "LICENSE.txt")
 
 n=0
 unset BASH_PARALLEL_PIDS
