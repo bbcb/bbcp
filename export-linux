@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ $# -eq 1 ]; then
+	outDir="${1}"
+	if [ ! -e "${outDir}" ]; then
+		mkdir "${outDir}"
+		pax -r -w -L \
+			-s ',.*/Xtras.*,,' \
+			Comm Cons Dev Docu Form Fig Obx Lin Sql Std System Text Xhtml blackbox run-BlackBox LICENSE.txt \
+			"${outDir}"
+	else
+		echo "${outDir}: already exists"
+		exit 2
+	fi
+else
+	echo "usage: `basename $0` outputDirectory"
+	exit 1
+fi
