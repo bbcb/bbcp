@@ -1,0 +1,39 @@
+# Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
+pkgname=bbcp2-git
+_name=${pkgname%-git}
+pkgver=r1011.b078177
+pkgrel=1
+pkgdesc="BlackBox Cross-Platform"
+arch=('i686' 'x86_64')
+url="https://blackbox.oberon.org/"
+license=('custom')
+depends=(lib32-glibc lib32-gtk2)
+makedepends=('git' 'pax')
+provides=("$_name")
+conflicts=("$_name")
+options=(!emptydirs)
+source=($_name::git+https://github.com/bbcb/bbcp.git#branch=blackbox20)
+md5sums=('SKIP')
+_osname=`uname -s | tr '[:upper:]' '[:lower:]'`
+
+pkgver() {
+	cd "$srcdir/$_name"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/$_name"
+	./build-$_osname
+}
+
+package() {
+	cd "$srcdir/$_name"
+	mkdir -p "$pkgdir"/usr/{lib,bin}
+	./export-$_osname "$pkgdir"/usr/lib/$_name
+	cd "$pkgdir"/usr/bin
+	ln -s ../lib/$_name/run-BlackBox $_name
+
+	install -Dm644 "$srcdir/$_name/LICENSE.txt" \
+		"$pkgdir/usr/share/licenses/$_name/LICENSE.txt"
+	rm -f "$pkgdir"/usr/lib/$_name/LICENSE.txt
+}
