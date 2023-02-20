@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 url="https://blackbox.oberon.org/"
 license=('custom')
 depends=(lib32-glibc lib32-gtk2)
-makedepends=('git')
+makedepends=('git' 'pax')
 provides=("$_name")
 conflicts=("$_name")
 options=(!emptydirs)
@@ -35,4 +35,5 @@ package() {
 
 	install -Dm644 "$srcdir/$_name/BlackBox/LICENSE.txt" \
 		"$pkgdir/usr/share/licenses/$_name/LICENSE.txt"
+	rm -f "$pkgdir"/usr/lib/$_name/LICENSE.txt
 }
