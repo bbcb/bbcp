@@ -1,7 +1,7 @@
 # Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
 pkgname=bbcp-git
 _name=${pkgname%-git}
-pkgver=r668.6790786
+pkgver=r670.5c440a1
 pkgrel=1
 pkgdesc="BlackBox Cross-Platform"
 arch=('i686' 'x86_64')
@@ -22,6 +22,9 @@ pkgver() {
 
 build() {
 	cd "$srcdir/$_name/BlackBox"
+	./switch-target `uname -s` Interp
+	./build
+	./pack-dev0
 	./switch-target `uname -s` GUI
 	./build
 }
