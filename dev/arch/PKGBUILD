@@ -1,9 +1,9 @@
 # Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
-pkgname=bbcp-git
+pkgname=bbcb-git
 _name=${pkgname%-git}
-pkgver=r670.5c440a1
+pkgver=r671.e957750
 pkgrel=1
-pkgdesc="BlackBox Cross-Platform"
+pkgdesc="BlackBox Component Builder"
 arch=('i686' 'x86_64')
 url="https://blackbox.oberon.org/"
 license=('custom')
@@ -12,7 +12,7 @@ makedepends=('git' 'pax')
 provides=("$_name")
 conflicts=("$_name")
 options=(!emptydirs)
-source=(git+https://github.com/bbcb/bbcp.git)
+source=($_name::git+https://github.com/bbcb/bbcp.git)
 md5sums=('SKIP')
 
 pkgver() {
