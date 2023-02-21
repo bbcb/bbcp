@@ -10,6 +10,7 @@ BlackBoxMDI.exe
 BlackBoxInterp.exe
 blackbox
 blackboxInterp
-Deb/append
-Deb/*.deb
-Deb/build
+append
+*.deb
+build
+

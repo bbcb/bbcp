@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# use ./makePackage n 
+# build `append` app from Deb/Mod/Append.odc and put in the folder with that script 
+# run ./makePackage n 
 # n - is build number
 
 declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Fig" "Lin" "Obx" "Std" "Sql" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
 
-version=`cat ../version.txt`
+version=`cat ../../version.txt`
 buildNum=$@
 buildDate=`date +"%Y-%m-%d"`
 echo "$version"
@@ -23,7 +24,7 @@ mkdir "build/usr/lib"
 mkdir "build/usr/lib/blackbox2"
 for i in "${arr[@]}"
 do
-    cp -r '../'$i 'build/usr/lib/blackbox2'
+    cp -r '../../'$i 'build/usr/lib/blackbox2'
 done
 rm "build/usr/lib/blackbox2/Lin/Xtras" -r
 
