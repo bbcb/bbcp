@@ -1,9 +1,9 @@
 # Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
-pkgname=bbcp2-git
+pkgname=bbcb2-git
 _name=${pkgname%-git}
-pkgver=r1012.b2ab368
+pkgver=r1013.7aaf89f
 pkgrel=1
-pkgdesc="BlackBox Cross-Platform"
+pkgdesc="BlackBox Component Builder"
 arch=('i686' 'x86_64')
 url="https://blackbox.oberon.org/"
 license=('custom')
