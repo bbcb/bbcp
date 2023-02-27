@@ -1,23 +1,27 @@
 #!/bin/sh
 
-echo "\ncompiling\n"
+echo "compiling"
+echo
 
 ./run-dev0 <<DATA
 DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm Fig Obx
 Kernel.Quit(0)
 DATA
 
-echo "\nlinking gui\n"
+echo
+echo "linking gui"
+echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe Linux blackbox := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
 Kernel.Quit(0)
 DATA
 
-echo "\nlinking interp\n"
+echo
+echo "linking interp"
+echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
 Kernel.Quit(0)
 DATA
-
