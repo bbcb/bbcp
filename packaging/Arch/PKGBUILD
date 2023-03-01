@@ -1,7 +1,7 @@
 # Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
 pkgname=bbcb2-git
 _name=${pkgname%-git}
-pkgver=r1013.7aaf89f
+pkgver=r1020.94f1fc4
 pkgrel=1
 pkgdesc="BlackBox Component Builder"
 arch=('i686' 'x86_64')
@@ -21,10 +21,35 @@ pkgver() {
 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+_append_build_info() {
+	if [ ! -e Deb ]; then
+		ln -s packaging/Deb
+	fi
+
+	./run-dev0 <<DATA
+DevCompiler.CompileSubs Deb
+Kernel.Quit(0)
+DATA
+
+	./run-dev0 <<DATA
+DevLinker1.LinkElf `uname -s` append := Kernel$+ Utf LinKernel Files LinEnv LinFiles Math Strings Meta Log Services Fonts Dialog Ports Stores Sequencers Converters Models Views StdInterpreter Console LinConsole ConsFonts Controllers Properties Mechanisms Containers Dates Printers Printing Documents Windows ConsWindows LinDates LinIntDialog StdRegistry StdDialog  TextModels TextMappers TextRulers TextSetters TextViews TextControllers ConsLog StdApi StdCmds StdCoder DebAppend
+Kernel.Quit(0)
+DATA
+
+	version=`cat version.txt`
+	buildNum=`pkgver`
+	buildDate=`date +"%Y-%m-%d"`
+
+	env FILEPATH="System/Rsrc" FILENAME="Strings.odc" KEY="appVersion" VALUE="${version}" ./append || true
+	env FILEPATH="System/Rsrc" FILENAME="Strings.odc" KEY="buildNum" VALUE="${buildNum}" ./append || true
+	env FILEPATH="System/Rsrc" FILENAME="Strings.odc" KEY="buildDate" VALUE="${buildDate}" ./append || true
+}
+
 build() {
 	cd "$srcdir/$_name"
 	./build-dev$_osname
 	./build-$_osname
+	_append_build_info
 }
 
 package() {
