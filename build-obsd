@@ -4,7 +4,7 @@ echo "compiling"
 echo
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs Obsd Lin System Std Cons Text Form Dev
+DevCompiler.CompileSubs Obsd System Std Cons Text Form Dev Comm Fig Obx
 Kernel.Quit(0)
 DATA
 
@@ -13,7 +13,7 @@ echo "linking gui"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe OpenBSD blackboxObsd := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles ObsdGui StdLoader ObsdLoader
+DevLinker1.LinkElfExe OpenBSD blackbox := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles ObsdGui StdLoader ObsdLoader
 Kernel.Quit(0)
 DATA
 
@@ -22,6 +22,6 @@ echo "linking interp"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe OpenBSD blackboxObsdInterp := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
+DevLinker1.LinkElfExe OpenBSD blackboxInterp := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
 Kernel.Quit(0)
 DATA

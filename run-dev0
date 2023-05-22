@@ -6,8 +6,15 @@
 rn=`readlink -f "${0}"`
 standardDir=`dirname "${rn}"`
 useDir=`readlink -f .`
+os=`uname -s`
 
-exe="dev0lin"
+if [ "$os" = "Linux" ]; then
+    exe="dev0lin"
+elif [ "$os" = "OpenBSD" ]; then
+    exe="dev0obsd"
+else
+    echo "unsupported OS"
+fi
 
 # export LD_DEBUG=all
 exec env \
