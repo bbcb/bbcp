@@ -12,6 +12,8 @@ if [ "$os" = "Linux" ]; then
     exe="dev0lin"
 elif [ "$os" = "OpenBSD" ]; then
     exe="dev0obsd"
+elif [ "$os" = "FreeBSD" ]; then
+    exe="dev0fbsd"
 else
     echo "unsupported OS"
 fi

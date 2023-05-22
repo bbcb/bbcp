@@ -1,0 +1,27 @@
+#!/bin/sh
+
+echo "compiling"
+echo
+
+./run-dev0 <<DATA
+DevCompiler.CompileSubs Fbsd System Std Cons Text Form Dev Comm Fig Obx
+Kernel.Quit(0)
+DATA
+
+echo
+echo "linking gui"
+echo
+
+./run-dev0 <<DATA
+DevLinker1.LinkElfExe FreeBSD blackbox := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
+Kernel.Quit(0)
+DATA
+
+echo
+echo "linking interp"
+echo
+
+./run-dev0 <<DATA
+DevLinker1.LinkElfExe FreeBSD blackboxInterp := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
+Kernel.Quit(0)
+DATA
