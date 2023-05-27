@@ -20,16 +20,19 @@ wait ${BASH_PARALLEL_PIDS[@]}
 
 rm $targDir/Std/Mod/Menus.odc
 rm $targDir/Std/Mod/Tiles.odc
+rm $targDir/Std/Mod/Grids.odc
 rm $targDir/Std/Mod/Windows.odc
 rm $targDir/Std/Mod/Documents.odc
 rm $targDir/Win/Mod/Backends.odc
 rm $targDir/Std/Code/Menus.ocf
 rm $targDir/Std/Code/Tiles.ocf
+rm $targDir/Std/Code/Grids.ocf
 rm $targDir/Std/Code/Windows.ocf
 rm $targDir/Std/Code/Documents.ocf
 rm $targDir/Win/Code/Backends.ocf
 rm $targDir/Std/Sym/Menus.osf
 rm $targDir/Std/Sym/Tiles.osf
+rm $targDir/Std/Sym/Grids.osf
 rm $targDir/Std/Sym/Windows.osf
 rm $targDir/Std/Sym/Documents.osf
 rm $targDir/Win/Sym/Backends.osf
