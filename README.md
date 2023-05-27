@@ -6,13 +6,13 @@ Tested on:
 * Linux Mint 19.1/19.2/19.3/20 Cinnamon
 * Debian 9.3, 9.4, 10.4 Xfce/Mate/GNOME/Cinnamon
 * Alt Education 9.1
-* OpenBSD 6.8
+* OpenBSD 6.8, 7.2 i386
 * Fedora Core 17
 * CentOS 8
 * Arch Linux 4.9.6
 * Manjaro Linux 18.0.4, 21.2.0
 * Red Hat Enterprise Linux Server 6.3
-* FreeBSD 12.1
+* FreeBSD 12.1, 13.0 i386
 
 
 Download: https://blackbox.oberon.org/download
