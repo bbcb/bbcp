@@ -9,7 +9,7 @@ Kernel.Quit(0)
 DATA
 
 echo
-echo "linking gui"
+echo "linking GUI"
 echo
 
 ./run-dev0 <<DATA
@@ -18,7 +18,7 @@ Kernel.Quit(0)
 DATA
 
 echo
-echo "linking interp"
+echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA

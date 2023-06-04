@@ -1,7 +1,7 @@
 # Maintainer: Alexander Shiryaev <shiryaev.a.v@gmail.com>
 pkgname=bbcb2-git
 _name=${pkgname%-git}
-pkgver=r1020.94f1fc4
+pkgver=r1073.ae0c6236
 pkgrel=1
 pkgdesc="BlackBox Component Builder"
 arch=('i686' 'x86_64')
@@ -47,7 +47,8 @@ DATA
 
 build() {
 	cd "$srcdir/$_name"
-	./build-dev$_osname
+	./build-$_osname
+	./pack-dev0lin
 	./build-$_osname
 	_append_build_info
 }
