@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# ulimit -s 32000
+# ulimit -a
+
+rn=`readlink -f "${0}"`
+standardDir=`dirname "${rn}"`
+useDir=`readlink -f .`
+
+exe="blackboxInterp"
+
+# fix Ubuntu-specific problems:
+unset UBUNTU_MENUPROXY
+unset GTK_MODULES
+export LIBOVERLAY_SCROLLBAR=0
+
+# export LD_DEBUG=all
+exec env \
+	BB_STANDARD_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
+	"${standardDir}"/${exe} "${@}"
