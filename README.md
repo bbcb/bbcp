@@ -12,7 +12,7 @@ Tested on:
 * Arch Linux 4.9.6
 * Manjaro Linux 18.0.4, 21.2.0
 * Red Hat Enterprise Linux Server 6.3
-* FreeBSD 12.1, 13.0 i386
+* FreeBSD 12.1, 13.0, 13.2 i386
 
 
 Download: https://blackbox.oberon.org/download
