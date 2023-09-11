@@ -7,7 +7,7 @@ Tested on:
 * Debian 9.3, 9.4, 10.4 Xfce/Mate/GNOME/Cinnamon
 * Alt Education 9.1
 * OpenBSD 6.8, 7.2 i386
-* Fedora Core 17
+* Fedora 31
 * CentOS 8
 * Arch Linux 4.9.6
 * Manjaro Linux 18.0.4, 21.2.0
@@ -40,6 +40,11 @@ Installation of required packages in Debian-based systems:
 
 		sudo pacman -S multilib/lib32-gtk2
 		sudo pacman -Rc lib32-librsvg
+
+	Fedora:
+
+		sudo dnf install gtk2.i686 gtk2-devel.i686
+
 
 	In OpenBSD use 'wxallowed' flag in mount options for the partition to start BlackBox from.
 
