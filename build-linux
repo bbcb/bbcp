@@ -4,7 +4,7 @@ echo "compiling"
 echo
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs Lin System Std Cons Text Form Dev Comm Fig Obx
+DevCompiler.CompileSubs @Lin Lin System Std Cons Text Form Dev Comm Fig Obx
 Kernel.Quit(0)
 DATA
 
