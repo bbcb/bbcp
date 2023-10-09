@@ -16,6 +16,7 @@ echo
 DevLinker1.LinkElfExe Linux blackbox := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
 Kernel.Quit(0)
 DATA
+chmod +x blackbox
 
 echo
 echo "linking interpreter"
@@ -25,3 +26,4 @@ echo
 DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
 Kernel.Quit(0)
 DATA
+chmod +x blackboxInterp
