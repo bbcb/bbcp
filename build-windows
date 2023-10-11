@@ -4,7 +4,7 @@ echo "compiling"
 echo
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs @Win Com Comm Ctl Dev Form Ole Sql Std System Text Win Cons Mdi Fig Obx
+DevCompiler.CompileSubs @Win Com Comm Ctl Dev Form Ole Sql Std System Text Win Cons Mdi Fig Obx Raster
 Kernel.Quit(0)
 DATA
 
