@@ -92,7 +92,13 @@ There is also a *build-windows.bat* script that can be used to build the Windows
 
 #### On Windows
 
+Run tiled version:
+
 	BlackBox.exe
+
+Run MDI version:
+
+	BlackBoxMDI.exe
 
 #### On other operating systems
 
