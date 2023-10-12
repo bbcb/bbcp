@@ -8,15 +8,23 @@ standardDir=`dirname "${rn}"`
 useDir=`readlink -f .`
 os=`uname -s`
 
-if [ "$os" = "Linux" ]; then
-    exe="dev0lin"
-elif [ "$os" = "OpenBSD" ]; then
-    exe="dev0obsd"
-elif [ "$os" = "FreeBSD" ]; then
-    exe="dev0fbsd"
-else
-    echo "unsupported OS"
-fi
+case "${os%%-*}" in
+    "Linux")
+        exe="dev0lin"
+        ;;
+    "OpenBSD")
+        exe="dev0obsd"
+        ;;
+    "FreeBSD")
+        exe="dev0fbsd"
+        ;;
+    "MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
+        exe="dev0win"
+        ;;
+    *)
+        echo "unsupported OS"
+        exit
+esac
 
 # export LD_DEBUG=all
 exec env \
