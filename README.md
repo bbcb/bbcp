@@ -1,125 +1,120 @@
-# BlackBox Component Builder cross-platform
-
-## Supported operating systems
-
-List of supported operating systems:
-* Windows
-* GNU/Linux (amd64, i386)
-* OpenBSD (i386)
-* FreeBSD (i386)
+BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
 
 Tested on:
-* Windows XP, Windows 7, Windows 10, Windows 11
-* GNU/Linux:
-  * Ubuntu 16.04 LTS, 18.04 LTS, 20.04 LTS
-  * Debian 9.3, 9.4 (Xfce/Mate/GNOME/Cinnamon)
-  * Mint 20 (Cinnamon)
-  * Fedora Core 17
-  * Red Hat Enterprise Linux Server 6.3
-  * CentOS 8
-  * Arch Linux 4.9.6, Manjaro Linux 18.0.4
-  * Alt Education 9.1
-* OpenBSD 7.2 (i386)
-* FreeBSD 12.1 (i386)
+* Windows XP, 7, 10, 11
+* Ubuntu 16.04 LTS, 18.04 LTS, 20.04 LTS
+* Alt Education 9.1
+* Debian 9.3, 9.4 Xfce/Mate/GNOME/Cinnamon
+* Linux Mint 20 Cinnamon
+* FreeBSD 12.1
+* OpenBSD 6.8
+* CentOS 8
+* Arch Linux 4.9.6, Manjaro Linux 18.0.4
+* Red Hat Enterprise Linux Server 6.3
+* Fedora Core 17
 
-## Packages
+Download: https://blackbox.oberon.org/download
 
-Packages available [here](https://blackbox.oberon.org/download)
+Directories structure:
 
-## Build
+	BlackBox/
+		universal development environment for Component Pascal programming language
+	BlackBox/_*
+		platform-specific files
 
-### Install dependencies
+	dev/
+		files for continuous integration system & technical notes for framework developers
 
-#### Ubuntu 18.04 LTS Bionic Beaver / Linux Mint 19.X (amd64)
+	examples/
+		append/  - append string to .odc file
+		encoder/ - encoding subsystems by StdCoder from the command line
+		server/  - static web-server
 
-	sudo dpkg --add-architecture i386
-	sudo apt update
-	sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
+Prepare BlackBox from repository on Windows:
 
-Linux Mint 20 has no package 'gnome-themes-extra:i386', it can be safly ignored. There will be warning in console.
+	copy _Windows_, _Windows_GUI and __GUI content to the BlackBox directory
+	remove other directories starting with "_"
+	run build.bat
 
-#### Ubuntu 16.04 LTS (i386)
 
-	sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module gnome-icon-theme-full
+Installation of required packages in Debian-based systems:
 
-#### Ubuntu 16.04 LTS (amd64)
+	For Alt Education 9.1
 
-	sudo dpkg --add-architecture i386
-	sudo apt-get update
-	sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
+		apt-get install i586-libgtk+2-devel.32bit
 
-#### Debian 9 (amd64)
+	Ubuntu 18.04 LTS Bionic Beaver / Linux Mint 19.X:
 
-	sudo dpkg --add-architecture i386
-	sudo apt update
-	sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
+		sudo dpkg --add-architecture i386
+		sudo apt update
+		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-themes-extra:i386
 
-#### Arch-based systems (amd64)
+	Linux Mint 20 has no package 'gnome-themes-extra:i386', it can be safly ignored. There will be warning in console.
 
-	sudo pacman -S multilib/lib32-gtk2
+	Debian 9.X GNOME/Xfce/KDE
 
-#### Alt Education 9 (amd64)
+		sudo dpkg --add-architecture i386
+		sudo apt update
+		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
 
-	apt-get install i586-libgtk+2-devel.32bit
+	Ubuntu 16.04 LTS i386:
 
-#### OpenBSD (i386)
+		sudo apt-get install libgtk2.0-0 gtk2-engines gtk2-engines-murrine libcanberra-gtk-module gnome-icon-theme-full
 
-Use 'wxallowed' flag in mount options for the partition to build or start BlackBox from.
+	Ubuntu 16.04 LTS amd64:
 
-### Build
+		sudo dpkg --add-architecture i386
+		sudo apt-get update
+		sudo apt-get install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gnome-icon-theme-full
 
-#### Build GNU/Linux version
 
-	./build-linux
+	Arch-based systems amd64:
 
-#### Build OpenBSD version
+		sudo pacman -S multilib/lib32-gtk2
 
-	./build-openbsd
+In OpenBSD use 'wxallowed' flag in mount options for the partition to start BlackBox from.
 
-#### Build FreeBSD version
 
-	./build-freebsd
 
-#### Build Windows version
+To build BlackBox:
 
-	./build-windows
+	cd BlackBox
+	./switch-target `uname -s` GUI
+	./build
 
-On Windows, these commands can be run from [MSYS2](https://www.msys2.org/)
-
-There is also a *build-windows.bat* script that can be used to build the Windows version from Windows or Wine
-
-## Install
-
-	./export <outputDirectory>
-
-## Run
-
-### BlackBox Component Builder
-
-On Windows:
-
-	BlackBox.exe
-
-On other operating systems:
+To run BlackBox (after build):
 
 	./run-BlackBox
 
-### BlackBox Component Builder interpreter
+for Linux version also you can run
 
-On Windows:
+	./blackbox
 
-	BlackBoxInterp.exe
+To create BlackBox framework assembly (after build):
 
-On other operating systems:
+	./export <outputDirectory>
 
-	./run-BlackBoxInterp
+To clean the BlackBox folder:
 
-## Authors
+	./switch-target none
+	./clean
 
+Example: build, create framework assembly and run BlackBox from it:
+
+	cd BlackBox
+	./switch-target `uname -s` GUI
+	./build
+	./export ../`uname -s`_GUI
+	./switch-target none
+	./clean
+	cd ../`uname -s`_GUI
+	./run-BlackBox
+
+Authors:
 * Oberon microsystems AG
 * BlackBox Framework Center
-* Ivan Denisov
-* Igor Dehtyarenko
-* Anton Dmitriev
-* Boris Rumshin
-* Alexander Shiryaev
+* Alexander V. Shiryaev
+* Igor A. Dehtyarenko
+* Ivan A. Denisov
+* Anton A. Dmitriev
+* Boris V. Rumshin
