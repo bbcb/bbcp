@@ -60,7 +60,7 @@ package() {
 	./export-$_osname "$pkgdir"/usr/lib/$_name
 	cd "$pkgdir"/usr/bin
 	ln -s ../lib/$_name/run-BlackBox $_name
-	ln -s ../lib/$_name/run-BlackBoxInterp $_name-interp
+	ln -s ../lib/$_name/run-BlackBoxInterp $_name-cli
 
 	install -Dm644 "$srcdir/$_name/LICENSE.txt" \
 		"$pkgdir/usr/share/licenses/$_name/LICENSE.txt"
