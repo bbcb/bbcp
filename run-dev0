@@ -6,28 +6,28 @@
 rn=`readlink -f "${0}"`
 standardDir=`dirname "${rn}"`
 useDir=`readlink -f .`
-os=`uname -s`
 
+os=`uname -s`
 case "${os%%-*}" in
-    "Linux")
-        exe="dev0lin"
-        ;;
-    "OpenBSD")
-        exe="dev0obsd"
-        ;;
-    "FreeBSD")
-        exe="dev0fbsd"
-        ;;
-    "MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
-        exe="dev0win"
-        ;;
-    *)
-        echo "unsupported OS"
-        exit
+	"Linux")
+		exe="dev0lin"
+		;;
+	"OpenBSD")
+		exe="dev0obsd"
+		;;
+	"FreeBSD")
+		exe="dev0fbsd"
+		;;
+	"MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
+		exe="dev0win"
+		;;
+	*)
+		echo "unsupported OS"
+		exit
 esac
 
 # export LD_DEBUG=all
 exec env \
-    BB_STANDART_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
+	BB_STANDART_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
 	BB_PACKED_NAME="${exe}" BB_PACKED_FIRST=  \
 	"${standardDir}"/${exe} "${@}"

@@ -1,79 +1,132 @@
-BlackBox Component Builder for Windows, GNU/Linux, OpenBSD, FreeBSD
+# BlackBox Component Builder cross-platform
+
+## Supported operating systems
+
+List of supported operating systems:
+* Windows
+* GNU/Linux (amd64, i386)
+* OpenBSD (i386)
+* FreeBSD (i386)
 
 Tested on:
 * Windows XP, 7, 10, 11
-* Ubuntu 16.04/18.04/20.04 LTS
-* Linux Mint 19.1/19.2/19.3/20 Cinnamon
-* Debian 9.3, 9.4, 10.4 Xfce/Mate/GNOME/Cinnamon
-* Alt Education 9.1
-* OpenBSD 6.8, 7.2 i386
-* Fedora 31
-* CentOS 8
-* Arch Linux 4.9.6
-* Manjaro Linux 18.0.4, 21.2.0
-* Red Hat Enterprise Linux Server 6.3
-* FreeBSD 12.1, 13.0, 13.2 i386
+* GNU/Linux:
+  * Ubuntu 16.04/18.04/20.04 LTS
+  * Debian 9.3, 9.4, 10.4 (Xfce/Mate/GNOME/Cinnamon)
+  * Linux Mint 19.1/19.2/19.3/20 (Cinnamon)
+  * Fedora 31
+  * Red Hat Enterprise Linux Server 6.3
+  * CentOS 8
+  * Arch Linux 4.9.6
+  * Manjaro Linux 18.0.4, 21.2.0
+  * Alt Education 9.1
+* OpenBSD 7.2 (i386)
+* FreeBSD 12.1, 13.0, 13.2 (i386)
 
+## Packages
 
-Download: https://blackbox.oberon.org/download
+Packages available [here](https://blackbox.oberon.org/download)
 
+## Build
 
-Installation of required packages in Debian-based systems:
+### Install dependencies
 
-	For Alt Education 9.1
+#### Ubuntu 20/22 LTS, Mint 20/22 (amd64)
 
-		apt-get install i586-libgtk+2-devel.32bit
+	sudo dpkg --add-architecture i386
+	sudo apt update
+	sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
 
-	Ubuntu 20/22 LTS, Mint 20/22:
+#### Debian 9/10 (amd64)
 
-		sudo dpkg --add-architecture i386
-		sudo apt update
-		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386
+	sudo dpkg --add-architecture i386
+	sudo apt update
+	sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
 
-	Debian 9.X/10.X GNOME/Xfce/KDE
+#### Arch-based systems (amd64)
 
-		sudo dpkg --add-architecture i386
-		sudo apt update
-		sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
+	sudo pacman -S multilib/lib32-gtk2
+	sudo pacman -Rc lib32-librsvg
 
-	Arch-based systems amd64:
+#### Fedora (amd64)
 
-		sudo pacman -S multilib/lib32-gtk2
-		sudo pacman -Rc lib32-librsvg
+	sudo dnf install gtk2.i686 gtk2-devel.i686
 
-	Fedora:
+#### Alt Education 9.1 (amd64)
 
-		sudo dnf install gtk2.i686 gtk2-devel.i686
+	apt-get install i586-libgtk+2-devel.32bit
 
+#### OpenBSD (i386)
 
-	In OpenBSD use 'wxallowed' flag in mount options for the partition to start BlackBox from.
+Use 'wxallowed' flag in mount options for the partition to build or start BlackBox from.
 
+### Build
 
-To build BlackBox:
+#### Build GNU/Linux version
+
+	./build-linux
+
+#### Build OpenBSD version
+
+	./build-openbsd
+
+#### Build FreeBSD version
+
+	./build-freebsd
+
+#### Build Windows version
 
 	./build-windows
-	./build-linux
-	./build-obsd
 
-To run GUI:
+On Windows, these commands can be run from [MSYS2](https://www.msys2.org/)
 
-	./blackbox
+There is also a *build-windows.bat* script that can be used to build the Windows version from Windows or Wine
 
-To run GUI in Ubuntu:
+## Install
+
+	./export <outputDirectory>
+
+## Run
+
+### BlackBox Component Builder (GUI)
+
+#### On Windows
+
+	BlackBox.exe
+
+#### On other operating systems
 
 	./run-BlackBox
 
-To clean reopsitory:
+Symbolic link to this script can be created to run from any directory:
 
-	./clean
+	ln -s `readlink -f run-BlackBox` ~/bin/blackbox
 
+And then BlackBox Component Builder (GUI) can be run with *blackbox* command from anywhere
 
-Authors:
+### BlackBox Component Builder (command line interpreter)
+
+#### On Windows
+
+	BlackBoxInterp.exe
+
+#### On other operating systems
+
+	./run-BlackBoxInterp
+
+Symbolic link to this script can be created to run from any directory:
+
+	ln -s `readlink -f run-BlackBox` ~/bin/blackbox-cli
+
+And then BlackBox Component Builder (command line interpreter) can be run with *blackbox-cli* command from anywhere
+
+## Authors
+
 * Oberon microsystems AG
 * BlackBox Framework Center
 * OberonCore
-* Alexander V. Shiryaev
-* Igor A. Dehtyarenko
-* Ivan A. Denisov
-* Anton A. Dmitriev
+* Ivan Denisov
+* Igor Dehtyarenko
+* Anton Dmitriev
+* Alexander Shiryaev
 * Ketmar Dark
