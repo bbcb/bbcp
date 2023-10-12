@@ -102,7 +102,8 @@ Symbolic link to this script can be created to run from any directory:
 
 	ln -s `readlink -f run-BlackBox` ~/bin/blackbox
 
-And then BlackBox Component Builder (GUI) can be run with *blackbox* command from anywhere
+And then BlackBox Component Builder (GUI) can be run with *blackbox* command from anywhere.
+The current directory will be used as a BlackBox *secondary* directory.
 
 ### BlackBox Component Builder (command line interpreter)
 
@@ -118,7 +119,8 @@ Symbolic link to this script can be created to run from any directory:
 
 	ln -s `readlink -f run-BlackBox` ~/bin/blackbox-cli
 
-And then BlackBox Component Builder (command line interpreter) can be run with *blackbox-cli* command from anywhere
+And then BlackBox Component Builder (command line interpreter) can be run with *blackbox-cli* command from anywhere.
+The current directory will be used as a BlackBox *secondary* directory.
 
 ## Authors
 
