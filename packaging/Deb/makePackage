@@ -4,7 +4,7 @@
 # run ./makePackage n 
 # n - is build number
 
-declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Fig" "Lin" "Obx" "Std" "Sql" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
+# declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Fig" "Lin" "Obx" "Std" "Sql" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
 
 version=`cat ../../version.txt`
 buildNum=$@
@@ -17,16 +17,20 @@ verArr=(${version//-/ })
 debVersion=${verArr[0]}'~'${verArr[1]}'.build'$buildNum
 echo "$debVersion"
 
-rm build -r
-cp template build -r
+rm -rf build
+cp -r template build
 
 mkdir "build/usr/lib"
-mkdir "build/usr/lib/blackbox2"
-for i in "${arr[@]}"
-do
-    cp -r '../../'$i 'build/usr/lib/blackbox2'
-done
-rm "build/usr/lib/blackbox2/Lin/Xtras" -r
+# mkdir "build/usr/lib/blackbox2"
+#for i in "${arr[@]}"
+#do
+#    cp -r '../../'$i 'build/usr/lib/blackbox2'
+#done
+cd ../..
+./export-linux "packaging/Deb/build/usr/lib/blackbox2"
+cd packaging/Deb
+
+# rm "build/usr/lib/blackbox2/Lin/Xtras" -r
 
 cp changelog changelogTmp
 sed -i -e 's/#VERSION#/'$debVersion'/g' changelogTmp
@@ -40,10 +44,13 @@ env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="b
 cd build
 find . -type f -exec chmod 644 {} ";"
 find . -type d -exec chmod 755 {} ";"
-chmod +x usr/bin/bbcb2
 chmod +x usr/bin/bbcb2-shortcut 
 chmod +x usr/lib/blackbox2/blackbox 
 chmod +x usr/lib/blackbox2/run-BlackBox
+chmod +x usr/lib/blackbox2/blackboxInterp
+chmod +x usr/lib/blackbox2/run-BlackBoxInterp
+ln -s ../lib/blackbox2/run-BlackBox usr/bin/bbcb2
+ln -s ../lib/blackbox2/run-BlackBoxInterp usr/bin/bbcb2-cli
 
 cd ../
 
