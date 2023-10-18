@@ -28,14 +28,11 @@ _append_build_info() {
 
 	./run-dev0 <<DATA
 DevCompiler.CompileSubs Deb
-Kernel.Quit(0)
 DATA
 
 	./run-dev0 <<DATA
 DevLinker1.LinkElf `uname -s` append := Kernel$+ Utf LinKernel Files LinEnv LinFiles Math Strings Meta Log Services Fonts Dialog Ports Stores Sequencers Converters Models Views StdInterpreter Console LinConsole ConsFonts Controllers Properties Mechanisms Containers Dates Printers Printing Documents Windows ConsWindows LinDates LinIntDialog StdRegistry StdDialog  TextModels TextMappers TextRulers TextSetters TextViews TextControllers ConsLog StdApi StdCmds StdCoder DebAppend
-Kernel.Quit(0)
 DATA
-	chmod +x append
 
 	version=`cat version.txt`
 	buildNum=`pkgver`

@@ -5,7 +5,6 @@ echo
 
 ./run-dev0 <<DATA
 DevCompiler.CompileSubs @Lin Lin System Std Cons Text Form Dev Comm Fig Obx
-Kernel.Quit(0)
 DATA
 
 echo
@@ -14,9 +13,7 @@ echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe Linux blackbox := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
-Kernel.Quit(0)
 DATA
-chmod +x blackbox
 
 echo
 echo "linking interpreter"
@@ -24,6 +21,4 @@ echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
-Kernel.Quit(0)
 DATA
-chmod +x blackboxInterp
