@@ -6,6 +6,7 @@ if [ $# -eq 1 ]; then
 		mkdir "${outDir}"
 		pax -r -w -L \
 			-s ',.*/Xtras.*,,' \
+			-s ',.*__.bsd.*,,' -s ',.*__Win.*,,' \
 			Comm Cons Dev Docu Form Fig Obx Lin Sql Std System Text Xhtml blackbox blackboxInterp run-BlackBox run-BlackBoxInterp LICENSE.txt \
 			"${outDir}"
 	else
