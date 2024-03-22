@@ -4,7 +4,7 @@ echo "compiling"
 echo
 
 ./run-dev0 <<DATA
-DevCompiler.CompileSubs @Obsd Obsd System Std Cons Text Form Dev Comm Fig Obx
+DevCompiler.CompileSubs @Obsd Obsd System Std Cons Text Form Dev Comm Fig Obx Sql
 DATA
 
 echo
