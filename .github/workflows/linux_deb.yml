@@ -22,6 +22,17 @@ jobs:
       - name: Build the application
         run: ./build-linux
 
+      - name: Build append
+        run: |
+          ln -s packaging/Deb
+          ./run-dev0 <<DATA
+          DevCompiler.CompileSubs Deb
+          DATA
+          ./run-dev0 <<DATA
+          DevLinker1.LinkElf `uname -s` append := Kernel$+ Utf LinKernel Files LinEnv LinFiles Math Strings Meta Log Services Fonts Dialog Ports Stores Sequencers Converters Models Views StdInterpreter Console LinConsole ConsFonts Controllers Properties Mechanisms Containers Dates Printers Printing Documents Windows ConsWindows LinDates LinIntDialog StdRegistry StdDialog  TextModels TextMappers TextRulers TextSetters TextViews TextControllers ConsLog StdApi StdCmds StdCoder DebAppend
+          DATA
+          mv append packaging/Deb/
+
       - name: Build the .deb package
         run: ./makePackage
         working-directory: packaging/Deb
