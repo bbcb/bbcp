@@ -43,7 +43,7 @@ Packages available [here](https://blackbox.oberon.org/download)
 	sudo apt update
 	sudo apt install libgtk2.0-0:i386 gtk2-engines:i386 gtk2-engines-murrine:i386 libcanberra-gtk-module:i386 gtk2-engines-pixbuf:i386 libatk-adaptor:i386 libgail-common:i386 gnome-themes-standard:i386
 
-#### Arch-based systems (amd64)
+#### Arch-based distributions (amd64)
 
 	sudo pacman -S multilib/lib32-gtk2
 	sudo pacman -Rc lib32-librsvg
@@ -83,6 +83,22 @@ On Windows, these commands can be run from [MSYS2](https://www.msys2.org/)
 There is also a *build-windows.bat* script that can be used to build the Windows version from Windows or Wine
 
 ## Install
+
+### Install dependencies
+
+#### Debian-based distributions
+
+	sudo apt install pax
+
+#### Arch-based distributions
+
+	sudo pacman -S pax
+
+#### Fedora
+
+	sudo dnf install pax
+
+### Install
 
 	./export <outputDirectory>
 
