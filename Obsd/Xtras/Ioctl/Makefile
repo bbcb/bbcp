@@ -4,23 +4,13 @@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
-INCDIR ?= /usr/include
-
-all: mkioctl Ioctl.odc
+all: Ioctl.odc
 
 Ioctl.odc: Ioctl.txt
 	./txt2odc.py Ioctl.txt Ioctl.odc
 
-DEFS = defs-tiocm defs-ioctl
-
-defs-ioctl: mkioctl
-	./mkioctl > ${.TARGET}
-
-Ioctl.txt: Ioctl.txt.templ ${DEFS} libver osname machine
-	./untempl.py Ioctl.txt.templ ${.TARGET}
-
-defs-tiocm:
-	./dumpdefs.py 2 1 s ${INCDIR}/sys/ttycom.h | grep TIOCM_ > ${.TARGET}
+Ioctl.txt: Ioctl.txt.templ libver osname machine
+	./untempl_h.py -m 32 Ioctl.txt.templ ${.TARGET}
 
 clean:
-	rm -f mkioctl Ioctl.txt Ioctl.odc ${DEFS}
+	rm -f Ioctl.txt Ioctl.odc
