@@ -192,7 +192,12 @@ def process_one_c (ctx: Ctx, key: str) -> bool:
 
 	assert os.path.exists(exe)
 
-	o = subprocess.check_output([f"{os.path.realpath(exe)}"], stdin=subprocess.DEVNULL, text=True, encoding="utf-8").splitlines()[-1]
+	try:
+		o = subprocess.check_output([f"{os.path.realpath(exe)}"], stdin=subprocess.DEVNULL, text=True, encoding="utf-8").splitlines()[-1]
+	finally:
+		if os.path.exists(exe):
+			os.remove(exe)
+
 	if ctx.verbose:
 		print(f"result = {o}")
 
