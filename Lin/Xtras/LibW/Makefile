@@ -1,30 +1,25 @@
-# This is BSD Makefile
+# This is GNU Makefile
 #    BSD       GNU
 # ${.TARGET}    $@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
-INCDIR ?= /usr/include
-
-PY = python2.7
+.PHONY: all clean
 
 CFLAGS += -m32
 
-DEFS = defs-basictypes defs-lc
+DEFS = defs-basictypes
 
-all: LibW.odc ${DEFS}
+all: LibW.odc
 
-LibW.odc: LibW.txt
-	./txt2odc.py LibW.txt LibW.odc
+%.odc: %.txt
+	./txt2odc.py $< $@
 
 LibW.txt: LibW.txt.templ ${DEFS} libver osname machine
-	${PY} ./untempl.py LibW.txt.templ $@
+	./untempl_h.py -m 32 LibW.txt.templ $@
 
 defs-basictypes: sizeofs
 	./sizeofs > $@
 
-defs-lc: mklc
-	./mklc > $@
-
 clean:
-	rm -f ${DEFS} LibW.txt LibW.odc sizeofs mklc
+	rm -f ${DEFS} LibW.txt LibW.odc sizeofs

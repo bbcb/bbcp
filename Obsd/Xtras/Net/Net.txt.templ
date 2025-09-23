@@ -15,22 +15,33 @@ MODULE LinNet ["libc.so%%libver%%"];
 		INADDR_ANY* = 0;
 
 		(* socket domains *)
-%%defs-af%%
+@@i=sys/socket.h:t=i:PF_*@@
+
 		(* socket types *)
-%%defs-sock%%
+@@i=sys/socket.h:t=i:SOCK_*@@
+
 		(* socket protocols *)
-%%defs-proto%%
+@@i=netinet/in.h:t=i:IPPROTO_*@@
+
 		(* socket options *)
-%%defs-so%%
-%%defs-shut%%
-%%defs-sol%%
-%%defs-msg%%
-%%defs-somaxconn%%
+@@i=sys/socket.h:t=s:SO_*@@
+
+@@i=sys/socket.h:t=i:SHUT_*@@
+
+@@i=sys/socket.h:t=i:SOL_*@@
+
+@@i=sys/socket.h:t=s:MSG_*@@
+
+@@i=sys/socket.h:t=i:SOMAXCONN@@
+
 		(* addrinfo.ai_flags *)
-%%defs-ai%%
+@@i=netdb.h:t=s:AI_*@@
+
 		(* getaddrinfo/getnameinfo/gai_strerror error codes *)
-%%defs-eai%%
+@@i=netdb.h:t=i:EAI_*@@
+
 %%defs-fd_set_const%%
+
 	TYPE
 		u_int8_t = SHORTCHAR;
 		int8_t = SHORTCHAR;

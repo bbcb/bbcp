@@ -1,45 +1,25 @@
-# This is BSD Makefile
+# This is GNU Makefile
 #    BSD       GNU
-# $@    $@
+# ${.TARGET}    $@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
-INCDIR ?= /usr/include
-
-PY = python2.7
+.PHONY: all clean
 
 CFLAGS += -m32
 
-DEFS = defs-basictypes defs-af defs-so defs-sol defs-ai defs-eai defs-somaxconn
+DEFS = defs-basictypes
 
 all: Net.odc ${DEFS}
 
-Net.odc: Net.txt
-	./txt2odc.py Net.txt Net.odc
+%.odc: %.txt
+	./txt2odc.py $< $@
 
 Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set_const defs-fd_set_type
-	${PY} ./untempl.py Net.txt.templ $@
+	./untempl_h.py -m 32 Net.txt.templ $@
 
 defs-basictypes: sizeofs
 	./sizeofs > $@
-
-defs-af:
-	./dumpdefs.py 3 1 i ${INCDIR}/i386-linux-gnu/bits/socket.h | grep "	PF_" > $@
-
-defs-sol:
-	./dumpdefs.py 2 1 i ${INCDIR}/asm-generic/socket.h | grep "	SOL_" > $@
-
-defs-somaxconn:
-	./dumpdefs.py 2 1 i ${INCDIR}/i386-linux-gnu/bits/socket.h | grep "	SOMAXCONN" > $@
-
-defs-so:
-	./dumpdefs.py 3 1 s ${INCDIR}/asm-generic/socket.h | grep "	SO_" > $@
-
-defs-ai:
-	./dumpdefs.py 3 2 s ${INCDIR}/netdb.h | grep "	AI_" > $@
-
-defs-eai:
-	./dumpdefs.py 3 2 i ${INCDIR}/netdb.h | grep "	EAI_" > $@
 
 clean:
 	rm -f ${DEFS} Net.txt Net.odc sizeofs

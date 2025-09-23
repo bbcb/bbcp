@@ -1,17 +1,17 @@
-#! /usr/bin/env python2.7
+#! /usr/bin/env python3
 
 import sys
 
-def main ():
+def main () -> None:
 	r = []
 	while True:
 		line = sys.stdin.readline()
 		if line == '':
 			break
-		s = line.split()[0][:-1]
-		r.append("\tD(\"%s\", %s)" % (s, s))
+		s = line.rstrip()
+		r.append(f'\tD("{s}", {s})')
 
-	print """/* this file was generated automatically */
+	print("""/* this file was generated automatically */
 
 #include <errno.h>
 #include <stdio.h>
@@ -27,7 +27,7 @@ int main (int argc, const char *argv[])
 %s;
 
 	return 0;
-}""" % (';\n'.join(r),)
+}""" % (';\n'.join(r),))
 
 if __name__ == '__main__':
 	main()

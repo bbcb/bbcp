@@ -4,24 +4,15 @@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
-INCDIR ?= /usr/include
+.PHONY: all clean
 
-all: mkioctl Ioctl.odc
+all: Ioctl.odc
 
-Ioctl.odc: Ioctl.txt
-	./txt2odc.py Ioctl.txt Ioctl.odc
+%.odc: %.txt
+	./txt2odc.py $< $@
 
-PY = python2.7
-DEFS = defs-tiocm defs-ioctl
-
-defs-ioctl: mkioctl
-	./mkioctl > $@
-
-Ioctl.txt: Ioctl.txt.templ ${DEFS} libver osname machine
-	${PY} ./untempl.py Ioctl.txt.templ $@
-
-defs-tiocm:
-	./dumpdefs.py 2 0 s ${INCDIR}/i386-linux-gnu/bits/ioctl-types.h | grep TIOCM_ > $@
+Ioctl.txt: Ioctl.txt.templ libver osname machine
+	./untempl_h.py -m 32 Ioctl.txt.templ $@
 
 clean:
-	rm -f mkioctl Ioctl.txt Ioctl.odc ${DEFS}
+	rm -f Ioctl.txt Ioctl.odc

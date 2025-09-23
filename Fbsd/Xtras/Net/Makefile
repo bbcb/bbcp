@@ -6,8 +6,6 @@
 
 INCDIR ?= /usr/include
 
-PY = python2.7
-
 DEFS = defs-basictypes defs-af defs-sock defs-proto defs-shut defs-so defs-sol defs-msg defs-ai defs-eai defs-somaxconn
 
 all: Net.odc ${DEFS}
@@ -16,7 +14,7 @@ Net.odc: Net.txt
 	./txt2odc.py Net.txt Net.odc
 
 Net.txt: Net.txt.templ ${DEFS} libver osname machine fields-sockaddr fields-sockaddr_in fields-sockaddr_storage fields-addrinfo defs-fd_set_const defs-fd_set_type
-	${PY} ./untempl.py Net.txt.templ ${.TARGET}
+	./untempl.py Net.txt.templ ${.TARGET}
 
 defs-basictypes: sizeofs
 	./sizeofs > ${.TARGET}

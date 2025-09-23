@@ -8,7 +8,8 @@ MODULE LinLibW ["libc.so%%libver%%"];
 	IMPORT Libc := LinLibc;
 
 	CONST
-%%defs-lc%%
+@@i=locale.h:LC_CTYPE,LC_NUMERIC,LC_TIME,LC_COLLATE,LC_MONETARY,LC_MESSAGES,LC_ALL,LC_PAPER,LC_NAME,LC_ADDRESS,LC_TELEPHONE,LC_MEASUREMENT,LC_IDENTIFICATION@@
+
 	TYPE
 		(* int, wchar_t, wint_t, size_t, mbstate_t *)
 %%defs-basictypes%%

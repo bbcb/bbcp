@@ -6,8 +6,6 @@
 
 INCDIR ?= /usr/include
 
-PY = python2.7
-
 DEFS = clockspersec defs-map defs-prot defs-sigmask nsig defs-signo defs-fpe defs-sa defs-errno namemax defs-fcntlo defs-basictypes defs-sc defs-clockid defs-wait defs-rlimit defs-utime
 
 all: Libc.odc ${DEFS} strerrnocase.txt
@@ -16,7 +14,7 @@ Libc.odc: Libc.txt
 	./txt2odc.py Libc.txt Libc.odc
 
 Libc.txt: Libc.txt.templ ${DEFS} libver osname machine custom fields-dirent fields-sigaction fields-siginfo fields-stack fields-stat fields-tm fields-ucontext fields-timespec
-	${PY} ./untempl.py Libc.txt.templ ${.TARGET}
+	./untempl.py Libc.txt.templ ${.TARGET}
 
 clockspersec:
 	grep CLOCKS_PER_SEC ${INCDIR}/time.h | head -1 | awk '{print $$3}' | tr -d '\n' > ${.TARGET}

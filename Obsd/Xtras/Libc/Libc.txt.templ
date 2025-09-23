@@ -10,64 +10,60 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		FALSE* = 0;
 		TRUE* = 1;
 
-		CLOCKS_PER_SEC* = %%clockspersec%%;
+@@i=time.h:t=i:CLOCKS_PER_SEC@@
 
-		MAP_FAILED* = -1;
+@@i=sys/mman.h:t=i:MAP_FAILED@@
 
 		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
-%%defs-map%%
+@@i=sys/mman.h:t=s:MAP_SHARED,MAP_PRIVATE,MAP_FIXED,MAP_ANON@@
 
 		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
-%%defs-prot%%
+@@i=sys/mman.h:t=s:PROT_*@@
 
 		(* SIG_UNBLOCK, SIG_SETMASK (int) *)
-%%defs-sigmask%%
-
-		(* FPE_INTDIV, FPE_INTOVF, FPE_FLTDIV, FPE_FLTOVF, FPE_FLTUND, FPE_FLTRES, FPE_FLTINV, FPE_FLTSUB (int) *)
-%%defs-fpe%%
-
-		(* SA_SIGINFO (intFlags) *)
-%%defs-sa%%
-
-		(* SIGINT, SIGILL, SIGFPE, SIGSEGV, SIGKILL, SIGSTOP, SIGWINCH, SIGTHR (int) *)
-%%defs-signo%%
-		_NSIG* = %%nsig%%;
+@@i=signal.h:t=i:SIG_BLOCK,SIG_UNBLOCK,SIG_SETMASK@@
 
 		(* SIG_DFL, SIG_IGN, SIG_ERR *)
-%%defs-sig%%
+@@i=signal.h:t=i:SIG_DFL,SIG_IGN,SIG_ERR@@
+
+		(* FPE_INTDIV, FPE_INTOVF, FPE_FLTDIV, FPE_FLTOVF, FPE_FLTUND, FPE_FLTRES, FPE_FLTINV, FPE_FLTSUB (int) *)
+@@i=signal.h:t=i:FPE_*@@
+
+		(* SA_SIGINFO (intFlags) *)
+@@i=signal.h:t=s:SA_*@@
+
+@@i=signal.h:t=i:SIGSTKSZ@@
+
+		(* SIGINT, SIGILL, SIGFPE, SIGSEGV, SIGKILL, SIGSTOP, SIGWINCH, SIGTHR (int) *)
+@@i=signal.h:t=i:SIG*,_NSIG@@
 
 (*
 		PAGE_SIZE* = 4096;
 *)
-%%defs-sc%%
-
-		SIGSTKSZ* = %%sigstksz%%;
+@@i=unistd.h:t=i:_SC_PAGESIZE@@
 
 		(* ENOENT, EEXIST, EACCES, ENOMEM, EDQUOT, EMFILE, ENOTDIR (int) *)
-%%defs-errno%%
+@@i=errno.h:t=i:E*@@
 
-%%defs-wait%%
+@@i=sys/wait.h:t=i:WAIT_ANY@@
+@@i=sys/wait.h:t=s:WCONTINUED,WNOHANG,WUNTRACED@@
 
-		NAME_MAX* = %%namemax%%;
+@@i=limits.h:t=i:NAME_MAX@@
 
-		SEEK_SET* = 0;
-		SEEK_CUR* = 1;
-		SEEK_END* = 2;
+@@i=unistd.h:t=i:SEEK_SET,SEEK_CUR,SEEK_END@@
 
-		STDIN_FILENO* = 0;
-		STDOUT_FILENO* = 1;
-		STDERR_FILENO* = 2;
+@@i=unistd.h:t=i:STDIN_FILENO,STDOUT_FILENO,STDERR_FILENO@@
 
 		P_tmpdir* = "/tmp";
 
 		(* O_RDWR, O_NONBLOCK (intFlags) *)
-%%defs-fcntlo%%
+@@i=fcntl.h:t=s:O_*@@
 
-%%defs-clockid%%
+@@i=time.h:t=i:CLOCK_*@@
 
-%%defs-rlimit%%
+@@i=sys/resource.h:t=i:RLIMIT_*@@
 
-%%defs-utime%%
+@@i=sys/stat.h:t=i:UTIME_NOW,UTIME_OMIT@@
 
 	TYPE
 		StrArray* = POINTER TO ARRAY [untagged] OF PtrSTR;
@@ -209,7 +205,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] fread* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fflush* (s: PtrFILE): int;
-		PROCEDURE [ccall] printf* (s: PtrSTR): int;
+		PROCEDURE [ccall] printf0* ["printf"] (s: PtrSTR): int;
+		PROCEDURE [ccall] printfs* ["printf"] (s, str: PtrSTR): int;
 	(* ANSI C 89, XPG4 *)
 		PROCEDURE [ccall] fseek* (stream: PtrFILE; offset: long; whence: int): int;
 

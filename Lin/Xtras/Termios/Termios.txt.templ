@@ -1,14 +1,15 @@
 MODULE LinTermios ["libc.so.6"];
 
 	(*
-		A. V. Shiryaev, 2012.11
+		Alexander Shiryaev, 2012.11, 2025.09
 
 		GNU/Linux
 		i386
 	*)
 
 	CONST
-%%defs-termios%%
+@@i=termios.h:t=i:B0,B1*,B2*,B3*,B4*,B5*,B6*,B7*,B8*,B9*,TCSA*,TC*,IGNBRK,IGNPAR,INPCK,CREAD,CLOCAL,CS5,CS6,CS7,CS8,CSTOPB,PARENB,PARODD,NCCS@@
+
 	TYPE
 		tcflag_t* = INTEGER; (* unsigned int *)
 		cc_t* = SHORTCHAR; (* unsigned char *)

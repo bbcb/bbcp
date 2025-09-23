@@ -4,21 +4,15 @@
 # ${.ALLSRC}    $^
 # ${.IMPSRC}    $<
 
-INCDIR ?= /usr/include
+.PHONY: all clean
 
 all: Termios.odc
 
-Termios.odc: Termios.txt
-	./txt2odc.py Termios.txt Termios.odc
+%.odc: %.txt
+	./txt2odc.py $< $@
 
-PY = python2.7
-DEFS = defs-termios
-
-Termios.txt: Termios.txt.templ ${DEFS}
-	${PY} ./untempl.py Termios.txt.templ $@
-
-defs-termios:
-	./dumpdefs.py 2 0 i ${INCDIR}/i386-linux-gnu/bits/termios.h > $@
+Termios.txt: Termios.txt.templ
+	./untempl_h.py -m 32 $< $@
 
 clean:
-	rm -f Termios.txt Termios.odc ${DEFS}
+	rm -f Termios.txt Termios.odc

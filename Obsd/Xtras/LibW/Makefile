@@ -6,8 +6,6 @@
 
 INCDIR ?= /usr/include
 
-PY = python2.7
-
 DEFS = defs-basictypes defs-lc
 
 all: LibW.odc ${DEFS}
@@ -16,7 +14,7 @@ LibW.odc: LibW.txt
 	./txt2odc.py LibW.txt LibW.odc
 
 LibW.txt: LibW.txt.templ ${DEFS} libver osname machine
-	${PY} ./untempl.py LibW.txt.templ ${.TARGET}
+	./untempl.py LibW.txt.templ ${.TARGET}
 
 defs-basictypes: sizeofs
 	./sizeofs > ${.TARGET}
