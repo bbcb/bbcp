@@ -1,4 +1,4 @@
-MODULE LinIoctl ["libc.so%%libver%%"];
+MODULE %%subsystem%%Ioctl ["libc.so%%libver%%"];
 
 	(*
 		%%osname%%
@@ -12,7 +12,9 @@ MODULE LinIoctl ["libc.so%%libver%%"];
 
 @@i=sys/ioctl.h:t=i:TIOCMGET,TIOCMSET,TIOCEXCL,TIOCNXCL,TIOCOUTQ,TIOCSBRK,TIOCCBRK,TIOCMBIS,TIOCMBIC@@
 
-	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: INTEGER; req: INTEGER): INTEGER;
-	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: INTEGER; req: INTEGER; VAR arg: INTEGER): INTEGER;
+	TYPE
+%%defs-basictypes%%
+	PROCEDURE [ccall] ioctl0* ["ioctl"] (d: int; request: INTEGER): int;
+	PROCEDURE [ccall] ioctl1* ["ioctl"] (d: int; request: INTEGER; VAR arg: INTEGER): int;
 
-END LinIoctl.
+END %%subsystem%%Ioctl.

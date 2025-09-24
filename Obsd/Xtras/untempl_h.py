@@ -43,7 +43,7 @@ def mkset (x: int) -> str:
 
 def fix_val (x: str, type_: str) -> str | None:
 	if x.startswith('0x'): # fix HEX
-		if type_ == 'i':
+		if type_ in ('i', 'ul'):
 			if x[2] in '0123456789':
 				return x[2:].upper() + "H"
 			else:
@@ -60,7 +60,7 @@ def fix_val (x: str, type_: str) -> str | None:
 	elif x[0] == '0': # fix OCT
 		if x[-1] == 'U':
 			x = x[:-1]
-		if type_ == 'i':
+		if type_ in ('i', 'ul'):
 			return str(int(x, 8))
 		elif type_ == 's':
 			return mkset(int(x, 8))
@@ -74,7 +74,7 @@ def fix_val (x: str, type_: str) -> str | None:
 		except:
 			return None
 		else:
-			if type_ == 'i':
+			if type_ in ('i', 'ul'):
 				return x
 			elif type_ == 's':
 				return mkset(y)
@@ -167,7 +167,10 @@ def process_one_c (ctx: Ctx, key: str) -> bool:
 		#	temp_file.write(f"#include <{inc}>\n")
 		temp_file.write("#include <stdio.h>\n\n")
 		temp_file.write("int main (int argc, const char *argv[]) {\n")
-		temp_file.write(f'	printf("%d\\n", {key});\n')
+		if ctx.type_ == 'ul':
+			temp_file.write(f'	printf("%lu\\n", {key});\n')
+		else:
+			temp_file.write(f'	printf("%d\\n", {key});\n')
 		temp_file.write(f'	return 0;\n')
 		temp_file.write("}\n")
 		temp_file.close()
@@ -273,7 +276,7 @@ def process_spec (spec: str, cc: str, m: int, global_defs: list[str], done: set[
 				case "d":
 					defs.append(v)
 				case "t":
-					assert v in ('i', 's', 'c')
+					assert v in ('i', 'ul', 's', 'c')
 					type_ = v
 				case _:
 					raise RuntimeError()
