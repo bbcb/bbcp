@@ -1,14 +1,14 @@
-MODULE LinLibW ["libc.so%%libver%%"];
+MODULE %%subsystem%%LibW ["libc.so%%libver%%"];
 
 	(*
 		%%osname%%
 		%%machine%%
 	*)
 
-	IMPORT Libc := LinLibc;
+	IMPORT Libc := %%subsystem%%Libc;
 
 	CONST
-@@i=locale.h:LC_CTYPE,LC_NUMERIC,LC_TIME,LC_COLLATE,LC_MONETARY,LC_MESSAGES,LC_ALL,LC_PAPER,LC_NAME,LC_ADDRESS,LC_TELEPHONE,LC_MEASUREMENT,LC_IDENTIFICATION@@
+@@i=locale.h:LC_CTYPE,LC_NUMERIC,LC_TIME,LC_COLLATE,LC_MONETARY,LC_MESSAGES,LC_ALL@@
 
 	TYPE
 		(* int, wchar_t, wint_t, size_t, mbstate_t *)
@@ -45,4 +45,4 @@ MODULE LinLibW ["libc.so%%libver%%"];
 	PROCEDURE [ccall] fputws* (ws: PtrWSTR; fp: Libc.PtrFILE): int;
 	PROCEDURE [ccall] fgetws* (ws: PtrWSTR; n: int; fp: Libc.PtrFILE): PtrWSTR;
 
-END LinLibW.
+END %%subsystem%%LibW.

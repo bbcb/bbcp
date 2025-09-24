@@ -1,26 +1,15 @@
-# This is BSD Makefile
-#    BSD       GNU
-# ${.TARGET}    $@
-# ${.ALLSRC}    $^
-# ${.IMPSRC}    $<
+CFLAGS += -m32
 
-INCDIR ?= /usr/include
-
-DEFS = defs-basictypes defs-lc
-
-all: LibW.odc ${DEFS}
+all: LibW.odc
 
 LibW.odc: LibW.txt
 	./txt2odc.py LibW.txt LibW.odc
 
-LibW.txt: LibW.txt.templ ${DEFS} libver osname machine
-	./untempl.py LibW.txt.templ ${.TARGET}
+LibW.txt: LibW.txt.templ defs-basictypes subsystem libver osname machine
+	./untempl_h.py -m 32 LibW.txt.templ LibW.txt
 
 defs-basictypes: sizeofs
-	./sizeofs > ${.TARGET}
-
-defs-lc:
-	./dumpdefs.py 2 1 i ${INCDIR}/locale.h | grep "	LC_" > ${.TARGET}
+	./sizeofs > defs-basictypes
 
 clean:
-	rm -f ${DEFS} LibW.txt LibW.odc sizeofs
+	rm -f LibW.txt LibW.odc sizeofs defs-basictypes
