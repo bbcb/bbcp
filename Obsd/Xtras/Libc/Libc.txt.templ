@@ -1,4 +1,4 @@
-MODULE LinLibc ["libc.so%%libver%%"];
+MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 
 	(*
 		%%osname%%
@@ -205,8 +205,8 @@ MODULE LinLibc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] fread* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fwrite* (ptr: PtrVoid; size: size_t; nmemb: size_t; stream: PtrFILE): size_t;
 		PROCEDURE [ccall] fflush* (s: PtrFILE): int;
-		PROCEDURE [ccall] printf0* ["printf"] (s: PtrSTR): int;
-		PROCEDURE [ccall] printfs* ["printf"] (s, str: PtrSTR): int;
+		PROCEDURE [ccall] printf0* ["printf"] (format: PtrSTR): int;
+		PROCEDURE [ccall] printfs* ["printf"] (format, s: PtrSTR): int;
 	(* ANSI C 89, XPG4 *)
 		PROCEDURE [ccall] fseek* (stream: PtrFILE; offset: long; whence: int): int;
 
@@ -275,4 +275,4 @@ MODULE LinLibc ["libc.so%%libver%%"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] readlink* (path: PtrSTR; buf: PtrSTR; bufsiz: size_t): ssize_t;
 
-END LinLibc.
+END %%subsystem%%Libc.

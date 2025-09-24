@@ -1,4 +1,4 @@
-MODULE LinNet ["libc.so%%libver%%"];
+MODULE %%subsystem%%Net ["libc.so%%libver%%"];
 
 	(*
 		%%osname%%
@@ -148,4 +148,4 @@ MODULE LinNet ["libc.so%%libver%%"];
 
 		PROCEDURE [ccall] gai_strerror* (ecode: int): PtrSTR;
 
-END LinNet.
+END %%subsystem%%Net.

@@ -249,7 +249,9 @@ def process_prefix (ctx: Ctx, prefix: str) -> None:
 			if line.startswith(f'#define '):
 				x = line.rstrip().split(maxsplit=2)
 				if len(x) == 3:
-					if not x[1].startswith("__"):
+					if x[1].startswith("__") or x[1].startswith("pseudo_"):
+						pass
+					else:
 						ctx.d[x[1]] = x[2]
 	for key, v in ctx.d.items():
 		if key.startswith(prefix) and (key not in ctx.done):
