@@ -52,7 +52,7 @@ static void D (const char *s, int sz, int set, int export)
 }
 
 int main ()
-{\
+{
 	D("PtrVoid", sizeof(void *), FALSE, TRUE);
 	D("short", sizeof(short), FALSE, TRUE);
 	D("int", sizeof(int), FALSE, TRUE);
