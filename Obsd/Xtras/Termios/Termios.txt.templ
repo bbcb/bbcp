@@ -1,46 +1,50 @@
-MODULE LinTermios ["libc.so.96"];
+MODULE %%subsystem%%Termios ["libc.so%%libver%%"];
 
 	(*
-		A. V. Shiryaev, 2012.11, 2013.08, 2015.09, 2025.09
-
-		OpenBSD 6.6
-		32-bit
+		%%osname%%
+		%%machine%%
 	*)
 
 	CONST
-@@i=termios.h:t=i:B0,B1*,B2*,B3*,B4*,B5*,B6*,B7*,B8*,B9*,TCSA*,TC*,IGNBRK,IGNPAR,INPCK,CREAD,CLOCAL,CS5,CS6,CS7,CS8,CSTOPB,PARENB,PARODD,NCCS@@
+@@i=termios.h:t=i:B0,B1*,B2*,B3*,B4*,B5*,B6*,B7*,B8*,B9*@@
+
+@@i=termios.h:t=i:TCSANOW,TCSADRAIN,TCSAFLUSH,TCSA*@@
+
+@@i=termios.h:t=i:TCOOFF,TCOON,TCIOFF,TCION,TCIFLUSH,TCOFLUSH,TCIOFLUSH,TC*@@
+
+@@i=termios.h:t=i:VEOF,VEOL,VEOL2,VERASE,VWERASE,VKILL,VREPRINT,VINTR,VQUIT,VSUSP,VSTART,VSTOP,VLNEXT,VDISCARD,VMIN,VTIME@@
+
+@@i=termios.h:t=i:IGNBRK,BRKINT,IGNPAR,PARMRK,INPCK,ISTRIP,INLCR,IGNCR,ICRNL,IXON,IXOFF,IXANY,IMAXBEL,IUCLC@@
+
+@@i=termios.h:t=i:CSIZE,CS5,CS6,CS7,CS8,CSTOPB,CREAD,PARENB,PARODD,HUPCL,CLOCAL,CRTSCTS@@
+
+@@i=termios.h:t=i:ECHOKE,ECHOE,ECHOK,ECHO,ECHONL,ECHOPRT,ECHOCTL,ISIG,ICANON,IEXTEN,EXTPROC,TOSTOP,FLUSHO,PENDIN,NOFLSH,XCASE@@
+
+@@i=termios.h:t=i:NCCS@@
 
 	TYPE
-		tcflag_t* = INTEGER; (* unsigned int *)
-		cc_t* = SHORTCHAR; (* unsigned char *)
-		speed_t* = INTEGER; (* unsigned int *)
+%%defs-basictypes%%
 		termios* = RECORD [untagged]
-			c_iflag*: tcflag_t; (* input flags *)
-			c_oflag*: tcflag_t; (* output flags *)
-			c_cflag*: tcflag_t; (* control flags *)
-			c_lflag*: tcflag_t; (* local flags *)
-			c_cc*: ARRAY [untagged] NCCS OF cc_t; (* control chars *)
-			c_ispeed*: INTEGER; (* input speed *)
-			c_ospeed*: INTEGER; (* output speed *)
+%%fields-termios%%
 		END;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] cfgetispeed* (VAR tp: termios): speed_t;
-		PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): INTEGER;
+		PROCEDURE [ccall] cfsetispeed* (VAR tp: termios; ispeed: speed_t): int;
 		PROCEDURE [ccall] cfgetospeed* (VAR tp: termios): speed_t;
-		PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): INTEGER;
-		PROCEDURE [ccall] tcgetattr* (fd: INTEGER; VAR tp: termios): INTEGER;
-		PROCEDURE [ccall] tcsetattr* (fd: INTEGER; action: INTEGER; VAR tp: termios): INTEGER;
+		PROCEDURE [ccall] cfsetospeed* (VAR tp: termios; ospeed: speed_t): int;
+		PROCEDURE [ccall] tcgetattr* (fd: int; VAR tp: termios): int;
+		PROCEDURE [ccall] tcsetattr* (fd: int; action: int; VAR tp: termios): int;
 
-		PROCEDURE [ccall] tcdrain* (fd: INTEGER): INTEGER;
-		PROCEDURE [ccall] tcflow* (fd: INTEGER; action: INTEGER): INTEGER;
-		PROCEDURE [ccall] tcflush* (fd: INTEGER; action: INTEGER): INTEGER;
-		PROCEDURE [ccall] tcsendbreak* (fd: INTEGER; len: INTEGER): INTEGER;
+		PROCEDURE [ccall] tcdrain* (fd: int): int;
+		PROCEDURE [ccall] tcflow* (fd: int; action: int): int;
+		PROCEDURE [ccall] tcflush* (fd: int; action: int): int;
+		PROCEDURE [ccall] tcsendbreak* (fd: int; len: int): int;
 
 	(* extensions *)
 (*
-		PROCEDURE [ccall] cfsetspeed* (VAR tp: termios; speed: speed_t): INTEGER;
+		PROCEDURE [ccall] cfsetspeed* (VAR tp: termios; speed: speed_t): int;
 		PROCEDURE [ccall] cfmakeraw* (VAR tp: termios);
 *)
 
-END LinTermios.
+END %%subsystem%%Termios.
