@@ -1,3 +1,5 @@
+.PHONY: all clean
+
 CFLAGS += -m32
 
 DEFS = defs-basictypes
