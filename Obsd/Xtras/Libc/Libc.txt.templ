@@ -17,8 +17,8 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 		(* MAP_PRIVATE, MAP_ANON (intFlags) *)
 @@i=sys/mman.h:t=s:MAP_SHARED,MAP_PRIVATE,MAP_FIXED,MAP_ANON@@
 
-		(* PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
-@@i=sys/mman.h:t=s:PROT_*@@
+		(* PROT_NONE, PROT_READ, PROT_WRITE, PROT_EXEC (intFlags) *)
+@@i=sys/mman.h:t=s:PROT_NONE,PROT_READ,PROT_WRITE,PROT_EXEC@@
 
 		(* SIG_UNBLOCK, SIG_SETMASK (int) *)
 @@i=signal.h:t=i:SIG_BLOCK,SIG_UNBLOCK,SIG_SETMASK@@
