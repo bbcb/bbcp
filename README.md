@@ -100,7 +100,21 @@ There is also a *build-windows.bat* script that can be used to build the Windows
 
 ### Install
 
-	./export <outputDirectory>
+#### GNU/Linux
+
+	./export-linux <outputDirectory>
+
+#### OpenBSD
+
+	./export-openbsd <outputDirectory>
+
+#### FreeBSD
+
+	./export-freebsd <outputDirectory>
+
+#### Windows
+
+	./export-windows <outputDirectory>
 
 ## Run
 
