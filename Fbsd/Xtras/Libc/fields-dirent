@@ -1,6 +1,9 @@
-			(* FreeBSD 9.0 /usr/include/sys/dirent.h *)
-				d_fileno*: uint32_t; (* file number of entry *)
+			(* FreeBSD 14.3 /usr/include/sys/dirent.h *)
+				d_fileno*: ino_t; (* file number of entry *)
+				d_off*: off_t; (* directory offset of next entry *)
 				d_reclen*: uint16_t; (* length of this record *)
 				d_type*: uint8_t; (* file type, see below *)
-				d_namlen*: uint8_t; (* length of string in d_name *)
+				d_pad0: uint8_t;
+				d_namlen*: uint16_t; (* length of string in d_name *)
+				d_pad1: uint16_t;
 				d_name*: ARRAY [untagged] 255 + 1 (* 256 *) OF SHORTCHAR;

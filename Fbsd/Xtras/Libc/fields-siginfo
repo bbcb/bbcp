@@ -1,4 +1,4 @@
-			(* FreeBSD 9.0 /usr/include/sys/signal.h *)
+			(* FreeBSD 14.3 /usr/include/sys/signal.h *)
 				si_signo*: int; (* signal number *)
 				si_errno*: int; (* errno association *)
 				si_code*: int; (* signal code *)
