@@ -8,7 +8,7 @@ MODULE %%subsystem%%Ioctl ["libc.so%%libver%%"];
 	CONST
 @@i=sys/ioctl.h:t=s:TIOCM_*@@
 
-@@i=sys/ioctl.h:t=i:FIO*@@
+@@i=sys/ioctl.h:t=i:FIONBIO,FIONREAD@@
 
 @@i=sys/ioctl.h:t=i:TIOCMGET,TIOCMSET,TIOCEXCL,TIOCNXCL,TIOCOUTQ,TIOCSBRK,TIOCCBRK,TIOCMBIS,TIOCMBIC@@
 

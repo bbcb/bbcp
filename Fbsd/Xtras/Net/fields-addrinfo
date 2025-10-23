@@ -1,4 +1,4 @@
-			(* FreeBSD 11.0 /usr/include/netdb.h *)
+			(* FreeBSD 14.3 /usr/include/netdb.h *)
 				ai_flags*: intFlags;
 				ai_family*: int;
 				ai_socktype*: int;
