@@ -1,4 +1,4 @@
-			(* OpenBSD 6.0 /usr/include/netdb.h *)
+			(* OpenBSD 7.8 /usr/include/netdb.h *)
 				ai_flags*: intFlags; (* input flags *)
 				ai_family*: int; (* protocol family for socket *)
 				ai_socktype*: int; (* socket type *)

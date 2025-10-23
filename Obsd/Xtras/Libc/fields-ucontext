@@ -1,4 +1,4 @@
-			(* OpenBSD 5.9 /usr/include/i386/signal.h struct sigcontext *)
+			(* OpenBSD 7.8 /usr/include/i386/signal.h struct sigcontext *)
 				sc_gs*: int;
 				sc_fs*: int;
 				sc_es*: int;
@@ -17,14 +17,14 @@
 				sc_esp*: int;
 				sc_ss*: int;
 
-				__sc_unused: int;
+				sc_cookie*: long;
 				sc_mask*: int; (* signal mask to restore *)
 
 				sc_trapno*: int; (* XXX should be above *)
 				sc_err*: int;
 
 				sc_fpstate*: RECORD [union]
-					(* OpenBSD 5.9 /usr/include/i386/npx.h union savefpu *)
+					(* OpenBSD 7.8 /usr/include/i386/npx.h union savefpu *)
 (*
 						sv_87*: RECORD [untagged]
 							...

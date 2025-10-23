@@ -1,5 +1,5 @@
-			(* OpenBSD /usr/include/netinet/in.h *)
-				sin_len*: u_int8_t;
+			(* OpenBSD 7.8 /usr/include/netinet/in.h *)
+				sin_len*: uint8_t;
 				sin_family*: sa_family_t;
 				sin_port*: in_port_t;
 				sin_addr*: in_addr;

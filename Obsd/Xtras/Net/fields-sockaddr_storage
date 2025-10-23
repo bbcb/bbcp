@@ -1,4 +1,4 @@
-			(* OpenBSD 6.0 /usr/include/sys/socket.h *)
+			(* OpenBSD 7.8 /usr/include/sys/socket.h *)
 				ss_len*: SHORTCHAR; (* total length *)
 				ss_family*: sa_family_t; (* address family *)
 				__ss_pad1: ARRAY [untagged] 6 OF SHORTCHAR; (* align to quad *)

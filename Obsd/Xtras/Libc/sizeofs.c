@@ -85,7 +85,6 @@ int main ()
 	D("rlim_t", sizeof(rlim_t), FALSE, TRUE);
 	D("sigjmp_buf", sizeof(sigjmp_buf), FALSE, TRUE);
 	D("intFlags", sizeof(int), TRUE, TRUE);
-	D("FILE", sizeof(FILE), FALSE, FALSE);
 
 	printf("%ssigset_t* = ARRAY [untagged] %d OF BYTE;\n", TABS, (int)sizeof(sigset_t));
 	printf("%sPtrSigset_t* = POINTER [untagged] TO sigset_t;\n", TABS);

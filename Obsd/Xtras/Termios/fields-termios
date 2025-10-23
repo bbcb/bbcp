@@ -1,3 +1,4 @@
+		(* OpenBSD 7.8 /usr/include/termios.h *)
 			c_iflag*: tcflag_t; (* input flags *)
 			c_oflag*: tcflag_t; (* output flags *)
 			c_cflag*: tcflag_t; (* control flags *)
