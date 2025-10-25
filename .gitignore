@@ -8,8 +8,12 @@ FreeBSD_*
 BlackBox.exe
 BlackBoxMDI.exe
 BlackBoxInterp.exe
-blackbox
-blackboxInterp
+blackboxLinux
+blackboxInterpLinux
+blackboxFreeBSD
+blackboxInterpFreeBSD
+blackboxOpenBSD
+blackboxInterpOpenBSD
 append
 *.deb
 build
