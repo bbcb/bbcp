@@ -12,7 +12,7 @@ echo "linking GUI"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe FreeBSD blackbox := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
+DevLinker1.LinkElfExe FreeBSD blackboxFreeBSD := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
 DATA
 
 echo
@@ -20,5 +20,5 @@ echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe FreeBSD blackboxInterp := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
+DevLinker1.LinkElfExe FreeBSD blackboxInterpFreeBSD := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
 DATA

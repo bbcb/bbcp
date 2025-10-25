@@ -7,13 +7,13 @@ if [ $# -eq 1 ]; then
 		pax -r -w -L \
 			-s ',.*/Xtras.*,,' \
 			-s ',.*__Lin.*,,' -s ',.*__Fbsd.*,,' -s ',.*__Win.*,,' \
-			Comm Cons Dev Docu Form Fig Obx Obsd Sql Std System Text Xhtml Paket blackbox blackboxInterp run-BlackBox run-BlackBoxInterp LICENSE.txt \
+			Comm Cons Dev Docu Form Fig Obx Obsd Sql Std System Text Xhtml Paket blackboxOpenBSD blackboxInterpOpenBSD run-BlackBox run-BlackBoxInterp LICENSE.txt \
 			"${outDir}"
 	else
 		echo "${outDir}: already exists"
 		exit 2
 	fi
 else
-	echo "usage: `basename $0` outputDirectory"
+	echo "usage: $(basename $0) outputDirectory"
 	exit 1
 fi

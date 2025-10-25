@@ -12,7 +12,7 @@ echo "linking GUI"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe OpenBSD blackbox := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles ObsdGui StdLoader ObsdLoader
+DevLinker1.LinkElfExe OpenBSD blackboxOpenBSD := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles ObsdGui StdLoader ObsdLoader
 DATA
 
 echo
@@ -20,5 +20,5 @@ echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe OpenBSD blackboxInterp := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
+DevLinker1.LinkElfExe OpenBSD blackboxInterpOpenBSD := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
 DATA

@@ -3,27 +3,29 @@
 # ulimit -s 32000
 # ulimit -a
 
-rn=`readlink -f "${0}"`
-standardDir=`dirname "${rn}"`
-useDir=`readlink -f .`
+rn=$(readlink -f "${0}")
+standardDir=$(dirname "${rn}")
+useDir=$(readlink -f .)
 
-os=`uname -s`
+exeBase="dev0"
+
+os=$(uname -s)
 case "${os%%-*}" in
 	"Linux")
-		exe="dev0lin"
+		exe="${exeBase}Linux"
 		;;
 	"OpenBSD")
-		exe="dev0obsd"
+		exe="${exeBase}OpenBSD"
 		;;
 	"FreeBSD")
-		exe="dev0fbsd"
+		exe="${exeBase}FreeBSD"
 		;;
 	"MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
-		exe="dev0win"
+		exe="${exeBase}"
 		;;
 	*)
 		echo "unsupported OS"
-		exit
+		exit 1
 esac
 
 # export LD_DEBUG=all

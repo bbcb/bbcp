@@ -3,11 +3,30 @@
 # ulimit -s 32000
 # ulimit -a
 
-rn=`readlink -f "${0}"`
-standardDir=`dirname "${rn}"`
-useDir=`readlink -f .`
+rn=$(readlink -f "${0}")
+standardDir=$(dirname "${rn}")
+useDir=$(readlink -f .)
 
-exe="blackbox"
+exeBase="blackbox"
+
+os=$(uname -s)
+case "${os%%-*}" in
+	"Linux")
+		exe="${exeBase}Linux"
+		;;
+	"OpenBSD")
+		exe="${exeBase}OpenBSD"
+		;;
+	"FreeBSD")
+		exe="${exeBase}FreeBSD"
+		;;
+	"MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
+		exe="${exeBase}"
+		;;
+	*)
+		echo "unsupported OS"
+		exit 1
+esac
 
 # fix Ubuntu-specific problems:
 unset UBUNTU_MENUPROXY

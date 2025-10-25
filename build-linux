@@ -12,7 +12,7 @@ echo "linking GUI"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe Linux blackbox := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
+DevLinker1.LinkElfExe Linux blackboxLinux := Kernel$+ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
 DATA
 
 echo
@@ -20,5 +20,5 @@ echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
-DevLinker1.LinkElfExe Linux blackboxInterp := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
+DevLinker1.LinkElfExe Linux blackboxInterpLinux := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
 DATA
