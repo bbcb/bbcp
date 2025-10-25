@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# build `append` app from Deb/Mod/Append.odc and put in the folder with that script 
-# run ./makePackage n 
+# build `append` app from Deb/Mod/Append.odc and put in the folder with that script
+# run ./makePackage n
 # n - is build number
 
 # declare -a arr=("Comm" "Cons" "Dev" "Docu" "Form" "Fig" "Lin" "Obx" "Std" "Sql" "System" "Text" "blackbox" "LICENSE.txt" "run-BlackBox")
@@ -44,10 +44,10 @@ env FILEPATH="build/usr/lib/blackbox2/System/Rsrc" FILENAME="Strings.odc" KEY="b
 cd build
 find . -type f -exec chmod 644 {} ";"
 find . -type d -exec chmod 755 {} ";"
-chmod +x usr/bin/bbcb2-shortcut 
-chmod +x usr/lib/blackbox2/blackbox 
+chmod +x usr/bin/bbcb2-shortcut
+chmod +x usr/lib/blackbox2/blackboxLinux
 chmod +x usr/lib/blackbox2/run-BlackBox
-chmod +x usr/lib/blackbox2/blackboxInterp
+chmod +x usr/lib/blackbox2/blackboxInterpLinux
 chmod +x usr/lib/blackbox2/run-BlackBoxInterp
 ln -s ../lib/blackbox2/run-BlackBox usr/bin/bbcb2
 ln -s ../lib/blackbox2/run-BlackBoxInterp usr/bin/bbcb2-cli
