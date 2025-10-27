@@ -58,7 +58,13 @@ Packages available [here](https://blackbox.oberon.org/download)
 
 #### OpenBSD (i386)
 
+	doas pkg_add libiconv gtk+2
+
 Use 'wxallowed' flag in mount options for the partition to build or start BlackBox from.
+
+#### FreeBSD (i386)
+
+	pkg install gtk2
 
 ### Build
 
