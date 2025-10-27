@@ -1,44 +1,55 @@
 #!/bin/sh
 
-echo "compiling"
-echo
+USE_BOOTLINKER=1
 
-./run-dev0 <<DATA
-DevCompiler.CompileSubs @Fbsd Fbsd System Std Cons Text Form Dev Comm Fig Obx Sql Paket
+SUBSYSTEM=Fbsd
+OS=FreeBSD
+
+LINK_LIST_CLI="Kernel$+ Utf ${SUBSYSTEM}Kernel Files ${SUBSYSTEM}Env ${SUBSYSTEM}Files StdLoader ${SUBSYSTEM}IntLoader"
+LINK_LIST_GUI="Kernel$+ Utf ${SUBSYSTEM}Kernel Files ${SUBSYSTEM}Env ${SUBSYSTEM}Files ${SUBSYSTEM}Gui StdLoader ${SUBSYSTEM}Loader"
+EXE_GUI="blackbox${OS}"
+EXE_CLI="blackboxInterp${OS}"
+
+compile() {
+	echo "compiling"
+	echo
+
+	echo "DevCompiler.CompileSubs @Obsd Obsd System Std Cons Text Form Dev Comm Fig Obx Sql Paket" | ./run-dev0
+}
+
+link() {
+	if [ ${USE_BOOTLINKER} -eq 0 ]; then
+		echo
+		echo "linking GUI"
+		echo
+		echo "DevLinker1.LinkElfExe ${OS} ${EXE_GUI} := ${LINK_LIST_GUI}" | ./run-dev0
+
+		echo
+		echo "linking interpreter"
+		echo
+		echo "DevLinker1.LinkElfExe ${OS} ${EXE_CLI} := ${LINK_LIST_CLI}" | ./run-dev0
+	else
+		echo
+		echo "linking GUI (DevBootLinker)"
+		echo
+
+	./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exe${OS}.img")
+DevBootLinker.Link ${EXE_GUI} := ${LINK_LIST_GUI}
 DATA
+		chmod +x "${EXE_GUI}"
 
-echo
-echo "linking GUI"
-echo
+		echo
+		echo "linking interpreter (DevBootLinker)"
+		echo
 
-./run-dev0 <<DATA
-DevLinker1.LinkElfExe FreeBSD blackboxFreeBSD := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
+	./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exe${OS}.img")
+DevBootLinker.Link ${EXE_CLI} := ${LINK_LIST_CLI}
 DATA
+		chmod +x "${EXE_CLI}"
+	fi
+}
 
-echo
-echo "linking GUI (DevBootLinker)"
-echo
-
-./run-dev0 <<DATA
-DevBootLinker.SetLoaderName("Dev/Rsrc/exeFreeBSD.img")
-DevBootLinker.Link blackboxFreeBSD.run := Kernel+$ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
-DATA
-chmod +x blackboxFreeBSD.run
-
-echo
-echo "linking interpreter"
-echo
-
-./run-dev0 <<DATA
-DevLinker1.LinkElfExe FreeBSD blackboxInterpFreeBSD := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
-DATA
-
-echo
-echo "linking interpreter (DevBootLinker)"
-echo
-
-./run-dev0 <<DATA
-DevBootLinker.SetLoaderName("Dev/Rsrc/exeFreeBSD.img")
-DevBootLinker.Link blackboxInterpFreeBSD.run := Kernel+$ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
-DATA
-chmod +x blackboxInterpFreeBSD.run
+compile
+link

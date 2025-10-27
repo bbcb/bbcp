@@ -12,6 +12,9 @@
 #include <stdbool.h>
 #include <assert.h>
 
+/* NOTE: keep in sync with DevCPM.cacheLineSize */
+#define cacheLineSize 64
+
 /* #define BB_FILE "bb.boot" */
 #define BB_FILE argv[0]
 /* #define BB_FILE argv[1] */
@@ -682,7 +685,7 @@ int main (int argc, char *argv[])
                             bootInfo->modList = modlist;
                             bootInfo->argc = argc;
                             bootInfo->argv = argv;
-                            *((int*)(k->varBase)) = (int)bootInfo;
+                            *((int*)(k->varBase + cacheLineSize)) = (int)bootInfo;
                         } else {
                             printf("vars is empty => bootInfo not assigned\n");
                         }

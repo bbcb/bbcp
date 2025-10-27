@@ -1,3 +1,5 @@
+# use GNU make
+
 .PHONY: all clean
 
 CFLAGS += -m32 -Werror
