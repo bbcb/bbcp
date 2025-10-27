@@ -16,9 +16,30 @@ DevLinker1.LinkElfExe OpenBSD blackboxOpenBSD := Kernel$+ Utf ObsdKernel Files O
 DATA
 
 echo
+echo "linking GUI (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeOpenBSD.img")
+DevBootLinker.Link blackboxOpenBSD.run := Kernel+$ Utf ObsdKernel Files ObsdEnv ObsdFiles ObsdGui StdLoader ObsdLoader
+DATA
+chmod +x blackboxOpenBSD.run
+
+
+echo
 echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe OpenBSD blackboxInterpOpenBSD := Kernel$+ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
 DATA
+
+echo
+echo "linking interpreter (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeOpenBSD.img")
+DevBootLinker.Link blackboxInterpOpenBSD.run := Kernel+$ Utf ObsdKernel Files ObsdEnv ObsdFiles StdLoader ObsdIntLoader
+DATA
+chmod +x blackboxInterpOpenBSD.run

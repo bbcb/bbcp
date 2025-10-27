@@ -16,9 +16,29 @@ DevLinker1.LinkElfExe FreeBSD blackboxFreeBSD := Kernel$+ Utf FbsdKernel Files F
 DATA
 
 echo
+echo "linking GUI (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeFreeBSD.img")
+DevBootLinker.Link blackboxFreeBSD.run := Kernel+$ Utf FbsdKernel Files FbsdEnv FbsdFiles FbsdGui StdLoader FbsdLoader
+DATA
+chmod +x blackboxFreeBSD.run
+
+echo
 echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe FreeBSD blackboxInterpFreeBSD := Kernel$+ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
 DATA
+
+echo
+echo "linking interpreter (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeFreeBSD.img")
+DevBootLinker.Link blackboxInterpFreeBSD.run := Kernel+$ Utf FbsdKernel Files FbsdEnv FbsdFiles StdLoader FbsdIntLoader
+DATA
+chmod +x blackboxInterpFreeBSD.run
