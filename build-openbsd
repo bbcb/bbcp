@@ -14,7 +14,7 @@ compile() {
 	echo "compiling"
 	echo
 
-	echo "DevCompiler.CompileSubs @Obsd Obsd System Std Cons Text Form Dev Comm Fig Obx Sql Paket" | ./run-dev0
+	echo "DevCompiler.CompileSubs @${SUBSYSTEM} ${SUBSYSTEM} System Std Cons Text Form Dev Comm Fig Obx Sql Paket" | ./run-dev0
 }
 
 link() {
