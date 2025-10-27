@@ -16,9 +16,29 @@ DevLinker1.LinkElfExe Linux blackboxLinux := Kernel$+ Utf LinKernel Files LinEnv
 DATA
 
 echo
+echo "linking GUI (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeLinux.img")
+DevBootLinker.Link blackboxLinux.run := Kernel+$ Utf LinKernel Files LinEnv LinFiles LinGui StdLoader LinLoader
+DATA
+chmod +x blackboxLinux.run
+
+echo
 echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
 DevLinker1.LinkElfExe Linux blackboxInterpLinux := Kernel$+ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
 DATA
+
+echo
+echo "linking interpreter (DevBootLinker)"
+echo
+
+./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exeLinux.img")
+DevBootLinker.Link blackboxInterpLinux.run := Kernel+$ Utf LinKernel Files LinEnv LinFiles StdLoader LinIntLoader
+DATA
+chmod +x blackboxInterpLinux.run
