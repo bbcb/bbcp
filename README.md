@@ -21,7 +21,7 @@ Tested on:
   * Manjaro Linux 18.0.4, 21.2.0
   * Alt Education 9.1
 * OpenBSD 7.2 (i386)
-* FreeBSD 12.1, 13.0, 13.2 (i386)
+* FreeBSD 14.3 (i386)
 
 ## Packages
 
