@@ -20,7 +20,7 @@ Tested on:
   * Arch Linux 4.9.6
   * Manjaro Linux 18.0.4, 21.2.0
   * Alt Education 9.1
-* OpenBSD 7.2 (i386)
+* OpenBSD 7.8 (i386)
 * FreeBSD 14.3 (i386)
 
 ## Packages
