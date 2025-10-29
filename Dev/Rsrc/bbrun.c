@@ -418,7 +418,7 @@ static bool ReadHeader ()
         last->next = NULL;
         dprintf("Import %d: %s\n", i, imp->name);
         if ((imp->name[0] == '$') && (imp->name[1] == '$'))
-            strcpy(imp->name, "Kernel");
+            strlcpy(imp->name, "Kernel", sizeof(imp->name));
         if (imp->name[0] == '$'){
             n = imp->name;
             n++;
@@ -532,7 +532,7 @@ static bool ReadModule ()
     imptab = (int)((Module*)(mod.dad))->imports;
     while (imp != NULL){
         x = RNum();
-        if ((imp->name[0] == '$') && (imp->name[1] == '$'))        printf("should be Kerneln");
+        if ((imp->name[0] == '$') && (imp->name[1] == '$'))        printf("should be Kernel\n");
         if (imp->name[0] == '$')        isLib = 1;
         else{
             isLib = 0;
