@@ -107,8 +107,13 @@ MODULE %%subsystem%%Net ["libc.so%%libver%%"];
 		END;
 
 %%defs-fd_set_type%%
+
+%%custom%%
+
 	(* POSIX.1 *)
+(*
 		PROCEDURE [ccall] socket* (domain: int; type: int; protocol: int): SOCKET;
+*)
 		PROCEDURE [ccall] accept* (s: SOCKET; VAR addr: sockaddr; VAR addrlen: socklen_t): SOCKET;
 		PROCEDURE [ccall] bind* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
 		PROCEDURE [ccall] connect* (s: SOCKET; VAR name: sockaddr; namelen: socklen_t): int;
@@ -125,7 +130,9 @@ MODULE %%subsystem%%Net ["libc.so%%libver%%"];
 		PROCEDURE [ccall] inet_addr* (cp: PtrSTR): in_addr_t;
 		PROCEDURE [ccall] htons* (host16: uint16_t): uint16_t;
 
+(*
 		PROCEDURE [ccall] select* (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): int;
+*)
 
 		PROCEDURE [ccall] poll* (VAR fds: ARRAY [untagged] OF pollfd; nfds: nfds_t; timeout: int): int;
 

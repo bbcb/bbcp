@@ -1,0 +1,3 @@
+		PROCEDURE [ccall] socket* ["__socket30"] (domain: int; type: int; protocol: int): SOCKET;
+
+		PROCEDURE [ccall] select* ["__select50"] (nfds: INTEGER; VAR [nil] readfds: fd_set; VAR [nil] writefds: fd_set; VAR [nil] exceptfds: fd_set; VAR timeout: timeval): int;

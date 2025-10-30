@@ -15,7 +15,11 @@ MODULE %%subsystem%%LibW ["libc.so%%libver%%"];
 %%defs-basictypes%%
 		PtrWSTR* = POINTER [untagged] TO ARRAY [untagged] OF wchar_t;
 
+%%custom%%
+
+(*
 	PROCEDURE [ccall] setlocale* (category: int; locale: Libc.PtrSTR): Libc.PtrSTR;
+*)
 
 	PROCEDURE [ccall] mbsinit* (VAR [nil] ps: mbstate_t): int;
 

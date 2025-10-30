@@ -179,10 +179,9 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] free* (ptr: PtrVoid);
 
 
-	(* POSIX.1 *)
 (*
+	(* POSIX.1 *)
 		PROCEDURE [ccall] sigsetjmp* (VAR env: sigjmp_buf; savemask: int): int;
-*)
 		PROCEDURE [ccall] siglongjmp* (VAR env: sigjmp_buf; val: int);
 
 	(* POSIX.1 *)
@@ -191,13 +190,12 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] sigaddset* (set: PtrSigset_t; signo: int): int;
 		PROCEDURE [ccall] sigprocmask* (how: int; set: PtrSigset_t; oset: PtrSigset_t): int;
 
-(*
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sigaction* (sig: int; VAR [nil] act: sigaction_t; VAR [nil] oact: sigaction_t): int;
-*)
 
 	(* BSD *)
 		PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): int;
+*)
 
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] getenv* (s: PtrSTR): PtrSTR;
