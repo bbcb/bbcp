@@ -14,6 +14,8 @@ blackboxFreeBSD
 blackboxInterpFreeBSD
 blackboxOpenBSD
 blackboxInterpOpenBSD
+blackboxNetBSD
+blackboxInterpNetBSD
 
 append
 packaging/Deb/*.deb
