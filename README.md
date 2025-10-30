@@ -64,7 +64,7 @@ Packages available [here](https://blackbox.oberon.org/download)
 
 	pkg install gtk2
 
-### NetBSD (i386)
+#### NetBSD (i386)
 
 	pkg_add gtk2+
 
@@ -81,6 +81,10 @@ Packages available [here](https://blackbox.oberon.org/download)
 #### Build FreeBSD version
 
 	./build-freebsd
+
+#### Build NetBSD version
+
+	./build-netbsd
 
 #### Build Windows version
 
@@ -119,6 +123,10 @@ There is also a *build-windows.bat* script that can be used to build the Windows
 #### FreeBSD
 
 	./export-freebsd <outputDirectory>
+
+#### NetBSD
+
+	./export-netbsd <outputDirectory>
 
 #### Windows
 
