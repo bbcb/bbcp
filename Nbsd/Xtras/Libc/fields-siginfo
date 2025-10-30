@@ -1,0 +1,42 @@
+			(* NetBSD 10.1 /usr/include/sys/siginfo.h *)
+				si_pad: ARRAY [untagged] 128 OF SHORTCHAR;
+				si_signo*: int;
+				si_code*: int;
+				si_errno*: int;
+				_reason*: RECORD [union]
+					_rt: RECORD [untagged]
+						_pid: pid_t;
+						_uid: uid_t;
+						_value: sigval_t (* si_value *)
+					END;
+					_child: RECORD [untagged]
+						_pid: pid_t; (* si_pid *)
+						_uid: uid_t; (* si_uid *)
+						_status: int; (* si_status *)
+						_utime: clock_t; (* si_utime *)
+						_stime: clock_t (* si_stime *)
+					END;
+					_fault*: RECORD [untagged]
+						_addr*: PtrVoid; (* si_addr *)
+						_trap*: int; (* si_trap *)
+						_trap2*: int; (* si_trap2 *)
+						_trap3*: int (* si_trap3 *)
+					END;
+					_poll: RECORD [untagged]
+						_band: long; (* si_band *)
+						_fd: int (* si_fd *)
+					END;
+					_syscall: RECORD [untagged]
+						_sysnum: int; (* si_sysnum *)
+						_retval: ARRAY [untagged] 2 OF int; (* si_retval *)
+						_error: int; (* si_error *)
+						_args: ARRAY [untagged] 8 OF uint64_t (* si_args *)
+					END;
+					_ptrace_state: RECORD [untagged]
+						_pe_report_event: int; (* si_pe_report_event *)
+						_option: RECORD [union]
+							_pe_other_pid: pid_t; (* si_pe_other_pid *)
+							_pe_lwp: lwpid_t (* si_pe_lwp *)
+						END;
+					END
+				END;

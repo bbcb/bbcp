@@ -20,6 +20,9 @@ case "${os%%-*}" in
 	"FreeBSD")
 		exe="${exeBase}FreeBSD"
 		;;
+	"NetBSD")
+		exe="${exeBase}NetBSD"
+		;;
 	"MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
 		exe="${exeBase}"
 		;;

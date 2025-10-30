@@ -1,0 +1,20 @@
+			(* NetBSD 10.1 /usr/include/sys/stat.h *)
+				st_dev: dev_t; (* inode's device *)
+				st_mode*: mode_t; (* inode protection mode *)
+				st_ino: ino_t; (* inode's number *)
+				st_nlink: nlink_t; (* number of hard links *)
+				st_uid: uid_t; (* user ID of the file's owner *)
+				st_gid: gid_t; (* group ID of the file's group *)
+				st_rdev: dev_t; (* device type *)
+
+				st_atim: timespec_t; (* time of last access *)
+				st_mtim*: timespec_t; (* time of last data modification *)
+				st_ctim: timespec_t; (* time of last file status change *)
+				st_birthtim: timespec_t; (* time of creation *)
+
+				st_size*: off_t; (* file size, in bytes *)
+				st_blocks: blkcnt_t; (* blocks allocated for file *)
+				st_blksize: blksize_t; (* optimal blocksize for I/O *)
+				st_flags: uint32_t; (* user defined flags for file *)
+				st_gen: uint32_t; (* file generation number *)
+				st_spare: ARRAY [untagged] 2 OF uint32_t;

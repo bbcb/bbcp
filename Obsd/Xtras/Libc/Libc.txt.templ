@@ -154,8 +154,10 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 	(* ANSI C 89 *)
 		PROCEDURE [ccall] clock* (): clock_t;
 
+(*
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
+*)
 
 	(* AT&T UNIX *)
 		PROCEDURE [ccall] time* (VAR [nil] tloc: time_t): time_t;
@@ -189,8 +191,10 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] sigaddset* (set: PtrSigset_t; signo: int): int;
 		PROCEDURE [ccall] sigprocmask* (how: int; set: PtrSigset_t; oset: PtrSigset_t): int;
 
+(*
 	(* POSIX.1 *)
 		PROCEDURE [ccall] sigaction* (sig: int; VAR [nil] act: sigaction_t; VAR [nil] oact: sigaction_t): int;
+*)
 
 	(* BSD *)
 		PROCEDURE [ccall] sigaltstack* (VAR [nil] ss: stack_t; VAR [nil] oss: stack_t): int;

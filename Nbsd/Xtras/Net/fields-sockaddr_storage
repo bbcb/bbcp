@@ -1,0 +1,6 @@
+			(* NetBSD 10.1 /usr/include/sys/socket.h *)
+				ss_len*: SHORTCHAR; (* address length *)
+				ss_family*: sa_family_t; (* address family *)
+				__ss_pad1: ARRAY [untagged] 8 - 2 OF SHORTCHAR;
+				__ss_align: LONGINT;
+				__ss_pad2: ARRAY [untagged] 128 - 2 - (8 - 2) - 8 OF SHORTCHAR;

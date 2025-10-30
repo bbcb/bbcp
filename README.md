@@ -64,6 +64,10 @@ Packages available [here](https://blackbox.oberon.org/download)
 
 	pkg install gtk2
 
+### NetBSD (i386)
+
+	pkg_add gtk2+
+
 ### Build
 
 #### Build GNU/Linux version

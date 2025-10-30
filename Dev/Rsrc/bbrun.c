@@ -120,12 +120,19 @@ int newRecFP, newArrFP;
 
 static void donothing(char* fmt, ...) {}
 
-static void *AllocMem (size_t size) {
+static void *AllocMem (size_t size, bool for_exec) {
     size_t pagesize = getpagesize();
 
     size_t len = (size + pagesize - 1) & ~(pagesize - 1);
 
-    void *mem = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    int prot = PROT_READ | PROT_WRITE;
+    if (for_exec) {
+#if defined(__NetBSD__)
+        prot |= PROT_MPROTECT(PROT_EXEC);
+#endif
+    }
+
+    void *mem = mmap(NULL, len, prot, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (mem == MAP_FAILED) {
         perror("mmap");
         return NULL;
@@ -408,7 +415,7 @@ static bool ReadHeader ()
     mod.imp = NULL;
     for (i = 0; i < nofImps; i++)
     {
-        imp = (ImpList*)AllocMem(sizeof(ImpList)); assert(imp != NULL);
+        imp = (ImpList*)AllocMem(sizeof(ImpList), false); assert(imp != NULL);
         ReadName(imp->name);
         if (mod.imp == NULL)
             mod.imp = imp;
@@ -437,11 +444,11 @@ static bool AllocModMem () {
     assert(mod.ms != 0);
     assert(mod.cs != 0);
     int ms = sizeof(int) + mod.ms;
-    mod.dad = (int) AllocMem(mod.ds);
-    mod.mad = (int) AllocMem(ms);
-    mod.cad = (int) AllocMem(mod.cs);
+    mod.dad = (int) AllocMem(mod.ds, false);
+    mod.mad = (int) AllocMem(ms, false);
+    mod.cad = (int) AllocMem(mod.cs, true);
     if (mod.vs != 0) {
-        mod.vad = (int) AllocMem(mod.vs);
+        mod.vad = (int) AllocMem(mod.vs, false);
     } else {
         mod.vad = 0;
     }
@@ -462,14 +469,24 @@ static bool AllocModMem () {
 static bool FixModMemPermissions () {
     assert(mod.ms != 0);
     assert(mod.cs != 0);
-    if (mprotect((void *)(mod.mad - sizeof(int)), sizeof(int) + mod.ms, PROT_READ) != 0) {
-        perror("mprotect");
+    size_t size;
+
+    size_t pagesize = getpagesize();
+
+    size = sizeof(int) + mod.ms;
+    size = (size + pagesize - 1) & ~(pagesize - 1);
+    if (mprotect((void *)(mod.mad - sizeof(int)), size, PROT_READ) != 0) {
+        perror("mprotect (meta)");
         return false;
     }
-    if (mprotect((void *)mod.cad, mod.cs, PROT_READ | PROT_EXEC) != 0) {
-        perror("mprotect");
+
+    size = mod.cs;
+    size = (size + pagesize - 1) & ~(pagesize - 1);
+    if (mprotect((void *)mod.cad, size, PROT_READ | PROT_EXEC) != 0) {
+        perror("mprotect (code)");
         return false;
     }
+
     return true;
 }
 
@@ -678,7 +695,7 @@ int main (int argc, char *argv[])
                     {
                         if ((void *)k->varBase != NULL) {
                             /* assign the boot info to first variable in Kernel */
-                            bootInfo = AllocMem(sizeof(BootInfo)); assert(bootInfo != NULL);
+                            bootInfo = AllocMem(sizeof(BootInfo), false); assert(bootInfo != NULL);
                             bootInfo->modList = modlist;
                             bootInfo->argc = argc;
                             bootInfo->argv = argv;

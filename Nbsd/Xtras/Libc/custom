@@ -1,0 +1,18 @@
+	PROCEDURE [ccall] __errno_location* ["__errno"] (): PtrVoid;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] stat* ["__stat50"] (path: PtrSTR; VAR sb: stat_t): int;
+
+		PROCEDURE [ccall] lseek* (fildes: int; offset: off_t; whence: int): off_t;
+
+	(* XSH5 *)
+		PROCEDURE [ccall] fseeko* (stream: PtrFILE; offset: off_t; whence: int): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigsetjmp* (VAR env: sigjmp_buf; savemask: int): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigaction* ["__sigaction_siginfo"] (sig: int; VAR [nil] act: sigaction_t; VAR [nil] oact: sigaction_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] clock_gettime* ["__clock_gettime50"] (clock_id: clockid_t; VAR tp: timespec_t): int;

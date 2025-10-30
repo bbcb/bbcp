@@ -68,3 +68,9 @@
 	PROCEDURE [ccall] fseeko64* (stream: PtrFILE; off: off64_t; whence: int): int;
 
 	PROCEDURE [ccall] sigsetjmp* ["__sigsetjmp"] (VAR env: sigjmp_buf; savemask: int): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] sigaction* (sig: int; VAR [nil] act: sigaction_t; VAR [nil] oact: sigaction_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;

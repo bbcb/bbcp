@@ -1,0 +1,3 @@
+		(* NetBSD 10.1 /usr/include/sys/fd_set.h *)
+			__fd_mask = SET;
+			fd_set* = ARRAY [untagged] (FD_SETSIZE + (__NFDBITS - 1)) DIV __NFDBITS OF __fd_mask;

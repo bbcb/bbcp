@@ -1,0 +1,6 @@
+			(* NetBSD 10.1 /usr/include/sys/dirent.h *)
+				d_fileno*: ino_t; (* file number of entry *)
+				d_reclen*: uint16_t; (* length of this record *)
+				d_namlen*: uint16_t; (* length of string in d_name *)
+				d_type*: uint8_t; (* file type, see below *)
+				d_name*: ARRAY [untagged] 511 + 1 OF SHORTCHAR;

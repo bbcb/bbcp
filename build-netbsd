@@ -1,0 +1,55 @@
+#!/bin/sh
+
+USE_BOOTLINKER=1
+
+SUBSYSTEM=Nbsd
+OS=NetBSD
+
+LINK_LIST_CLI="Kernel$+ Utf ${SUBSYSTEM}Kernel Files ${SUBSYSTEM}Env ${SUBSYSTEM}Files StdLoader ${SUBSYSTEM}IntLoader"
+LINK_LIST_GUI="Kernel$+ Utf ${SUBSYSTEM}Kernel Files ${SUBSYSTEM}Env ${SUBSYSTEM}Files ${SUBSYSTEM}Gui StdLoader ${SUBSYSTEM}Loader"
+EXE_GUI="blackbox${OS}"
+EXE_CLI="blackboxInterp${OS}"
+
+compile() {
+	echo "compiling"
+	echo
+
+	echo "DevCompiler.CompileSubs @${SUBSYSTEM} ${SUBSYSTEM} System Std Cons Text Form Dev Comm Fig Obx Sql Paket" | ./run-dev0
+}
+
+link() {
+	if [ ${USE_BOOTLINKER} -eq 0 ]; then
+		echo
+		echo "linking GUI"
+		echo
+		echo "DevLinker1.LinkElfExe ${OS} ${EXE_GUI} := ${LINK_LIST_GUI}" | ./run-dev0
+
+		echo
+		echo "linking interpreter"
+		echo
+		echo "DevLinker1.LinkElfExe ${OS} ${EXE_CLI} := ${LINK_LIST_CLI}" | ./run-dev0
+	else
+		echo
+		echo "linking GUI (DevBootLinker)"
+		echo
+
+	./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exe${OS}.img")
+DevBootLinker.Link ${EXE_GUI} := ${LINK_LIST_GUI}
+DATA
+		chmod +x "${EXE_GUI}"
+
+		echo
+		echo "linking interpreter (DevBootLinker)"
+		echo
+
+	./run-dev0 <<DATA
+DevBootLinker.SetLoaderName("Dev/Rsrc/exe${OS}.img")
+DevBootLinker.Link ${EXE_CLI} := ${LINK_LIST_CLI}
+DATA
+		chmod +x "${EXE_CLI}"
+	fi
+}
+
+compile
+link
