@@ -4,5 +4,5 @@
 			c_lflag*: tcflag_t; (* local mode flags *)
 			c_line*: cc_t; (* line discipline *)
 			cc_c*: ARRAY [untagged] NCCS OF cc_t; (* control chars *)
-			c_ispeed*: INTEGER; (* input speed *)
-			c_ospeed*: INTEGER; (* output speed *)
+			c_ispeed*: speed_t; (* input speed *)
+			c_ospeed*: speed_t; (* output speed *)
