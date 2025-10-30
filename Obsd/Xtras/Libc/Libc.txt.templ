@@ -220,12 +220,13 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 	(* POSIX.1 *)
 		PROCEDURE [ccall] rename* (from, to: PtrSTR): int;
 		PROCEDURE [ccall] mkdir* (path: PtrSTR; mode: mode_t): int;
+(*
 		PROCEDURE [ccall] opendir* (filename: PtrSTR): PtrDIR;
 		PROCEDURE [ccall] readdir* (dirp: PtrDIR): PtrDirent;
+*)
 		PROCEDURE [ccall] closedir* (dirp: PtrDIR): int;
 	(* ANSI C 89, XPG4.2 *)
 		PROCEDURE [ccall] remove* (path: PtrSTR): int;
-		PROCEDURE [ccall] canonicalize_file_name* (path: PtrSTR): PtrSTR;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] getcwd* (buf: PtrSTR; size: size_t): PtrSTR;

@@ -16,3 +16,7 @@
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* ["__clock_gettime50"] (clock_id: clockid_t; VAR tp: timespec_t): int;
+
+	(* POSIX.1 *)
+		PROCEDURE [ccall] opendir* ["__opendir30"] (filename: PtrSTR): PtrDIR;
+		PROCEDURE [ccall] readdir* ["__readdir30"] (dirp: PtrDIR): PtrDirent;
