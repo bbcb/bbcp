@@ -75,9 +75,20 @@
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
 
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] time* (VAR [nil] tloc: time_t): time_t;
+
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] gmtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] localtime* (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
+
 	(* POSIX.1 *)
 		PROCEDURE [ccall] opendir* (filename: PtrSTR): PtrDIR;
 		PROCEDURE [ccall] readdir* (dirp: PtrDIR): PtrDirent;
 
 	(* GNU *)
 		PROCEDURE [ccall] canonicalize_file_name* (path: PtrSTR): PtrSTR;
+
+	(* Linux only *)
+		PROCEDURE [ccall] sendfile* (out_fd: int; in_fd: int; VAR [nil] offset: off_t; count: size_t): ssize_t;

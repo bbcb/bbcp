@@ -17,6 +17,14 @@
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* ["__clock_gettime50"] (clock_id: clockid_t; VAR tp: timespec_t): int;
 
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] time* ["__time50"] (VAR [nil] tloc: time_t): time_t;
+
+	(* AT&T UNIX *)
+		PROCEDURE [ccall] gmtime* ["__gmtime50"] (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] localtime* ["__locatime50"] (VAR [nil] clock: time_t): tm;
+		PROCEDURE [ccall] mktime* ["__mktime50"] (VAR tm: tmDesc): time_t;
+
 	(* POSIX.1 *)
 		PROCEDURE [ccall] opendir* ["__opendir30"] (filename: PtrSTR): PtrDIR;
 		PROCEDURE [ccall] readdir* ["__readdir30"] (dirp: PtrDIR): PtrDirent;

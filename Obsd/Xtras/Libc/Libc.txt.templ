@@ -157,7 +157,6 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 (*
 	(* POSIX.1 *)
 		PROCEDURE [ccall] clock_gettime* (clock_id: clockid_t; VAR tp: timespec_t): int;
-*)
 
 	(* AT&T UNIX *)
 		PROCEDURE [ccall] time* (VAR [nil] tloc: time_t): time_t;
@@ -166,6 +165,7 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 		PROCEDURE [ccall] gmtime* (VAR [nil] clock: time_t): tm;
 		PROCEDURE [ccall] localtime* (VAR [nil] clock: time_t): tm;
 		PROCEDURE [ccall] mktime* (VAR tm: tmDesc): time_t;
+*)
 
 	PROCEDURE [ccall] mmap* (adr: PtrVoid; len: size_t; prot: intFlags; flags: intFlags; fd: int; offset: off_t): PtrVoid;
 	(* BSD *)
@@ -273,9 +273,6 @@ MODULE %%subsystem%%Libc ["libc.so%%libver%%"];
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] utimensat* (fd: int; path: PtrSTR; VAR times: TVP; flag: intFlags): int;
-
-	(* Linux only *)
-		PROCEDURE [ccall] sendfile* (out_fd: int; in_fd: int; VAR [nil] offset: off_t; count: size_t): ssize_t;
 
 	(* POSIX.1 *)
 		PROCEDURE [ccall] readlink* (path: PtrSTR; buf: PtrSTR; bufsiz: size_t): ssize_t;
