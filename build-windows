@@ -28,5 +28,5 @@ echo "linking interpreter"
 echo
 
 ./run-dev0 <<DATA
-DevLinker.Link BlackBoxInterp.exe := Kernel$+ Utf WinKernel Files WinEnv WinFiles StdLoader WinIntLoader
+DevLinker.Link dos BlackBoxInterp.exe := Kernel$+ Utf WinKernel Files WinEnv WinFiles StdLoader WinIntLoader
 DATA
