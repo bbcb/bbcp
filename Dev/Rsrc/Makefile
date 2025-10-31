@@ -2,7 +2,8 @@
 
 .PHONY: all clean
 
-CFLAGS += -m32 -Werror -O2 -pipe
+# -pthread is required for GTK2 on NetBSD
+CFLAGS += -m32 -Werror -O2 -pipe -pthread
 IMG = exe$(shell uname -s).img
 SRC = bbrun.c
 
