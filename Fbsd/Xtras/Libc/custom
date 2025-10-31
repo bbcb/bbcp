@@ -1,3 +1,44 @@
+	TYPE
+		(* FreeBSD 14.3 /usr/include/x86/_types.h *)
+			__register_t = int32_t;
+		(* FreeBSD 14.3 /usr/include/x86/ucontext.h *)
+			mcontext_t* = RECORD [untagged]
+				mc_onstack: __register_t; (* XXX - sigcontext compat. *)
+				mc_gs: __register_t; (* machine state (struct trapframe) *)
+				mc_fs: __register_t;
+				mc_es: __register_t;
+				mc_ds: __register_t;
+				mc_edi: __register_t;
+				mc_esi: __register_t;
+				mc_ebp-: __register_t;
+				mc_isp: __register_t;
+				mc_ebx: __register_t;
+				mc_edx: __register_t;
+				mc_ecx: __register_t;
+				mc_eax: __register_t;
+				mc_trapno: __register_t;
+				mc_err: __register_t;
+				mc_eip-: __register_t;
+				mc_cs: __register_t;
+				mc_eflags: __register_t;
+				mc_esp-: __register_t;
+				mc_ss: __register_t;
+
+				mc_len: int; (* sizeof(mcontext_t) *)
+				mc_fpformat: int;
+				mc_ownedfp: int;
+				mc_flags: __register_t;
+				mc_fpstate: ARRAY [untagged] 128 OF int; (* FIXME: __aligned(16) *)
+
+				mc_fsbase: __register_t;
+				mc_gsbase: __register_t;
+
+				mc_xfpustate: __register_t;
+				mc_xfpustate_len: __register_t;
+
+				mc_spare2: ARRAY [untagged] 2 OF int
+			END;
+
 (*
 	VAR
 		errno*: INTEGER;
