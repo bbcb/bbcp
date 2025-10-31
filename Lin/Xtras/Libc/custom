@@ -2,6 +2,9 @@
 		(* Ubuntu 18.04 /usr/include/i386-linux-gnu/bits/stat.h *)
 			_STAT_VER_LINUX* = 3;
 
+		(* /usr/include/ucontext.h *)
+@@i=ucontext.h:d=_GNU_SOURCE:t=i:REG_EBP,REG_ESP,REG_EIP@@
+
 	TYPE
 		off64_t* = LONGINT;
 		blkcnt64_t* = LONGINT;
