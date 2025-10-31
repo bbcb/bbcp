@@ -22,6 +22,7 @@ case "${os%%-*}" in
 		;;
 	"NetBSD")
 		exe="${exeBase}NetBSD"
+		export LD_LIBRARY_PATH=/usr/pkg/lib:${LD_LIBRARY_PATH}
 		;;
 	"MSYS_NT" | "MINGW64_NT" | "MINGW32_NT")
 		exe="${exeBase}"
