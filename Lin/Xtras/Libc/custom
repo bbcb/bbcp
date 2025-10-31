@@ -2,6 +2,9 @@
 		(* Ubuntu 18.04 /usr/include/i386-linux-gnu/bits/stat.h *)
 			_STAT_VER_LINUX* = 3;
 
+		(* /usr/include/sys/ucontext.h *)
+			__NGREG = 19;
+
 		(* /usr/include/ucontext.h *)
 @@i=ucontext.h:d=_GNU_SOURCE:t=i:REG_EBP,REG_ESP,REG_EIP@@
 
@@ -30,30 +33,40 @@
 				st_ino*: ino64_t;
 			END;
 
-		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/bits/types/sigval_t.h: *)
+		(* /usr/include/bits/types/sigval_t.h *)
+		(* /usr/include/bits/types/__sigval_t.h *)
 			sigval_t* = RECORD [union]
 				sival_int*: int;
 				sival_ptr*: PtrVoid
 			END;
 
-		(* Ubuntu 17.10 /usr/include/i386-linux-gnu/sys/ucontext.h: *)
+		(* /usr/include/sys/ucontext.h  *)
 			greg_t* = int;
-			gregset_t* = ARRAY [untagged] 19 OF greg_t;
-			fpregset_t* = POINTER [untagged] TO fpstate;
-			fpreg* = RECORD [untagged]
-				significand*: ARRAY [untagged] 4 OF SHORTINT; (* unsigned short int *)
-				exponent*: SHORTINT; (* unsigned short int *)
+			gregset_t* = ARRAY [untagged] __NGREG OF greg_t;
+			fpregset_t* = POINTER [untagged] TO _libc_fpstate;
+
+			_libc_fpreg = RECORD [untagged]
+				significand: ARRAY [untagged] 4 OF SHORTINT (* unsigned short int *);
+				exponent: SHORTINT (* unsigned short int *)
 			END;
-			fpstate* = RECORD [untagged]
-				cw*: INTEGER; (* unsigned long int *)
-				sw*: INTEGER; (* unsigned long int *)
-				tag*: INTEGER; (* unsigned long int *)
-				ipoff*: INTEGER; (* unsigned long int *)
-				cssel*: INTEGER; (* unsigned long int *)
-				dataoff*: INTEGER; (* unsigned long int *)
-				datasel*: INTEGER; (* unsigned long int *)
-				_st: ARRAY [untagged] 8 OF fpreg;
-				status*: INTEGER; (* unsigned long int *)
+
+			_libc_fpstate = RECORD [untagged]
+				cw: INTEGER (* unsigned long int *);
+				sw: INTEGER (* unsigned long int *);
+				tag: INTEGER (* unsigned long int *);
+				ipoff: INTEGER (* unsigned long int *);
+				cssel: INTEGER (* unsigned long int *);
+				dataoff: INTEGER (* unsigned long int *);
+				datasel: INTEGER (* unsigned long int *);
+				_st: ARRAY [untagged] 8 OF _libc_fpreg;
+				status: INTEGER (* unsigned long int *)
+			END;
+
+			mcontext_t* = RECORD [untagged]
+				gregs-: gregset_t;
+				fpregs: fpregset_t;
+				oldmask: INTEGER (* unsigned long int *);
+				cr2: INTEGER (* unsigned long int *)
 			END;
 
 (*
