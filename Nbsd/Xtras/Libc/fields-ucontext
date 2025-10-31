@@ -1,24 +1,7 @@
-			(* NetBSD 10.1 /usr/include/i386/signal.h struct sigcontext *)
-				sc_gs*: int;
-				sc_fs*: int;
-				sc_es*: int;
-				sc_ds*: int;
-				sc_edi*: int;
-				sc_esi*: int;
-				sc_ebp*: int;
-				sc_ebx*: int;
-				sc_edx*: int;
-				sc_ecx*: int;
-				sc_eax*: int;
-				(* XXX *)
-				sc_eip*: int;
-				sc_cs*: int;
-				sc_eflags*: int;
-				sc_esp*: int;
-				sc_ss*: int;
-
-				sc_onstack*: int; (* sigstack state to restore *)
-				__sc_mask13: int; (* signal mask to restore (old style) *)
-
-				sc_trapno*: int; (* XXX should be above *)
-				sc_err*: int;
+			(* NetBSD 10.1 /usr/include/sys/ucontext.h *)
+				uc_flags: int (* unsigned int *);
+				uc_link: Ptrucontext_t;
+				uc_sigmask: sigset_t;
+				uc_stack: stack_t;
+				uc_mcontext-: mcontext_t;
+				(* ... *)

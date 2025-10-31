@@ -1,3 +1,32 @@
+	CONST
+		(* NetBSD 10.1 /usr/include/i386/mcontext.h *)
+@@i=i386/mcontext.h:_NGREG,_REG_EBP,_REG_ESP,_REG_EIP@@
+
+	TYPE
+		(* NetBSD 10.1 /usr/include/i386/mcontext.h *)
+			__greg_t = int;
+			__gregset_t = ARRAY [untagged] _NGREG OF __greg_t;
+
+			__fpregset_t = RECORD [untagged]
+				__fp_reg_set: RECORD [union]
+					__fpchip_state: RECORD [untagged]
+						__fp_state: ARRAY [untagged] 27 OF int
+					END;
+					__fp_xmm_state: RECORD [untagged]
+						__fp_xmm: ARRAY [untagged] 512 OF SHORTCHAR
+					END;
+					__fp_fpregs: ARRAY [untagged] 128 OF int
+				END;
+				__fp_pad: ARRAY [untagged] 33 OF int
+			END;
+
+		(* NetBSD 10.1 /usr/include/i386/mcontext.h *)
+			mcontext_t* = RECORD [untagged]
+				__gregs-: __gregset_t;
+				__fpregs: __fpregset_t;
+				_mc_tlsbase: __greg_t
+			END;
+
 	PROCEDURE [ccall] __errno_location* ["__errno"] (): PtrVoid;
 
 	(* POSIX.1 *)
