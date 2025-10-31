@@ -7,6 +7,7 @@ List of supported operating systems:
 * GNU/Linux (amd64, i386)
 * OpenBSD (i386)
 * FreeBSD (i386)
+* NetBSD (i386)
 
 Tested on:
 * Windows XP, 7, 10, 11
@@ -22,6 +23,7 @@ Tested on:
   * Alt Education 9.1
 * OpenBSD 7.8 (i386)
 * FreeBSD 14.3 (i386)
+* NetBSD 10.1 (i386)
 
 ## Packages
 
