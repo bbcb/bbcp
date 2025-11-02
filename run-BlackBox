@@ -13,6 +13,11 @@ os=$(uname -s)
 case "${os%%-*}" in
 	"Linux")
 		exe="${exeBase}Linux"
+
+		# fix Ubuntu-specific problems:
+		unset UBUNTU_MENUPROXY
+		unset GTK_MODULES
+		export LIBOVERLAY_SCROLLBAR=0
 		;;
 	"OpenBSD")
 		exe="${exeBase}OpenBSD"
@@ -32,12 +37,25 @@ case "${os%%-*}" in
 		exit 1
 esac
 
-# fix Ubuntu-specific problems:
-unset UBUNTU_MENUPROXY
-unset GTK_MODULES
-export LIBOVERLAY_SCROLLBAR=0
+if [ -n "${LD_32_LIBRARY_PATH}" ]; then
+	# GIO modules
+	if [ -e "${LD_32_LIBRARY_PATH}"/gio/modules ]; then
+		export GIO_MODULE_DIR="${LD_32_LIBRARY_PATH}"/gio/modules
+	fi
+
+	# gdk-pixbuf loaders
+	if [ -e "${LD_32_LIBRARY_PATH}"/gdk-pixbuf-2.0 -a -e "${LD_32_LIBRARY_PATH%/lib}"/bin/gdk-pixbuf-query-loaders ]; then
+		ver=$(ls "${LD_32_LIBRARY_PATH}"/gdk-pixbuf-2.0)
+		if [ -n "${ver}" ]; then
+			export GDK_PIXBUF_MODULEDIR="${LD_32_LIBRARY_PATH}"/gdk-pixbuf-2.0/"${ver}"/loaders
+			export GDK_PIXBUF_MODULE_FILE=$(mktemp -t loaders.cache)
+			trap "rm -f ${GDK_PIXBUF_MODULE_FILE}" EXIT
+			"${LD_32_LIBRARY_PATH%/lib}"/bin/gdk-pixbuf-query-loaders > "${GDK_PIXBUF_MODULE_FILE}"
+		fi
+	fi
+fi
 
 # export LD_DEBUG=all
-exec env \
+env \
 	BB_STANDARD_DIR="${standardDir}" BB_USE_DIR="${useDir}" \
 	"${standardDir}"/${exe} "${@}"

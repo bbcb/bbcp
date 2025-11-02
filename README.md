@@ -6,7 +6,7 @@ List of supported operating systems:
 * Windows
 * GNU/Linux (amd64, i386)
 * OpenBSD (i386)
-* FreeBSD (i386)
+* FreeBSD (amd64, i386)
 * NetBSD (i386)
 
 Tested on:
@@ -22,7 +22,7 @@ Tested on:
   * Manjaro Linux 18.0.4, 21.2.0
   * Alt Education 9.1
 * OpenBSD 7.8 (i386)
-* FreeBSD 14.3 (i386)
+* FreeBSD 14.3 (amd64, i386)
 * NetBSD 10.1 (i386)
 
 ## Packages
@@ -65,6 +65,26 @@ Packages available [here](https://blackbox.oberon.org/download)
 #### FreeBSD (i386)
 
 	pkg install gtk2
+
+#### FreeBSD (amd64)
+
+You need the i386 GTK2 libraries.
+
+They can be installed via an *jail*.
+
+To create an i386 jail, follow the official FreeBSD [Handbook](https://docs.freebsd.org/en/books/handbook/jails/#classic-jail).
+
+Don't forget to change the download link from `amd64` to `i386` when fetching the base system.
+
+Inside the jail:
+
+	pkg install gtk2
+
+Then, specify the path to these labraries before running the BlackBox GUI:
+
+	export LD_32_LIBRARY_PATH=<jail path>/usr/local/lib
+
+Replace `<jail path>` with the absolute path to your jail root (for example, `/usr/jails/containers/i386`).
 
 #### NetBSD (i386)
 
