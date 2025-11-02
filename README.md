@@ -84,7 +84,7 @@ Then, specify the path to these labraries before running the BlackBox GUI:
 
 	export LD_32_LIBRARY_PATH=<jail path>/usr/local/lib
 
-Replace `<jail path>` with the absolute path to your jail root (for example, `/usr/jails/containers/i386`).
+Replace `<jail path>` with the path to your jail root (for example, `/usr/jails/containers/i386`).
 
 #### NetBSD (i386)
 
