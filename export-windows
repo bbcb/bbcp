@@ -12,9 +12,9 @@ n=0
 unset BASH_PARALLEL_PIDS
 for i in "${arr[@]}"
 do
-    cp -r $repoDir/$i $targDir/ &
+	tar -C "$repoDir" --exclude='Mod64' -cf - -- "$i" | tar -C "$targDir" -xf - &
 	BASH_PARALLEL_PIDS[$n]=$!
-    n=$(($n + 1))
+	n=$(($n + 1))
 done
 wait ${BASH_PARALLEL_PIDS[@]}
 
