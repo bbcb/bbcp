@@ -1,0 +1,13 @@
+CFLAGS += -m64 -std=c99 -Wall -D_GNU_SOURCE -DEXESIZE=22664
+
+all: exeLinux64.img
+
+exeLinux64.img: bbrun64
+	cp $< $@
+
+bbrun64: bbrun64.c
+	$(CC) $(CFLAGS) -o $@ $< -ldl
+	strip $@
+
+clean:
+	rm -f bbrun64 exeLinux64.img

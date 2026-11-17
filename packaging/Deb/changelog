@@ -1,4 +1,11 @@
 bbcb (#VERSION#) unstable; urgency=low
+  * add AMD64 target to compiler (Anton Shelin)
+  * add support for SYSTEM.ADDRESS
+  * support for ELF64 and PE32+ in DevLinker1
+
+ -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 16 Nov 2026 23:00:00 +0700
+
+bbcb (2.0-a1-365) unstable; urgency=low
   * add Fig subsytem,
 
  -- Ivan Denisov <d.ivan.krsk@gmail.com>  Thu, 16 Feb 2023 02:10:00 +0700
