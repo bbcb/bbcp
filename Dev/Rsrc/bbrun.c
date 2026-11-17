@@ -425,7 +425,7 @@ static bool ReadHeader ()
         last->next = NULL;
         dprintf("Import %d: %s\n", i, imp->name);
         if ((imp->name[0] == '$') && (imp->name[1] == '$'))
-            strlcpy(imp->name, "Kernel", sizeof(imp->name));
+            memcpy(imp->name, "Kernel", sizeof("Kernel"));
         if (imp->name[0] == '$'){
             n = imp->name;
             n++;
